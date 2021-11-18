@@ -30,6 +30,28 @@ public class SaleCartServiceWrapper
 		_saleCartService = saleCartService;
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleCart addProductPriceToCartTotalValue(
+		double price, long cartId) {
+
+		return _saleCartService.addProductPriceToCartTotalValue(price, cartId);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleCart createSaleCartById(long id) {
+		return _saleCartService.createSaleCartById(id);
+	}
+
+	@Override
+	public void deleteSaleCartById(long id) {
+		_saleCartService.deleteSaleCartById(id);
+	}
+
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleCart> getAllSaleCart() {
+		return _saleCartService.getAllSaleCart();
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -38,6 +60,19 @@ public class SaleCartServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _saleCartService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleCart getSaleCartById(long id) {
+		return _saleCartService.getSaleCartById(id);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleCart removeProductPriceToCartTotalValue(
+		double price, long cartId) {
+
+		return _saleCartService.removeProductPriceToCartTotalValue(
+			price, cartId);
 	}
 
 	@Override

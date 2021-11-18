@@ -14,9 +14,15 @@
 
 package com.liferay.sales.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.sales.service.SaleCategoryServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * <code>com.liferay.sales.service.SaleCategoryServiceUtil</code> service
+ * <code>SaleCategoryServiceUtil</code> service
  * utility. The static methods of this class call the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
@@ -56,4 +62,90 @@ package com.liferay.sales.service.http;
  */
 @Deprecated
 public class SaleCategoryServiceSoap {
+
+	public static com.liferay.sales.model.SaleCategorySoap createSaleCategory(
+			long id, String name, double tax)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleCategory returnValue =
+				SaleCategoryServiceUtil.createSaleCategory(id, name, tax);
+
+			return com.liferay.sales.model.SaleCategorySoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleCategorySoap[] getAll()
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.sales.model.SaleCategory> returnValue =
+				SaleCategoryServiceUtil.getAll();
+
+			return com.liferay.sales.model.SaleCategorySoap.toSoapModels(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleCategorySoap getSaleCategoryById(
+			long id)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleCategory returnValue =
+				SaleCategoryServiceUtil.getSaleCategoryById(id);
+
+			return com.liferay.sales.model.SaleCategorySoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static void deleCategoryById(long id) throws RemoteException {
+		try {
+			SaleCategoryServiceUtil.deleCategoryById(id);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleCategorySoap getCategoryByName(
+			String name)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleCategory returnValue =
+				SaleCategoryServiceUtil.getCategoryByName(name);
+
+			return com.liferay.sales.model.SaleCategorySoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		SaleCategoryServiceSoap.class);
+
 }

@@ -14,13 +14,21 @@
 
 package com.liferay.sales.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.HttpPrincipal;
+import com.liferay.portal.kernel.service.http.TunnelUtil;
+import com.liferay.portal.kernel.util.MethodHandler;
+import com.liferay.portal.kernel.util.MethodKey;
+import com.liferay.sales.service.SaleProductServiceUtil;
+
 /**
  * Provides the HTTP utility for the
- * <code>com.liferay.sales.service.SaleProductServiceUtil</code> service
+ * <code>SaleProductServiceUtil</code> service
  * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * <code>com.liferay.portal.kernel.security.auth.HttpPrincipal</code> parameter.
+ * <code>HttpPrincipal</code> parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -42,4 +50,180 @@ package com.liferay.sales.service.http;
  * @generated
  */
 public class SaleProductServiceHttp {
+
+	public static com.liferay.sales.model.SaleProduct createProduct(
+		HttpPrincipal httpPrincipal, String name, double price, long productId,
+		long categoryId, long typeId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleProductServiceUtil.class, "createProduct",
+				_createProductParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, name, price, productId, categoryId, typeId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleProduct)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<com.liferay.sales.model.SaleProduct>
+		getAllSaleProducts(HttpPrincipal httpPrincipal) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleProductServiceUtil.class, "getAllSaleProducts",
+				_getAllSaleProductsParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<com.liferay.sales.model.SaleProduct>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.sales.model.SaleProduct getSaleProductById(
+		HttpPrincipal httpPrincipal, long id) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleProductServiceUtil.class, "getSaleProductById",
+				_getSaleProductByIdParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, id);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleProduct)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.sales.model.SaleProduct getSaleProductByName(
+		HttpPrincipal httpPrincipal, String name) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleProductServiceUtil.class, "getSaleProductByName",
+				_getSaleProductByNameParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, name);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleProduct)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.sales.model.SaleProduct deleteById(
+		HttpPrincipal httpPrincipal, long id) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleProductServiceUtil.class, "deleteById",
+				_deleteByIdParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, id);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleProduct)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		SaleProductServiceHttp.class);
+
+	private static final Class<?>[] _createProductParameterTypes0 =
+		new Class[] {
+			String.class, double.class, long.class, long.class, long.class
+		};
+	private static final Class<?>[] _getAllSaleProductsParameterTypes1 =
+		new Class[] {};
+	private static final Class<?>[] _getSaleProductByIdParameterTypes2 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getSaleProductByNameParameterTypes3 =
+		new Class[] {String.class};
+	private static final Class<?>[] _deleteByIdParameterTypes4 = new Class[] {
+		long.class
+	};
+
 }

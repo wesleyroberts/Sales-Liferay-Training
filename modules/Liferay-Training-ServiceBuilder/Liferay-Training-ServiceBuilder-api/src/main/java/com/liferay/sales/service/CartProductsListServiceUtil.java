@@ -14,6 +14,10 @@
 
 package com.liferay.sales.service;
 
+import com.liferay.sales.model.CartProductsList;
+
+import java.util.List;
+
 /**
  * Provides the remote service utility for CartProductsList. This utility wraps
  * <code>com.liferay.sales.service.impl.CartProductsListServiceImpl</code> and is an
@@ -33,14 +37,29 @@ public class CartProductsListServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.CartProductsListServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static CartProductsList addProductToCartList(
+		long productId, long cartId) {
+
+		return getService().addProductToCartList(productId, cartId);
+	}
+
+	public static List<com.liferay.sales.model.SaleProduct>
+		getAllProductsByCarID(long id) {
+
+		return getService().getAllProductsByCarID(id);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static void removeProductToCartList(long productId, long cartId) {
+		getService().removeProductToCartList(productId, cartId);
 	}
 
 	public static CartProductsListService getService() {

@@ -14,6 +14,10 @@
 
 package com.liferay.sales.service;
 
+import com.liferay.sales.model.SaleProduct;
+
+import java.util.List;
+
 /**
  * Provides the remote service utility for SaleProduct. This utility wraps
  * <code>com.liferay.sales.service.impl.SaleProductServiceImpl</code> and is an
@@ -33,14 +37,37 @@ public class SaleProductServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleProductServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static SaleProduct createProduct(
+		String name, double price, long productId, long categoryId,
+		long typeId) {
+
+		return getService().createProduct(
+			name, price, productId, categoryId, typeId);
+	}
+
+	public static SaleProduct deleteById(long id) {
+		return getService().deleteById(id);
+	}
+
+	public static List<SaleProduct> getAllSaleProducts() {
+		return getService().getAllSaleProducts();
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static SaleProduct getSaleProductById(long id) {
+		return getService().getSaleProductById(id);
+	}
+
+	public static SaleProduct getSaleProductByName(String name) {
+		return getService().getSaleProductByName(name);
 	}
 
 	public static SaleProductService getService() {

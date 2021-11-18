@@ -30,6 +30,23 @@ public class SaleTypeServiceWrapper
 		_saleTypeService = saleTypeService;
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleType createSaleType(
+		long id, String name, double tax) {
+
+		return _saleTypeService.createSaleType(id, name, tax);
+	}
+
+	@Override
+	public void deleteTypeById(long id) {
+		_saleTypeService.deleteTypeById(id);
+	}
+
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleType> getAll() {
+		return _saleTypeService.getAll();
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -38,6 +55,11 @@ public class SaleTypeServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _saleTypeService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleType getSaleTypeByID(long id) {
+		return _saleTypeService.getSaleTypeByID(id);
 	}
 
 	@Override

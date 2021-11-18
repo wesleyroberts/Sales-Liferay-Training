@@ -89,6 +89,10 @@ public interface SaleCategoryLocalService
 	@Transactional(enabled = false)
 	public SaleCategory createSaleCategory(long categoryId);
 
+	public SaleCategory createSaleCategory(long id, String name, double tax);
+
+	public void deleteCategoryById(long id);
+
 	/**
 	 * @throws PortalException
 	 */
@@ -197,6 +201,12 @@ public interface SaleCategoryLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleCategory> getAll();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleCategory getByCategoryName(String name);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
@@ -245,6 +255,9 @@ public interface SaleCategoryLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleCategory getSaleCategory(long categoryId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleCategory getSaleCategoryById(long id);
 
 	/**
 	 * Updates the sale category in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

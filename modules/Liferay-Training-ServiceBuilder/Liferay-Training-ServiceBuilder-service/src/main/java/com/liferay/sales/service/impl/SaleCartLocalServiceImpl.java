@@ -15,9 +15,13 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.sales.exception.NoSuchSaleCartException;
+import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.service.base.SaleCartLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+
+import java.util.List;
 
 /**
  * The implementation of the sale cart local service.
@@ -43,4 +47,38 @@ public class SaleCartLocalServiceImpl extends SaleCartLocalServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.SaleCartLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleCartLocalServiceUtil</code>.
 	 */
+	public List<SaleCart> getAllSaleCart(){
+		return saleCartPersistence.findAll();
+	}
+
+	public SaleCart getSaleCartById(long id){
+		try {
+			return saleCartPersistence.findByPrimaryKey(id);
+		} catch (NoSuchSaleCartException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public SaleCart addProductPriceToCartTotalValue(double price, long cartId){
+		SaleCart cart = saleCartPersistence.fetchByPrimaryKey(cartId);
+		cart.setTotalPrice(cart.getTotalPrice()+price);
+		return saleCartPersistence.update(cart);
+	}
+	public SaleCart removeProductPriceToCartTotalValue(double price,long cartId){
+		SaleCart cart = saleCartPersistence.fetchByPrimaryKey(cartId);
+		cart.setTotalPrice(cart.getTotalPrice()-price);
+		return saleCartPersistence.update(cart);
+	}
+
+	public SaleCart createSaleCartById(long id){
+		return saleCartPersistence.update(saleCartPersistence.create(id));
+	}
+	public void deleteSaleCartById(long id){
+		try {
+			saleCartPersistence.remove(id);
+		} catch (NoSuchSaleCartException e) {
+			e.printStackTrace();
+
+		}
+	}
 }

@@ -32,6 +32,14 @@ public class SaleCartLocalServiceWrapper
 		_saleCartLocalService = saleCartLocalService;
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleCart addProductPriceToCartTotalValue(
+		double price, long cartId) {
+
+		return _saleCartLocalService.addProductPriceToCartTotalValue(
+			price, cartId);
+	}
+
 	/**
 	 * Adds the sale cart to the database. Also notifies the appropriate model listeners.
 	 *
@@ -69,6 +77,11 @@ public class SaleCartLocalServiceWrapper
 	@Override
 	public com.liferay.sales.model.SaleCart createSaleCart(long cartId) {
 		return _saleCartLocalService.createSaleCart(cartId);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleCart createSaleCartById(long id) {
+		return _saleCartLocalService.createSaleCartById(id);
 	}
 
 	/**
@@ -115,6 +128,11 @@ public class SaleCartLocalServiceWrapper
 		com.liferay.sales.model.SaleCart saleCart) {
 
 		return _saleCartLocalService.deleteSaleCart(saleCart);
+	}
+
+	@Override
+	public void deleteSaleCartById(long id) {
+		_saleCartLocalService.deleteSaleCartById(id);
 	}
 
 	@Override
@@ -220,6 +238,11 @@ public class SaleCartLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.sales.model.SaleCart> getAllSaleCart() {
+		return _saleCartLocalService.getAllSaleCart();
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 
@@ -261,6 +284,11 @@ public class SaleCartLocalServiceWrapper
 		return _saleCartLocalService.getSaleCart(cartId);
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleCart getSaleCartById(long id) {
+		return _saleCartLocalService.getSaleCartById(id);
+	}
+
 	/**
 	 * Returns a range of all the sale carts.
 	 *
@@ -287,6 +315,14 @@ public class SaleCartLocalServiceWrapper
 	@Override
 	public int getSaleCartsCount() {
 		return _saleCartLocalService.getSaleCartsCount();
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleCart removeProductPriceToCartTotalValue(
+		double price, long cartId) {
+
+		return _saleCartLocalService.removeProductPriceToCartTotalValue(
+			price, cartId);
 	}
 
 	/**

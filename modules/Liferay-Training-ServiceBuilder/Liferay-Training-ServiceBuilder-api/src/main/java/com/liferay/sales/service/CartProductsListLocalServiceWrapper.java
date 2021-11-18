@@ -51,6 +51,14 @@ public class CartProductsListLocalServiceWrapper
 			cartProductsList);
 	}
 
+	@Override
+	public com.liferay.sales.model.CartProductsList addProductToCartList(
+		long productId, long cartId) {
+
+		return _cartProductsListLocalService.addProductToCartList(
+			productId, cartId);
+	}
+
 	/**
 	 * Creates a new cart products list with the primary key. Does not add the cart products list to the database.
 	 *
@@ -230,6 +238,13 @@ public class CartProductsListLocalServiceWrapper
 		return _cartProductsListLocalService.getActionableDynamicQuery();
 	}
 
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		getAllProductsByCarID(long id) {
+
+		return _cartProductsListLocalService.getAllProductsByCarID(id);
+	}
+
 	/**
 	 * Returns the cart products list with the primary key.
 	 *
@@ -300,6 +315,12 @@ public class CartProductsListLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _cartProductsListLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	@Override
+	public void removeProductToCartList(long productId, long cartId) {
+		_cartProductsListLocalService.removeProductToCartList(
+			productId, cartId);
 	}
 
 	/**

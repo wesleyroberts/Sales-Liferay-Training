@@ -30,6 +30,27 @@ public class SaleProductServiceWrapper
 		_saleProductService = saleProductService;
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleProduct createProduct(
+		String name, double price, long productId, long categoryId,
+		long typeId) {
+
+		return _saleProductService.createProduct(
+			name, price, productId, categoryId, typeId);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleProduct deleteById(long id) {
+		return _saleProductService.deleteById(id);
+	}
+
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		getAllSaleProducts() {
+
+		return _saleProductService.getAllSaleProducts();
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -38,6 +59,18 @@ public class SaleProductServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _saleProductService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleProduct getSaleProductById(long id) {
+		return _saleProductService.getSaleProductById(id);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleProduct getSaleProductByName(
+		String name) {
+
+		return _saleProductService.getSaleProductByName(name);
 	}
 
 	@Override

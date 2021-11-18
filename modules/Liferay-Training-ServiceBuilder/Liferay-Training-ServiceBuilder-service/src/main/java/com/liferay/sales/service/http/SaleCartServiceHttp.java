@@ -14,13 +14,21 @@
 
 package com.liferay.sales.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.HttpPrincipal;
+import com.liferay.portal.kernel.service.http.TunnelUtil;
+import com.liferay.portal.kernel.util.MethodHandler;
+import com.liferay.portal.kernel.util.MethodKey;
+import com.liferay.sales.service.SaleCartServiceUtil;
+
 /**
  * Provides the HTTP utility for the
- * <code>com.liferay.sales.service.SaleCartServiceUtil</code> service
+ * <code>SaleCartServiceUtil</code> service
  * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * <code>com.liferay.portal.kernel.security.auth.HttpPrincipal</code> parameter.
+ * <code>HttpPrincipal</code> parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -42,4 +50,210 @@ package com.liferay.sales.service.http;
  * @generated
  */
 public class SaleCartServiceHttp {
+
+	public static java.util.List<com.liferay.sales.model.SaleCart>
+		getAllSaleCart(HttpPrincipal httpPrincipal) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleCartServiceUtil.class, "getAllSaleCart",
+				_getAllSaleCartParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<com.liferay.sales.model.SaleCart>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.sales.model.SaleCart getSaleCartById(
+		HttpPrincipal httpPrincipal, long id) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleCartServiceUtil.class, "getSaleCartById",
+				_getSaleCartByIdParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, id);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleCart)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.sales.model.SaleCart
+		addProductPriceToCartTotalValue(
+			HttpPrincipal httpPrincipal, double price, long cartId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleCartServiceUtil.class, "addProductPriceToCartTotalValue",
+				_addProductPriceToCartTotalValueParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, price, cartId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleCart)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.sales.model.SaleCart
+		removeProductPriceToCartTotalValue(
+			HttpPrincipal httpPrincipal, double price, long cartId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleCartServiceUtil.class, "removeProductPriceToCartTotalValue",
+				_removeProductPriceToCartTotalValueParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, price, cartId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleCart)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.sales.model.SaleCart createSaleCartById(
+		HttpPrincipal httpPrincipal, long id) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleCartServiceUtil.class, "createSaleCartById",
+				_createSaleCartByIdParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, id);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleCart)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static void deleteSaleCartById(
+		HttpPrincipal httpPrincipal, long id) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleCartServiceUtil.class, "deleteSaleCartById",
+				_deleteSaleCartByIdParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, id);
+
+			try {
+				TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(SaleCartServiceHttp.class);
+
+	private static final Class<?>[] _getAllSaleCartParameterTypes0 =
+		new Class[] {};
+	private static final Class<?>[] _getSaleCartByIdParameterTypes1 =
+		new Class[] {long.class};
+	private static final Class<?>[]
+		_addProductPriceToCartTotalValueParameterTypes2 = new Class[] {
+			double.class, long.class
+		};
+	private static final Class<?>[]
+		_removeProductPriceToCartTotalValueParameterTypes3 = new Class[] {
+			double.class, long.class
+		};
+	private static final Class<?>[] _createSaleCartByIdParameterTypes4 =
+		new Class[] {long.class};
+	private static final Class<?>[] _deleteSaleCartByIdParameterTypes5 =
+		new Class[] {long.class};
+
 }

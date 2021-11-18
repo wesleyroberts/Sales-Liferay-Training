@@ -61,6 +61,15 @@ public class SaleProductLocalServiceWrapper
 		return _saleProductLocalService.createPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleProduct createProduct(
+		String name, double price, long productId, long categoryId,
+		long typeId) {
+
+		return _saleProductLocalService.createProduct(
+			name, price, productId, categoryId, typeId);
+	}
+
 	/**
 	 * Creates a new sale product with the primary key. Does not add the sale product to the database.
 	 *
@@ -72,6 +81,11 @@ public class SaleProductLocalServiceWrapper
 		long productId) {
 
 		return _saleProductLocalService.createSaleProduct(productId);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleProduct deleteById(long id) {
+		return _saleProductLocalService.deleteById(id);
 	}
 
 	/**
@@ -222,6 +236,21 @@ public class SaleProductLocalServiceWrapper
 		getActionableDynamicQuery() {
 
 		return _saleProductLocalService.getActionableDynamicQuery();
+	}
+
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleProduct> getAll() {
+		return _saleProductLocalService.getAll();
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleProduct getById(long id) {
+		return _saleProductLocalService.getById(id);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleProduct getByName(String name) {
+		return _saleProductLocalService.getByName(name);
 	}
 
 	@Override

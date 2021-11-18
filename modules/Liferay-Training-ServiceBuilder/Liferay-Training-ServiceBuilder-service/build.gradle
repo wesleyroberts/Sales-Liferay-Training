@@ -2,6 +2,8 @@ dependencies {
 	compile project(":modules:Liferay-Training-ServiceBuilder:Liferay-Training-ServiceBuilder-api")
 
 	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+	compileOnly 'com.liferay.portal:release.portal.api'
+	compileOnly 'com.liferay.portal:release.portal.api'
 }
 
 buildService {

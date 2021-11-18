@@ -60,6 +60,12 @@ public class CartProductsListLocalServiceUtil {
 		return getService().addCartProductsList(cartProductsList);
 	}
 
+	public static CartProductsList addProductToCartList(
+		long productId, long cartId) {
+
+		return getService().addProductToCartList(productId, cartId);
+	}
+
 	/**
 	 * Creates a new cart products list with the primary key. Does not add the cart products list to the database.
 	 *
@@ -210,6 +216,12 @@ public class CartProductsListLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static List<com.liferay.sales.model.SaleProduct>
+		getAllProductsByCarID(long id) {
+
+		return getService().getAllProductsByCarID(id);
+	}
+
 	/**
 	 * Returns the cart products list with the primary key.
 	 *
@@ -272,6 +284,10 @@ public class CartProductsListLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static void removeProductToCartList(long productId, long cartId) {
+		getService().removeProductToCartList(productId, cartId);
 	}
 
 	/**

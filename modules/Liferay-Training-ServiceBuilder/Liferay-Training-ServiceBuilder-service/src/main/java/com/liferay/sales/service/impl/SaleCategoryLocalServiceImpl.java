@@ -15,9 +15,13 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.sales.exception.NoSuchSaleCategoryException;
+import com.liferay.sales.model.SaleCategory;
 import com.liferay.sales.service.base.SaleCategoryLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+
+import java.util.List;
 
 /**
  * The implementation of the sale category local service.
@@ -44,4 +48,41 @@ public class SaleCategoryLocalServiceImpl
 	 *
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.SaleCategoryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleCategoryLocalServiceUtil</code>.
 	 */
+	public SaleCategory createSaleCategory(long id,String name,double tax){
+		SaleCategory category = saleCategoryPersistence.create(id);
+		category.setTax(tax);
+		category.setName(name);
+		return saleCategoryPersistence.update(category);
+	}
+
+	public List<SaleCategory> getAll(){
+		return saleCategoryPersistence.findAll();
+	}
+
+	public SaleCategory getByCategoryName(String name){
+		try {
+			return saleCategoryPersistence.findByName(name);
+		} catch (NoSuchSaleCategoryException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public SaleCategory getSaleCategoryById(long id){
+		try {
+			return saleCategoryPersistence.findByPrimaryKey(id);
+		} catch (NoSuchSaleCategoryException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public void deleteCategoryById(long id){
+		try {
+			saleCategoryPersistence.remove(id);
+		} catch (NoSuchSaleCategoryException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

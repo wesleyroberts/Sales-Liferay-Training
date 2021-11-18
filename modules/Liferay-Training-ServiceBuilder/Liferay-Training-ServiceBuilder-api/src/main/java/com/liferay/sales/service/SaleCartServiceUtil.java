@@ -14,6 +14,10 @@
 
 package com.liferay.sales.service;
 
+import com.liferay.sales.model.SaleCart;
+
+import java.util.List;
+
 /**
  * Provides the remote service utility for SaleCart. This utility wraps
  * <code>com.liferay.sales.service.impl.SaleCartServiceImpl</code> and is an
@@ -33,14 +37,41 @@ public class SaleCartServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleCartServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static SaleCart addProductPriceToCartTotalValue(
+		double price, long cartId) {
+
+		return getService().addProductPriceToCartTotalValue(price, cartId);
+	}
+
+	public static SaleCart createSaleCartById(long id) {
+		return getService().createSaleCartById(id);
+	}
+
+	public static void deleteSaleCartById(long id) {
+		getService().deleteSaleCartById(id);
+	}
+
+	public static List<SaleCart> getAllSaleCart() {
+		return getService().getAllSaleCart();
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static SaleCart getSaleCartById(long id) {
+		return getService().getSaleCartById(id);
+	}
+
+	public static SaleCart removeProductPriceToCartTotalValue(
+		double price, long cartId) {
+
+		return getService().removeProductPriceToCartTotalValue(price, cartId);
 	}
 
 	public static SaleCartService getService() {

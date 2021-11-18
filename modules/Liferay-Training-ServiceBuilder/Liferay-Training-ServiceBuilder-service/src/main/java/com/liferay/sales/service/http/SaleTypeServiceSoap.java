@@ -14,9 +14,15 @@
 
 package com.liferay.sales.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.sales.service.SaleTypeServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * <code>com.liferay.sales.service.SaleTypeServiceUtil</code> service
+ * <code>SaleTypeServiceUtil</code> service
  * utility. The static methods of this class call the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
@@ -56,4 +62,70 @@ package com.liferay.sales.service.http;
  */
 @Deprecated
 public class SaleTypeServiceSoap {
+
+	public static com.liferay.sales.model.SaleTypeSoap createSaleType(
+			long id, String name, double tax)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleType returnValue =
+				SaleTypeServiceUtil.createSaleType(id, name, tax);
+
+			return com.liferay.sales.model.SaleTypeSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static void deleteTypeById(long id) throws RemoteException {
+		try {
+			SaleTypeServiceUtil.deleteTypeById(id);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleTypeSoap[] getAll()
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.sales.model.SaleType> returnValue =
+				SaleTypeServiceUtil.getAll();
+
+			return com.liferay.sales.model.SaleTypeSoap.toSoapModels(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleTypeSoap getSaleTypeByID(long id)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleType returnValue =
+				SaleTypeServiceUtil.getSaleTypeByID(id);
+
+			return com.liferay.sales.model.SaleTypeSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(SaleTypeServiceSoap.class);
+
 }

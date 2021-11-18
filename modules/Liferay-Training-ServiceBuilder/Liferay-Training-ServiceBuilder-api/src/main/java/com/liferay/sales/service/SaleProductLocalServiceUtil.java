@@ -68,6 +68,14 @@ public class SaleProductLocalServiceUtil {
 		return getService().createPersistedModel(primaryKeyObj);
 	}
 
+	public static SaleProduct createProduct(
+		String name, double price, long productId, long categoryId,
+		long typeId) {
+
+		return getService().createProduct(
+			name, price, productId, categoryId, typeId);
+	}
+
 	/**
 	 * Creates a new sale product with the primary key. Does not add the sale product to the database.
 	 *
@@ -76,6 +84,10 @@ public class SaleProductLocalServiceUtil {
 	 */
 	public static SaleProduct createSaleProduct(long productId) {
 		return getService().createSaleProduct(productId);
+	}
+
+	public static SaleProduct deleteById(long id) {
+		return getService().deleteById(id);
 	}
 
 	/**
@@ -204,6 +216,18 @@ public class SaleProductLocalServiceUtil {
 		getActionableDynamicQuery() {
 
 		return getService().getActionableDynamicQuery();
+	}
+
+	public static List<SaleProduct> getAll() {
+		return getService().getAll();
+	}
+
+	public static SaleProduct getById(long id) {
+		return getService().getById(id);
+	}
+
+	public static SaleProduct getByName(String name) {
+		return getService().getByName(name);
 	}
 
 	public static

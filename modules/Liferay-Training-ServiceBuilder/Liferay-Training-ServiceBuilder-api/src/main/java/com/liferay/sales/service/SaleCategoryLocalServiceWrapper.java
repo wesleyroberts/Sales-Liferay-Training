@@ -74,6 +74,18 @@ public class SaleCategoryLocalServiceWrapper
 		return _saleCategoryLocalService.createSaleCategory(categoryId);
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleCategory createSaleCategory(
+		long id, String name, double tax) {
+
+		return _saleCategoryLocalService.createSaleCategory(id, name, tax);
+	}
+
+	@Override
+	public void deleteCategoryById(long id) {
+		_saleCategoryLocalService.deleteCategoryById(id);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -226,6 +238,16 @@ public class SaleCategoryLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.sales.model.SaleCategory> getAll() {
+		return _saleCategoryLocalService.getAll();
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleCategory getByCategoryName(String name) {
+		return _saleCategoryLocalService.getByCategoryName(name);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 
@@ -293,6 +315,11 @@ public class SaleCategoryLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _saleCategoryLocalService.getSaleCategory(categoryId);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleCategory getSaleCategoryById(long id) {
+		return _saleCategoryLocalService.getSaleCategoryById(id);
 	}
 
 	/**

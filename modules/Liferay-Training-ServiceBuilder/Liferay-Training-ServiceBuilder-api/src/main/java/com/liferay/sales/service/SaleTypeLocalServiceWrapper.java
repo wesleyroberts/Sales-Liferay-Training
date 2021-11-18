@@ -71,6 +71,13 @@ public class SaleTypeLocalServiceWrapper
 		return _saleTypeLocalService.createSaleType(typeId);
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleType createSaleType(
+		long id, String name, double tax) {
+
+		return _saleTypeLocalService.createSaleType(id, name, tax);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -115,6 +122,11 @@ public class SaleTypeLocalServiceWrapper
 		com.liferay.sales.model.SaleType saleType) {
 
 		return _saleTypeLocalService.deleteSaleType(saleType);
+	}
+
+	@Override
+	public void deleteTypeById(long id) {
+		_saleTypeLocalService.deleteTypeById(id);
 	}
 
 	@Override
@@ -220,6 +232,11 @@ public class SaleTypeLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.sales.model.SaleType> getAll() {
+		return _saleTypeLocalService.getAll();
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 
@@ -259,6 +276,11 @@ public class SaleTypeLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _saleTypeLocalService.getSaleType(typeId);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleType getSaleTypeById(long id) {
+		return _saleTypeLocalService.getSaleTypeById(id);
 	}
 
 	/**

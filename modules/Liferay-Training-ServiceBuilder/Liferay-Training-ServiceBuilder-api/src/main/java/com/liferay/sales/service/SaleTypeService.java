@@ -20,7 +20,11 @@ import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.sales.model.SaleType;
+
+import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -47,6 +51,12 @@ public interface SaleTypeService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleTypeServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the sale type remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link SaleTypeServiceUtil} if injection and service tracking are not available.
 	 */
+	public SaleType createSaleType(long id, String name, double tax);
+
+	public void deleteTypeById(long id);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleType> getAll();
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -54,5 +64,8 @@ public interface SaleTypeService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleType getSaleTypeByID(long id);
 
 }

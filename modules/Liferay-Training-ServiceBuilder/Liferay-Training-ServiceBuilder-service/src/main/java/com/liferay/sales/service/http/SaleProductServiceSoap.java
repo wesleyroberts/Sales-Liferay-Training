@@ -14,9 +14,15 @@
 
 package com.liferay.sales.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.sales.service.SaleProductServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * <code>com.liferay.sales.service.SaleProductServiceUtil</code> service
+ * <code>SaleProductServiceUtil</code> service
  * utility. The static methods of this class call the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
@@ -56,4 +62,98 @@ package com.liferay.sales.service.http;
  */
 @Deprecated
 public class SaleProductServiceSoap {
+
+	public static com.liferay.sales.model.SaleProductSoap createProduct(
+			String name, double price, long productId, long categoryId,
+			long typeId)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleProduct returnValue =
+				SaleProductServiceUtil.createProduct(
+					name, price, productId, categoryId, typeId);
+
+			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleProductSoap[] getAllSaleProducts()
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.sales.model.SaleProduct> returnValue =
+				SaleProductServiceUtil.getAllSaleProducts();
+
+			return com.liferay.sales.model.SaleProductSoap.toSoapModels(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleProductSoap getSaleProductById(
+			long id)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleProduct returnValue =
+				SaleProductServiceUtil.getSaleProductById(id);
+
+			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleProductSoap getSaleProductByName(
+			String name)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleProduct returnValue =
+				SaleProductServiceUtil.getSaleProductByName(name);
+
+			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleProductSoap deleteById(long id)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleProduct returnValue =
+				SaleProductServiceUtil.deleteById(id);
+
+			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		SaleProductServiceSoap.class);
+
 }

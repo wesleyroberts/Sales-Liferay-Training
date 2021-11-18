@@ -15,9 +15,12 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.service.base.SaleCartServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+
+import java.util.List;
 
 /**
  * The implementation of the sale cart remote service.
@@ -46,4 +49,27 @@ public class SaleCartServiceImpl extends SaleCartServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use <code>com.liferay.sales.service.SaleCartServiceUtil</code> to access the sale cart remote service.
 	 */
+	public List<SaleCart> getAllSaleCart(){
+		return saleCartLocalService.getAllSaleCart();
+	}
+
+	public SaleCart getSaleCartById(long id){
+		return saleCartLocalService.getSaleCartById(id);
+	}
+
+	public SaleCart addProductPriceToCartTotalValue(double price,long cartId){
+		return saleCartLocalService.addProductPriceToCartTotalValue(price,cartId);
+	}
+
+	public SaleCart removeProductPriceToCartTotalValue(double price,long cartId){
+		return saleCartLocalService.removeProductPriceToCartTotalValue(price,cartId);
+	}
+
+	public SaleCart createSaleCartById(long id){
+		return saleCartLocalService.createSaleCartById(id);
+	}
+
+	public void deleteSaleCartById(long id){
+		saleCartLocalService.deleteSaleCartById(id);
+	}
 }

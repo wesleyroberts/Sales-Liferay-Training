@@ -78,6 +78,10 @@ public class SaleTypeLocalServiceUtil {
 		return getService().createSaleType(typeId);
 	}
 
+	public static SaleType createSaleType(long id, String name, double tax) {
+		return getService().createSaleType(id, name, tax);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -115,6 +119,10 @@ public class SaleTypeLocalServiceUtil {
 	 */
 	public static SaleType deleteSaleType(SaleType saleType) {
 		return getService().deleteSaleType(saleType);
+	}
+
+	public static void deleteTypeById(long id) {
+		getService().deleteTypeById(id);
 	}
 
 	public static DynamicQuery dynamicQuery() {
@@ -204,6 +212,10 @@ public class SaleTypeLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static List<SaleType> getAll() {
+		return getService().getAll();
+	}
+
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {
@@ -238,6 +250,10 @@ public class SaleTypeLocalServiceUtil {
 	 */
 	public static SaleType getSaleType(long typeId) throws PortalException {
 		return getService().getSaleType(typeId);
+	}
+
+	public static SaleType getSaleTypeById(long id) {
+		return getService().getSaleTypeById(id);
 	}
 
 	/**

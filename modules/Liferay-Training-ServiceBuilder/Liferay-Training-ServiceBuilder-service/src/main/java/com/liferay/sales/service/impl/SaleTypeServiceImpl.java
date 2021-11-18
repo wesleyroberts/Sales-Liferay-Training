@@ -15,9 +15,12 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.sales.model.SaleType;
 import com.liferay.sales.service.base.SaleTypeServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+
+import java.util.List;
 
 /**
  * The implementation of the sale type remote service.
@@ -46,4 +49,21 @@ public class SaleTypeServiceImpl extends SaleTypeServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use <code>com.liferay.sales.service.SaleTypeServiceUtil</code> to access the sale type remote service.
 	 */
+	public SaleType createSaleType(long id, String name, double tax){
+		return saleTypeLocalService.createSaleType(id, name, tax);
+	}
+
+	@Override
+	public void deleteTypeById(long id) {
+		saleTypeLocalService.deleteTypeById(id);
+	}
+
+
+	public List<SaleType> getAll(){
+		return saleTypeLocalService.getAll();
+	}
+
+	public SaleType getSaleTypeByID(long id){
+		return saleTypeLocalService.getSaleTypeById(id);
+	}
 }

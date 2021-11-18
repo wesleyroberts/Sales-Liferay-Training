@@ -78,6 +78,16 @@ public class SaleCategoryLocalServiceUtil {
 		return getService().createSaleCategory(categoryId);
 	}
 
+	public static SaleCategory createSaleCategory(
+		long id, String name, double tax) {
+
+		return getService().createSaleCategory(id, name, tax);
+	}
+
+	public static void deleteCategoryById(long id) {
+		getService().deleteCategoryById(id);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -206,6 +216,14 @@ public class SaleCategoryLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static List<SaleCategory> getAll() {
+		return getService().getAll();
+	}
+
+	public static SaleCategory getByCategoryName(String name) {
+		return getService().getByCategoryName(name);
+	}
+
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {
@@ -266,6 +284,10 @@ public class SaleCategoryLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getSaleCategory(categoryId);
+	}
+
+	public static SaleCategory getSaleCategoryById(long id) {
+		return getService().getSaleCategoryById(id);
 	}
 
 	/**

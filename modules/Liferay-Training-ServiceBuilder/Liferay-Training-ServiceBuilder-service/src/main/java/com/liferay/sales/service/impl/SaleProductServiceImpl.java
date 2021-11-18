@@ -15,9 +15,12 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.service.base.SaleProductServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+
+import java.util.List;
 
 /**
  * The implementation of the sale product remote service.
@@ -45,5 +48,24 @@ public class SaleProductServiceImpl extends SaleProductServiceBaseImpl {
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. Always use <code>com.liferay.sales.service.SaleProductServiceUtil</code> to access the sale product remote service.
-	 */
+	 */public SaleProduct createProduct(String name, double price, long productId, long categoryId, long typeId){
+		return saleProductLocalService.createProduct(name, price, productId, categoryId, typeId);
+	}
+
+	public List<SaleProduct> getAllSaleProducts(){
+		return saleProductLocalService.getAll();
+	}
+
+	public SaleProduct getSaleProductById(long id){
+		return saleProductLocalService.getById(id);
+	}
+
+	public SaleProduct getSaleProductByName(String name){
+		return saleProductLocalService.getByName(name);
+	}
+
+	public SaleProduct deleteById(long id){
+		return saleProductLocalService.deleteById(id);
+	}
+
 }

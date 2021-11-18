@@ -15,9 +15,13 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.sales.exception.NoSuchSaleProductException;
+import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.service.base.SaleProductLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+
+import java.util.List;
 
 /**
  * The implementation of the sale product local service.
@@ -44,4 +48,54 @@ public class SaleProductLocalServiceImpl
 	 *
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.SaleProductLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleProductLocalServiceUtil</code>.
 	 */
+	public SaleProduct createProduct(String name, double price, long productId, long categoryId, long typeId){
+		try{
+			SaleProduct product = saleProductPersistence.create(productId);
+			product.setName(name);
+			product.setPrice(price);
+			product.setCategoryId(categoryId);
+			product.setTypeId(typeId);
+			return saleProductPersistence.update(product);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public List<SaleProduct> getAll(){
+		try {
+			return saleProductPersistence.findAll();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public SaleProduct getById(long id){
+		try {
+			return saleProductPersistence.findByPrimaryKey(id);
+		} catch ( NoSuchSaleProductException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public SaleProduct getByName(String name){
+		try {
+			return saleProductPersistence.findByName(name);
+		} catch (NoSuchSaleProductException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public SaleProduct deleteById(long id){
+		try {
+			return saleProductPersistence.remove(id);
+		} catch ( NoSuchSaleProductException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

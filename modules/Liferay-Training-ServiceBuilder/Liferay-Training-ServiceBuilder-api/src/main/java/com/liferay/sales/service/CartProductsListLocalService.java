@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.sales.model.CartProductsList;
+import com.liferay.sales.model.SaleProduct;
 
 import java.io.Serializable;
 
@@ -74,6 +75,8 @@ public interface CartProductsListLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public CartProductsList addCartProductsList(
 		CartProductsList cartProductsList);
+
+	public CartProductsList addProductToCartList(long productId, long cartId);
 
 	/**
 	 * Creates a new cart products list with the primary key. Does not add the cart products list to the database.
@@ -198,6 +201,9 @@ public interface CartProductsListLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleProduct> getAllProductsByCarID(long id);
+
 	/**
 	 * Returns the cart products list with the primary key.
 	 *
@@ -248,6 +254,8 @@ public interface CartProductsListLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	public void removeProductToCartList(long productId, long cartId);
 
 	/**
 	 * Updates the cart products list in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

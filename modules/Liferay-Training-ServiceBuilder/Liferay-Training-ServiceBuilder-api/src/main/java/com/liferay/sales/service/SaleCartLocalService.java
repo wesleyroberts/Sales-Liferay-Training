@@ -60,6 +60,7 @@ public interface SaleCartLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleCartLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the sale cart local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link SaleCartLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public SaleCart addProductPriceToCartTotalValue(double price, long cartId);
 
 	/**
 	 * Adds the sale cart to the database. Also notifies the appropriate model listeners.
@@ -88,6 +89,8 @@ public interface SaleCartLocalService
 	 */
 	@Transactional(enabled = false)
 	public SaleCart createSaleCart(long cartId);
+
+	public SaleCart createSaleCartById(long id);
 
 	/**
 	 * @throws PortalException
@@ -122,6 +125,8 @@ public interface SaleCartLocalService
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public SaleCart deleteSaleCart(SaleCart saleCart);
+
+	public void deleteSaleCartById(long id);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();
@@ -196,6 +201,9 @@ public interface SaleCartLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleCart> getAllSaleCart();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
@@ -223,6 +231,9 @@ public interface SaleCartLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleCart getSaleCart(long cartId) throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleCart getSaleCartById(long id);
+
 	/**
 	 * Returns a range of all the sale carts.
 	 *
@@ -244,6 +255,9 @@ public interface SaleCartLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getSaleCartsCount();
+
+	public SaleCart removeProductPriceToCartTotalValue(
+		double price, long cartId);
 
 	/**
 	 * Updates the sale cart in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

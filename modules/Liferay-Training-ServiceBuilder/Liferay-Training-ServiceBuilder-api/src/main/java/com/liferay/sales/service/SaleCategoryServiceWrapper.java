@@ -30,6 +30,28 @@ public class SaleCategoryServiceWrapper
 		_saleCategoryService = saleCategoryService;
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleCategory createSaleCategory(
+		long id, String name, double tax) {
+
+		return _saleCategoryService.createSaleCategory(id, name, tax);
+	}
+
+	@Override
+	public void deleCategoryById(long id) {
+		_saleCategoryService.deleCategoryById(id);
+	}
+
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleCategory> getAll() {
+		return _saleCategoryService.getAll();
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleCategory getCategoryByName(String name) {
+		return _saleCategoryService.getCategoryByName(name);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -38,6 +60,11 @@ public class SaleCategoryServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _saleCategoryService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleCategory getSaleCategoryById(long id) {
+		return _saleCategoryService.getSaleCategoryById(id);
 	}
 
 	@Override

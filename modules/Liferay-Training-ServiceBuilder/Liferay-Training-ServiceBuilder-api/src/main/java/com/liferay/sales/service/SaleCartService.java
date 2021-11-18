@@ -20,7 +20,11 @@ import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.sales.model.SaleCart;
+
+import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -47,6 +51,14 @@ public interface SaleCartService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleCartServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the sale cart remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link SaleCartServiceUtil} if injection and service tracking are not available.
 	 */
+	public SaleCart addProductPriceToCartTotalValue(double price, long cartId);
+
+	public SaleCart createSaleCartById(long id);
+
+	public void deleteSaleCartById(long id);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleCart> getAllSaleCart();
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -54,5 +66,11 @@ public interface SaleCartService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleCart getSaleCartById(long id);
+
+	public SaleCart removeProductPriceToCartTotalValue(
+		double price, long cartId);
 
 }

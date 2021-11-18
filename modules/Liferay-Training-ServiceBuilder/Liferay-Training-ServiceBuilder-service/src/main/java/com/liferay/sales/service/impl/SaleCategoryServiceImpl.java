@@ -15,9 +15,12 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.sales.model.SaleCategory;
 import com.liferay.sales.service.base.SaleCategoryServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+
+import java.util.List;
 
 /**
  * The implementation of the sale category remote service.
@@ -46,4 +49,21 @@ public class SaleCategoryServiceImpl extends SaleCategoryServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use <code>com.liferay.sales.service.SaleCategoryServiceUtil</code> to access the sale category remote service.
 	 */
+	public SaleCategory createSaleCategory(long id, String name, double tax){
+		return saleCategoryLocalService.createSaleCategory(id,name,tax);
+
+	}
+	public List<SaleCategory> getAll(){
+		return saleCategoryLocalService.getAll();
+	}
+	public SaleCategory getSaleCategoryById(long id){
+		return saleCategoryLocalService.getSaleCategoryById(id);
+	}
+	public void deleCategoryById(long id){
+		saleCategoryLocalService.deleteCategoryById(id);
+	}
+
+	public SaleCategory getCategoryByName(String name){
+		return saleCategoryLocalService.getByCategoryName(name);
+	}
 }

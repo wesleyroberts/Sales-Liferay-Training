@@ -33,6 +33,20 @@ public class CartProductsListServiceWrapper
 		_cartProductsListService = cartProductsListService;
 	}
 
+	@Override
+	public com.liferay.sales.model.CartProductsList addProductToCartList(
+		long productId, long cartId) {
+
+		return _cartProductsListService.addProductToCartList(productId, cartId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		getAllProductsByCarID(long id) {
+
+		return _cartProductsListService.getAllProductsByCarID(id);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -41,6 +55,11 @@ public class CartProductsListServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _cartProductsListService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public void removeProductToCartList(long productId, long cartId) {
+		_cartProductsListService.removeProductToCartList(productId, cartId);
 	}
 
 	@Override

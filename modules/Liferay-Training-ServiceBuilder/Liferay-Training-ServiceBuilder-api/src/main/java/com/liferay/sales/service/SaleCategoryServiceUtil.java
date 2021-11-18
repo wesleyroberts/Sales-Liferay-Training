@@ -14,6 +14,10 @@
 
 package com.liferay.sales.service;
 
+import com.liferay.sales.model.SaleCategory;
+
+import java.util.List;
+
 /**
  * Provides the remote service utility for SaleCategory. This utility wraps
  * <code>com.liferay.sales.service.impl.SaleCategoryServiceImpl</code> and is an
@@ -33,14 +37,35 @@ public class SaleCategoryServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleCategoryServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static SaleCategory createSaleCategory(
+		long id, String name, double tax) {
+
+		return getService().createSaleCategory(id, name, tax);
+	}
+
+	public static void deleCategoryById(long id) {
+		getService().deleCategoryById(id);
+	}
+
+	public static List<SaleCategory> getAll() {
+		return getService().getAll();
+	}
+
+	public static SaleCategory getCategoryByName(String name) {
+		return getService().getCategoryByName(name);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static SaleCategory getSaleCategoryById(long id) {
+		return getService().getSaleCategoryById(id);
 	}
 
 	public static SaleCategoryService getService() {

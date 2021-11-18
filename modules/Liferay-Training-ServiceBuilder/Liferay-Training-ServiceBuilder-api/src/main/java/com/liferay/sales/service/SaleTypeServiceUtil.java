@@ -14,6 +14,10 @@
 
 package com.liferay.sales.service;
 
+import com.liferay.sales.model.SaleType;
+
+import java.util.List;
+
 /**
  * Provides the remote service utility for SaleType. This utility wraps
  * <code>com.liferay.sales.service.impl.SaleTypeServiceImpl</code> and is an
@@ -33,14 +37,29 @@ public class SaleTypeServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleTypeServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static SaleType createSaleType(long id, String name, double tax) {
+		return getService().createSaleType(id, name, tax);
+	}
+
+	public static void deleteTypeById(long id) {
+		getService().deleteTypeById(id);
+	}
+
+	public static List<SaleType> getAll() {
+		return getService().getAll();
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static SaleType getSaleTypeByID(long id) {
+		return getService().getSaleTypeByID(id);
 	}
 
 	public static SaleTypeService getService() {

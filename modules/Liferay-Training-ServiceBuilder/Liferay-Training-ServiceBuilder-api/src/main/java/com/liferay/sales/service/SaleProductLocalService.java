@@ -80,6 +80,10 @@ public interface SaleProductLocalService
 	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	public SaleProduct createProduct(
+		String name, double price, long productId, long categoryId,
+		long typeId);
+
 	/**
 	 * Creates a new sale product with the primary key. Does not add the sale product to the database.
 	 *
@@ -88,6 +92,8 @@ public interface SaleProductLocalService
 	 */
 	@Transactional(enabled = false)
 	public SaleProduct createSaleProduct(long productId);
+
+	public SaleProduct deleteById(long id);
 
 	/**
 	 * @throws PortalException
@@ -194,6 +200,15 @@ public interface SaleProductLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleProduct> getAll();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleProduct getById(long id);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleProduct getByName(String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();

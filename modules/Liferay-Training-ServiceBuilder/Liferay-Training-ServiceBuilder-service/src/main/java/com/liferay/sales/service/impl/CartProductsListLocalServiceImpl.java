@@ -15,9 +15,18 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.sales.exception.NoSuchCartProductsListException;
+import com.liferay.sales.model.CartProductsList;
+import com.liferay.sales.model.SaleProduct;
+import com.liferay.sales.service.SaleCartService;
+import com.liferay.sales.service.SaleProductService;
 import com.liferay.sales.service.base.CartProductsListLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The implementation of the cart products list local service.
@@ -44,4 +53,44 @@ public class CartProductsListLocalServiceImpl
 	 *
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.CartProductsListLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.CartProductsListLocalServiceUtil</code>.
 	 */
+
+	public List<SaleProduct> getAllProductsByCarID(long id){
+		List<SaleProduct> listSaleProduct = new ArrayList<>();
+		for (CartProductsList e:cartProductsListPersistence.findAll()) {
+			if(e.getCartId() == id){
+				listSaleProduct.add(saleProductService.getSaleProductById(e.getProductId()));
+			}
+		}
+		return listSaleProduct;
+
+	}
+
+	public CartProductsList addProductToCartList(long productId, long cartId){
+		CartProductsList cartProductsList = cartProductsListPersistence.create(productId);
+		cartProductsList.setCartId(cartId);
+		saleCartService.
+				addProductPriceToCartTotalValue(saleProductService.
+								getSaleProductById(productId).
+								getPrice(),
+						cartId);
+		return cartProductsListPersistence.update(cartProductsList);
+	}
+
+	public void removeProductToCartList(long productId,long cartId){
+
+		try {
+			saleCartService.removeProductPriceToCartTotalValue(saleProductService.
+							getSaleProductById(productId).
+							getPrice(),
+					cartId);
+			cartProductsListPersistence.remove(productId);
+		} catch (NoSuchCartProductsListException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Reference
+	SaleProductService saleProductService;
+	@Reference
+	SaleCartService saleCartService;
 }

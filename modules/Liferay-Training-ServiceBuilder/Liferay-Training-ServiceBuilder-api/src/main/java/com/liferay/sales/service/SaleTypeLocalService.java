@@ -89,6 +89,8 @@ public interface SaleTypeLocalService
 	@Transactional(enabled = false)
 	public SaleType createSaleType(long typeId);
 
+	public SaleType createSaleType(long id, String name, double tax);
+
 	/**
 	 * @throws PortalException
 	 */
@@ -122,6 +124,8 @@ public interface SaleTypeLocalService
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public SaleType deleteSaleType(SaleType saleType);
+
+	public void deleteTypeById(long id);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();
@@ -196,6 +200,9 @@ public interface SaleTypeLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleType> getAll();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
@@ -222,6 +229,9 @@ public interface SaleTypeLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleType getSaleType(long typeId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleType getSaleTypeById(long id);
 
 	/**
 	 * Returns a range of all the sale types.

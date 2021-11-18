@@ -43,6 +43,11 @@ public class SaleCartLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleCartLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static SaleCart addProductPriceToCartTotalValue(
+		double price, long cartId) {
+
+		return getService().addProductPriceToCartTotalValue(price, cartId);
+	}
 
 	/**
 	 * Adds the sale cart to the database. Also notifies the appropriate model listeners.
@@ -76,6 +81,10 @@ public class SaleCartLocalServiceUtil {
 	 */
 	public static SaleCart createSaleCart(long cartId) {
 		return getService().createSaleCart(cartId);
+	}
+
+	public static SaleCart createSaleCartById(long id) {
+		return getService().createSaleCartById(id);
 	}
 
 	/**
@@ -115,6 +124,10 @@ public class SaleCartLocalServiceUtil {
 	 */
 	public static SaleCart deleteSaleCart(SaleCart saleCart) {
 		return getService().deleteSaleCart(saleCart);
+	}
+
+	public static void deleteSaleCartById(long id) {
+		getService().deleteSaleCartById(id);
 	}
 
 	public static DynamicQuery dynamicQuery() {
@@ -204,6 +217,10 @@ public class SaleCartLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static List<SaleCart> getAllSaleCart() {
+		return getService().getAllSaleCart();
+	}
+
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {
@@ -240,6 +257,10 @@ public class SaleCartLocalServiceUtil {
 		return getService().getSaleCart(cartId);
 	}
 
+	public static SaleCart getSaleCartById(long id) {
+		return getService().getSaleCartById(id);
+	}
+
 	/**
 	 * Returns a range of all the sale carts.
 	 *
@@ -262,6 +283,12 @@ public class SaleCartLocalServiceUtil {
 	 */
 	public static int getSaleCartsCount() {
 		return getService().getSaleCartsCount();
+	}
+
+	public static SaleCart removeProductPriceToCartTotalValue(
+		double price, long cartId) {
+
+		return getService().removeProductPriceToCartTotalValue(price, cartId);
 	}
 
 	/**
