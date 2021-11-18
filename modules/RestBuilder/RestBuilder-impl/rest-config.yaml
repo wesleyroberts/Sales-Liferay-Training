@@ -1,0 +1,9 @@
+apiDir: "../RestBuilder-api/src/main/java"
+apiPackagePath: "restbuilder"
+application:
+    baseURI: "/RestBuilder"
+    className: "RestBuilderApplication"
+    name: "RestBuilder"
+author: "Wesley Roberts"
+clientDir: "../RestBuilder-client/src/main/java"
+testDir: "../RestBuilder-test/src/testIntegration/java"
