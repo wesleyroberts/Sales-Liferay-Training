@@ -4,6 +4,7 @@ import com.liferay.sales.model.SaleCategory;
 import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.model.SaleType;
 import com.liferay.sales.service.SaleCategoryService;
+import com.liferay.sales.service.SaleProductLocalService;
 import com.liferay.sales.service.SaleTypeService;
 import org.osgi.service.component.annotations.Reference;
 
@@ -30,14 +31,20 @@ public class TaxServiceImpl implements TaxService{
         }else{
             product.
                     setPrice(
-                            product.getPrice() + taxForType + taxForCategory
+                            product.getPrice() + taxForType
                     );
         }
+
+        _saleProductLocalService.updateSaleProduct(product);
+
         return product;
 
     }
     @Reference
-    protected SaleCategoryService _saleCategoryService;
+    SaleCategoryService _saleCategoryService;
     @Reference
-    protected SaleTypeService _saleTypeService;
+    SaleTypeService _saleTypeService;
+
+    @Reference
+    SaleProductLocalService _saleProductLocalService;
 }

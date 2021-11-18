@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.3.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_3_0.dtd">
+
+<service-builder auto-namespace-tables="true" dependency-injector="ds" package-path="com.liferay.sales">
+	<namespace>SalesTaxe</namespace>
+	<entity name="SaleProduct" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+		<column name="productId" primary="true" type="long" />
+
+		<!-- Other fields -->
+		<column name="name" type="String" />
+		<column name="price" type="double" />
+		<column name="categoryId" type="long" />
+		<column name="typeId" type="long" />
+
+		<!-- Creating finder -->
+		<finder name="Name" return-type="SaleProducts">
+			<finder-column name="name"/>
+		</finder>
+
+		<finder name="Price" return-type="Collection">
+			<finder-column name="price"/>
+		</finder>
+
+	</entity>
+	<entity name="SaleCategory" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+		<column name="categoryId" primary="true" type="long" />
+
+		<!-- Other fields -->
+		<column name="name" type="String" />
+		<column name="tax" type="double" />
+
+		<finder name="Name" return-type="SaleCategory">
+			<finder-column name="name"/>
+		</finder>
+
+	</entity>
+	<entity name="SaleType" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+		<column name="typeId" primary="true" type="long" />
+
+		<!-- Other fields -->
+		<column name="name" type="String" />
+		<column name="tax" type="double" />
+
+		<finder name="Name" return-type="SaleType">
+			<finder-column name="name"/>
+		</finder>
+
+	</entity>
+	<entity name="SaleCart" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+		<column name="cartId" primary="true" type="long" />
+		<column name="totalPrice" type="double"/>
+
+	</entity>
+	<entity name="CartProductsList" local-service="true" remote-service="true">
+
+		<!-- Other fields -->
+		<column name="productId" primary="true" type="long"/>
+		<column name="cartId" type="long" />
+
+	</entity>
+	<exceptions>
+		<exception>DuplicateProductId</exception>
+		<exception>CategoryName</exception>
+		<exception>TypeName</exception>
+	</exceptions>
+
+</service-builder>

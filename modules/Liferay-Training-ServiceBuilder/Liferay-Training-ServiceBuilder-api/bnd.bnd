@@ -1,0 +1,10 @@
+Bundle-Name: Liferay-Training-ServiceBuilder-api
+Bundle-SymbolicName: SalesTaxes.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	SalesTaxes.exception,\
+	SalesTaxes.model,\
+	SalesTaxes.service,\
+	SalesTaxes.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../Liferay-Training-ServiceBuilder-service/service.xml

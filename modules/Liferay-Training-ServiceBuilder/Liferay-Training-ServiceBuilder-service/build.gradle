@@ -1,0 +1,11 @@
+dependencies {
+	compile project(":modules:Liferay-Training-ServiceBuilder:Liferay-Training-ServiceBuilder-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+}
+
+buildService {
+	apiDir = "../Liferay-Training-ServiceBuilder-api/src/main/java"
+}
+
+group = "SalesTaxes"

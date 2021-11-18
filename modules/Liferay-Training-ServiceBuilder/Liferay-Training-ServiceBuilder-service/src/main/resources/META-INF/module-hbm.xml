@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="false" default-lazy="false">
+	<import class="com.liferay.sales.model.CartProductsList" />
+	<import class="com.liferay.sales.model.SaleCart" />
+	<import class="com.liferay.sales.model.SaleCategory" />
+	<import class="com.liferay.sales.model.SaleProduct" />
+	<import class="com.liferay.sales.model.SaleType" />
+	<class name="com.liferay.sales.model.impl.CartProductsListImpl" table="SalesTaxe_CartProductsList">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="cartId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.liferay.sales.model.impl.SaleCartImpl" table="SalesTaxe_SaleCart">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="cartId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="totalPrice" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+	</class>
+	<class name="com.liferay.sales.model.impl.SaleCategoryImpl" table="SalesTaxe_SaleCategory">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="categoryId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="tax" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+	</class>
+	<class name="com.liferay.sales.model.impl.SaleProductImpl" table="SalesTaxe_SaleProduct">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="price" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="categoryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="typeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.liferay.sales.model.impl.SaleTypeImpl" table="SalesTaxe_SaleType">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="typeId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="tax" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+	</class>
+</hibernate-mapping>
