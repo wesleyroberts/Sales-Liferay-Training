@@ -1,0 +1,4 @@
+Bundle-Name: Liferay Tax Service
+Bundle-SymbolicName: com.liferay.tax.service
+Bundle-Version: 1.0.0
+Liferay-Service: true
