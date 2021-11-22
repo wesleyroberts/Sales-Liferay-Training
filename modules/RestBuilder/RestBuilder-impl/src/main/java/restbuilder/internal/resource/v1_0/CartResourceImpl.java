@@ -24,7 +24,6 @@ import restbuilder.resource.v1_0.TypeResource;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -68,9 +67,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 					cartId)
 			throws Exception {
-		System.out.println("chegou aqui");
 		return  _toCartDTO(_saleCartService.getSaleCartById(cartId));
-
 	}
 
 	/**
@@ -144,7 +141,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		_saleCartService.deleteSaleCartById(cartId);
 	}
 
-	private Cart _toCartDTO(SaleCart cart) throws Exception {
+	private Cart _toCartDTO(SaleCart cart){
 		return new Cart(){
 			{
 				id = (int)cart.getCartId();
@@ -154,10 +151,19 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		};
 	}
 
-	private ProductList _toProductDTO(SaleProduct saleProduct) throws Exception {
+	private ProductList _toProductDTO(SaleProduct saleProduct){
 		return new ProductList(){
-			{	category = _categoryResource.getCategory((int) saleProduct.getCategoryId());
-				type = _typeResource.getType((int) saleProduct.getTypeId());
+			{
+				try {
+					category = _categoryResource.getCategory((int) saleProduct.getCategoryId());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				try {
+					type = _typeResource.getType((int) saleProduct.getTypeId());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				id = (int)saleProduct.getProductId();
 				name = saleProduct.getName();
 				price = saleProduct.getPrice();
@@ -165,12 +171,16 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		};
 	}
 
-	private ProductList[] _ProductListDTO(long cartId) throws Exception {
+	private ProductList[] _ProductListDTO(long cartId){
 		List<SaleProduct> list =  _cartProductsListService.getAllProductsByCarID(cartId);
 		ProductList[] productListDTO = new ProductList[list.size()];
 		for (int i = 0; i <  list.size(); i++) {
 
-			productListDTO[i]= _toProductDTO(list.get(i));
+			try {
+				productListDTO[i]= _toProductDTO(list.get(i));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return productListDTO;
 	}
