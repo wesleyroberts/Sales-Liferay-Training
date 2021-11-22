@@ -384,9 +384,9 @@ paths:
                 $ref: "#/components/schemas/Cart"
           description: ""
       tags: ["Cart"]
-  "cart/addProduct/carts/{cartId}/products/{productId}":
+  "/addProduct/carts/{cartId}/products/{productId}":
     post:
-      operationId: postCartAddProductCartProduct
+      operationId: postAddProductCartProduct
       parameters:
         - in: path
           name: cartId

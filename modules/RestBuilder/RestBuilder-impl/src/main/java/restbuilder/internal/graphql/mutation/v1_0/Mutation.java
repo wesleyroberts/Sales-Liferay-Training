@@ -70,7 +70,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Cart createCartAddProductCartProduct(
+	public Cart createAddProductCartProduct(
 			@GraphQLName("cartId") Integer cartId,
 			@GraphQLName("productId") Integer productId)
 		throws Exception {
@@ -78,7 +78,7 @@ public class Mutation {
 		return _applyComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> cartResource.postCartAddProductCartProduct(
+			cartResource -> cartResource.postAddProductCartProduct(
 				cartId, productId));
 	}
 

@@ -1,7 +1,7 @@
 package com.liferay.tax;
 
-import com.liferay.sales.model.SaleProduct;
+import restbuilder.dto.v1_0.Product;
 
 public interface TaxService {
-    SaleProduct applyTaxInProduct(SaleProduct product);
+    Product applyTaxInProduct(Product product);
 }

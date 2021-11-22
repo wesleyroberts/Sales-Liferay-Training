@@ -1,4 +1,4 @@
 dependencies {
 	compileOnly group: "com.liferay.portal", name: "release.portal.api"
-	compileOnly project(":modules:Liferay-Training-ServiceBuilder:Liferay-Training-ServiceBuilder-api")
+	compileOnly project(":modules:RestBuilder:RestBuilder-api")
 }

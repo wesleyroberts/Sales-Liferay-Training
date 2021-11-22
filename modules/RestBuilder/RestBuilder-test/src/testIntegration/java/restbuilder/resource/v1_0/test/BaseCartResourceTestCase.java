@@ -235,16 +235,16 @@ public abstract class BaseCartResourceTestCase {
 	}
 
 	@Test
-	public void testPostCartAddProductCartProduct() throws Exception {
+	public void testPostAddProductCartProduct() throws Exception {
 		Cart randomCart = randomCart();
 
-		Cart postCart = testPostCartAddProductCartProduct_addCart(randomCart);
+		Cart postCart = testPostAddProductCartProduct_addCart(randomCart);
 
 		assertEquals(randomCart, postCart);
 		assertValid(postCart);
 	}
 
-	protected Cart testPostCartAddProductCartProduct_addCart(Cart cart)
+	protected Cart testPostAddProductCartProduct_addCart(Cart cart)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
