@@ -3,7 +3,6 @@ package restbuilder.internal.resource.v1_0;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.service.SaleProductService;
-import com.liferay.tax.TaxService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -111,10 +110,19 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 		_saleProductService.deleteById(productId);
 	}
 
-	private Product _toProductDTO(SaleProduct saleProduct) throws Exception {
+	private Product _toProductDTO(SaleProduct saleProduct){
 		return new Product(){
-			{	category = _categoryResource.getCategory((int) saleProduct.getCategoryId());
-				type = _typeResource.getType((int) saleProduct.getTypeId());
+			{
+				try {
+					category = _categoryResource.getCategory((int) saleProduct.getCategoryId());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				try {
+					type = _typeResource.getType((int) saleProduct.getTypeId());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				id = (int)saleProduct.getProductId();
 				name = saleProduct.getName();
 				price = saleProduct.getPrice();
