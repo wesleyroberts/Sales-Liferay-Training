@@ -24,18 +24,6 @@ Foi escolhido o Service Builder pois ele torna confiável a persistência da API
 		
 ### Gradle
 O gradle foi utilizado para gerenciar as dependências e módulos do projeto, além de auxiliar a aplicação ao utilizar o service Builder em suas tarefas, e assim construir as camadas de modelo, serviço e persistência.  
-
-## Como foi criado o projeto
-* primeiro construa a estrutura do projeto com o auxilio da seguinte documentação [link](https://help.liferay.com/hc/en-us/articles/360018182411-Service-Builder-Template-).  
-
-Observe que foram gerados 2 diretórios, um **task-api** e outro **task-service**.  
-
-### Camada API e Service 
-* O task-api tem como objetivo conter as interfaces de todoa as classes que seram usadas no projeto, para diminuir o aclopamento e aumentar a coesão do projeto, logo se uma classe deseja utilizar outra, a mesma deverá chamar a interface.
-
-* O task-service tem como objetivo conter os serviços da sua aplciação, quando um serviço necessita de outro ele consome o serviço atráves de sua interface. Seguindo essa linha de raciocinio chamo sua atenção para a regra que há dentro da camada de serviço, pois eu terei o **serviço local** e o **serviço remoto**, onde o local é responsavel pela implementação das regras lógicas e realizar a persistência dos dados no banco, consumindo a camada de persistência ataravés de sua intereface, o serviço remoto é responsável por verificar as permissões do cliente validando o acessso ao serviço.
-
-
 ## Como foi criado o projeto
 * primeiro construa a estrutura do projeto com o auxilio da seguinte documentação [link](https://help.liferay.com/hc/en-us/articles/360018182411-Service-Builder-Template-).  
 
