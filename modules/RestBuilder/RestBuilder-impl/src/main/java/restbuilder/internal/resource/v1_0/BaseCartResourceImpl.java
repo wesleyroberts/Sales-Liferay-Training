@@ -100,7 +100,7 @@ public abstract class BaseCartResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0cart/addProduct/carts/{cartId}/products/{productId}'  -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/addProduct/carts/{cartId}/products/{productId}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Parameters(
@@ -109,11 +109,11 @@ public abstract class BaseCartResourceImpl
 			@Parameter(in = ParameterIn.PATH, name = "productId")
 		}
 	)
-	@Path("cart/addProduct/carts/{cartId}/products/{productId}")
+	@Path("/addProduct/carts/{cartId}/products/{productId}")
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public Cart postCartAddProductCartProduct(
+	public Cart postAddProductCartProduct(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 				cartId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer

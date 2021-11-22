@@ -15,7 +15,6 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 import restbuilder.dto.v1_0.Cart;
-import restbuilder.dto.v1_0.Product;
 import restbuilder.dto.v1_0.ProductList;
 import restbuilder.resource.v1_0.CartResource;
 import restbuilder.resource.v1_0.CategoryResource;
@@ -24,6 +23,7 @@ import restbuilder.resource.v1_0.TypeResource;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,7 +46,11 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
 	public Page<Cart> getCartsGetAllPage() throws Exception {
-		return Page.of(Collections.emptyList());
+		List<Cart> cartListDTO = new ArrayList<Cart>();
+		for (SaleCart e: _saleCartService.getAllSaleCart()){
+			cartListDTO.add(_toCartDTO(e));
+		}
+		return Page.of(cartListDTO);
 	}
 
 	/**
@@ -64,7 +68,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 					cartId)
 			throws Exception {
-
+		System.out.println("chegou aqui");
 		return  _toCartDTO(_saleCartService.getSaleCartById(cartId));
 
 	}
@@ -72,7 +76,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0cart/addProduct/carts/{cartId}/products/{productId}'  -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/addProduct/carts/{cartId}/products/{productId}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Parameters(
@@ -81,11 +85,11 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 					@Parameter(in = ParameterIn.PATH, name = "productId")
 			}
 	)
-	@Path("cart/addProduct/carts/{cartId}/products/{productId}")
+	@Path("/addProduct/carts/{cartId}/products/{productId}")
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public Cart postCartAddProductCartProduct(
+	public Cart postAddProductCartProduct(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 					cartId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
@@ -117,6 +121,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
 					productId)
 			throws Exception {
+
 		_cartProductsListService.removeProductToCartList(productId,cartId);
 	}
 
@@ -161,12 +166,13 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	}
 
 	private ProductList[] _ProductListDTO(long cartId) throws Exception {
-		ProductList[] productListsDTO = new ProductList[0];
 		List<SaleProduct> list =  _cartProductsListService.getAllProductsByCarID(cartId);
+		ProductList[] productListDTO = new ProductList[list.size()];
 		for (int i = 0; i <  list.size(); i++) {
-			productListsDTO[i]= _toProductDTO(list.get(i));
+
+			productListDTO[i]= _toProductDTO(list.get(i));
 		}
-		return productListsDTO;
+		return productListDTO;
 	}
 
 	@Reference

@@ -38,7 +38,7 @@ public interface CartResource {
 
 	public Cart getCart(Integer cartId) throws Exception;
 
-	public Cart postCartAddProductCartProduct(Integer cartId, Integer productId)
+	public Cart postAddProductCartProduct(Integer cartId, Integer productId)
 		throws Exception;
 
 	public void postRemoveProductCartProduct(Integer cartId, Integer productId)

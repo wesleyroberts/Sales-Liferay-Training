@@ -35,10 +35,10 @@ public interface CartResource {
 	public HttpInvoker.HttpResponse getCartHttpResponse(Integer cartId)
 		throws Exception;
 
-	public Cart postCartAddProductCartProduct(Integer cartId, Integer productId)
+	public Cart postAddProductCartProduct(Integer cartId, Integer productId)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse postCartAddProductCartProductHttpResponse(
+	public HttpInvoker.HttpResponse postAddProductCartProductHttpResponse(
 			Integer cartId, Integer productId)
 		throws Exception;
 
@@ -277,12 +277,11 @@ public interface CartResource {
 			return httpInvoker.invoke();
 		}
 
-		public Cart postCartAddProductCartProduct(
-				Integer cartId, Integer productId)
+		public Cart postAddProductCartProduct(Integer cartId, Integer productId)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postCartAddProductCartProductHttpResponse(cartId, productId);
+				postAddProductCartProductHttpResponse(cartId, productId);
 
 			String content = httpResponse.getContent();
 
@@ -321,9 +320,8 @@ public interface CartResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse
-				postCartAddProductCartProductHttpResponse(
-					Integer cartId, Integer productId)
+		public HttpInvoker.HttpResponse postAddProductCartProductHttpResponse(
+				Integer cartId, Integer productId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -352,7 +350,7 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/RestBuilder/v1.0cart/addProduct/carts/{cartId}/products/{productId}");
+						"/o/RestBuilder/v1.0/addProduct/carts/{cartId}/products/{productId}");
 
 			httpInvoker.path("cartId", cartId);
 			httpInvoker.path("productId", productId);

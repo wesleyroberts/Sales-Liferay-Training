@@ -14,7 +14,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.annotation.Generated;
 
@@ -63,6 +66,7 @@ public class Cart implements Serializable {
 	protected Integer id;
 
 	@Schema
+	@Valid
 	public ProductList[] getProductList() {
 		return productList;
 	}
@@ -86,6 +90,7 @@ public class Cart implements Serializable {
 		}
 	}
 
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ProductList[] productList;
 
