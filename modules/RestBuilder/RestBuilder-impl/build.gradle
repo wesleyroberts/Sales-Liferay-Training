@@ -21,6 +21,7 @@ dependencies {
 	restBuilder group: "com.liferay", name: "com.liferay.portal.tools.rest.builder", version: "1.0.167"
 	compileOnly project(":modules:SaleTaxService:tax-api")
 	compileOnly project(":modules:Liferay-Training-ServiceBuilder:Liferay-Training-ServiceBuilder-api")
+	compileOnly 'com.liferay.portal:release.portal.api'
 }
 
 group = "restbuilder"
