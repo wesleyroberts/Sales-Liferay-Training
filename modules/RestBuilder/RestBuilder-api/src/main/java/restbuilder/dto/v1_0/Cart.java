@@ -63,7 +63,6 @@ public class Cart implements Serializable {
 	protected Integer id;
 
 	@Schema
-	@Valid
 	public ProductList[] getProductList() {
 		return productList;
 	}
@@ -88,7 +87,7 @@ public class Cart implements Serializable {
 	}
 
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected List<Product> productList;
+	protected ProductList[] productList;
 
 	@Schema(description = "total payment amount.")
 	public Double getTotalValue() {

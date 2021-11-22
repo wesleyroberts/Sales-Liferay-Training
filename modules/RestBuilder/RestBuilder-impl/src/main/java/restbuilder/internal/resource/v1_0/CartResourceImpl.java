@@ -2,6 +2,7 @@ package restbuilder.internal.resource.v1_0;
 
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.sales.model.SaleCart;
+import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.service.CartProductsListService;
 import com.liferay.sales.service.SaleCartService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -14,13 +15,17 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 import restbuilder.dto.v1_0.Cart;
+import restbuilder.dto.v1_0.Product;
+import restbuilder.dto.v1_0.ProductList;
 import restbuilder.resource.v1_0.CartResource;
+import restbuilder.resource.v1_0.CategoryResource;
 import restbuilder.resource.v1_0.ProductResource;
+import restbuilder.resource.v1_0.TypeResource;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import java.util.Collections;
-import java.util.stream.Collectors;
+import java.util.List;
 
 /**
  * @author Wesley Roberts
@@ -133,28 +138,41 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 
 		_saleCartService.deleteSaleCartById(cartId);
 	}
+
 	private Cart _toCartDTO(SaleCart cart) throws Exception {
 		return new Cart(){
 			{
 				id = (int)cart.getCartId();
 				totalValue = cart.getTotalPrice();
-				productList = _cartProductsListService
-						.getAllProductsByCarID(cart
-								.getCartId())
-						.stream()
-						.map(products -> {
-							try {
-								return _productResource
-										.getProduct((int) products.getProductId());
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-							return null;
-						})
-						.collect(Collectors.toList());
+				productList = _ProductListDTO(cart.getCartId());
 			}
 		};
 	}
+
+	private ProductList _toProductDTO(SaleProduct saleProduct) throws Exception {
+		return new ProductList(){
+			{	category = _categoryResource.getCategory((int) saleProduct.getCategoryId());
+				type = _typeResource.getType((int) saleProduct.getTypeId());
+				id = (int)saleProduct.getProductId();
+				name = saleProduct.getName();
+				price = saleProduct.getPrice();
+			}
+		};
+	}
+
+	private ProductList[] _ProductListDTO(long cartId) throws Exception {
+		ProductList[] productListsDTO = new ProductList[0];
+		List<SaleProduct> list =  _cartProductsListService.getAllProductsByCarID(cartId);
+		for (int i = 0; i <  list.size(); i++) {
+			productListsDTO[i]= _toProductDTO(list.get(i));
+		}
+		return productListsDTO;
+	}
+
+	@Reference
+	CategoryResource _categoryResource;
+	@Reference
+	TypeResource _typeResource;
 	@Reference
 	CartProductsListService _cartProductsListService;
 	@Reference

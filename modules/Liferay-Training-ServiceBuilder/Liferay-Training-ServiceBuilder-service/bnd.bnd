@@ -1,5 +1,5 @@
 Bundle-Name: Liferay-Training-ServiceBuilder-service
-Bundle-SymbolicName: SalesTaxes.service
+Bundle-SymbolicName: com.liferay.sales.service
 Bundle-Version: 1.0.0
 Liferay-Require-SchemaVersion: 1.0.0
 Liferay-Service: true
