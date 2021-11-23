@@ -39,7 +39,7 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 	@Path("/category/all")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Category")})
-	public Page<Category> getCategoriesAllPage() throws Exception {
+	public Page<Category> getAllCategories() throws Exception {
 		List<Category> listCategory = new ArrayList<Category>();
 		for (SaleCategory e: _saleCategoryService.getAll()){
 			listCategory.add(_toCategoryDTO(e));
@@ -60,7 +60,7 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 	@Path("/category/{categoryName}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Category")})
-	public Category getCategory(
+	public Category getCategoryByName(
 			@NotNull @Parameter(hidden = true) @PathParam("categoryName") String
 					categoryName)
 			throws Exception {
@@ -81,29 +81,27 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 	@Path("/category/{categoryId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Category")})
-	public Category getCategory(
+	public Category getCategoryById(
 			@NotNull @Parameter(hidden = true) @PathParam("categoryId") Integer
 					categoryId)
 			throws Exception {
 		SaleCategory saleCategory = _saleCategoryService.getSaleCategoryById(categoryId);
-
 		return _toCategoryDTO(saleCategory);
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/category/post' -d $'{"id": ___, "name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/category/create' -d $'{"id": ___, "name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Consumes({"application/json", "application/xml"})
 	@Override
-	@Path("/category/post")
+	@Path("/category/create")
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Category")})
-	public Category postCategoryPost(Category category) throws Exception {
+	public Category createCategory(Category category) throws Exception {
 		SaleCategory saleCategory = _saleCategoryService.createSaleCategory(category.getId(),category.getName(),category.getTax());
-
 		return _toCategoryDTO(saleCategory);
 	}
 
@@ -120,12 +118,13 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 	@Path("/category/delete/{categoryId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Category")})
-	public void deleteCategoryDeleteCategory(
+	public void deleteCategoryById(
 			@NotNull @Parameter(hidden = true) @PathParam("categoryId") Integer
 					categoryId)
 			throws Exception {
 		_saleCategoryService.deleCategoryById(categoryId);
 	}
+
 	private Category _toCategoryDTO(SaleCategory saleCategory){
 		return new Category(){
 			{
