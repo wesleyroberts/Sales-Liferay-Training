@@ -94,7 +94,7 @@ openapi: 3.0.1
 paths:
   "/product/all":
     get:
-      operationId: getProductsAllPage
+      operationId: getAllProducts
       responses:
         200:
           content:
@@ -111,7 +111,7 @@ paths:
 
   "/product/{productId}":
     get:
-      operationId: getProduct
+      operationId: getProductById
       parameters:
         - in: path
           name: productId
@@ -130,9 +130,9 @@ paths:
           description: ""
       tags: ["Product"]
 
-  "/product/post":
+  "/product/create":
     post:
-      operationId: postProductPost
+      operationId: creatProduct
       requestBody:
         content:
           application/json:
@@ -155,7 +155,7 @@ paths:
 
   "/product/delete/{productId}":
     delete:
-      operationId: deleteProductDeleteProduct
+      operationId: deleteProductById
       parameters:
         - in: path
           name: productId
@@ -172,7 +172,7 @@ paths:
 
   "/category/all":
     get:
-      operationId: getCategoriesAllPage
+      operationId: getAllCategories
       responses:
         200:
           content:
@@ -190,7 +190,7 @@ paths:
 
   "/category/{categoryName}":
     get:
-      operationId: getCategory
+      operationId: getCategoryByName
       parameters:
         - in: path
           name: categoryName
@@ -211,6 +211,7 @@ paths:
 
   "/category/{categoryId}":
     get:
+      operationId: getCategoryById
       parameters:
         - in: path
           name: categoryId
@@ -229,9 +230,9 @@ paths:
           description: ""
       tags: [ "Category" ]
 
-  "/category/post":
+  "/category/create":
     post:
-      operationId: postCategoryPost
+      operationId: createCategory
       requestBody:
         content:
           application/json:
@@ -254,7 +255,7 @@ paths:
 
   "/category/delete/{categoryId}":
     delete:
-      operationId: deleteCategoryDeleteCategory
+      operationId: deleteCategoryById
       parameters:
         - in: path
           name: categoryId
@@ -271,7 +272,7 @@ paths:
 
   "/type/all":
     get:
-      operationId: getTypesAllPage
+      operationId: getAllTypes
       responses:
         200:
           content:
@@ -289,7 +290,7 @@ paths:
 
   "/type/{typeId}":
     get:
-      operationId: getType
+      operationId: getTypeById
       parameters:
         - in: path
           name: typeId
@@ -308,9 +309,9 @@ paths:
           description: ""
       tags: ["Type"]
 
-  "/type/post":
+  "/type/create":
     post:
-      operationId: postTypePost
+      operationId: createType
       requestBody:
         content:
           application/json:
@@ -333,7 +334,7 @@ paths:
 
   "/type/delete/{typeId}":
     delete:
-      operationId: deleteTypeDeleteType
+      operationId: deleteTypeById
       parameters:
         - in: path
           name: typeId
@@ -349,7 +350,7 @@ paths:
       tags: ["Type"]
   "/cart/getAll":
     get:
-      operationId: getCartsGetAllPage
+      operationId: getAllCarts
       responses:
         200:
           content:
@@ -366,7 +367,7 @@ paths:
       tags: ["Cart"]
   "/cart/{cartId}":
     get:
-      operationId: getCart
+      operationId: getCartById
       parameters:
         - in: path
           name: cartId
@@ -386,7 +387,7 @@ paths:
       tags: ["Cart"]
   "/addProduct/carts/{cartId}/products/{productId}":
     post:
-      operationId: postAddProductCartProduct
+      operationId: addProductToCart
       parameters:
         - in: path
           name: cartId
@@ -411,7 +412,7 @@ paths:
       tags: ["Cart"]
   "/removeProduct/carts/{cartId}/products/{productId}":
     post:
-      operationId: postRemoveProductCartProduct
+      operationId: removeProductToCart
       parameters:
         - in: path
           name: cartId
@@ -433,7 +434,7 @@ paths:
 
   "/cart/delete/{cartId}":
     delete:
-      operationId: deleteCartDeleteCart
+      operationId: deleteCartById
       parameters:
         - in: path
           name: cartId

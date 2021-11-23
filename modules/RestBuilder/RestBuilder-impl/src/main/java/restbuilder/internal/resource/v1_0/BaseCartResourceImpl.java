@@ -74,7 +74,7 @@ public abstract class BaseCartResourceImpl
 	@Path("/cart/getAll")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public Page<Cart> getCartsGetAllPage() throws Exception {
+	public Page<Cart> getAllCarts() throws Exception {
 		return Page.of(Collections.emptyList());
 	}
 
@@ -89,7 +89,7 @@ public abstract class BaseCartResourceImpl
 	@Path("/cart/{cartId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public Cart getCart(
+	public Cart getCartById(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 				cartId)
 		throws Exception {
@@ -113,7 +113,7 @@ public abstract class BaseCartResourceImpl
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public Cart postAddProductCartProduct(
+	public Cart addProductToCart(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 				cartId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
@@ -139,7 +139,7 @@ public abstract class BaseCartResourceImpl
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public void postRemoveProductCartProduct(
+	public void removeProductToCart(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 				cartId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
@@ -158,7 +158,7 @@ public abstract class BaseCartResourceImpl
 	@Path("/cart/delete/{cartId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public void deleteCartDeleteCart(
+	public void deleteCartById(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 				cartId)
 		throws Exception {

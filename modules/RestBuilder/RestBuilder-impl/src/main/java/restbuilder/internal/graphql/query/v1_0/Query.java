@@ -75,126 +75,132 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {cartsGetAll{items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {allCarts{items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public CartPage cartsGetAll() throws Exception {
+	public CartPage allCarts() throws Exception {
 		return _applyComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> new CartPage(cartResource.getCartsGetAllPage()));
+			cartResource -> new CartPage(cartResource.getAllCarts()));
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {cart(cartId: ___){id, totalValue, productList}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {cartById(cartId: ___){id, totalValue, productList}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public Cart cart(@GraphQLName("cartId") Integer cartId) throws Exception {
+	public Cart cartById(@GraphQLName("cartId") Integer cartId)
+		throws Exception {
+
 		return _applyComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> cartResource.getCart(cartId));
+			cartResource -> cartResource.getCartById(cartId));
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {categoriesAll{items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {allCategories{items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public CategoryPage categoriesAll() throws Exception {
+	public CategoryPage allCategories() throws Exception {
 		return _applyComponentServiceObjects(
 			_categoryResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			categoryResource -> new CategoryPage(
-				categoryResource.getCategoriesAllPage()));
+				categoryResource.getAllCategories()));
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {category(categoryName: ___){name, id, tax}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {categoryByName(categoryName: ___){name, id, tax}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public Category category(@GraphQLName("categoryName") String categoryName)
+	public Category categoryByName(
+			@GraphQLName("categoryName") String categoryName)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_categoryResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			categoryResource -> categoryResource.getCategory(categoryName));
+			categoryResource -> categoryResource.getCategoryByName(
+				categoryName));
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {category(categoryId: ___){name, id, tax}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {categoryById(categoryId: ___){name, id, tax}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public Category category(@GraphQLName("categoryId") Integer categoryId)
+	public Category categoryById(@GraphQLName("categoryId") Integer categoryId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_categoryResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			categoryResource -> categoryResource.getCategory(categoryId));
+			categoryResource -> categoryResource.getCategoryById(categoryId));
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productsAll{items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {allProducts{items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public ProductPage productsAll() throws Exception {
+	public ProductPage allProducts() throws Exception {
 		return _applyComponentServiceObjects(
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			productResource -> new ProductPage(
-				productResource.getProductsAllPage()));
+				productResource.getAllProducts()));
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {product(productId: ___){name, id, category, type, price}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productById(productId: ___){name, id, category, type, price}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public Product product(@GraphQLName("productId") Integer productId)
+	public Product productById(@GraphQLName("productId") Integer productId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			productResource -> productResource.getProduct(productId));
+			productResource -> productResource.getProductById(productId));
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {typesAll{items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {allTypes{items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public TypePage typesAll() throws Exception {
+	public TypePage allTypes() throws Exception {
 		return _applyComponentServiceObjects(
 			_typeResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			typeResource -> new TypePage(typeResource.getTypesAllPage()));
+			typeResource -> new TypePage(typeResource.getAllTypes()));
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {type(typeId: ___){name, id, tax}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {typeById(typeId: ___){name, id, tax}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public Type type(@GraphQLName("typeId") Integer typeId) throws Exception {
+	public Type typeById(@GraphQLName("typeId") Integer typeId)
+		throws Exception {
+
 		return _applyComponentServiceObjects(
 			_typeResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			typeResource -> typeResource.getType(typeId));
+			typeResource -> typeResource.getTypeById(typeId));
 	}
 
 	@GraphQLName("CartPage")

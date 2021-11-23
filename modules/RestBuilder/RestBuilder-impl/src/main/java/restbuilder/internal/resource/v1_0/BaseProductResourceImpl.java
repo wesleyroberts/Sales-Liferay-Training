@@ -75,7 +75,7 @@ public abstract class BaseProductResourceImpl
 	@Path("/product/all")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
-	public Page<Product> getProductsAllPage() throws Exception {
+	public Page<Product> getAllProducts() throws Exception {
 		return Page.of(Collections.emptyList());
 	}
 
@@ -90,7 +90,7 @@ public abstract class BaseProductResourceImpl
 	@Path("/product/{productId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
-	public Product getProduct(
+	public Product getProductById(
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
 				productId)
 		throws Exception {
@@ -101,15 +101,15 @@ public abstract class BaseProductResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/post' -d $'{"category": ___, "id": ___, "name": ___, "price": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/create' -d $'{"category": ___, "id": ___, "name": ___, "price": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Consumes({"application/json", "application/xml"})
 	@Override
-	@Path("/product/post")
+	@Path("/product/create")
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
-	public Product postProductPost(Product product) throws Exception {
+	public Product creatProduct(Product product) throws Exception {
 		return new Product();
 	}
 
@@ -124,7 +124,7 @@ public abstract class BaseProductResourceImpl
 	@Path("/product/delete/{productId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
-	public void deleteProductDeleteProduct(
+	public void deleteProductById(
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
 				productId)
 		throws Exception {

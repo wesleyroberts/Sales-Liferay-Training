@@ -70,7 +70,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Cart createAddProductCartProduct(
+	public Cart addProductToCart(
 			@GraphQLName("cartId") Integer cartId,
 			@GraphQLName("productId") Integer productId)
 		throws Exception {
@@ -78,12 +78,11 @@ public class Mutation {
 		return _applyComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> cartResource.postAddProductCartProduct(
-				cartId, productId));
+			cartResource -> cartResource.addProductToCart(cartId, productId));
 	}
 
 	@GraphQLField
-	public boolean createRemoveProductCartProduct(
+	public boolean removeProductToCart(
 			@GraphQLName("cartId") Integer cartId,
 			@GraphQLName("productId") Integer productId)
 		throws Exception {
@@ -91,91 +90,87 @@ public class Mutation {
 		_applyVoidComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> cartResource.postRemoveProductCartProduct(
+			cartResource -> cartResource.removeProductToCart(
 				cartId, productId));
 
 		return true;
 	}
 
 	@GraphQLField
-	public boolean deleteCartDeleteCart(@GraphQLName("cartId") Integer cartId)
+	public boolean deleteCartById(@GraphQLName("cartId") Integer cartId)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> cartResource.deleteCartDeleteCart(cartId));
+			cartResource -> cartResource.deleteCartById(cartId));
 
 		return true;
 	}
 
 	@GraphQLField
-	public Category createCategoryPost(
-			@GraphQLName("category") Category category)
+	public Category createCategory(@GraphQLName("category") Category category)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_categoryResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			categoryResource -> categoryResource.postCategoryPost(category));
+			categoryResource -> categoryResource.createCategory(category));
 	}
 
 	@GraphQLField
-	public boolean deleteCategoryDeleteCategory(
+	public boolean deleteCategoryById(
 			@GraphQLName("categoryId") Integer categoryId)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_categoryResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			categoryResource -> categoryResource.deleteCategoryDeleteCategory(
+			categoryResource -> categoryResource.deleteCategoryById(
 				categoryId));
 
 		return true;
 	}
 
 	@GraphQLField
-	public Product createProductPost(@GraphQLName("product") Product product)
+	public Product creatProduct(@GraphQLName("product") Product product)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			productResource -> productResource.postProductPost(product));
+			productResource -> productResource.creatProduct(product));
 	}
 
 	@GraphQLField
-	public boolean deleteProductDeleteProduct(
+	public boolean deleteProductById(
 			@GraphQLName("productId") Integer productId)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			productResource -> productResource.deleteProductDeleteProduct(
-				productId));
+			productResource -> productResource.deleteProductById(productId));
 
 		return true;
 	}
 
 	@GraphQLField
-	public Type createTypePost(@GraphQLName("type") Type type)
-		throws Exception {
-
+	public Type createType(@GraphQLName("type") Type type) throws Exception {
 		return _applyComponentServiceObjects(
 			_typeResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			typeResource -> typeResource.postTypePost(type));
+			typeResource -> typeResource.createType(type));
 	}
 
 	@GraphQLField
-	public boolean deleteTypeDeleteType(@GraphQLName("typeId") Integer typeId)
+	public boolean deleteTypeById(@GraphQLName("typeId") Integer typeId)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_typeResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			typeResource -> typeResource.deleteTypeDeleteType(typeId));
+			typeResource -> typeResource.deleteTypeById(typeId));
 
 		return true;
 	}

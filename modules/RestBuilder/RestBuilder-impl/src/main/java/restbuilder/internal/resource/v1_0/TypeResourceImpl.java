@@ -39,7 +39,7 @@ public class TypeResourceImpl extends BaseTypeResourceImpl {
 	@Path("/type/all")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Type")})
-	public Page<Type> getTypesAllPage() throws Exception {
+	public Page<Type> getAllTypes() throws Exception {
 		List<Type> listTypeDTO = new ArrayList<Type>();
 		for(SaleType e: _saleTypeService.getAll()){
 			listTypeDTO.add(_toTypeDTO(e));
@@ -58,28 +58,26 @@ public class TypeResourceImpl extends BaseTypeResourceImpl {
 	@Path("/type/{typeId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Type")})
-	public Type getType(
+	public Type getTypeById(
 			@NotNull @Parameter(hidden = true) @PathParam("typeId") Integer
 					typeId)
 			throws Exception {
-
 		SaleType saleType = _saleTypeService.getSaleTypeByID(typeId);
-		return _toTypeDTO(saleType);
-
+		return new Type();
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/type/post' -d $'{"id": ___, "name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/type/create' -d $'{"id": ___, "name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Consumes({"application/json", "application/xml"})
 	@Override
-	@Path("/type/post")
+	@Path("/type/create")
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Type")})
-	public Type postTypePost(Type type) throws Exception {
+	public Type createType(Type type) throws Exception {
 		SaleType saleType = _saleTypeService.
 				createSaleType(
 						type.getId(),
@@ -88,7 +86,6 @@ public class TypeResourceImpl extends BaseTypeResourceImpl {
 
 		return _toTypeDTO(saleType);
 	}
-
 	/**
 	 * Invoke this method with the command line:
 	 *
@@ -100,7 +97,7 @@ public class TypeResourceImpl extends BaseTypeResourceImpl {
 	@Path("/type/delete/{typeId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Type")})
-	public void deleteTypeDeleteType(
+	public void deleteTypeById(
 			@NotNull @Parameter(hidden = true) @PathParam("typeId") Integer
 					typeId)
 			throws Exception {

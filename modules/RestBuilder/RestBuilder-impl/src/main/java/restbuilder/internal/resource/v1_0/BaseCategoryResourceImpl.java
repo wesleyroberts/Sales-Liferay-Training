@@ -75,7 +75,7 @@ public abstract class BaseCategoryResourceImpl
 	@Path("/category/all")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Category")})
-	public Page<Category> getCategoriesAllPage() throws Exception {
+	public Page<Category> getAllCategories() throws Exception {
 		return Page.of(Collections.emptyList());
 	}
 
@@ -92,7 +92,7 @@ public abstract class BaseCategoryResourceImpl
 	@Path("/category/{categoryName}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Category")})
-	public Category getCategory(
+	public Category getCategoryByName(
 			@NotNull @Parameter(hidden = true) @PathParam("categoryName") String
 				categoryName)
 		throws Exception {
@@ -113,7 +113,7 @@ public abstract class BaseCategoryResourceImpl
 	@Path("/category/{categoryId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Category")})
-	public Category getCategory(
+	public Category getCategoryById(
 			@NotNull @Parameter(hidden = true) @PathParam("categoryId") Integer
 				categoryId)
 		throws Exception {
@@ -124,15 +124,15 @@ public abstract class BaseCategoryResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/category/post' -d $'{"id": ___, "name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/category/create' -d $'{"id": ___, "name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Consumes({"application/json", "application/xml"})
 	@Override
-	@Path("/category/post")
+	@Path("/category/create")
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Category")})
-	public Category postCategoryPost(Category category) throws Exception {
+	public Category createCategory(Category category) throws Exception {
 		return new Category();
 	}
 
@@ -149,7 +149,7 @@ public abstract class BaseCategoryResourceImpl
 	@Path("/category/delete/{categoryId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Category")})
-	public void deleteCategoryDeleteCategory(
+	public void deleteCategoryById(
 			@NotNull @Parameter(hidden = true) @PathParam("categoryId") Integer
 				categoryId)
 		throws Exception {
