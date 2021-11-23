@@ -24,6 +24,7 @@ import restbuilder.resource.v1_0.TypeResource;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -44,7 +45,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	@Path("/cart/getAll")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public Page<Cart> getCartsGetAllPage() throws Exception {
+	public Page<Cart> getAllCarts() throws Exception {
 		List<Cart> cartListDTO = new ArrayList<Cart>();
 		for (SaleCart e: _saleCartService.getAllSaleCart()){
 			cartListDTO.add(_toCartDTO(e));
@@ -63,7 +64,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	@Path("/cart/{cartId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public Cart getCart(
+	public Cart getCartById(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 					cartId)
 			throws Exception {
@@ -86,7 +87,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public Cart postAddProductCartProduct(
+	public Cart addProductToCart(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 					cartId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
@@ -112,13 +113,12 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public void postRemoveProductCartProduct(
+	public void removeProductToCart(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 					cartId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
 					productId)
 			throws Exception {
-
 		_cartProductsListService.removeProductToCartList(productId,cartId);
 	}
 
@@ -133,11 +133,10 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	@Path("/cart/delete/{cartId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public void deleteCartDeleteCart(
+	public void deleteCartById(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 					cartId)
 			throws Exception {
-
 		_saleCartService.deleteSaleCartById(cartId);
 	}
 
@@ -155,12 +154,12 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		return new ProductList(){
 			{
 				try {
-					category = _categoryResource.getCategory((int) saleProduct.getCategoryId());
+					category = _categoryResource.getCategoryById((int) saleProduct.getCategoryId());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				try {
-					type = _typeResource.getType((int) saleProduct.getTypeId());
+					type = _typeResource.getTypeById((int) saleProduct.getTypeId());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
