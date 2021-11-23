@@ -20,6 +20,7 @@ import restbuilder.resource.v1_0.TypeResource;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,7 +31,6 @@ import java.util.List;
 	scope = ServiceScope.PROTOTYPE, service = ProductResource.class
 )
 public class ProductResourceImpl extends BaseProductResourceImpl {
-
 	/**
 	 * Invoke this method with the command line:
 	 *
@@ -41,14 +41,11 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 	@Path("/product/all")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
-	public Page<Product> getProductsAllPage() throws Exception {
-
+	public Page<Product> getAllProducts() throws Exception {
 		List<Product> productListDTO = new ArrayList<Product>();
-
 		for (SaleProduct e: _saleProductService.getAllSaleProducts()){
 			productListDTO.add(_toProductDTO(e));
 		}
-
 		return Page.of(productListDTO);
 	}
 
@@ -63,25 +60,26 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 	@Path("/product/{productId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
-	public Product getProduct(
+	public Product getProductById(
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
 					productId)
 			throws Exception {
+
 		return _toProductDTO( _saleProductService.getSaleProductById(productId));
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/post' -d $'{"category": ___, "id": ___, "name": ___, "price": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/create' -d $'{"category": ___, "id": ___, "name": ___, "price": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Consumes({"application/json", "application/xml"})
 	@Override
-	@Path("/product/post")
+	@Path("/product/create")
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
-	public Product postProductPost(Product product) throws Exception {
+	public Product creatProduct(Product product) throws Exception {
 		_saleProductService.createProduct(
 				product.getName(),
 				product.getPrice(),
@@ -103,7 +101,7 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 	@Path("/product/delete/{productId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
-	public void deleteProductDeleteProduct(
+	public void deleteProductById(
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
 					productId)
 			throws Exception {
@@ -114,12 +112,12 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 		return new Product(){
 			{
 				try {
-					category = _categoryResource.getCategory((int) saleProduct.getCategoryId());
+					category = _categoryResource.getCategoryById((int) saleProduct.getCategoryId());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				try {
-					type = _typeResource.getType((int) saleProduct.getTypeId());
+					type = _typeResource.getTypeById((int) saleProduct.getTypeId());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
