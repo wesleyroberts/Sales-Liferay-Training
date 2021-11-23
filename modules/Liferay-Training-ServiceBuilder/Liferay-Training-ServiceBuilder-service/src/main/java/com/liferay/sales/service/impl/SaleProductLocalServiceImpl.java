@@ -16,11 +16,17 @@ package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.sales.exception.NoSuchSaleProductException;
+import com.liferay.sales.model.SaleCategory;
 import com.liferay.sales.model.SaleProduct;
+import com.liferay.sales.model.SaleType;
+import com.liferay.sales.service.SaleCategoryService;
+import com.liferay.sales.service.SaleTypeService;
 import com.liferay.sales.service.base.SaleProductLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -55,7 +61,7 @@ public class SaleProductLocalServiceImpl
 			product.setPrice(price);
 			product.setCategoryId(categoryId);
 			product.setTypeId(typeId);
-			return saleProductPersistence.update(product);
+			return saleProductPersistence.update(applyTax(product));
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 			return null;
@@ -97,5 +103,34 @@ public class SaleProductLocalServiceImpl
 			return null;
 		}
 	}
+
+	private SaleProduct applyTax(SaleProduct product)
+	{
+		List<String> list = Arrays.asList("book","medical","food");
+		SaleType type = _saleTypeService.getSaleTypeByID(product.getTypeId());
+		SaleCategory category = _saleCategoryService.getSaleCategoryById(product.getCategoryId());
+		double SumOfTaxByType = product.getPrice() * type.getTax();
+		double SumOfTaxByCategory = product.getPrice() * category.getTax();
+
+		if(!list.contains(category.getName())) {
+			product.
+					setPrice(
+							product.getPrice() + SumOfTaxByType + SumOfTaxByCategory
+					);
+		}else{
+			product.
+					setPrice(
+							product.getPrice() + SumOfTaxByType
+					);
+		}
+
+		return product;
+
+	}
+
+	@Reference
+	SaleCategoryService _saleCategoryService;
+	@Reference
+	SaleTypeService _saleTypeService;
 
 }
