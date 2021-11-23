@@ -25,24 +25,25 @@ public interface ProductResource {
 		return new Builder();
 	}
 
-	public Page<Product> getProductsAllPage() throws Exception;
+	public Page<Product> getAllProducts() throws Exception;
 
-	public HttpInvoker.HttpResponse getProductsAllPageHttpResponse()
+	public HttpInvoker.HttpResponse getAllProductsHttpResponse()
 		throws Exception;
 
-	public Product getProduct(Integer productId) throws Exception;
+	public Product getProductById(Integer productId) throws Exception;
 
-	public HttpInvoker.HttpResponse getProductHttpResponse(Integer productId)
+	public HttpInvoker.HttpResponse getProductByIdHttpResponse(
+			Integer productId)
 		throws Exception;
 
-	public Product postProductPost(Product product) throws Exception;
+	public Product creatProduct(Product product) throws Exception;
 
-	public HttpInvoker.HttpResponse postProductPostHttpResponse(Product product)
+	public HttpInvoker.HttpResponse creatProductHttpResponse(Product product)
 		throws Exception;
 
-	public void deleteProductDeleteProduct(Integer productId) throws Exception;
+	public void deleteProductById(Integer productId) throws Exception;
 
-	public HttpInvoker.HttpResponse deleteProductDeleteProductHttpResponse(
+	public HttpInvoker.HttpResponse deleteProductByIdHttpResponse(
 			Integer productId)
 		throws Exception;
 
@@ -117,9 +118,9 @@ public interface ProductResource {
 
 	public static class ProductResourceImpl implements ProductResource {
 
-		public Page<Product> getProductsAllPage() throws Exception {
+		public Page<Product> getAllProducts() throws Exception {
 			HttpInvoker.HttpResponse httpResponse =
-				getProductsAllPageHttpResponse();
+				getAllProductsHttpResponse();
 
 			String content = httpResponse.getContent();
 
@@ -158,7 +159,7 @@ public interface ProductResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getProductsAllPageHttpResponse()
+		public HttpInvoker.HttpResponse getAllProductsHttpResponse()
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -192,8 +193,8 @@ public interface ProductResource {
 			return httpInvoker.invoke();
 		}
 
-		public Product getProduct(Integer productId) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = getProductHttpResponse(
+		public Product getProductById(Integer productId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = getProductByIdHttpResponse(
 				productId);
 
 			String content = httpResponse.getContent();
@@ -233,7 +234,7 @@ public interface ProductResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getProductHttpResponse(
+		public HttpInvoker.HttpResponse getProductByIdHttpResponse(
 				Integer productId)
 			throws Exception {
 
@@ -270,8 +271,8 @@ public interface ProductResource {
 			return httpInvoker.invoke();
 		}
 
-		public Product postProductPost(Product product) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = postProductPostHttpResponse(
+		public Product creatProduct(Product product) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = creatProductHttpResponse(
 				product);
 
 			String content = httpResponse.getContent();
@@ -311,7 +312,7 @@ public interface ProductResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse postProductPostHttpResponse(
+		public HttpInvoker.HttpResponse creatProductHttpResponse(
 				Product product)
 			throws Exception {
 
@@ -340,7 +341,7 @@ public interface ProductResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/RestBuilder/v1.0/product/post");
+					_builder._port + "/o/RestBuilder/v1.0/product/create");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -348,11 +349,9 @@ public interface ProductResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteProductDeleteProduct(Integer productId)
-			throws Exception {
-
+		public void deleteProductById(Integer productId) throws Exception {
 			HttpInvoker.HttpResponse httpResponse =
-				deleteProductDeleteProductHttpResponse(productId);
+				deleteProductByIdHttpResponse(productId);
 
 			String content = httpResponse.getContent();
 
@@ -391,7 +390,7 @@ public interface ProductResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse deleteProductDeleteProductHttpResponse(
+		public HttpInvoker.HttpResponse deleteProductByIdHttpResponse(
 				Integer productId)
 			throws Exception {
 

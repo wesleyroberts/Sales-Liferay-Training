@@ -179,27 +179,28 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testGetProductsAllPage() throws Exception {
+	public void testGetAllProducts() throws Exception {
 		Assert.assertTrue(false);
 	}
 
 	@Test
-	public void testGetProduct() throws Exception {
-		Product postProduct = testGetProduct_addProduct();
+	public void testGetProductById() throws Exception {
+		Product postProduct = testGetProductById_addProduct();
 
-		Product getProduct = productResource.getProduct(postProduct.getId());
+		Product getProduct = productResource.getProductById(
+			postProduct.getId());
 
 		assertEquals(postProduct, getProduct);
 		assertValid(getProduct);
 	}
 
-	protected Product testGetProduct_addProduct() throws Exception {
+	protected Product testGetProductById_addProduct() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGraphQLGetProduct() throws Exception {
+	public void testGraphQLGetProductById() throws Exception {
 		Product product = testGraphQLProduct_addProduct();
 
 		Assert.assertTrue(
@@ -209,18 +210,18 @@ public abstract class BaseProductResourceTestCase {
 					JSONUtil.getValueAsString(
 						invokeGraphQLQuery(
 							new GraphQLField(
-								"product",
+								"productById",
 								new HashMap<String, Object>() {
 									{
 										put("productId", product.getId());
 									}
 								},
 								getGraphQLFields())),
-						"JSONObject/data", "Object/product"))));
+						"JSONObject/data", "Object/productById"))));
 	}
 
 	@Test
-	public void testGraphQLGetProductNotFound() throws Exception {
+	public void testGraphQLGetProductByIdNotFound() throws Exception {
 		Integer irrelevantProductId = RandomTestUtil.randomInt();
 
 		Assert.assertEquals(
@@ -228,7 +229,7 @@ public abstract class BaseProductResourceTestCase {
 			JSONUtil.getValueAsString(
 				invokeGraphQLQuery(
 					new GraphQLField(
-						"product",
+						"productById",
 						new HashMap<String, Object>() {
 							{
 								put("productId", irrelevantProductId);
@@ -240,16 +241,16 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testPostProductPost() throws Exception {
+	public void testCreatProduct() throws Exception {
 		Product randomProduct = randomProduct();
 
-		Product postProduct = testPostProductPost_addProduct(randomProduct);
+		Product postProduct = testCreatProduct_addProduct(randomProduct);
 
 		assertEquals(randomProduct, postProduct);
 		assertValid(postProduct);
 	}
 
-	protected Product testPostProductPost_addProduct(Product product)
+	protected Product testCreatProduct_addProduct(Product product)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -257,19 +258,22 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteProductDeleteProduct() throws Exception {
+	public void testDeleteProductById() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Product product = testDeleteProductDeleteProduct_addProduct();
+		Product product = testDeleteProductById_addProduct();
 
 		assertHttpResponseStatusCode(
 			204,
-			productResource.deleteProductDeleteProductHttpResponse(
-				product.getId()));
+			productResource.deleteProductByIdHttpResponse(product.getId()));
+
+		assertHttpResponseStatusCode(
+			404, productResource.getProductByIdHttpResponse(product.getId()));
+
+		assertHttpResponseStatusCode(
+			404, productResource.getProductByIdHttpResponse(0));
 	}
 
-	protected Product testDeleteProductDeleteProduct_addProduct()
-		throws Exception {
-
+	protected Product testDeleteProductById_addProduct() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}

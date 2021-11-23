@@ -34,17 +34,17 @@ public interface CartResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<Cart> getCartsGetAllPage() throws Exception;
+	public Page<Cart> getAllCarts() throws Exception;
 
-	public Cart getCart(Integer cartId) throws Exception;
+	public Cart getCartById(Integer cartId) throws Exception;
 
-	public Cart postAddProductCartProduct(Integer cartId, Integer productId)
+	public Cart addProductToCart(Integer cartId, Integer productId)
 		throws Exception;
 
-	public void postRemoveProductCartProduct(Integer cartId, Integer productId)
+	public void removeProductToCart(Integer cartId, Integer productId)
 		throws Exception;
 
-	public void deleteCartDeleteCart(Integer cartId) throws Exception;
+	public void deleteCartById(Integer cartId) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

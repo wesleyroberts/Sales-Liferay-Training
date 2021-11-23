@@ -63,7 +63,7 @@ public class TypeResourceImpl extends BaseTypeResourceImpl {
 					typeId)
 			throws Exception {
 		SaleType saleType = _saleTypeService.getSaleTypeByID(typeId);
-		return new Type();
+		return _toTypeDTO(saleType);
 	}
 
 	/**

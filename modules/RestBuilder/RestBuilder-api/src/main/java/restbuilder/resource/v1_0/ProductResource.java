@@ -34,13 +34,13 @@ public interface ProductResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<Product> getProductsAllPage() throws Exception;
+	public Page<Product> getAllProducts() throws Exception;
 
-	public Product getProduct(Integer productId) throws Exception;
+	public Product getProductById(Integer productId) throws Exception;
 
-	public Product postProductPost(Product product) throws Exception;
+	public Product creatProduct(Product product) throws Exception;
 
-	public void deleteProductDeleteProduct(Integer productId) throws Exception;
+	public void deleteProductById(Integer productId) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

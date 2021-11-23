@@ -34,16 +34,15 @@ public interface CategoryResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<Category> getCategoriesAllPage() throws Exception;
+	public Page<Category> getAllCategories() throws Exception;
 
-	public Category getCategory(String categoryName) throws Exception;
+	public Category getCategoryByName(String categoryName) throws Exception;
 
-	public Category getCategory(Integer categoryId) throws Exception;
+	public Category getCategoryById(Integer categoryId) throws Exception;
 
-	public Category postCategoryPost(Category category) throws Exception;
+	public Category createCategory(Category category) throws Exception;
 
-	public void deleteCategoryDeleteCategory(Integer categoryId)
-		throws Exception;
+	public void deleteCategoryById(Integer categoryId) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

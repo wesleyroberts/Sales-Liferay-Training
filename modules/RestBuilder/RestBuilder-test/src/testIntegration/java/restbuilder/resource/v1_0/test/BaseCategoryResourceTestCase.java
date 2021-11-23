@@ -179,27 +179,27 @@ public abstract class BaseCategoryResourceTestCase {
 	}
 
 	@Test
-	public void testGetCategoriesAllPage() throws Exception {
+	public void testGetAllCategories() throws Exception {
 		Assert.assertTrue(false);
 	}
 
 	@Test
-	public void testGetCategory() throws Exception {
-		Category postCategory = testGetCategory_addCategory();
+	public void testGetCategoryByName() throws Exception {
+		Category postCategory = testGetCategoryByName_addCategory();
 
-		Category getCategory = categoryResource.getCategory(null);
+		Category getCategory = categoryResource.getCategoryByName(null);
 
 		assertEquals(postCategory, getCategory);
 		assertValid(getCategory);
 	}
 
-	protected Category testGetCategory_addCategory() throws Exception {
+	protected Category testGetCategoryByName_addCategory() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGraphQLGetCategory() throws Exception {
+	public void testGraphQLGetCategoryByName() throws Exception {
 		Category category = testGraphQLCategory_addCategory();
 
 		Assert.assertTrue(
@@ -209,18 +209,18 @@ public abstract class BaseCategoryResourceTestCase {
 					JSONUtil.getValueAsString(
 						invokeGraphQLQuery(
 							new GraphQLField(
-								"category",
+								"categoryByName",
 								new HashMap<String, Object>() {
 									{
 										put("categoryName", null);
 									}
 								},
 								getGraphQLFields())),
-						"JSONObject/data", "Object/category"))));
+						"JSONObject/data", "Object/categoryByName"))));
 	}
 
 	@Test
-	public void testGraphQLGetCategoryNotFound() throws Exception {
+	public void testGraphQLGetCategoryByNameNotFound() throws Exception {
 		String irrelevantCategoryName =
 			"\"" + RandomTestUtil.randomString() + "\"";
 
@@ -229,7 +229,7 @@ public abstract class BaseCategoryResourceTestCase {
 			JSONUtil.getValueAsString(
 				invokeGraphQLQuery(
 					new GraphQLField(
-						"category",
+						"categoryByName",
 						new HashMap<String, Object>() {
 							{
 								put("categoryName", irrelevantCategoryName);
@@ -241,23 +241,23 @@ public abstract class BaseCategoryResourceTestCase {
 	}
 
 	@Test
-	public void testGetCategory() throws Exception {
-		Category postCategory = testGetCategory_addCategory();
+	public void testGetCategoryById() throws Exception {
+		Category postCategory = testGetCategoryById_addCategory();
 
-		Category getCategory = categoryResource.getCategory(
+		Category getCategory = categoryResource.getCategoryById(
 			postCategory.getId());
 
 		assertEquals(postCategory, getCategory);
 		assertValid(getCategory);
 	}
 
-	protected Category testGetCategory_addCategory() throws Exception {
+	protected Category testGetCategoryById_addCategory() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGraphQLGetCategory() throws Exception {
+	public void testGraphQLGetCategoryById() throws Exception {
 		Category category = testGraphQLCategory_addCategory();
 
 		Assert.assertTrue(
@@ -267,18 +267,18 @@ public abstract class BaseCategoryResourceTestCase {
 					JSONUtil.getValueAsString(
 						invokeGraphQLQuery(
 							new GraphQLField(
-								"category",
+								"categoryById",
 								new HashMap<String, Object>() {
 									{
 										put("categoryId", category.getId());
 									}
 								},
 								getGraphQLFields())),
-						"JSONObject/data", "Object/category"))));
+						"JSONObject/data", "Object/categoryById"))));
 	}
 
 	@Test
-	public void testGraphQLGetCategoryNotFound() throws Exception {
+	public void testGraphQLGetCategoryByIdNotFound() throws Exception {
 		Integer irrelevantCategoryId = RandomTestUtil.randomInt();
 
 		Assert.assertEquals(
@@ -286,7 +286,7 @@ public abstract class BaseCategoryResourceTestCase {
 			JSONUtil.getValueAsString(
 				invokeGraphQLQuery(
 					new GraphQLField(
-						"category",
+						"categoryById",
 						new HashMap<String, Object>() {
 							{
 								put("categoryId", irrelevantCategoryId);
@@ -298,17 +298,16 @@ public abstract class BaseCategoryResourceTestCase {
 	}
 
 	@Test
-	public void testPostCategoryPost() throws Exception {
+	public void testCreateCategory() throws Exception {
 		Category randomCategory = randomCategory();
 
-		Category postCategory = testPostCategoryPost_addCategory(
-			randomCategory);
+		Category postCategory = testCreateCategory_addCategory(randomCategory);
 
 		assertEquals(randomCategory, postCategory);
 		assertValid(postCategory);
 	}
 
-	protected Category testPostCategoryPost_addCategory(Category category)
+	protected Category testCreateCategory_addCategory(Category category)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -316,19 +315,23 @@ public abstract class BaseCategoryResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteCategoryDeleteCategory() throws Exception {
+	public void testDeleteCategoryById() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Category category = testDeleteCategoryDeleteCategory_addCategory();
+		Category category = testDeleteCategoryById_addCategory();
 
 		assertHttpResponseStatusCode(
 			204,
-			categoryResource.deleteCategoryDeleteCategoryHttpResponse(
-				category.getId()));
+			categoryResource.deleteCategoryByIdHttpResponse(category.getId()));
+
+		assertHttpResponseStatusCode(
+			404,
+			categoryResource.getCategoryByIdHttpResponse(category.getId()));
+
+		assertHttpResponseStatusCode(
+			404, categoryResource.getCategoryByIdHttpResponse(0));
 	}
 
-	protected Category testDeleteCategoryDeleteCategory_addCategory()
-		throws Exception {
-
+	protected Category testDeleteCategoryById_addCategory() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}

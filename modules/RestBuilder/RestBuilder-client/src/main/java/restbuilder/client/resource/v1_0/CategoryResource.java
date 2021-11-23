@@ -25,31 +25,32 @@ public interface CategoryResource {
 		return new Builder();
 	}
 
-	public Page<Category> getCategoriesAllPage() throws Exception;
+	public Page<Category> getAllCategories() throws Exception;
 
-	public HttpInvoker.HttpResponse getCategoriesAllPageHttpResponse()
+	public HttpInvoker.HttpResponse getAllCategoriesHttpResponse()
 		throws Exception;
 
-	public Category getCategory(String categoryName) throws Exception;
+	public Category getCategoryByName(String categoryName) throws Exception;
 
-	public HttpInvoker.HttpResponse getCategoryHttpResponse(String categoryName)
+	public HttpInvoker.HttpResponse getCategoryByNameHttpResponse(
+			String categoryName)
 		throws Exception;
 
-	public Category getCategory(Integer categoryId) throws Exception;
+	public Category getCategoryById(Integer categoryId) throws Exception;
 
-	public HttpInvoker.HttpResponse getCategoryHttpResponse(Integer categoryId)
+	public HttpInvoker.HttpResponse getCategoryByIdHttpResponse(
+			Integer categoryId)
 		throws Exception;
 
-	public Category postCategoryPost(Category category) throws Exception;
+	public Category createCategory(Category category) throws Exception;
 
-	public HttpInvoker.HttpResponse postCategoryPostHttpResponse(
+	public HttpInvoker.HttpResponse createCategoryHttpResponse(
 			Category category)
 		throws Exception;
 
-	public void deleteCategoryDeleteCategory(Integer categoryId)
-		throws Exception;
+	public void deleteCategoryById(Integer categoryId) throws Exception;
 
-	public HttpInvoker.HttpResponse deleteCategoryDeleteCategoryHttpResponse(
+	public HttpInvoker.HttpResponse deleteCategoryByIdHttpResponse(
 			Integer categoryId)
 		throws Exception;
 
@@ -124,9 +125,9 @@ public interface CategoryResource {
 
 	public static class CategoryResourceImpl implements CategoryResource {
 
-		public Page<Category> getCategoriesAllPage() throws Exception {
+		public Page<Category> getAllCategories() throws Exception {
 			HttpInvoker.HttpResponse httpResponse =
-				getCategoriesAllPageHttpResponse();
+				getAllCategoriesHttpResponse();
 
 			String content = httpResponse.getContent();
 
@@ -165,7 +166,7 @@ public interface CategoryResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getCategoriesAllPageHttpResponse()
+		public HttpInvoker.HttpResponse getAllCategoriesHttpResponse()
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -199,9 +200,11 @@ public interface CategoryResource {
 			return httpInvoker.invoke();
 		}
 
-		public Category getCategory(String categoryName) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = getCategoryHttpResponse(
-				categoryName);
+		public Category getCategoryByName(String categoryName)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getCategoryByNameHttpResponse(categoryName);
 
 			String content = httpResponse.getContent();
 
@@ -240,7 +243,7 @@ public interface CategoryResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getCategoryHttpResponse(
+		public HttpInvoker.HttpResponse getCategoryByNameHttpResponse(
 				String categoryName)
 			throws Exception {
 
@@ -278,8 +281,8 @@ public interface CategoryResource {
 			return httpInvoker.invoke();
 		}
 
-		public Category getCategory(Integer categoryId) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = getCategoryHttpResponse(
+		public Category getCategoryById(Integer categoryId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = getCategoryByIdHttpResponse(
 				categoryId);
 
 			String content = httpResponse.getContent();
@@ -319,7 +322,7 @@ public interface CategoryResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getCategoryHttpResponse(
+		public HttpInvoker.HttpResponse getCategoryByIdHttpResponse(
 				Integer categoryId)
 			throws Exception {
 
@@ -357,9 +360,9 @@ public interface CategoryResource {
 			return httpInvoker.invoke();
 		}
 
-		public Category postCategoryPost(Category category) throws Exception {
-			HttpInvoker.HttpResponse httpResponse =
-				postCategoryPostHttpResponse(category);
+		public Category createCategory(Category category) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = createCategoryHttpResponse(
+				category);
 
 			String content = httpResponse.getContent();
 
@@ -398,7 +401,7 @@ public interface CategoryResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse postCategoryPostHttpResponse(
+		public HttpInvoker.HttpResponse createCategoryHttpResponse(
 				Category category)
 			throws Exception {
 
@@ -427,7 +430,7 @@ public interface CategoryResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/RestBuilder/v1.0/category/post");
+					_builder._port + "/o/RestBuilder/v1.0/category/create");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -435,11 +438,9 @@ public interface CategoryResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteCategoryDeleteCategory(Integer categoryId)
-			throws Exception {
-
+		public void deleteCategoryById(Integer categoryId) throws Exception {
 			HttpInvoker.HttpResponse httpResponse =
-				deleteCategoryDeleteCategoryHttpResponse(categoryId);
+				deleteCategoryByIdHttpResponse(categoryId);
 
 			String content = httpResponse.getContent();
 
@@ -478,8 +479,8 @@ public interface CategoryResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse
-				deleteCategoryDeleteCategoryHttpResponse(Integer categoryId)
+		public HttpInvoker.HttpResponse deleteCategoryByIdHttpResponse(
+				Integer categoryId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();

@@ -174,27 +174,27 @@ public abstract class BaseCartResourceTestCase {
 	}
 
 	@Test
-	public void testGetCartsGetAllPage() throws Exception {
+	public void testGetAllCarts() throws Exception {
 		Assert.assertTrue(false);
 	}
 
 	@Test
-	public void testGetCart() throws Exception {
-		Cart postCart = testGetCart_addCart();
+	public void testGetCartById() throws Exception {
+		Cart postCart = testGetCartById_addCart();
 
-		Cart getCart = cartResource.getCart(postCart.getId());
+		Cart getCart = cartResource.getCartById(postCart.getId());
 
 		assertEquals(postCart, getCart);
 		assertValid(getCart);
 	}
 
-	protected Cart testGetCart_addCart() throws Exception {
+	protected Cart testGetCartById_addCart() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGraphQLGetCart() throws Exception {
+	public void testGraphQLGetCartById() throws Exception {
 		Cart cart = testGraphQLCart_addCart();
 
 		Assert.assertTrue(
@@ -204,18 +204,18 @@ public abstract class BaseCartResourceTestCase {
 					JSONUtil.getValueAsString(
 						invokeGraphQLQuery(
 							new GraphQLField(
-								"cart",
+								"cartById",
 								new HashMap<String, Object>() {
 									{
 										put("cartId", cart.getId());
 									}
 								},
 								getGraphQLFields())),
-						"JSONObject/data", "Object/cart"))));
+						"JSONObject/data", "Object/cartById"))));
 	}
 
 	@Test
-	public void testGraphQLGetCartNotFound() throws Exception {
+	public void testGraphQLGetCartByIdNotFound() throws Exception {
 		Integer irrelevantCartId = RandomTestUtil.randomInt();
 
 		Assert.assertEquals(
@@ -223,7 +223,7 @@ public abstract class BaseCartResourceTestCase {
 			JSONUtil.getValueAsString(
 				invokeGraphQLQuery(
 					new GraphQLField(
-						"cart",
+						"cartById",
 						new HashMap<String, Object>() {
 							{
 								put("cartId", irrelevantCartId);
@@ -235,52 +235,54 @@ public abstract class BaseCartResourceTestCase {
 	}
 
 	@Test
-	public void testPostAddProductCartProduct() throws Exception {
+	public void testAddProductToCart() throws Exception {
 		Cart randomCart = randomCart();
 
-		Cart postCart = testPostAddProductCartProduct_addCart(randomCart);
+		Cart postCart = testAddProductToCart_addCart(randomCart);
 
 		assertEquals(randomCart, postCart);
 		assertValid(postCart);
 	}
 
-	protected Cart testPostAddProductCartProduct_addCart(Cart cart)
-		throws Exception {
-
+	protected Cart testAddProductToCart_addCart(Cart cart) throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testPostRemoveProductCartProduct() throws Exception {
+	public void testRemoveProductToCart() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Cart cart = testPostRemoveProductCartProduct_addCart();
+		Cart cart = testRemoveProductToCart_addCart();
 
 		assertHttpResponseStatusCode(
 			204,
-			cartResource.postRemoveProductCartProductHttpResponse(
-				cart.getId(), null));
+			cartResource.removeProductToCartHttpResponse(cart.getId(), null));
 
 		assertHttpResponseStatusCode(
-			404,
-			cartResource.postRemoveProductCartProductHttpResponse(0, null));
+			404, cartResource.removeProductToCartHttpResponse(0, null));
 	}
 
-	protected Cart testPostRemoveProductCartProduct_addCart() throws Exception {
+	protected Cart testRemoveProductToCart_addCart() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testDeleteCartDeleteCart() throws Exception {
+	public void testDeleteCartById() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Cart cart = testDeleteCartDeleteCart_addCart();
+		Cart cart = testDeleteCartById_addCart();
 
 		assertHttpResponseStatusCode(
-			204, cartResource.deleteCartDeleteCartHttpResponse(cart.getId()));
+			204, cartResource.deleteCartByIdHttpResponse(cart.getId()));
+
+		assertHttpResponseStatusCode(
+			404, cartResource.getCartByIdHttpResponse(cart.getId()));
+
+		assertHttpResponseStatusCode(
+			404, cartResource.getCartByIdHttpResponse(0));
 	}
 
-	protected Cart testDeleteCartDeleteCart_addCart() throws Exception {
+	protected Cart testDeleteCartById_addCart() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}

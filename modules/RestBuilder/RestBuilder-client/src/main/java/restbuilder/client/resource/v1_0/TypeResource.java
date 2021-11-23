@@ -25,25 +25,23 @@ public interface TypeResource {
 		return new Builder();
 	}
 
-	public Page<Type> getTypesAllPage() throws Exception;
+	public Page<Type> getAllTypes() throws Exception;
 
-	public HttpInvoker.HttpResponse getTypesAllPageHttpResponse()
+	public HttpInvoker.HttpResponse getAllTypesHttpResponse() throws Exception;
+
+	public Type getTypeById(Integer typeId) throws Exception;
+
+	public HttpInvoker.HttpResponse getTypeByIdHttpResponse(Integer typeId)
 		throws Exception;
 
-	public Type getType(Integer typeId) throws Exception;
+	public Type createType(Type type) throws Exception;
 
-	public HttpInvoker.HttpResponse getTypeHttpResponse(Integer typeId)
+	public HttpInvoker.HttpResponse createTypeHttpResponse(Type type)
 		throws Exception;
 
-	public Type postTypePost(Type type) throws Exception;
+	public void deleteTypeById(Integer typeId) throws Exception;
 
-	public HttpInvoker.HttpResponse postTypePostHttpResponse(Type type)
-		throws Exception;
-
-	public void deleteTypeDeleteType(Integer typeId) throws Exception;
-
-	public HttpInvoker.HttpResponse deleteTypeDeleteTypeHttpResponse(
-			Integer typeId)
+	public HttpInvoker.HttpResponse deleteTypeByIdHttpResponse(Integer typeId)
 		throws Exception;
 
 	public static class Builder {
@@ -117,9 +115,8 @@ public interface TypeResource {
 
 	public static class TypeResourceImpl implements TypeResource {
 
-		public Page<Type> getTypesAllPage() throws Exception {
-			HttpInvoker.HttpResponse httpResponse =
-				getTypesAllPageHttpResponse();
+		public Page<Type> getAllTypes() throws Exception {
+			HttpInvoker.HttpResponse httpResponse = getAllTypesHttpResponse();
 
 			String content = httpResponse.getContent();
 
@@ -158,7 +155,7 @@ public interface TypeResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getTypesAllPageHttpResponse()
+		public HttpInvoker.HttpResponse getAllTypesHttpResponse()
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -192,8 +189,9 @@ public interface TypeResource {
 			return httpInvoker.invoke();
 		}
 
-		public Type getType(Integer typeId) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = getTypeHttpResponse(typeId);
+		public Type getTypeById(Integer typeId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = getTypeByIdHttpResponse(
+				typeId);
 
 			String content = httpResponse.getContent();
 
@@ -232,7 +230,7 @@ public interface TypeResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getTypeHttpResponse(Integer typeId)
+		public HttpInvoker.HttpResponse getTypeByIdHttpResponse(Integer typeId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -268,8 +266,8 @@ public interface TypeResource {
 			return httpInvoker.invoke();
 		}
 
-		public Type postTypePost(Type type) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = postTypePostHttpResponse(
+		public Type createType(Type type) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = createTypeHttpResponse(
 				type);
 
 			String content = httpResponse.getContent();
@@ -309,7 +307,7 @@ public interface TypeResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse postTypePostHttpResponse(Type type)
+		public HttpInvoker.HttpResponse createTypeHttpResponse(Type type)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -337,7 +335,7 @@ public interface TypeResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/RestBuilder/v1.0/type/post");
+					_builder._port + "/o/RestBuilder/v1.0/type/create");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -345,9 +343,9 @@ public interface TypeResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteTypeDeleteType(Integer typeId) throws Exception {
-			HttpInvoker.HttpResponse httpResponse =
-				deleteTypeDeleteTypeHttpResponse(typeId);
+		public void deleteTypeById(Integer typeId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = deleteTypeByIdHttpResponse(
+				typeId);
 
 			String content = httpResponse.getContent();
 
@@ -386,7 +384,7 @@ public interface TypeResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse deleteTypeDeleteTypeHttpResponse(
+		public HttpInvoker.HttpResponse deleteTypeByIdHttpResponse(
 				Integer typeId)
 			throws Exception {
 

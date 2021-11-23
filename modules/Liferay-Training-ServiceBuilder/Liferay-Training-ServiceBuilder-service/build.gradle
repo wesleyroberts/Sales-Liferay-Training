@@ -8,6 +8,7 @@ dependencies {
 
 buildService {
 	apiDir = "../Liferay-Training-ServiceBuilder-api/src/main/java"
+	testDir = "../Liferay-Training-ServiceBuilder-test/src/testIntegration/java"
 }
 
 group = "SalesTaxes"

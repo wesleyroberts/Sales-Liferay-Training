@@ -178,27 +178,27 @@ public abstract class BaseTypeResourceTestCase {
 	}
 
 	@Test
-	public void testGetTypesAllPage() throws Exception {
+	public void testGetAllTypes() throws Exception {
 		Assert.assertTrue(false);
 	}
 
 	@Test
-	public void testGetType() throws Exception {
-		Type postType = testGetType_addType();
+	public void testGetTypeById() throws Exception {
+		Type postType = testGetTypeById_addType();
 
-		Type getType = typeResource.getType(postType.getId());
+		Type getType = typeResource.getTypeById(postType.getId());
 
 		assertEquals(postType, getType);
 		assertValid(getType);
 	}
 
-	protected Type testGetType_addType() throws Exception {
+	protected Type testGetTypeById_addType() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGraphQLGetType() throws Exception {
+	public void testGraphQLGetTypeById() throws Exception {
 		Type type = testGraphQLType_addType();
 
 		Assert.assertTrue(
@@ -208,18 +208,18 @@ public abstract class BaseTypeResourceTestCase {
 					JSONUtil.getValueAsString(
 						invokeGraphQLQuery(
 							new GraphQLField(
-								"type",
+								"typeById",
 								new HashMap<String, Object>() {
 									{
 										put("typeId", type.getId());
 									}
 								},
 								getGraphQLFields())),
-						"JSONObject/data", "Object/type"))));
+						"JSONObject/data", "Object/typeById"))));
 	}
 
 	@Test
-	public void testGraphQLGetTypeNotFound() throws Exception {
+	public void testGraphQLGetTypeByIdNotFound() throws Exception {
 		Integer irrelevantTypeId = RandomTestUtil.randomInt();
 
 		Assert.assertEquals(
@@ -227,7 +227,7 @@ public abstract class BaseTypeResourceTestCase {
 			JSONUtil.getValueAsString(
 				invokeGraphQLQuery(
 					new GraphQLField(
-						"type",
+						"typeById",
 						new HashMap<String, Object>() {
 							{
 								put("typeId", irrelevantTypeId);
@@ -239,30 +239,36 @@ public abstract class BaseTypeResourceTestCase {
 	}
 
 	@Test
-	public void testPostTypePost() throws Exception {
+	public void testCreateType() throws Exception {
 		Type randomType = randomType();
 
-		Type postType = testPostTypePost_addType(randomType);
+		Type postType = testCreateType_addType(randomType);
 
 		assertEquals(randomType, postType);
 		assertValid(postType);
 	}
 
-	protected Type testPostTypePost_addType(Type type) throws Exception {
+	protected Type testCreateType_addType(Type type) throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testDeleteTypeDeleteType() throws Exception {
+	public void testDeleteTypeById() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Type type = testDeleteTypeDeleteType_addType();
+		Type type = testDeleteTypeById_addType();
 
 		assertHttpResponseStatusCode(
-			204, typeResource.deleteTypeDeleteTypeHttpResponse(type.getId()));
+			204, typeResource.deleteTypeByIdHttpResponse(type.getId()));
+
+		assertHttpResponseStatusCode(
+			404, typeResource.getTypeByIdHttpResponse(type.getId()));
+
+		assertHttpResponseStatusCode(
+			404, typeResource.getTypeByIdHttpResponse(0));
 	}
 
-	protected Type testDeleteTypeDeleteType_addType() throws Exception {
+	protected Type testDeleteTypeById_addType() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}

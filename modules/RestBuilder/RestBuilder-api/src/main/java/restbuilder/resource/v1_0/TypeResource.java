@@ -34,13 +34,13 @@ public interface TypeResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<Type> getTypesAllPage() throws Exception;
+	public Page<Type> getAllTypes() throws Exception;
 
-	public Type getType(Integer typeId) throws Exception;
+	public Type getTypeById(Integer typeId) throws Exception;
 
-	public Type postTypePost(Type type) throws Exception;
+	public Type createType(Type type) throws Exception;
 
-	public void deleteTypeDeleteType(Integer typeId) throws Exception;
+	public void deleteTypeById(Integer typeId) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

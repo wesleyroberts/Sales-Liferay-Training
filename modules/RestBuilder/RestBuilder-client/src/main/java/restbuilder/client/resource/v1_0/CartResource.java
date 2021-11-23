@@ -25,34 +25,32 @@ public interface CartResource {
 		return new Builder();
 	}
 
-	public Page<Cart> getCartsGetAllPage() throws Exception;
+	public Page<Cart> getAllCarts() throws Exception;
 
-	public HttpInvoker.HttpResponse getCartsGetAllPageHttpResponse()
+	public HttpInvoker.HttpResponse getAllCartsHttpResponse() throws Exception;
+
+	public Cart getCartById(Integer cartId) throws Exception;
+
+	public HttpInvoker.HttpResponse getCartByIdHttpResponse(Integer cartId)
 		throws Exception;
 
-	public Cart getCart(Integer cartId) throws Exception;
-
-	public HttpInvoker.HttpResponse getCartHttpResponse(Integer cartId)
+	public Cart addProductToCart(Integer cartId, Integer productId)
 		throws Exception;
 
-	public Cart postAddProductCartProduct(Integer cartId, Integer productId)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse postAddProductCartProductHttpResponse(
+	public HttpInvoker.HttpResponse addProductToCartHttpResponse(
 			Integer cartId, Integer productId)
 		throws Exception;
 
-	public void postRemoveProductCartProduct(Integer cartId, Integer productId)
+	public void removeProductToCart(Integer cartId, Integer productId)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse postRemoveProductCartProductHttpResponse(
+	public HttpInvoker.HttpResponse removeProductToCartHttpResponse(
 			Integer cartId, Integer productId)
 		throws Exception;
 
-	public void deleteCartDeleteCart(Integer cartId) throws Exception;
+	public void deleteCartById(Integer cartId) throws Exception;
 
-	public HttpInvoker.HttpResponse deleteCartDeleteCartHttpResponse(
-			Integer cartId)
+	public HttpInvoker.HttpResponse deleteCartByIdHttpResponse(Integer cartId)
 		throws Exception;
 
 	public static class Builder {
@@ -126,9 +124,8 @@ public interface CartResource {
 
 	public static class CartResourceImpl implements CartResource {
 
-		public Page<Cart> getCartsGetAllPage() throws Exception {
-			HttpInvoker.HttpResponse httpResponse =
-				getCartsGetAllPageHttpResponse();
+		public Page<Cart> getAllCarts() throws Exception {
+			HttpInvoker.HttpResponse httpResponse = getAllCartsHttpResponse();
 
 			String content = httpResponse.getContent();
 
@@ -167,7 +164,7 @@ public interface CartResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getCartsGetAllPageHttpResponse()
+		public HttpInvoker.HttpResponse getAllCartsHttpResponse()
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -201,8 +198,9 @@ public interface CartResource {
 			return httpInvoker.invoke();
 		}
 
-		public Cart getCart(Integer cartId) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = getCartHttpResponse(cartId);
+		public Cart getCartById(Integer cartId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = getCartByIdHttpResponse(
+				cartId);
 
 			String content = httpResponse.getContent();
 
@@ -241,7 +239,7 @@ public interface CartResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getCartHttpResponse(Integer cartId)
+		public HttpInvoker.HttpResponse getCartByIdHttpResponse(Integer cartId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -277,11 +275,11 @@ public interface CartResource {
 			return httpInvoker.invoke();
 		}
 
-		public Cart postAddProductCartProduct(Integer cartId, Integer productId)
+		public Cart addProductToCart(Integer cartId, Integer productId)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postAddProductCartProductHttpResponse(cartId, productId);
+				addProductToCartHttpResponse(cartId, productId);
 
 			String content = httpResponse.getContent();
 
@@ -320,7 +318,7 @@ public interface CartResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse postAddProductCartProductHttpResponse(
+		public HttpInvoker.HttpResponse addProductToCartHttpResponse(
 				Integer cartId, Integer productId)
 			throws Exception {
 
@@ -361,12 +359,11 @@ public interface CartResource {
 			return httpInvoker.invoke();
 		}
 
-		public void postRemoveProductCartProduct(
-				Integer cartId, Integer productId)
+		public void removeProductToCart(Integer cartId, Integer productId)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postRemoveProductCartProductHttpResponse(cartId, productId);
+				removeProductToCartHttpResponse(cartId, productId);
 
 			String content = httpResponse.getContent();
 
@@ -405,9 +402,8 @@ public interface CartResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse
-				postRemoveProductCartProductHttpResponse(
-					Integer cartId, Integer productId)
+		public HttpInvoker.HttpResponse removeProductToCartHttpResponse(
+				Integer cartId, Integer productId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -447,9 +443,9 @@ public interface CartResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteCartDeleteCart(Integer cartId) throws Exception {
-			HttpInvoker.HttpResponse httpResponse =
-				deleteCartDeleteCartHttpResponse(cartId);
+		public void deleteCartById(Integer cartId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = deleteCartByIdHttpResponse(
+				cartId);
 
 			String content = httpResponse.getContent();
 
@@ -488,7 +484,7 @@ public interface CartResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse deleteCartDeleteCartHttpResponse(
+		public HttpInvoker.HttpResponse deleteCartByIdHttpResponse(
 				Integer cartId)
 			throws Exception {
 
