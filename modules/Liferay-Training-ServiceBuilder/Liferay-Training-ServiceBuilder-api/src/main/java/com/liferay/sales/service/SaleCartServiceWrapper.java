@@ -52,6 +52,11 @@ public class SaleCartServiceWrapper
 		return _saleCartService.getAllSaleCart();
 	}
 
+	@Override
+	public Double getFinalValue(long cartId) {
+		return _saleCartService.getFinalValue(cartId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

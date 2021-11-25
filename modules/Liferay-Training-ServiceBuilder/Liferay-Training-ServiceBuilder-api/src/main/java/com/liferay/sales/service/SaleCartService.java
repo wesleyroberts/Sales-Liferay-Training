@@ -60,6 +60,9 @@ public interface SaleCartService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<SaleCart> getAllSaleCart();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Double getFinalValue(long cartId);
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

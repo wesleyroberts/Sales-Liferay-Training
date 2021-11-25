@@ -221,6 +221,10 @@ public class SaleCartLocalServiceUtil {
 		return getService().getAllSaleCart();
 	}
 
+	public static Double getFinalValue(long cartId) {
+		return getService().getFinalValue(cartId);
+	}
+
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {

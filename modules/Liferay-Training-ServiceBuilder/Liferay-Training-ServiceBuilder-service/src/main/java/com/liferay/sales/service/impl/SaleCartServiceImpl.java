@@ -65,6 +65,10 @@ public class SaleCartServiceImpl extends SaleCartServiceBaseImpl {
 		return saleCartLocalService.removeProductPriceToCartTotalValue(price,cartId);
 	}
 
+	public Double getFinalValue(long cartId){
+		return saleCartLocalService.getFinalValue(cartId);
+	}
+
 	public SaleCart createSaleCartById(long id){
 		return saleCartLocalService.createSaleCartById(id);
 	}

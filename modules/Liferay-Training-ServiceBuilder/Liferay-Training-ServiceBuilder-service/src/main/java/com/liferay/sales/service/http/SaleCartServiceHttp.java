@@ -179,13 +179,44 @@ public class SaleCartServiceHttp {
 		}
 	}
 
+	public static Double getFinalValue(
+		HttpPrincipal httpPrincipal, long cartId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleCartServiceUtil.class, "getFinalValue",
+				_getFinalValueParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, cartId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (Double)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static com.liferay.sales.model.SaleCart createSaleCartById(
 		HttpPrincipal httpPrincipal, long id) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				SaleCartServiceUtil.class, "createSaleCartById",
-				_createSaleCartByIdParameterTypes4);
+				_createSaleCartByIdParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, id);
 
@@ -216,7 +247,7 @@ public class SaleCartServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				SaleCartServiceUtil.class, "deleteSaleCartById",
-				_deleteSaleCartByIdParameterTypes5);
+				_deleteSaleCartByIdParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, id);
 
@@ -251,9 +282,11 @@ public class SaleCartServiceHttp {
 		_removeProductPriceToCartTotalValueParameterTypes3 = new Class[] {
 			double.class, long.class
 		};
-	private static final Class<?>[] _createSaleCartByIdParameterTypes4 =
+	private static final Class<?>[] _getFinalValueParameterTypes4 =
 		new Class[] {long.class};
-	private static final Class<?>[] _deleteSaleCartByIdParameterTypes5 =
+	private static final Class<?>[] _createSaleCartByIdParameterTypes5 =
+		new Class[] {long.class};
+	private static final Class<?>[] _deleteSaleCartByIdParameterTypes6 =
 		new Class[] {long.class};
 
 }

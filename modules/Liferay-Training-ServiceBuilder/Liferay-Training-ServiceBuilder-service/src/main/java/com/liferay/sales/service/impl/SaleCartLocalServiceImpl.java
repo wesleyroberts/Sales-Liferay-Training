@@ -70,6 +70,17 @@ public class SaleCartLocalServiceImpl extends SaleCartLocalServiceBaseImpl {
 		return saleCartPersistence.update(cart);
 	}
 
+	public Double getFinalValue(long cartId){
+		try {
+			return saleCartPersistence.findByPrimaryKey(cartId).getTotalPrice();
+		} catch (NoSuchSaleCartException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+
 	public SaleCart createSaleCartById(long id){
 		return saleCartPersistence.update(saleCartPersistence.create(id));
 	}

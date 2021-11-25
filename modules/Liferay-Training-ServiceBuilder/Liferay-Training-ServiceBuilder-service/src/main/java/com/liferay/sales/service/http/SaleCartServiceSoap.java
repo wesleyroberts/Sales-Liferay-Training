@@ -135,6 +135,19 @@ public class SaleCartServiceSoap {
 		}
 	}
 
+	public static Double getFinalValue(long cartId) throws RemoteException {
+		try {
+			Double returnValue = SaleCartServiceUtil.getFinalValue(cartId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.sales.model.SaleCartSoap createSaleCartById(
 			long id)
 		throws RemoteException {

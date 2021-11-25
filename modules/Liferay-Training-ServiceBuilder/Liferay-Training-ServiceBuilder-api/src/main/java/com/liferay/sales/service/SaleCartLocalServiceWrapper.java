@@ -243,6 +243,11 @@ public class SaleCartLocalServiceWrapper
 	}
 
 	@Override
+	public Double getFinalValue(long cartId) {
+		return _saleCartLocalService.getFinalValue(cartId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 

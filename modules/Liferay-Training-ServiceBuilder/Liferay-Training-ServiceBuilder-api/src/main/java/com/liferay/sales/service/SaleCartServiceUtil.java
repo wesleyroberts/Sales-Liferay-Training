@@ -55,6 +55,10 @@ public class SaleCartServiceUtil {
 		return getService().getAllSaleCart();
 	}
 
+	public static Double getFinalValue(long cartId) {
+		return getService().getFinalValue(cartId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
