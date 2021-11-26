@@ -13,28 +13,25 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
-
-import restbuilder.dto.v1_0.Cart;
+import restbuilder.dto.v1_0.CartOutput;
 import restbuilder.dto.v1_0.ProductList;
-import restbuilder.resource.v1_0.CartResource;
+import restbuilder.resource.v1_0.CartOutputResource;
 import restbuilder.resource.v1_0.CategoryResource;
-import restbuilder.resource.v1_0.ProductResource;
 import restbuilder.resource.v1_0.TypeResource;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
  * @author Wesley Roberts
  */
 @Component(
-	properties = "OSGI-INF/liferay/rest/v1_0/cart.properties",
-	scope = ServiceScope.PROTOTYPE, service = CartResource.class
+	properties = "OSGI-INF/liferay/rest/v1_0/cart-output.properties",
+	scope = ServiceScope.PROTOTYPE, service = CartOutputResource.class
 )
-public class CartResourceImpl extends BaseCartResourceImpl {
+public class CartOutputResourceImpl extends BaseCartOutputResourceImpl {
 	/**
 	 * Invoke this method with the command line:
 	 *
@@ -44,9 +41,9 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	@Override
 	@Path("/cart/getAll")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Page<Cart> getAllCarts() throws Exception {
-		List<Cart> cartListDTO = new ArrayList<Cart>();
+	@Tags(value = {@Tag(name = "CartOutput")})
+	public Page<CartOutput> getAllCarts() throws Exception {
+		List<CartOutput> cartListDTO = new ArrayList<CartOutput>();
 		for (SaleCart e: _saleCartService.getAllSaleCart()){
 			cartListDTO.add(_toCartDTO(e));
 		}
@@ -63,11 +60,12 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
 	@Path("/cart/{cartId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Cart getCartById(
+	@Tags(value = {@Tag(name = "CartOutput")})
+	public CartOutput getCartById(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 					cartId)
 			throws Exception {
+
 		return  _toCartDTO(_saleCartService.getSaleCartById(cartId));
 	}
 
@@ -86,13 +84,14 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	@Path("/addProduct/carts/{cartId}/products/{productId}")
 	@POST
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Cart addProductToCart(
+	@Tags(value = {@Tag(name = "CartOutput")})
+	public CartOutput addProductToCart(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 					cartId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
 					productId)
 			throws Exception {
+
 		_cartProductsListService.addProductToCartList(productId,cartId);
 		return _toCartDTO(_saleCartService.getSaleCartById(cartId));
 	}
@@ -112,7 +111,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	@Path("/removeProduct/carts/{cartId}/products/{productId}")
 	@POST
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
+	@Tags(value = {@Tag(name = "CartOutput")})
 	public void removeProductToCart(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 					cartId,
@@ -132,7 +131,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
 	@Path("/cart/delete/{cartId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
+	@Tags(value = {@Tag(name = "CartOutput")})
 	public void deleteCartById(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 					cartId)
@@ -140,8 +139,8 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		_saleCartService.deleteSaleCartById(cartId);
 	}
 
-	private Cart _toCartDTO(SaleCart cart){
-		return new Cart(){
+	private CartOutput _toCartDTO(SaleCart cart){
+		return new CartOutput(){
 			{
 				id = (int)cart.getCartId();
 				totalValue = cart.getTotalPrice();
@@ -192,7 +191,5 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	CartProductsListService _cartProductsListService;
 	@Reference
 	SaleCartService _saleCartService;
-	@Reference
-	ProductResource _productResource;
 
 }

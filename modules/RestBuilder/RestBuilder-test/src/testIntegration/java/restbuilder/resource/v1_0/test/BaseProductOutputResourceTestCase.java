@@ -58,19 +58,19 @@ import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 
-import restbuilder.client.dto.v1_0.Product;
+import restbuilder.client.dto.v1_0.ProductOutput;
 import restbuilder.client.dto.v1_0.Type;
 import restbuilder.client.http.HttpInvoker;
 import restbuilder.client.pagination.Page;
-import restbuilder.client.resource.v1_0.ProductResource;
-import restbuilder.client.serdes.v1_0.ProductSerDes;
+import restbuilder.client.resource.v1_0.ProductOutputResource;
+import restbuilder.client.serdes.v1_0.ProductOutputSerDes;
 
 /**
  * @author Wesley Roberts
  * @generated
  */
 @Generated("")
-public abstract class BaseProductResourceTestCase {
+public abstract class BaseProductOutputResourceTestCase {
 
 	@ClassRule
 	@Rule
@@ -91,11 +91,11 @@ public abstract class BaseProductResourceTestCase {
 		testCompany = CompanyLocalServiceUtil.getCompany(
 			testGroup.getCompanyId());
 
-		_productResource.setContextCompany(testCompany);
+		_productOutputResource.setContextCompany(testCompany);
 
-		ProductResource.Builder builder = ProductResource.builder();
+		ProductOutputResource.Builder builder = ProductOutputResource.builder();
 
-		productResource = builder.authentication(
+		productOutputResource = builder.authentication(
 			"test@liferay.com", "test"
 		).locale(
 			LocaleUtil.getDefault()
@@ -126,13 +126,13 @@ public abstract class BaseProductResourceTestCase {
 			}
 		};
 
-		Product product1 = randomProduct();
+		ProductOutput productOutput1 = randomProductOutput();
 
-		String json = objectMapper.writeValueAsString(product1);
+		String json = objectMapper.writeValueAsString(productOutput1);
 
-		Product product2 = ProductSerDes.toDTO(json);
+		ProductOutput productOutput2 = ProductOutputSerDes.toDTO(json);
 
-		Assert.assertTrue(equals(product1, product2));
+		Assert.assertTrue(equals(productOutput1, productOutput2));
 	}
 
 	@Test
@@ -152,10 +152,10 @@ public abstract class BaseProductResourceTestCase {
 			}
 		};
 
-		Product product = randomProduct();
+		ProductOutput productOutput = randomProductOutput();
 
-		String json1 = objectMapper.writeValueAsString(product);
-		String json2 = ProductSerDes.toJSON(product);
+		String json1 = objectMapper.writeValueAsString(productOutput);
+		String json2 = ProductOutputSerDes.toJSON(productOutput);
 
 		Assert.assertEquals(
 			objectMapper.readTree(json1), objectMapper.readTree(json2));
@@ -165,17 +165,17 @@ public abstract class BaseProductResourceTestCase {
 	public void testEscapeRegexInStringFields() throws Exception {
 		String regex = "^[0-9]+(\\.[0-9]{1,2})\"?";
 
-		Product product = randomProduct();
+		ProductOutput productOutput = randomProductOutput();
 
-		product.setName(regex);
+		productOutput.setName(regex);
 
-		String json = ProductSerDes.toJSON(product);
+		String json = ProductOutputSerDes.toJSON(productOutput);
 
 		Assert.assertFalse(json.contains(regex));
 
-		product = ProductSerDes.toDTO(json);
+		productOutput = ProductOutputSerDes.toDTO(json);
 
-		Assert.assertEquals(regex, product.getName());
+		Assert.assertEquals(regex, productOutput.getName());
 	}
 
 	@Test
@@ -185,35 +185,38 @@ public abstract class BaseProductResourceTestCase {
 
 	@Test
 	public void testGetProductById() throws Exception {
-		Product postProduct = testGetProductById_addProduct();
+		ProductOutput postProductOutput = testGetProductById_addProductOutput();
 
-		Product getProduct = productResource.getProductById(
-			postProduct.getId());
+		ProductOutput getProductOutput = productOutputResource.getProductById(
+			null);
 
-		assertEquals(postProduct, getProduct);
-		assertValid(getProduct);
+		assertEquals(postProductOutput, getProductOutput);
+		assertValid(getProductOutput);
 	}
 
-	protected Product testGetProductById_addProduct() throws Exception {
+	protected ProductOutput testGetProductById_addProductOutput()
+		throws Exception {
+
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
 	public void testGraphQLGetProductById() throws Exception {
-		Product product = testGraphQLProduct_addProduct();
+		ProductOutput productOutput =
+			testGraphQLProductOutput_addProductOutput();
 
 		Assert.assertTrue(
 			equals(
-				product,
-				ProductSerDes.toDTO(
+				productOutput,
+				ProductOutputSerDes.toDTO(
 					JSONUtil.getValueAsString(
 						invokeGraphQLQuery(
 							new GraphQLField(
 								"productById",
 								new HashMap<String, Object>() {
 									{
-										put("productId", product.getId());
+										put("productId", null);
 									}
 								},
 								getGraphQLFields())),
@@ -241,44 +244,30 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testCreatProduct() throws Exception {
-		Product randomProduct = randomProduct();
+	public void testDeleteProductById() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		ProductOutput productOutput = testDeleteProductById_addProductOutput();
 
-		Product postProduct = testCreatProduct_addProduct(randomProduct);
+		assertHttpResponseStatusCode(
+			204, productOutputResource.deleteProductByIdHttpResponse(null));
 
-		assertEquals(randomProduct, postProduct);
-		assertValid(postProduct);
+		assertHttpResponseStatusCode(
+			404, productOutputResource.getProductByIdHttpResponse(null));
+
+		assertHttpResponseStatusCode(
+			404, productOutputResource.getProductByIdHttpResponse(null));
 	}
 
-	protected Product testCreatProduct_addProduct(Product product)
+	protected ProductOutput testDeleteProductById_addProductOutput()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	@Test
-	public void testDeleteProductById() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Product product = testDeleteProductById_addProduct();
+	protected ProductOutput testGraphQLProductOutput_addProductOutput()
+		throws Exception {
 
-		assertHttpResponseStatusCode(
-			204,
-			productResource.deleteProductByIdHttpResponse(product.getId()));
-
-		assertHttpResponseStatusCode(
-			404, productResource.getProductByIdHttpResponse(product.getId()));
-
-		assertHttpResponseStatusCode(
-			404, productResource.getProductByIdHttpResponse(0));
-	}
-
-	protected Product testDeleteProductById_addProduct() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected Product testGraphQLProduct_addProduct() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
@@ -291,35 +280,39 @@ public abstract class BaseProductResourceTestCase {
 			expectedHttpResponseStatusCode, actualHttpResponse.getStatusCode());
 	}
 
-	protected void assertEquals(Product product1, Product product2) {
+	protected void assertEquals(
+		ProductOutput productOutput1, ProductOutput productOutput2) {
+
 		Assert.assertTrue(
-			product1 + " does not equal " + product2,
-			equals(product1, product2));
+			productOutput1 + " does not equal " + productOutput2,
+			equals(productOutput1, productOutput2));
 	}
 
 	protected void assertEquals(
-		List<Product> products1, List<Product> products2) {
+		List<ProductOutput> productOutputs1,
+		List<ProductOutput> productOutputs2) {
 
-		Assert.assertEquals(products1.size(), products2.size());
+		Assert.assertEquals(productOutputs1.size(), productOutputs2.size());
 
-		for (int i = 0; i < products1.size(); i++) {
-			Product product1 = products1.get(i);
-			Product product2 = products2.get(i);
+		for (int i = 0; i < productOutputs1.size(); i++) {
+			ProductOutput productOutput1 = productOutputs1.get(i);
+			ProductOutput productOutput2 = productOutputs2.get(i);
 
-			assertEquals(product1, product2);
+			assertEquals(productOutput1, productOutput2);
 		}
 	}
 
 	protected void assertEqualsIgnoringOrder(
-		List<Product> products1, List<Product> products2) {
+		List<ProductOutput> productOutputs1,
+		List<ProductOutput> productOutputs2) {
 
-		Assert.assertEquals(products1.size(), products2.size());
+		Assert.assertEquals(productOutputs1.size(), productOutputs2.size());
 
-		for (Product product1 : products1) {
+		for (ProductOutput productOutput1 : productOutputs1) {
 			boolean contains = false;
 
-			for (Product product2 : products2) {
-				if (equals(product1, product2)) {
+			for (ProductOutput productOutput2 : productOutputs2) {
+				if (equals(productOutput1, productOutput2)) {
 					contains = true;
 
 					break;
@@ -327,14 +320,15 @@ public abstract class BaseProductResourceTestCase {
 			}
 
 			Assert.assertTrue(
-				products2 + " does not contain " + product1, contains);
+				productOutputs2 + " does not contain " + productOutput1,
+				contains);
 		}
 	}
 
-	protected void assertValid(Product product) throws Exception {
+	protected void assertValid(ProductOutput productOutput) throws Exception {
 		boolean valid = true;
 
-		if (product.getId() == null) {
+		if (productOutput.getId() == null) {
 			valid = false;
 		}
 
@@ -342,7 +336,7 @@ public abstract class BaseProductResourceTestCase {
 				getAdditionalAssertFieldNames()) {
 
 			if (Objects.equals("category", additionalAssertFieldName)) {
-				if (product.getCategory() == null) {
+				if (productOutput.getCategory() == null) {
 					valid = false;
 				}
 
@@ -350,7 +344,7 @@ public abstract class BaseProductResourceTestCase {
 			}
 
 			if (Objects.equals("name", additionalAssertFieldName)) {
-				if (product.getName() == null) {
+				if (productOutput.getName() == null) {
 					valid = false;
 				}
 
@@ -358,7 +352,7 @@ public abstract class BaseProductResourceTestCase {
 			}
 
 			if (Objects.equals("price", additionalAssertFieldName)) {
-				if (product.getPrice() == null) {
+				if (productOutput.getPrice() == null) {
 					valid = false;
 				}
 
@@ -366,7 +360,7 @@ public abstract class BaseProductResourceTestCase {
 			}
 
 			if (Objects.equals("type", additionalAssertFieldName)) {
-				if (product.getType() == null) {
+				if (productOutput.getType() == null) {
 					valid = false;
 				}
 
@@ -381,12 +375,12 @@ public abstract class BaseProductResourceTestCase {
 		Assert.assertTrue(valid);
 	}
 
-	protected void assertValid(Page<Product> page) {
+	protected void assertValid(Page<ProductOutput> page) {
 		boolean valid = false;
 
-		java.util.Collection<Product> products = page.getItems();
+		java.util.Collection<ProductOutput> productOutputs = page.getItems();
 
-		int size = products.size();
+		int size = productOutputs.size();
 
 		if ((page.getLastPage() > 0) && (page.getPage() > 0) &&
 			(page.getPageSize() > 0) && (page.getTotalCount() > 0) &&
@@ -406,7 +400,7 @@ public abstract class BaseProductResourceTestCase {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
 		for (Field field :
-				getDeclaredFields(restbuilder.dto.v1_0.Product.class)) {
+				getDeclaredFields(restbuilder.dto.v1_0.ProductOutput.class)) {
 
 			if (!ArrayUtil.contains(
 					getAdditionalAssertFieldNames(), field.getName())) {
@@ -453,8 +447,10 @@ public abstract class BaseProductResourceTestCase {
 		return new String[0];
 	}
 
-	protected boolean equals(Product product1, Product product2) {
-		if (product1 == product2) {
+	protected boolean equals(
+		ProductOutput productOutput1, ProductOutput productOutput2) {
+
+		if (productOutput1 == productOutput2) {
 			return true;
 		}
 
@@ -463,7 +459,8 @@ public abstract class BaseProductResourceTestCase {
 
 			if (Objects.equals("category", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						product1.getCategory(), product2.getCategory())) {
+						productOutput1.getCategory(),
+						productOutput2.getCategory())) {
 
 					return false;
 				}
@@ -472,7 +469,9 @@ public abstract class BaseProductResourceTestCase {
 			}
 
 			if (Objects.equals("id", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(product1.getId(), product2.getId())) {
+				if (!Objects.deepEquals(
+						productOutput1.getId(), productOutput2.getId())) {
+
 					return false;
 				}
 
@@ -481,7 +480,7 @@ public abstract class BaseProductResourceTestCase {
 
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						product1.getName(), product2.getName())) {
+						productOutput1.getName(), productOutput2.getName())) {
 
 					return false;
 				}
@@ -491,7 +490,7 @@ public abstract class BaseProductResourceTestCase {
 
 			if (Objects.equals("price", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						product1.getPrice(), product2.getPrice())) {
+						productOutput1.getPrice(), productOutput2.getPrice())) {
 
 					return false;
 				}
@@ -501,7 +500,7 @@ public abstract class BaseProductResourceTestCase {
 
 			if (Objects.equals("type", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						product1.getType(), product2.getType())) {
+						productOutput1.getType(), productOutput2.getType())) {
 
 					return false;
 				}
@@ -557,13 +556,13 @@ public abstract class BaseProductResourceTestCase {
 	protected java.util.Collection<EntityField> getEntityFields()
 		throws Exception {
 
-		if (!(_productResource instanceof EntityModelResource)) {
+		if (!(_productOutputResource instanceof EntityModelResource)) {
 			throw new UnsupportedOperationException(
 				"Resource is not an instance of EntityModelResource");
 		}
 
 		EntityModelResource entityModelResource =
-			(EntityModelResource)_productResource;
+			(EntityModelResource)_productOutputResource;
 
 		EntityModel entityModel = entityModelResource.getEntityModel(
 			new MultivaluedHashMap());
@@ -592,7 +591,7 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	protected String getFilterString(
-		EntityField entityField, String operator, Product product) {
+		EntityField entityField, String operator, ProductOutput productOutput) {
 
 		StringBundler sb = new StringBundler();
 
@@ -616,7 +615,7 @@ public abstract class BaseProductResourceTestCase {
 
 		if (entityFieldName.equals("name")) {
 			sb.append("'");
-			sb.append(String.valueOf(product.getName()));
+			sb.append(String.valueOf(productOutput.getName()));
 			sb.append("'");
 
 			return sb.toString();
@@ -673,8 +672,8 @@ public abstract class BaseProductResourceTestCase {
 			invoke(queryGraphQLField.toString()));
 	}
 
-	protected Product randomProduct() throws Exception {
-		return new Product() {
+	protected ProductOutput randomProductOutput() throws Exception {
+		return new ProductOutput() {
 			{
 				id = RandomTestUtil.randomInt();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
@@ -683,17 +682,17 @@ public abstract class BaseProductResourceTestCase {
 		};
 	}
 
-	protected Product randomIrrelevantProduct() throws Exception {
-		Product randomIrrelevantProduct = randomProduct();
+	protected ProductOutput randomIrrelevantProductOutput() throws Exception {
+		ProductOutput randomIrrelevantProductOutput = randomProductOutput();
 
-		return randomIrrelevantProduct;
+		return randomIrrelevantProductOutput;
 	}
 
-	protected Product randomPatchProduct() throws Exception {
-		return randomProduct();
+	protected ProductOutput randomPatchProductOutput() throws Exception {
+		return randomProductOutput();
 	}
 
-	protected ProductResource productResource;
+	protected ProductOutputResource productOutputResource;
 	protected Group irrelevantGroup;
 	protected Company testCompany;
 	protected Group testGroup;
@@ -770,7 +769,7 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		BaseProductResourceTestCase.class);
+		BaseProductOutputResourceTestCase.class);
 
 	private static BeanUtilsBean _beanUtilsBean = new BeanUtilsBean() {
 
@@ -787,6 +786,7 @@ public abstract class BaseProductResourceTestCase {
 	private static DateFormat _dateFormat;
 
 	@Inject
-	private restbuilder.resource.v1_0.ProductResource _productResource;
+	private restbuilder.resource.v1_0.ProductOutputResource
+		_productOutputResource;
 
 }

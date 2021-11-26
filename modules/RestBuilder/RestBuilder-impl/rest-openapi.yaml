@@ -69,7 +69,14 @@ components:
           format: double
           type: number
       type: object
-    Cart:
+    CartInput:
+      description: Cart
+      properties:
+        id:
+          description: The Cart ID.
+          type: integer
+      type: object
+    CartOutput:
       description: Cart
       properties:
         id:
@@ -377,13 +384,14 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Cart"
+                  $ref: "#/components/schemas/CartOutput"
 
             application/xml:
               schema:
-                $ref: "#/components/schemas/Cart"
+                $ref: "#/components/schemas/CartOutput"
           description: ""
-      tags: ["Cart"]
+      tags: ["CartOutput"]
+
   "/cart/{cartId}":
     get:
       operationId: getCartById
@@ -398,12 +406,36 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Cart"
+                $ref: "#/components/schemas/CartOutput"
             application/xml:
               schema:
-                $ref: "#/components/schemas/Cart"
+                $ref: "#/components/schemas/CartOutput"
           description: ""
-      tags: ["Cart"]
+      tags: ["CartOutput"]
+
+  "/cart/create":
+    post:
+      operationId: createCart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CartInput"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/CartInput"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CartOutput"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/CartOutput"
+          description: ""
+      tags: ["CartInput"]
+
   "/addProduct/carts/{cartId}/products/{productId}":
     post:
       operationId: addProductToCart
@@ -423,12 +455,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Cart"
+                $ref: "#/components/schemas/CartOutput"
             application/xml:
               schema:
-                $ref: "#/components/schemas/Cart"
+                $ref: "#/components/schemas/CartOutput"
           description: ""
-      tags: ["Cart"]
+      tags: ["CartOutput"]
+
   "/removeProduct/carts/{cartId}/products/{productId}":
     post:
       operationId: removeProductToCart
@@ -449,7 +482,7 @@ paths:
             application/json: {}
             application/xml: {}
           description: ""
-      tags: ["Cart"]
+      tags: ["CartOutput"]
 
   "/cart/delete/{cartId}":
     delete:
@@ -466,4 +499,4 @@ paths:
             application/json: {}
             application/xml: {}
           description: ""
-      tags: ["Cart"]
+      tags: ["CartOutput"]

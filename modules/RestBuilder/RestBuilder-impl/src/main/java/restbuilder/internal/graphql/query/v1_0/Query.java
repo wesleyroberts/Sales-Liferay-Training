@@ -24,13 +24,13 @@ import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
 
-import restbuilder.dto.v1_0.Cart;
+import restbuilder.dto.v1_0.CartOutput;
 import restbuilder.dto.v1_0.Category;
 import restbuilder.dto.v1_0.ProductInput;
 import restbuilder.dto.v1_0.ProductOutput;
 import restbuilder.dto.v1_0.Type;
 
-import restbuilder.resource.v1_0.CartResource;
+import restbuilder.resource.v1_0.CartOutputResource;
 import restbuilder.resource.v1_0.CategoryResource;
 import restbuilder.resource.v1_0.ProductOutputResource;
 import restbuilder.resource.v1_0.TypeResource;
@@ -42,12 +42,12 @@ import restbuilder.resource.v1_0.TypeResource;
 @Generated("")
 public class Query {
 
-	public static void setCartResourceComponentServiceObjects(
-		ComponentServiceObjects<CartResource>
-			cartResourceComponentServiceObjects) {
+	public static void setCartOutputResourceComponentServiceObjects(
+		ComponentServiceObjects<CartOutputResource>
+			cartOutputResourceComponentServiceObjects) {
 
-		_cartResourceComponentServiceObjects =
-			cartResourceComponentServiceObjects;
+		_cartOutputResourceComponentServiceObjects =
+			cartOutputResourceComponentServiceObjects;
 	}
 
 	public static void setCategoryResourceComponentServiceObjects(
@@ -80,11 +80,12 @@ public class Query {
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {allCarts{items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public CartPage allCarts() throws Exception {
+	public CartOutputPage allCarts() throws Exception {
 		return _applyComponentServiceObjects(
-			_cartResourceComponentServiceObjects,
+			_cartOutputResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> new CartPage(cartResource.getAllCarts()));
+			cartOutputResource -> new CartOutputPage(
+				cartOutputResource.getAllCarts()));
 	}
 
 	/**
@@ -93,13 +94,13 @@ public class Query {
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {cartById(cartId: ___){id, totalValue, productList}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public Cart cartById(@GraphQLName("cartId") Integer cartId)
+	public CartOutput cartById(@GraphQLName("cartId") Integer cartId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_cartResourceComponentServiceObjects,
+			_cartOutputResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> cartResource.getCartById(cartId));
+			cartOutputResource -> cartOutputResource.getCartById(cartId));
 	}
 
 	/**
@@ -247,24 +248,24 @@ public class Query {
 
 	}
 
-	@GraphQLName("CartPage")
-	public class CartPage {
+	@GraphQLName("CartOutputPage")
+	public class CartOutputPage {
 
-		public CartPage(Page cartPage) {
-			actions = cartPage.getActions();
+		public CartOutputPage(Page cartOutputPage) {
+			actions = cartOutputPage.getActions();
 
-			items = cartPage.getItems();
-			lastPage = cartPage.getLastPage();
-			page = cartPage.getPage();
-			pageSize = cartPage.getPageSize();
-			totalCount = cartPage.getTotalCount();
+			items = cartOutputPage.getItems();
+			lastPage = cartOutputPage.getLastPage();
+			page = cartOutputPage.getPage();
+			pageSize = cartOutputPage.getPageSize();
+			totalCount = cartOutputPage.getTotalCount();
 		}
 
 		@GraphQLField
 		protected Map<String, Map> actions;
 
 		@GraphQLField
-		protected java.util.Collection<Cart> items;
+		protected java.util.Collection<CartOutput> items;
 
 		@GraphQLField
 		protected long lastPage;
@@ -398,17 +399,17 @@ public class Query {
 		}
 	}
 
-	private void _populateResourceContext(CartResource cartResource)
+	private void _populateResourceContext(CartOutputResource cartOutputResource)
 		throws Exception {
 
-		cartResource.setContextAcceptLanguage(_acceptLanguage);
-		cartResource.setContextCompany(_company);
-		cartResource.setContextHttpServletRequest(_httpServletRequest);
-		cartResource.setContextHttpServletResponse(_httpServletResponse);
-		cartResource.setContextUriInfo(_uriInfo);
-		cartResource.setContextUser(_user);
-		cartResource.setGroupLocalService(_groupLocalService);
-		cartResource.setRoleLocalService(_roleLocalService);
+		cartOutputResource.setContextAcceptLanguage(_acceptLanguage);
+		cartOutputResource.setContextCompany(_company);
+		cartOutputResource.setContextHttpServletRequest(_httpServletRequest);
+		cartOutputResource.setContextHttpServletResponse(_httpServletResponse);
+		cartOutputResource.setContextUriInfo(_uriInfo);
+		cartOutputResource.setContextUser(_user);
+		cartOutputResource.setGroupLocalService(_groupLocalService);
+		cartOutputResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(CategoryResource categoryResource)
@@ -452,8 +453,8 @@ public class Query {
 		typeResource.setRoleLocalService(_roleLocalService);
 	}
 
-	private static ComponentServiceObjects<CartResource>
-		_cartResourceComponentServiceObjects;
+	private static ComponentServiceObjects<CartOutputResource>
+		_cartOutputResourceComponentServiceObjects;
 	private static ComponentServiceObjects<CategoryResource>
 		_categoryResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductOutputResource>

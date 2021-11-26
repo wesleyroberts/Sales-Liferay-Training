@@ -8,43 +8,49 @@ import java.util.logging.Logger;
 
 import javax.annotation.Generated;
 
-import restbuilder.client.dto.v1_0.Product;
+import restbuilder.client.dto.v1_0.CartOutput;
 import restbuilder.client.http.HttpInvoker;
 import restbuilder.client.pagination.Page;
 import restbuilder.client.problem.Problem;
-import restbuilder.client.serdes.v1_0.ProductSerDes;
+import restbuilder.client.serdes.v1_0.CartOutputSerDes;
 
 /**
  * @author Wesley Roberts
  * @generated
  */
 @Generated("")
-public interface ProductResource {
+public interface CartOutputResource {
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	public Page<Product> getAllProducts() throws Exception;
+	public Page<CartOutput> getAllCarts() throws Exception;
 
-	public HttpInvoker.HttpResponse getAllProductsHttpResponse()
+	public HttpInvoker.HttpResponse getAllCartsHttpResponse() throws Exception;
+
+	public CartOutput getCartById(Integer cartId) throws Exception;
+
+	public HttpInvoker.HttpResponse getCartByIdHttpResponse(Integer cartId)
 		throws Exception;
 
-	public Product getProductById(Integer productId) throws Exception;
-
-	public HttpInvoker.HttpResponse getProductByIdHttpResponse(
-			Integer productId)
+	public CartOutput addProductToCart(Integer cartId, Integer productId)
 		throws Exception;
 
-	public Product creatProduct(Product product) throws Exception;
-
-	public HttpInvoker.HttpResponse creatProductHttpResponse(Product product)
+	public HttpInvoker.HttpResponse addProductToCartHttpResponse(
+			Integer cartId, Integer productId)
 		throws Exception;
 
-	public void deleteProductById(Integer productId) throws Exception;
+	public void removeProductToCart(Integer cartId, Integer productId)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse deleteProductByIdHttpResponse(
-			Integer productId)
+	public HttpInvoker.HttpResponse removeProductToCartHttpResponse(
+			Integer cartId, Integer productId)
+		throws Exception;
+
+	public void deleteCartById(Integer cartId) throws Exception;
+
+	public HttpInvoker.HttpResponse deleteCartByIdHttpResponse(Integer cartId)
 		throws Exception;
 
 	public static class Builder {
@@ -56,8 +62,8 @@ public interface ProductResource {
 			return this;
 		}
 
-		public ProductResource build() {
-			return new ProductResourceImpl(this);
+		public CartOutputResource build() {
+			return new CartOutputResourceImpl(this);
 		}
 
 		public Builder endpoint(String host, int port, String scheme) {
@@ -116,11 +122,164 @@ public interface ProductResource {
 
 	}
 
-	public static class ProductResourceImpl implements ProductResource {
+	public static class CartOutputResourceImpl implements CartOutputResource {
 
-		public Page<Product> getAllProducts() throws Exception {
+		public Page<CartOutput> getAllCarts() throws Exception {
+			HttpInvoker.HttpResponse httpResponse = getAllCartsHttpResponse();
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return Page.of(content, CartOutputSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse getAllCartsHttpResponse()
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port + "/o/RestBuilder/v1.0/cart/getAll");
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public CartOutput getCartById(Integer cartId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = getCartByIdHttpResponse(
+				cartId);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return CartOutputSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse getCartByIdHttpResponse(Integer cartId)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port + "/o/RestBuilder/v1.0/cart/{cartId}");
+
+			httpInvoker.path("cartId", cartId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public CartOutput addProductToCart(Integer cartId, Integer productId)
+			throws Exception {
+
 			HttpInvoker.HttpResponse httpResponse =
-				getAllProductsHttpResponse();
+				addProductToCartHttpResponse(cartId, productId);
 
 			String content = httpResponse.getContent();
 
@@ -148,7 +307,7 @@ public interface ProductResource {
 			}
 
 			try {
-				return Page.of(content, ProductSerDes::toDTO);
+				return CartOutputSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -159,166 +318,13 @@ public interface ProductResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getAllProductsHttpResponse()
+		public HttpInvoker.HttpResponse addProductToCartHttpResponse(
+				Integer cartId, Integer productId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/RestBuilder/v1.0/product/all");
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Product getProductById(Integer productId) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = getProductByIdHttpResponse(
-				productId);
-
-			String content = httpResponse.getContent();
-
-			if ((httpResponse.getStatusCode() / 100) != 2) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response content: " + content);
-				_logger.log(
-					Level.WARNING,
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.log(
-					Level.WARNING,
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-			else {
-				_logger.fine("HTTP response content: " + content);
-				_logger.fine(
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.fine(
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-			}
-
-			try {
-				return ProductSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse getProductByIdHttpResponse(
-				Integer productId)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/RestBuilder/v1.0/product/{productId}");
-
-			httpInvoker.path("productId", productId);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Product creatProduct(Product product) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = creatProductHttpResponse(
-				product);
-
-			String content = httpResponse.getContent();
-
-			if ((httpResponse.getStatusCode() / 100) != 2) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response content: " + content);
-				_logger.log(
-					Level.WARNING,
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.log(
-					Level.WARNING,
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-			else {
-				_logger.fine("HTTP response content: " + content);
-				_logger.fine(
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.fine(
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-			}
-
-			try {
-				return ProductSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse creatProductHttpResponse(
-				Product product)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(product.toString(), "application/json");
+			httpInvoker.body(productId.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -341,7 +347,11 @@ public interface ProductResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/RestBuilder/v1.0/product/create");
+					_builder._port +
+						"/o/RestBuilder/v1.0/addProduct/carts/{cartId}/products/{productId}");
+
+			httpInvoker.path("cartId", cartId);
+			httpInvoker.path("productId", productId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -349,9 +359,11 @@ public interface ProductResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteProductById(Integer productId) throws Exception {
+		public void removeProductToCart(Integer cartId, Integer productId)
+			throws Exception {
+
 			HttpInvoker.HttpResponse httpResponse =
-				deleteProductByIdHttpResponse(productId);
+				removeProductToCartHttpResponse(cartId, productId);
 
 			String content = httpResponse.getContent();
 
@@ -390,8 +402,90 @@ public interface ProductResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse deleteProductByIdHttpResponse(
-				Integer productId)
+		public HttpInvoker.HttpResponse removeProductToCartHttpResponse(
+				Integer cartId, Integer productId)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(productId.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/RestBuilder/v1.0/removeProduct/carts/{cartId}/products/{productId}");
+
+			httpInvoker.path("cartId", cartId);
+			httpInvoker.path("productId", productId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteCartById(Integer cartId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = deleteCartByIdHttpResponse(
+				cartId);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse deleteCartByIdHttpResponse(
+				Integer cartId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -418,9 +512,9 @@ public interface ProductResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/RestBuilder/v1.0/product/delete/{productId}");
+						"/o/RestBuilder/v1.0/cart/delete/{cartId}");
 
-			httpInvoker.path("productId", productId);
+			httpInvoker.path("cartId", cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -428,12 +522,12 @@ public interface ProductResource {
 			return httpInvoker.invoke();
 		}
 
-		private ProductResourceImpl(Builder builder) {
+		private CartOutputResourceImpl(Builder builder) {
 			_builder = builder;
 		}
 
 		private static final Logger _logger = Logger.getLogger(
-			ProductResource.class.getName());
+			CartOutputResource.class.getName());
 
 		private Builder _builder;
 

@@ -16,7 +16,7 @@ import javax.ws.rs.core.UriInfo;
 
 import org.osgi.annotation.versioning.ProviderType;
 
-import restbuilder.dto.v1_0.Cart;
+import restbuilder.dto.v1_0.ProductOutput;
 
 /**
  * To access this resource, run:
@@ -28,23 +28,17 @@ import restbuilder.dto.v1_0.Cart;
  */
 @Generated("")
 @ProviderType
-public interface CartResource {
+public interface ProductOutputResource {
 
 	public static Builder builder() {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<Cart> getAllCarts() throws Exception;
+	public Page<ProductOutput> getAllProducts() throws Exception;
 
-	public Cart getCartById(Integer cartId) throws Exception;
+	public ProductOutput getProductById(Integer productId) throws Exception;
 
-	public Cart addProductToCart(Integer cartId, Integer productId)
-		throws Exception;
-
-	public void removeProductToCart(Integer cartId, Integer productId)
-		throws Exception;
-
-	public void deleteCartById(Integer cartId) throws Exception;
+	public void deleteProductById(Integer productId) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
@@ -80,7 +74,7 @@ public interface CartResource {
 	@ProviderType
 	public interface Builder {
 
-		public CartResource build();
+		public ProductOutputResource build();
 
 		public Builder checkPermissions(boolean checkPermissions);
 

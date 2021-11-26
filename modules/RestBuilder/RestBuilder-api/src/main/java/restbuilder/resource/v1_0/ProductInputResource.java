@@ -3,7 +3,6 @@ package restbuilder.resource.v1_0;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
-import com.liferay.portal.vulcan.pagination.Page;
 
 import java.util.Locale;
 
@@ -16,7 +15,8 @@ import javax.ws.rs.core.UriInfo;
 
 import org.osgi.annotation.versioning.ProviderType;
 
-import restbuilder.dto.v1_0.Product;
+import restbuilder.dto.v1_0.ProductInput;
+import restbuilder.dto.v1_0.ProductOutput;
 
 /**
  * To access this resource, run:
@@ -28,19 +28,14 @@ import restbuilder.dto.v1_0.Product;
  */
 @Generated("")
 @ProviderType
-public interface ProductResource {
+public interface ProductInputResource {
 
 	public static Builder builder() {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<Product> getAllProducts() throws Exception;
-
-	public Product getProductById(Integer productId) throws Exception;
-
-	public Product creatProduct(Product product) throws Exception;
-
-	public void deleteProductById(Integer productId) throws Exception;
+	public ProductOutput creatProduct(ProductInput productInput)
+		throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
@@ -76,7 +71,7 @@ public interface ProductResource {
 	@ProviderType
 	public interface Builder {
 
-		public ProductResource build();
+		public ProductInputResource build();
 
 		public Builder checkPermissions(boolean checkPermissions);
 

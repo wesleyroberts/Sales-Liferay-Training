@@ -30,13 +30,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName(description = "Cart", value = "Cart")
+@GraphQLName(description = "Cart", value = "CartOutput")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "Cart")
-public class Cart implements Serializable {
+@XmlRootElement(name = "CartOutput")
+public class CartOutput implements Serializable {
 
-	public static Cart toDTO(String json) {
-		return ObjectMapperUtil.readValue(Cart.class, json);
+	public static CartOutput toDTO(String json) {
+		return ObjectMapperUtil.readValue(CartOutput.class, json);
 	}
 
 	@Schema(description = "The Cart ID.")
@@ -128,13 +128,13 @@ public class Cart implements Serializable {
 			return true;
 		}
 
-		if (!(object instanceof Cart)) {
+		if (!(object instanceof CartOutput)) {
 			return false;
 		}
 
-		Cart cart = (Cart)object;
+		CartOutput cartOutput = (CartOutput)object;
 
-		return Objects.equals(toString(), cart.toString());
+		return Objects.equals(toString(), cartOutput.toString());
 	}
 
 	@Override
@@ -196,7 +196,7 @@ public class Cart implements Serializable {
 
 	@Schema(
 		accessMode = Schema.AccessMode.READ_ONLY,
-		defaultValue = "restbuilder.dto.v1_0.Cart", name = "x-class-name"
+		defaultValue = "restbuilder.dto.v1_0.CartOutput", name = "x-class-name"
 	)
 	public String xClassName;
 

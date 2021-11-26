@@ -6,42 +6,40 @@ import java.util.Objects;
 
 import javax.annotation.Generated;
 
-import restbuilder.client.dto.v1_0.Category;
-import restbuilder.client.dto.v1_0.Type;
 import restbuilder.client.function.UnsafeSupplier;
-import restbuilder.client.serdes.v1_0.ProductSerDes;
+import restbuilder.client.serdes.v1_0.ProductInputSerDes;
 
 /**
  * @author Wesley Roberts
  * @generated
  */
 @Generated("")
-public class Product implements Cloneable, Serializable {
+public class ProductInput implements Cloneable, Serializable {
 
-	public static Product toDTO(String json) {
-		return ProductSerDes.toDTO(json);
+	public static ProductInput toDTO(String json) {
+		return ProductInputSerDes.toDTO(json);
 	}
 
-	public Category getCategory() {
-		return category;
+	public Integer getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
 	}
 
-	public void setCategory(
-		UnsafeSupplier<Category, Exception> categoryUnsafeSupplier) {
+	public void setCategoryId(
+		UnsafeSupplier<Integer, Exception> categoryIdUnsafeSupplier) {
 
 		try {
-			category = categoryUnsafeSupplier.get();
+			categoryId = categoryIdUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Category category;
+	protected Integer categoryId;
 
 	public Integer getId() {
 		return id;
@@ -102,28 +100,30 @@ public class Product implements Cloneable, Serializable {
 
 	protected Double price;
 
-	public Type getType() {
-		return type;
+	public Integer getTypeId() {
+		return typeId;
 	}
 
-	public void setType(Type type) {
-		this.type = type;
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
 	}
 
-	public void setType(UnsafeSupplier<Type, Exception> typeUnsafeSupplier) {
+	public void setTypeId(
+		UnsafeSupplier<Integer, Exception> typeIdUnsafeSupplier) {
+
 		try {
-			type = typeUnsafeSupplier.get();
+			typeId = typeIdUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Type type;
+	protected Integer typeId;
 
 	@Override
-	public Product clone() throws CloneNotSupportedException {
-		return (Product)super.clone();
+	public ProductInput clone() throws CloneNotSupportedException {
+		return (ProductInput)super.clone();
 	}
 
 	@Override
@@ -132,13 +132,13 @@ public class Product implements Cloneable, Serializable {
 			return true;
 		}
 
-		if (!(object instanceof Product)) {
+		if (!(object instanceof ProductInput)) {
 			return false;
 		}
 
-		Product product = (Product)object;
+		ProductInput productInput = (ProductInput)object;
 
-		return Objects.equals(toString(), product.toString());
+		return Objects.equals(toString(), productInput.toString());
 	}
 
 	@Override
@@ -149,7 +149,7 @@ public class Product implements Cloneable, Serializable {
 	}
 
 	public String toString() {
-		return ProductSerDes.toJSON(this);
+		return ProductInputSerDes.toJSON(this);
 	}
 
 }

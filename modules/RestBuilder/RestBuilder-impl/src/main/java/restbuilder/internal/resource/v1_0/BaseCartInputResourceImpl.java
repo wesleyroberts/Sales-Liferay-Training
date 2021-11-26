@@ -19,40 +19,26 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.ActionUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
-
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
-
-import java.io.Serializable;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import restbuilder.dto.v1_0.CartInput;
+import restbuilder.dto.v1_0.CartOutput;
+import restbuilder.resource.v1_0.CartInputResource;
 
 import javax.annotation.Generated;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javax.validation.constraints.NotNull;
-
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
-
-import restbuilder.dto.v1_0.Cart;
-
-import restbuilder.resource.v1_0.CartResource;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author Wesley Roberts
@@ -60,121 +46,36 @@ import restbuilder.resource.v1_0.CartResource;
  */
 @Generated("")
 @Path("/v1.0")
-public abstract class BaseCartResourceImpl
-	implements CartResource, EntityModelResource,
-			   VulcanBatchEngineTaskItemDelegate<Cart> {
+public abstract class BaseCartInputResourceImpl
+	implements CartInputResource, EntityModelResource,
+			   VulcanBatchEngineTaskItemDelegate<CartInput> {
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/cart/getAll'  -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/cart/create' -d $'{"id": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@GET
+	@Consumes({"application/json", "application/xml"})
 	@Override
-	@Path("/cart/getAll")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Page<Cart> getAllCarts() throws Exception {
-		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/cart/{cartId}'  -u 'test@liferay.com:test'
-	 */
-	@GET
-	@Override
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
-	@Path("/cart/{cartId}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Cart getCartById(
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
-				cartId)
-		throws Exception {
-
-		return new Cart();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/addProduct/carts/{cartId}/products/{productId}'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "cartId"),
-			@Parameter(in = ParameterIn.PATH, name = "productId")
-		}
-	)
-	@Path("/addProduct/carts/{cartId}/products/{productId}")
+	@Path("/cart/create")
 	@POST
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Cart addProductToCart(
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
-				cartId,
-			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
-				productId)
-		throws Exception {
-
-		return new Cart();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/removeProduct/carts/{cartId}/products/{productId}'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "cartId"),
-			@Parameter(in = ParameterIn.PATH, name = "productId")
-		}
-	)
-	@Path("/removeProduct/carts/{cartId}/products/{productId}")
-	@POST
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public void removeProductToCart(
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
-				cartId,
-			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
-				productId)
-		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/RestBuilder/v1.0/cart/delete/{cartId}'  -u 'test@liferay.com:test'
-	 */
-	@DELETE
-	@Override
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
-	@Path("/cart/delete/{cartId}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public void deleteCartById(
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
-				cartId)
-		throws Exception {
+	@Tags(value = {@Tag(name = "CartInput")})
+	public CartOutput createCart(CartInput cartInput) throws Exception {
+		return new CartOutput();
 	}
 
 	@Override
 	@SuppressWarnings("PMD.UnusedLocalVariable")
 	public void create(
-			java.util.Collection<Cart> carts,
+			java.util.Collection<CartInput> cartInputs,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
 
 	@Override
 	public void delete(
-			java.util.Collection<Cart> carts,
+			java.util.Collection<CartInput> cartInputs,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
@@ -195,7 +96,7 @@ public abstract class BaseCartResourceImpl
 	}
 
 	@Override
-	public Page<Cart> read(
+	public Page<CartInput> read(
 			Filter filter, Pagination pagination, Sort[] sorts,
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
@@ -227,7 +128,7 @@ public abstract class BaseCartResourceImpl
 
 	@Override
 	public void update(
-			java.util.Collection<Cart> carts,
+			java.util.Collection<CartInput> cartInputs,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}

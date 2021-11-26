@@ -14,7 +14,8 @@ import org.osgi.service.component.annotations.ReferenceScope;
 import restbuilder.internal.graphql.mutation.v1_0.Mutation;
 import restbuilder.internal.graphql.query.v1_0.Query;
 
-import restbuilder.resource.v1_0.CartResource;
+import restbuilder.resource.v1_0.CartInputResource;
+import restbuilder.resource.v1_0.CartOutputResource;
 import restbuilder.resource.v1_0.CategoryResource;
 import restbuilder.resource.v1_0.ProductInputResource;
 import restbuilder.resource.v1_0.ProductOutputResource;
@@ -30,8 +31,10 @@ public class ServletDataImpl implements ServletData {
 
 	@Activate
 	public void activate(BundleContext bundleContext) {
-		Mutation.setCartResourceComponentServiceObjects(
-			_cartResourceComponentServiceObjects);
+		Mutation.setCartInputResourceComponentServiceObjects(
+			_cartInputResourceComponentServiceObjects);
+		Mutation.setCartOutputResourceComponentServiceObjects(
+			_cartOutputResourceComponentServiceObjects);
 		Mutation.setCategoryResourceComponentServiceObjects(
 			_categoryResourceComponentServiceObjects);
 		Mutation.setProductInputResourceComponentServiceObjects(
@@ -41,8 +44,8 @@ public class ServletDataImpl implements ServletData {
 		Mutation.setTypeResourceComponentServiceObjects(
 			_typeResourceComponentServiceObjects);
 
-		Query.setCartResourceComponentServiceObjects(
-			_cartResourceComponentServiceObjects);
+		Query.setCartOutputResourceComponentServiceObjects(
+			_cartOutputResourceComponentServiceObjects);
 		Query.setCategoryResourceComponentServiceObjects(
 			_categoryResourceComponentServiceObjects);
 		Query.setProductOutputResourceComponentServiceObjects(
@@ -67,8 +70,12 @@ public class ServletDataImpl implements ServletData {
 	}
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<CartResource>
-		_cartResourceComponentServiceObjects;
+	private ComponentServiceObjects<CartInputResource>
+		_cartInputResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<CartOutputResource>
+		_cartOutputResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<CategoryResource>

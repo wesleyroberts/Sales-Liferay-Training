@@ -21,8 +21,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.Valid;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -30,45 +28,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName(description = "Product", value = "Product")
+@GraphQLName(description = "Cart", value = "CartInput")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "Product")
-public class Product implements Serializable {
+@XmlRootElement(name = "CartInput")
+public class CartInput implements Serializable {
 
-	public static Product toDTO(String json) {
-		return ObjectMapperUtil.readValue(Product.class, json);
+	public static CartInput toDTO(String json) {
+		return ObjectMapperUtil.readValue(CartInput.class, json);
 	}
 
-	@Schema
-	@Valid
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	@JsonIgnore
-	public void setCategory(
-		UnsafeSupplier<Category, Exception> categoryUnsafeSupplier) {
-
-		try {
-			category = categoryUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Category category;
-
-	@Schema(description = "The entity ID.")
+	@Schema(description = "The Cart ID.")
 	public Integer getId() {
 		return id;
 	}
@@ -90,90 +59,9 @@ public class Product implements Serializable {
 		}
 	}
 
-	@GraphQLField(description = "The entity ID.")
+	@GraphQLField(description = "The Cart ID.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer id;
-
-	@Schema(description = "The entity name.")
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@JsonIgnore
-	public void setName(UnsafeSupplier<String, Exception> nameUnsafeSupplier) {
-		try {
-			name = nameUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField(description = "The entity name.")
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String name;
-
-	@Schema(description = "The price product.")
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	@JsonIgnore
-	public void setPrice(
-		UnsafeSupplier<Double, Exception> priceUnsafeSupplier) {
-
-		try {
-			price = priceUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField(description = "The price product.")
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Double price;
-
-	@Schema
-	@Valid
-	public Type getType() {
-		return type;
-	}
-
-	public void setType(Type type) {
-		this.type = type;
-	}
-
-	@JsonIgnore
-	public void setType(UnsafeSupplier<Type, Exception> typeUnsafeSupplier) {
-		try {
-			type = typeUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Type type;
 
 	@Override
 	public boolean equals(Object object) {
@@ -181,13 +69,13 @@ public class Product implements Serializable {
 			return true;
 		}
 
-		if (!(object instanceof Product)) {
+		if (!(object instanceof CartInput)) {
 			return false;
 		}
 
-		Product product = (Product)object;
+		CartInput cartInput = (CartInput)object;
 
-		return Objects.equals(toString(), product.toString());
+		return Objects.equals(toString(), cartInput.toString());
 	}
 
 	@Override
@@ -202,16 +90,6 @@ public class Product implements Serializable {
 
 		sb.append("{");
 
-		if (category != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"category\": ");
-
-			sb.append(String.valueOf(category));
-		}
-
 		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -222,40 +100,6 @@ public class Product implements Serializable {
 			sb.append(id);
 		}
 
-		if (name != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"name\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(name));
-
-			sb.append("\"");
-		}
-
-		if (price != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"price\": ");
-
-			sb.append(price);
-		}
-
-		if (type != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"type\": ");
-
-			sb.append(String.valueOf(type));
-		}
-
 		sb.append("}");
 
 		return sb.toString();
@@ -263,7 +107,7 @@ public class Product implements Serializable {
 
 	@Schema(
 		accessMode = Schema.AccessMode.READ_ONLY,
-		defaultValue = "restbuilder.dto.v1_0.Product", name = "x-class-name"
+		defaultValue = "restbuilder.dto.v1_0.CartInput", name = "x-class-name"
 	)
 	public String xClassName;
 
