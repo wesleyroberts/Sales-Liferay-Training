@@ -16,7 +16,8 @@ import restbuilder.internal.graphql.query.v1_0.Query;
 
 import restbuilder.resource.v1_0.CartResource;
 import restbuilder.resource.v1_0.CategoryResource;
-import restbuilder.resource.v1_0.ProductResource;
+import restbuilder.resource.v1_0.ProductInputResource;
+import restbuilder.resource.v1_0.ProductOutputResource;
 import restbuilder.resource.v1_0.TypeResource;
 
 /**
@@ -33,8 +34,10 @@ public class ServletDataImpl implements ServletData {
 			_cartResourceComponentServiceObjects);
 		Mutation.setCategoryResourceComponentServiceObjects(
 			_categoryResourceComponentServiceObjects);
-		Mutation.setProductResourceComponentServiceObjects(
-			_productResourceComponentServiceObjects);
+		Mutation.setProductInputResourceComponentServiceObjects(
+			_productInputResourceComponentServiceObjects);
+		Mutation.setProductOutputResourceComponentServiceObjects(
+			_productOutputResourceComponentServiceObjects);
 		Mutation.setTypeResourceComponentServiceObjects(
 			_typeResourceComponentServiceObjects);
 
@@ -42,8 +45,8 @@ public class ServletDataImpl implements ServletData {
 			_cartResourceComponentServiceObjects);
 		Query.setCategoryResourceComponentServiceObjects(
 			_categoryResourceComponentServiceObjects);
-		Query.setProductResourceComponentServiceObjects(
-			_productResourceComponentServiceObjects);
+		Query.setProductOutputResourceComponentServiceObjects(
+			_productOutputResourceComponentServiceObjects);
 		Query.setTypeResourceComponentServiceObjects(
 			_typeResourceComponentServiceObjects);
 	}
@@ -72,8 +75,12 @@ public class ServletDataImpl implements ServletData {
 		_categoryResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<ProductResource>
-		_productResourceComponentServiceObjects;
+	private ComponentServiceObjects<ProductInputResource>
+		_productInputResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<ProductOutputResource>
+		_productOutputResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<TypeResource>

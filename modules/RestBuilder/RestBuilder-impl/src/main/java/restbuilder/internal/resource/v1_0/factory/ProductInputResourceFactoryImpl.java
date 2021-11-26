@@ -31,36 +31,37 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceScope;
 
-import restbuilder.resource.v1_0.ProductResource;
+import restbuilder.resource.v1_0.ProductInputResource;
 
 /**
  * @author Wesley Roberts
  * @generated
  */
-@Component(immediate = true, service = ProductResource.Factory.class)
+@Component(immediate = true, service = ProductInputResource.Factory.class)
 @Generated("")
-public class ProductResourceFactoryImpl implements ProductResource.Factory {
+public class ProductInputResourceFactoryImpl
+	implements ProductInputResource.Factory {
 
 	@Override
-	public ProductResource.Builder create() {
-		return new ProductResource.Builder() {
+	public ProductInputResource.Builder create() {
+		return new ProductInputResource.Builder() {
 
 			@Override
-			public ProductResource build() {
+			public ProductInputResource build() {
 				if (_user == null) {
 					throw new IllegalArgumentException("User is not set");
 				}
 
-				return (ProductResource)ProxyUtil.newProxyInstance(
-					ProductResource.class.getClassLoader(),
-					new Class<?>[] {ProductResource.class},
+				return (ProductInputResource)ProxyUtil.newProxyInstance(
+					ProductInputResource.class.getClassLoader(),
+					new Class<?>[] {ProductInputResource.class},
 					(proxy, method, arguments) -> _invoke(
 						method, arguments, _checkPermissions,
 						_httpServletRequest, _preferredLocale, _user));
 			}
 
 			@Override
-			public ProductResource.Builder checkPermissions(
+			public ProductInputResource.Builder checkPermissions(
 				boolean checkPermissions) {
 
 				_checkPermissions = checkPermissions;
@@ -69,7 +70,7 @@ public class ProductResourceFactoryImpl implements ProductResource.Factory {
 			}
 
 			@Override
-			public ProductResource.Builder httpServletRequest(
+			public ProductInputResource.Builder httpServletRequest(
 				HttpServletRequest httpServletRequest) {
 
 				_httpServletRequest = httpServletRequest;
@@ -78,7 +79,7 @@ public class ProductResourceFactoryImpl implements ProductResource.Factory {
 			}
 
 			@Override
-			public ProductResource.Builder preferredLocale(
+			public ProductInputResource.Builder preferredLocale(
 				Locale preferredLocale) {
 
 				_preferredLocale = preferredLocale;
@@ -87,7 +88,7 @@ public class ProductResourceFactoryImpl implements ProductResource.Factory {
 			}
 
 			@Override
-			public ProductResource.Builder user(User user) {
+			public ProductInputResource.Builder user(User user) {
 				_user = user;
 
 				return this;
@@ -103,12 +104,12 @@ public class ProductResourceFactoryImpl implements ProductResource.Factory {
 
 	@Activate
 	protected void activate() {
-		ProductResource.FactoryHolder.factory = this;
+		ProductInputResource.FactoryHolder.factory = this;
 	}
 
 	@Deactivate
 	protected void deactivate() {
-		ProductResource.FactoryHolder.factory = null;
+		ProductInputResource.FactoryHolder.factory = null;
 	}
 
 	private Object _invoke(
@@ -133,26 +134,27 @@ public class ProductResourceFactoryImpl implements ProductResource.Factory {
 				_liberalPermissionCheckerFactory.create(user));
 		}
 
-		ProductResource productResource = _componentServiceObjects.getService();
+		ProductInputResource productInputResource =
+			_componentServiceObjects.getService();
 
-		productResource.setContextAcceptLanguage(
+		productInputResource.setContextAcceptLanguage(
 			new AcceptLanguageImpl(httpServletRequest, preferredLocale, user));
 
 		Company company = _companyLocalService.getCompany(user.getCompanyId());
 
-		productResource.setContextCompany(company);
+		productInputResource.setContextCompany(company);
 
-		productResource.setContextHttpServletRequest(httpServletRequest);
-		productResource.setContextUser(user);
+		productInputResource.setContextHttpServletRequest(httpServletRequest);
+		productInputResource.setContextUser(user);
 
 		try {
-			return method.invoke(productResource, arguments);
+			return method.invoke(productInputResource, arguments);
 		}
 		catch (InvocationTargetException invocationTargetException) {
 			throw invocationTargetException.getTargetException();
 		}
 		finally {
-			_componentServiceObjects.ungetService(productResource);
+			_componentServiceObjects.ungetService(productInputResource);
 
 			PrincipalThreadLocal.setName(name);
 
@@ -164,7 +166,8 @@ public class ProductResourceFactoryImpl implements ProductResource.Factory {
 	private CompanyLocalService _companyLocalService;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<ProductResource> _componentServiceObjects;
+	private ComponentServiceObjects<ProductInputResource>
+		_componentServiceObjects;
 
 	@Reference
 	private PermissionCheckerFactory _defaultPermissionCheckerFactory;

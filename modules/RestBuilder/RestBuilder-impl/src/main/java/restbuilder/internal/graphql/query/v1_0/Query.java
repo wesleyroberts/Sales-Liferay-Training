@@ -9,6 +9,7 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLTypeExtension;
 import com.liferay.portal.vulcan.pagination.Page;
 
 import java.util.Map;
@@ -25,12 +26,13 @@ import org.osgi.service.component.ComponentServiceObjects;
 
 import restbuilder.dto.v1_0.Cart;
 import restbuilder.dto.v1_0.Category;
-import restbuilder.dto.v1_0.Product;
+import restbuilder.dto.v1_0.ProductInput;
+import restbuilder.dto.v1_0.ProductOutput;
 import restbuilder.dto.v1_0.Type;
 
 import restbuilder.resource.v1_0.CartResource;
 import restbuilder.resource.v1_0.CategoryResource;
-import restbuilder.resource.v1_0.ProductResource;
+import restbuilder.resource.v1_0.ProductOutputResource;
 import restbuilder.resource.v1_0.TypeResource;
 
 /**
@@ -56,12 +58,12 @@ public class Query {
 			categoryResourceComponentServiceObjects;
 	}
 
-	public static void setProductResourceComponentServiceObjects(
-		ComponentServiceObjects<ProductResource>
-			productResourceComponentServiceObjects) {
+	public static void setProductOutputResourceComponentServiceObjects(
+		ComponentServiceObjects<ProductOutputResource>
+			productOutputResourceComponentServiceObjects) {
 
-		_productResourceComponentServiceObjects =
-			productResourceComponentServiceObjects;
+		_productOutputResourceComponentServiceObjects =
+			productOutputResourceComponentServiceObjects;
 	}
 
 	public static void setTypeResourceComponentServiceObjects(
@@ -152,12 +154,12 @@ public class Query {
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {allProducts{items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public ProductPage allProducts() throws Exception {
+	public ProductOutputPage allProducts() throws Exception {
 		return _applyComponentServiceObjects(
-			_productResourceComponentServiceObjects,
+			_productOutputResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			productResource -> new ProductPage(
-				productResource.getAllProducts()));
+			productOutputResource -> new ProductOutputPage(
+				productOutputResource.getAllProducts()));
 	}
 
 	/**
@@ -166,13 +168,15 @@ public class Query {
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productById(productId: ___){name, id, category, type, price}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public Product productById(@GraphQLName("productId") Integer productId)
+	public ProductOutput productById(
+			@GraphQLName("productId") Integer productId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_productResourceComponentServiceObjects,
+			_productOutputResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			productResource -> productResource.getProductById(productId));
+			productOutputResource -> productOutputResource.getProductById(
+				productId));
 	}
 
 	/**
@@ -201,6 +205,46 @@ public class Query {
 			_typeResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			typeResource -> typeResource.getTypeById(typeId));
+	}
+
+	@GraphQLTypeExtension(ProductInput.class)
+	public class GetTypeByIdTypeExtension {
+
+		public GetTypeByIdTypeExtension(ProductInput productInput) {
+			_productInput = productInput;
+		}
+
+		@GraphQLField
+		public Type typeById() throws Exception {
+			return _applyComponentServiceObjects(
+				_typeResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				typeResource -> typeResource.getTypeById(
+					_productInput.getTypeId()));
+		}
+
+		private ProductInput _productInput;
+
+	}
+
+	@GraphQLTypeExtension(ProductInput.class)
+	public class GetCategoryByIdTypeExtension {
+
+		public GetCategoryByIdTypeExtension(ProductInput productInput) {
+			_productInput = productInput;
+		}
+
+		@GraphQLField
+		public Category categoryById() throws Exception {
+			return _applyComponentServiceObjects(
+				_categoryResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				categoryResource -> categoryResource.getCategoryById(
+					_productInput.getCategoryId()));
+		}
+
+		private ProductInput _productInput;
+
 	}
 
 	@GraphQLName("CartPage")
@@ -269,24 +313,24 @@ public class Query {
 
 	}
 
-	@GraphQLName("ProductPage")
-	public class ProductPage {
+	@GraphQLName("ProductOutputPage")
+	public class ProductOutputPage {
 
-		public ProductPage(Page productPage) {
-			actions = productPage.getActions();
+		public ProductOutputPage(Page productOutputPage) {
+			actions = productOutputPage.getActions();
 
-			items = productPage.getItems();
-			lastPage = productPage.getLastPage();
-			page = productPage.getPage();
-			pageSize = productPage.getPageSize();
-			totalCount = productPage.getTotalCount();
+			items = productOutputPage.getItems();
+			lastPage = productOutputPage.getLastPage();
+			page = productOutputPage.getPage();
+			pageSize = productOutputPage.getPageSize();
+			totalCount = productOutputPage.getTotalCount();
 		}
 
 		@GraphQLField
 		protected Map<String, Map> actions;
 
 		@GraphQLField
-		protected java.util.Collection<Product> items;
+		protected java.util.Collection<ProductOutput> items;
 
 		@GraphQLField
 		protected long lastPage;
@@ -380,17 +424,19 @@ public class Query {
 		categoryResource.setRoleLocalService(_roleLocalService);
 	}
 
-	private void _populateResourceContext(ProductResource productResource)
+	private void _populateResourceContext(
+			ProductOutputResource productOutputResource)
 		throws Exception {
 
-		productResource.setContextAcceptLanguage(_acceptLanguage);
-		productResource.setContextCompany(_company);
-		productResource.setContextHttpServletRequest(_httpServletRequest);
-		productResource.setContextHttpServletResponse(_httpServletResponse);
-		productResource.setContextUriInfo(_uriInfo);
-		productResource.setContextUser(_user);
-		productResource.setGroupLocalService(_groupLocalService);
-		productResource.setRoleLocalService(_roleLocalService);
+		productOutputResource.setContextAcceptLanguage(_acceptLanguage);
+		productOutputResource.setContextCompany(_company);
+		productOutputResource.setContextHttpServletRequest(_httpServletRequest);
+		productOutputResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		productOutputResource.setContextUriInfo(_uriInfo);
+		productOutputResource.setContextUser(_user);
+		productOutputResource.setGroupLocalService(_groupLocalService);
+		productOutputResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(TypeResource typeResource)
@@ -410,8 +456,8 @@ public class Query {
 		_cartResourceComponentServiceObjects;
 	private static ComponentServiceObjects<CategoryResource>
 		_categoryResourceComponentServiceObjects;
-	private static ComponentServiceObjects<ProductResource>
-		_productResourceComponentServiceObjects;
+	private static ComponentServiceObjects<ProductOutputResource>
+		_productOutputResourceComponentServiceObjects;
 	private static ComponentServiceObjects<TypeResource>
 		_typeResourceComponentServiceObjects;
 

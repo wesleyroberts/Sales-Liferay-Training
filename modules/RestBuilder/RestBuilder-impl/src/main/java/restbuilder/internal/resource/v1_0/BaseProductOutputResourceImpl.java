@@ -40,10 +40,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.validation.constraints.NotNull;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -51,9 +49,9 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
-import restbuilder.dto.v1_0.Product;
+import restbuilder.dto.v1_0.ProductOutput;
 
-import restbuilder.resource.v1_0.ProductResource;
+import restbuilder.resource.v1_0.ProductOutputResource;
 
 /**
  * @author Wesley Roberts
@@ -61,9 +59,9 @@ import restbuilder.resource.v1_0.ProductResource;
  */
 @Generated("")
 @Path("/v1.0")
-public abstract class BaseProductResourceImpl
-	implements EntityModelResource, ProductResource,
-			   VulcanBatchEngineTaskItemDelegate<Product> {
+public abstract class BaseProductOutputResourceImpl
+	implements EntityModelResource, ProductOutputResource,
+			   VulcanBatchEngineTaskItemDelegate<ProductOutput> {
 
 	/**
 	 * Invoke this method with the command line:
@@ -74,8 +72,8 @@ public abstract class BaseProductResourceImpl
 	@Override
 	@Path("/product/all")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Product")})
-	public Page<Product> getAllProducts() throws Exception {
+	@Tags(value = {@Tag(name = "ProductOutput")})
+	public Page<ProductOutput> getAllProducts() throws Exception {
 		return Page.of(Collections.emptyList());
 	}
 
@@ -89,28 +87,13 @@ public abstract class BaseProductResourceImpl
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "productId")})
 	@Path("/product/{productId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Product")})
-	public Product getProductById(
+	@Tags(value = {@Tag(name = "ProductOutput")})
+	public ProductOutput getProductById(
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
 				productId)
 		throws Exception {
 
-		return new Product();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/create' -d $'{"category": ___, "id": ___, "name": ___, "price": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Consumes({"application/json", "application/xml"})
-	@Override
-	@Path("/product/create")
-	@POST
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Product")})
-	public Product creatProduct(Product product) throws Exception {
-		return new Product();
+		return new ProductOutput();
 	}
 
 	/**
@@ -123,7 +106,7 @@ public abstract class BaseProductResourceImpl
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "productId")})
 	@Path("/product/delete/{productId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Product")})
+	@Tags(value = {@Tag(name = "ProductOutput")})
 	public void deleteProductById(
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
 				productId)
@@ -133,14 +116,14 @@ public abstract class BaseProductResourceImpl
 	@Override
 	@SuppressWarnings("PMD.UnusedLocalVariable")
 	public void create(
-			java.util.Collection<Product> products,
+			java.util.Collection<ProductOutput> productOutputs,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
 
 	@Override
 	public void delete(
-			java.util.Collection<Product> products,
+			java.util.Collection<ProductOutput> productOutputs,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
@@ -161,7 +144,7 @@ public abstract class BaseProductResourceImpl
 	}
 
 	@Override
-	public Page<Product> read(
+	public Page<ProductOutput> read(
 			Filter filter, Pagination pagination, Sort[] sorts,
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
@@ -193,7 +176,7 @@ public abstract class BaseProductResourceImpl
 
 	@Override
 	public void update(
-			java.util.Collection<Product> products,
+			java.util.Collection<ProductOutput> productOutputs,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}

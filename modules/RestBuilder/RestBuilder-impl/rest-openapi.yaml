@@ -29,7 +29,27 @@ components:
           format: double
           type: number
       type: object
-    Product:
+    ProductInput:
+      description: Product
+      properties:
+        name:
+          description: The entity name.
+          type: string
+        id:
+          description: The entity ID.
+          type: integer
+        categoryId:
+          description: The category ID.
+          type: integer
+        typeId:
+          description: The type ID.
+          type: integer
+        price:
+          description: The price product.
+          format: double
+          type: number
+      type: object
+    ProductOutput:
       description: Product
       properties:
         name:
@@ -101,13 +121,13 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: "#/components/schemas/Product"
+                  $ref: "#/components/schemas/ProductOutput"
                 type: array
             application/xml:
               schema:
-                $ref: "#/components/schemas/Product"
+                $ref: "#/components/schemas/ProductOutput"
           description: ""
-      tags: ["Product"]
+      tags: ["ProductOutput"]
 
   "/product/{productId}":
     get:
@@ -123,13 +143,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Product"
+                $ref: "#/components/schemas/ProductOutput"
             application/xml:
               schema:
-                $ref: "#/components/schemas/Product"
+                $ref: "#/components/schemas/ProductOutput"
           description: ""
-      tags: ["Product"]
-
+      tags: ["ProductOutput"]
   "/product/create":
     post:
       operationId: creatProduct
@@ -137,21 +156,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Product"
+              $ref: "#/components/schemas/ProductInput"
           application/xml:
             schema:
-              $ref: "#/components/schemas/Product"
+              $ref: "#/components/schemas/ProductInput"
       responses:
         200:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Product"
+                $ref: "#/components/schemas/ProductOutput"
             application/xml:
               schema:
-                $ref: "#/components/schemas/Product"
+                $ref: "#/components/schemas/ProductOutput"
           description: ""
-      tags: ["Product"]
+      tags: ["ProductInput"]
 
   "/product/delete/{productId}":
     delete:
@@ -168,7 +187,7 @@ paths:
             application/json: {}
             application/xml: {}
           description: ""
-      tags: ["Product"]
+      tags: ["ProductOutput"]
 
   "/category/all":
     get:

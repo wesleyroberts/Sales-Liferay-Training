@@ -70,7 +70,9 @@ public class OpenAPIResourceImpl {
 
 			add(CategoryResourceImpl.class);
 
-			add(ProductResourceImpl.class);
+			add(ProductInputResourceImpl.class);
+
+			add(ProductOutputResourceImpl.class);
 
 			add(TypeResourceImpl.class);
 
