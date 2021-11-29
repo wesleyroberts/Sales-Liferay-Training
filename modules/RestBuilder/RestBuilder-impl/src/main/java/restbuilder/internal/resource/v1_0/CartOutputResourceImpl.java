@@ -50,6 +50,21 @@ public class CartOutputResourceImpl extends BaseCartOutputResourceImpl {
 		return Page.of(cartListDTO);
 	}
 
+	@GET
+	@Override
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
+	@Path("/cart/getTotalValue/{cartId}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "CartOutput")})
+	public Integer getTotalValueByCartId(
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
+					cartId)
+			throws Exception {
+
+		return (int)_saleCartService.getSaleCartById(cartId).getTotalPrice();
+	}
+
+
 	/**
 	 * Invoke this method with the command line:
 	 *

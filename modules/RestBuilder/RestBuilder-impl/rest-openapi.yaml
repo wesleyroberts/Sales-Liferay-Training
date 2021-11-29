@@ -385,7 +385,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/CartOutput"
-
             application/xml:
               schema:
                 $ref: "#/components/schemas/CartOutput"
@@ -410,6 +409,27 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/CartOutput"
+          description: ""
+      tags: ["CartOutput"]
+
+  "/cart/getTotalValue/{cartId}":
+    get:
+      operationId: getTotalValueByCartId
+      parameters:
+        - in: path
+          name: cartId
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: integer
+            application/xml:
+              schema:
+                type: integer
           description: ""
       tags: ["CartOutput"]
 

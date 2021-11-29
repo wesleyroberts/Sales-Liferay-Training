@@ -106,6 +106,22 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {totalValueByCartId(cartId: ___){}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public Integer totalValueByCartId(@GraphQLName("cartId") Integer cartId)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartOutputResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartOutputResource -> cartOutputResource.getTotalValueByCartId(
+				cartId));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {allCategories{items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField

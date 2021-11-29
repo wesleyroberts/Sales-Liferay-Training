@@ -235,6 +235,11 @@ public abstract class BaseCartOutputResourceTestCase {
 	}
 
 	@Test
+	public void testGetTotalValueByCartId() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testAddProductToCart() throws Exception {
 		CartOutput randomCartOutput = randomCartOutput();
 
