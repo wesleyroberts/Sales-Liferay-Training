@@ -22,6 +22,7 @@ import com.liferay.sales.service.base.SaleTypeLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * The implementation of the sale type local service.
@@ -48,16 +49,21 @@ public class SaleTypeLocalServiceImpl extends SaleTypeLocalServiceBaseImpl {
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.SaleTypeLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleTypeLocalServiceUtil</code>.
 	 */
 	public SaleType createSaleType(long id, String name, double tax){
+		try{
 		SaleType saleType = saleTypePersistence.create(id);
 		saleType.setTax(tax);
 		saleType.setName(name);
 		return saleTypePersistence.update(saleType);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public List<SaleType> getAll(){
 		try {
 			return saleTypePersistence.findAll();
-		} catch (IllegalArgumentException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
