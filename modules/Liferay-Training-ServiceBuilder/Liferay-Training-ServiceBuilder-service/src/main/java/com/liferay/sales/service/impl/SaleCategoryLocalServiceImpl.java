@@ -49,20 +49,30 @@ public class SaleCategoryLocalServiceImpl
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.SaleCategoryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleCategoryLocalServiceUtil</code>.
 	 */
 	public SaleCategory createSaleCategory(long id,String name,double tax){
-		SaleCategory category = saleCategoryPersistence.create(id);
-		category.setTax(tax);
-		category.setName(name);
-		return saleCategoryPersistence.update(category);
+		try{
+			SaleCategory category = saleCategoryPersistence.create(id);
+			category.setTax(tax);
+			category.setName(name);
+			return saleCategoryPersistence.update(category);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public List<SaleCategory> getAll(){
+		try{
 		return saleCategoryPersistence.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return  null;
+		}
 	}
 
 	public SaleCategory getByCategoryName(String name){
 		try {
 			return saleCategoryPersistence.findByName(name);
-		} catch (NoSuchSaleCategoryException e) {
+		} catch (NoSuchSaleCategoryException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -71,7 +81,7 @@ public class SaleCategoryLocalServiceImpl
 	public SaleCategory getSaleCategoryById(long id){
 		try {
 			return saleCategoryPersistence.findByPrimaryKey(id);
-		} catch (NoSuchSaleCategoryException e) {
+		} catch (NoSuchSaleCategoryException | IllegalArgumentException e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -80,7 +90,7 @@ public class SaleCategoryLocalServiceImpl
 	public void deleteCategoryById(long id){
 		try {
 			saleCategoryPersistence.remove(id);
-		} catch (NoSuchSaleCategoryException e) {
+		} catch (NoSuchSaleCategoryException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
 	}
