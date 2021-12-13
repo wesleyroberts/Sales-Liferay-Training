@@ -49,15 +49,14 @@ public class SaleTypeServiceImpl extends SaleTypeServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use <code>com.liferay.sales.service.SaleTypeServiceUtil</code> to access the sale type remote service.
 	 */
-	public SaleType createSaleType(long id, String name, double tax){
-		return saleTypeLocalService.createSaleType(id, name, tax);
+	public SaleType createSaleType(String name, double tax){
+		return saleTypeLocalService.createSaleType(name, tax);
 	}
 
 	@Override
 	public void deleteTypeById(long id) {
 		saleTypeLocalService.deleteTypeById(id);
 	}
-
 
 	public List<SaleType> getAll(){
 		return saleTypeLocalService.getAll();

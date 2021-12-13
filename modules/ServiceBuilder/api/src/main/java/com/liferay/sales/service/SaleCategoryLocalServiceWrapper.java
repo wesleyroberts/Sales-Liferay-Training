@@ -76,9 +76,9 @@ public class SaleCategoryLocalServiceWrapper
 
 	@Override
 	public com.liferay.sales.model.SaleCategory createSaleCategory(
-		long id, String name, double tax) {
+		String name, double tax) {
 
-		return _saleCategoryLocalService.createSaleCategory(id, name, tax);
+		return _saleCategoryLocalService.createSaleCategory(name, tax);
 	}
 
 	@Override

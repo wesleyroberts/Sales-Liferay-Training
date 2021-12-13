@@ -64,12 +64,12 @@ import java.rmi.RemoteException;
 public class SaleTypeServiceSoap {
 
 	public static com.liferay.sales.model.SaleTypeSoap createSaleType(
-			long id, String name, double tax)
+			String name, double tax)
 		throws RemoteException {
 
 		try {
 			com.liferay.sales.model.SaleType returnValue =
-				SaleTypeServiceUtil.createSaleType(id, name, tax);
+				SaleTypeServiceUtil.createSaleType(name, tax);
 
 			return com.liferay.sales.model.SaleTypeSoap.toSoapModel(
 				returnValue);

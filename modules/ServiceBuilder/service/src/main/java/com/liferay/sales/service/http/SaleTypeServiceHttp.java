@@ -52,7 +52,7 @@ import com.liferay.sales.service.SaleTypeServiceUtil;
 public class SaleTypeServiceHttp {
 
 	public static com.liferay.sales.model.SaleType createSaleType(
-		HttpPrincipal httpPrincipal, long id, String name, double tax) {
+		HttpPrincipal httpPrincipal, String name, double tax) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -60,7 +60,7 @@ public class SaleTypeServiceHttp {
 				_createSaleTypeParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, id, name, tax);
+				methodKey, name, tax);
 
 			Object returnObj = null;
 
@@ -172,7 +172,7 @@ public class SaleTypeServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(SaleTypeServiceHttp.class);
 
 	private static final Class<?>[] _createSaleTypeParameterTypes0 =
-		new Class[] {long.class, String.class, double.class};
+		new Class[] {String.class, double.class};
 	private static final Class<?>[] _deleteTypeByIdParameterTypes1 =
 		new Class[] {long.class};
 	private static final Class<?>[] _getAllParameterTypes2 = new Class[] {};

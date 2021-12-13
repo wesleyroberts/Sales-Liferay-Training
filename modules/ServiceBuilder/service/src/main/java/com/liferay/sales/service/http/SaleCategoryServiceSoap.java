@@ -64,12 +64,12 @@ import java.rmi.RemoteException;
 public class SaleCategoryServiceSoap {
 
 	public static com.liferay.sales.model.SaleCategorySoap createSaleCategory(
-			long id, String name, double tax)
+			String name, double tax)
 		throws RemoteException {
 
 		try {
 			com.liferay.sales.model.SaleCategory returnValue =
-				SaleCategoryServiceUtil.createSaleCategory(id, name, tax);
+				SaleCategoryServiceUtil.createSaleCategory(name, tax);
 
 			return com.liferay.sales.model.SaleCategorySoap.toSoapModel(
 				returnValue);
@@ -116,9 +116,9 @@ public class SaleCategoryServiceSoap {
 		}
 	}
 
-	public static void deleCategoryById(long id) throws RemoteException {
+	public static void deleteCategoryById(long id) throws RemoteException {
 		try {
-			SaleCategoryServiceUtil.deleCategoryById(id);
+			SaleCategoryServiceUtil.deleteCategoryById(id);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

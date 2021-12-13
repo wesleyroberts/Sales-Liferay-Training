@@ -32,14 +32,14 @@ public class SaleCategoryServiceWrapper
 
 	@Override
 	public com.liferay.sales.model.SaleCategory createSaleCategory(
-		long id, String name, double tax) {
+		String name, double tax) {
 
-		return _saleCategoryService.createSaleCategory(id, name, tax);
+		return _saleCategoryService.createSaleCategory(name, tax);
 	}
 
 	@Override
-	public void deleCategoryById(long id) {
-		_saleCategoryService.deleCategoryById(id);
+	public void deleteCategoryById(long id) {
+		_saleCategoryService.deleteCategoryById(id);
 	}
 
 	@Override

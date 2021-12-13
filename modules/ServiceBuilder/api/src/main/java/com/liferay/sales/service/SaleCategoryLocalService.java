@@ -89,7 +89,7 @@ public interface SaleCategoryLocalService
 	@Transactional(enabled = false)
 	public SaleCategory createSaleCategory(long categoryId);
 
-	public SaleCategory createSaleCategory(long id, String name, double tax);
+	public SaleCategory createSaleCategory(String name, double tax);
 
 	public void deleteCategoryById(long id);
 

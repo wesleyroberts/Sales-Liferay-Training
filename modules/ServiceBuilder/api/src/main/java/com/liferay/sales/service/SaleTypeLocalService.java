@@ -89,7 +89,7 @@ public interface SaleTypeLocalService
 	@Transactional(enabled = false)
 	public SaleType createSaleType(long typeId);
 
-	public SaleType createSaleType(long id, String name, double tax);
+	public SaleType createSaleType(String name, double tax);
 
 	/**
 	 * @throws PortalException

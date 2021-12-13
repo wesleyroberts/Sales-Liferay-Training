@@ -78,8 +78,8 @@ public class SaleTypeLocalServiceUtil {
 		return getService().createSaleType(typeId);
 	}
 
-	public static SaleType createSaleType(long id, String name, double tax) {
-		return getService().createSaleType(id, name, tax);
+	public static SaleType createSaleType(String name, double tax) {
+		return getService().createSaleType(name, tax);
 	}
 
 	/**

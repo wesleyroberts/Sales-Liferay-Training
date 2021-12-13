@@ -78,10 +78,8 @@ public class SaleCategoryLocalServiceUtil {
 		return getService().createSaleCategory(categoryId);
 	}
 
-	public static SaleCategory createSaleCategory(
-		long id, String name, double tax) {
-
-		return getService().createSaleCategory(id, name, tax);
+	public static SaleCategory createSaleCategory(String name, double tax) {
+		return getService().createSaleCategory(name, tax);
 	}
 
 	public static void deleteCategoryById(long id) {

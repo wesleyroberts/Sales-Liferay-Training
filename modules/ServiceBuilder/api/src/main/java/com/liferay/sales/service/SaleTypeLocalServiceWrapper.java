@@ -73,9 +73,9 @@ public class SaleTypeLocalServiceWrapper
 
 	@Override
 	public com.liferay.sales.model.SaleType createSaleType(
-		long id, String name, double tax) {
+		String name, double tax) {
 
-		return _saleTypeLocalService.createSaleType(id, name, tax);
+		return _saleTypeLocalService.createSaleType(name, tax);
 	}
 
 	/**

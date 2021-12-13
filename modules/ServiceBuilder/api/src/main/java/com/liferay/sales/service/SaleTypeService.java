@@ -51,7 +51,7 @@ public interface SaleTypeService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleTypeServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the sale type remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link SaleTypeServiceUtil} if injection and service tracking are not available.
 	 */
-	public SaleType createSaleType(long id, String name, double tax);
+	public SaleType createSaleType(String name, double tax);
 
 	public void deleteTypeById(long id);
 

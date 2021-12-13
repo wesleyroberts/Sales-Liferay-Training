@@ -32,9 +32,9 @@ public class SaleTypeServiceWrapper
 
 	@Override
 	public com.liferay.sales.model.SaleType createSaleType(
-		long id, String name, double tax) {
+		String name, double tax) {
 
-		return _saleTypeService.createSaleType(id, name, tax);
+		return _saleTypeService.createSaleType(name, tax);
 	}
 
 	@Override

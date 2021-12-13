@@ -52,7 +52,7 @@ import com.liferay.sales.service.SaleCategoryServiceUtil;
 public class SaleCategoryServiceHttp {
 
 	public static com.liferay.sales.model.SaleCategory createSaleCategory(
-		HttpPrincipal httpPrincipal, long id, String name, double tax) {
+		HttpPrincipal httpPrincipal, String name, double tax) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -60,7 +60,7 @@ public class SaleCategoryServiceHttp {
 				_createSaleCategoryParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, id, name, tax);
+				methodKey, name, tax);
 
 			Object returnObj = null;
 
@@ -146,11 +146,13 @@ public class SaleCategoryServiceHttp {
 		}
 	}
 
-	public static void deleCategoryById(HttpPrincipal httpPrincipal, long id) {
+	public static void deleteCategoryById(
+		HttpPrincipal httpPrincipal, long id) {
+
 		try {
 			MethodKey methodKey = new MethodKey(
-				SaleCategoryServiceUtil.class, "deleCategoryById",
-				_deleCategoryByIdParameterTypes3);
+				SaleCategoryServiceUtil.class, "deleteCategoryById",
+				_deleteCategoryByIdParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, id);
 
@@ -206,11 +208,11 @@ public class SaleCategoryServiceHttp {
 		SaleCategoryServiceHttp.class);
 
 	private static final Class<?>[] _createSaleCategoryParameterTypes0 =
-		new Class[] {long.class, String.class, double.class};
+		new Class[] {String.class, double.class};
 	private static final Class<?>[] _getAllParameterTypes1 = new Class[] {};
 	private static final Class<?>[] _getSaleCategoryByIdParameterTypes2 =
 		new Class[] {long.class};
-	private static final Class<?>[] _deleCategoryByIdParameterTypes3 =
+	private static final Class<?>[] _deleteCategoryByIdParameterTypes3 =
 		new Class[] {long.class};
 	private static final Class<?>[] _getCategoryByNameParameterTypes4 =
 		new Class[] {String.class};

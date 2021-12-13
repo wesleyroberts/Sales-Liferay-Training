@@ -37,14 +37,12 @@ public class SaleCategoryServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleCategoryServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static SaleCategory createSaleCategory(
-		long id, String name, double tax) {
-
-		return getService().createSaleCategory(id, name, tax);
+	public static SaleCategory createSaleCategory(String name, double tax) {
+		return getService().createSaleCategory(name, tax);
 	}
 
-	public static void deleCategoryById(long id) {
-		getService().deleCategoryById(id);
+	public static void deleteCategoryById(long id) {
+		getService().deleteCategoryById(id);
 	}
 
 	public static List<SaleCategory> getAll() {
