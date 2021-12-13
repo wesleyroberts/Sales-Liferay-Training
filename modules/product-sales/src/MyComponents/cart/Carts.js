@@ -88,7 +88,7 @@ export default function Carts({ cartList, addCart, deleteCart }) {
           <ClayButton
             displayType="primary"
             onClick={() => {
-              CreateCart(cartList.length + 1).then((data) => addCart(data));
+              CreateCart().then((data) => addCart(data));
             }}
           >
             Create Cart
