@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PostProduct } from "../../../resourceRequests/ProductFunctionsREST";
+import { CreateProduct } from "../../../resourceRequests/ProductFunctionsREST";
 import ClayForm, { ClayInput } from "@clayui/form";
 import ClayButton from "@clayui/button";
 import ClayModal, { useModal } from "@clayui/modal";
@@ -15,7 +15,6 @@ export default function ProductModalCreate({
   const [name, setName] = useState("");
   const [category, setCategory] = useState("1");
   const [type, setType] = useState("1");
-  const [id, setId] = useState(0);
   const [price, setPrice] = useState(0);
 
   const { observer, onClose } = useModal({
@@ -76,21 +75,13 @@ export default function ProductModalCreate({
                     setPrice(e.target.value);
                   }}
                 ></ClayInput>
-                <label htmlFor="basicInput">product Id</label>
-                <ClayInput
-                  type="number"
-                  onChange={(e) => {
-                    setId(e.target.value);
-                  }}
-                ></ClayInput>
               </ClayForm.Group>
               <ClayButton
                 displayType="primary"
                 onClick={() => {
-                  PostProduct(
+                  CreateProduct(
                     name,
                     price,
-                    id,
                     parseInt(category),
                     parseInt(type)
                   ).then((data) => addProduct(data));
