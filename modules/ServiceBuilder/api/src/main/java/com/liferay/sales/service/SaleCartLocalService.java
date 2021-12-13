@@ -90,7 +90,7 @@ public interface SaleCartLocalService
 	@Transactional(enabled = false)
 	public SaleCart createSaleCart(long cartId);
 
-	public SaleCart createSaleCartById(long id);
+	public SaleCart createSaleCartById();
 
 	/**
 	 * @throws PortalException

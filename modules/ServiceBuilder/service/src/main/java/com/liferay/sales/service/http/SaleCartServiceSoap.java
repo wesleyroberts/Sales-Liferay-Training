@@ -148,13 +148,12 @@ public class SaleCartServiceSoap {
 		}
 	}
 
-	public static com.liferay.sales.model.SaleCartSoap createSaleCartById(
-			long id)
+	public static com.liferay.sales.model.SaleCartSoap createSaleCartById()
 		throws RemoteException {
 
 		try {
 			com.liferay.sales.model.SaleCart returnValue =
-				SaleCartServiceUtil.createSaleCartById(id);
+				SaleCartServiceUtil.createSaleCartById();
 
 			return com.liferay.sales.model.SaleCartSoap.toSoapModel(
 				returnValue);

@@ -83,8 +83,8 @@ public class SaleCartLocalServiceUtil {
 		return getService().createSaleCart(cartId);
 	}
 
-	public static SaleCart createSaleCartById(long id) {
-		return getService().createSaleCartById(id);
+	public static SaleCart createSaleCartById() {
+		return getService().createSaleCartById();
 	}
 
 	/**
