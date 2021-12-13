@@ -14,11 +14,12 @@ export default function ProductAddToCartModal({
   const { observer, onClose } = useModal({
     onClose: () => setProductAddToCartModal(false),
   });
+  const [enableButton, setEnableButton] = useState(true)
   return (
     <div>
       {productAddToCartModal && (
         <ClayModal observer={observer} size="lg" status="info">
-          <ClayModal.Header>{"Create Product"}</ClayModal.Header>
+          <ClayModal.Header>{"Add to Cart"}</ClayModal.Header>
           <ClayModal.Body>
             <ClayForm>
               <ClayForm.Group className="form-group-sm">
@@ -28,8 +29,17 @@ export default function ProductAddToCartModal({
                   id="mySelectId1"
                   onChange={(e) => {
                     setCartId(e.target.value);
+                    if(e.target.value == 0){
+                      setEnableButton(true);
+                    }else{
+                      setEnableButton(false);
+                    }
                   }}
                 >
+                  <ClaySelect.Option
+                      label={"Selecionar carrinho"}
+                      value={0}
+                    />
                   {cartList.map((item, index) => (
                     <ClaySelect.Option
                       key={index}
@@ -40,7 +50,9 @@ export default function ProductAddToCartModal({
                 </ClaySelect>
               </ClayForm.Group>
               <ClayButton
+                className="btn-primary"
                 displayType="primary"
+                disabled={enableButton}
                 onClick={() => {
                   AddProductToCart(parseInt(cartId), parseInt(productId)).then(
                     (data) => {
