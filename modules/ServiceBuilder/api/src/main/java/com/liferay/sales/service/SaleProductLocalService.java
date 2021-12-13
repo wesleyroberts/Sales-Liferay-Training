@@ -80,10 +80,6 @@ public interface SaleProductLocalService
 	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public SaleProduct createProduct(
-		String name, double price, long productId, long categoryId,
-		long typeId);
-
 	/**
 	 * Creates a new sale product with the primary key. Does not add the sale product to the database.
 	 *
@@ -92,6 +88,9 @@ public interface SaleProductLocalService
 	 */
 	@Transactional(enabled = false)
 	public SaleProduct createSaleProduct(long productId);
+
+	public SaleProduct createSaleProduct(
+		String name, double price, long categoryId, long typeId);
 
 	public SaleProduct deleteById(long id);
 

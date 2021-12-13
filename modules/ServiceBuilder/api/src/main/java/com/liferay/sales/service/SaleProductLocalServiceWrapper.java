@@ -61,15 +61,6 @@ public class SaleProductLocalServiceWrapper
 		return _saleProductLocalService.createPersistedModel(primaryKeyObj);
 	}
 
-	@Override
-	public com.liferay.sales.model.SaleProduct createProduct(
-		String name, double price, long productId, long categoryId,
-		long typeId) {
-
-		return _saleProductLocalService.createProduct(
-			name, price, productId, categoryId, typeId);
-	}
-
 	/**
 	 * Creates a new sale product with the primary key. Does not add the sale product to the database.
 	 *
@@ -81,6 +72,14 @@ public class SaleProductLocalServiceWrapper
 		long productId) {
 
 		return _saleProductLocalService.createSaleProduct(productId);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleProduct createSaleProduct(
+		String name, double price, long categoryId, long typeId) {
+
+		return _saleProductLocalService.createSaleProduct(
+			name, price, categoryId, typeId);
 	}
 
 	@Override

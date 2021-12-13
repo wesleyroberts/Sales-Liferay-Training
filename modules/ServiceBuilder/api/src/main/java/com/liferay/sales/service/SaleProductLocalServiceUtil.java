@@ -68,14 +68,6 @@ public class SaleProductLocalServiceUtil {
 		return getService().createPersistedModel(primaryKeyObj);
 	}
 
-	public static SaleProduct createProduct(
-		String name, double price, long productId, long categoryId,
-		long typeId) {
-
-		return getService().createProduct(
-			name, price, productId, categoryId, typeId);
-	}
-
 	/**
 	 * Creates a new sale product with the primary key. Does not add the sale product to the database.
 	 *
@@ -84,6 +76,12 @@ public class SaleProductLocalServiceUtil {
 	 */
 	public static SaleProduct createSaleProduct(long productId) {
 		return getService().createSaleProduct(productId);
+	}
+
+	public static SaleProduct createSaleProduct(
+		String name, double price, long categoryId, long typeId) {
+
+		return getService().createSaleProduct(name, price, categoryId, typeId);
 	}
 
 	public static SaleProduct deleteById(long id) {

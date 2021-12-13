@@ -54,16 +54,16 @@ public class SaleProductLocalServiceImpl
 	 *
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.SaleProductLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleProductLocalServiceUtil</code>.
 	 */
-	public SaleProduct createProduct(String name, double price, long productId, long categoryId, long typeId){
-		try{
-			SaleProduct product = saleProductPersistence.create(productId);
+	public SaleProduct createSaleProduct(String name, double price,long categoryId, long typeId){
+
+		SaleProduct product = saleProductPersistence.create(counterLocalService.increment());
+		if(!(name == null || name.equals(""))){
 			product.setName(name);
 			product.setPrice(price);
 			product.setCategoryId(categoryId);
 			product.setTypeId(typeId);
 			return saleProductPersistence.update(applyTax(product));
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
+		}else{
 			return null;
 		}
 	}

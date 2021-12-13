@@ -63,15 +63,14 @@ import java.rmi.RemoteException;
 @Deprecated
 public class SaleProductServiceSoap {
 
-	public static com.liferay.sales.model.SaleProductSoap createProduct(
-			String name, double price, long productId, long categoryId,
-			long typeId)
+	public static com.liferay.sales.model.SaleProductSoap createSaleProduct(
+			String name, double price, long categoryId, long typeId)
 		throws RemoteException {
 
 		try {
 			com.liferay.sales.model.SaleProduct returnValue =
-				SaleProductServiceUtil.createProduct(
-					name, price, productId, categoryId, typeId);
+				SaleProductServiceUtil.createSaleProduct(
+					name, price, categoryId, typeId);
 
 			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
 				returnValue);

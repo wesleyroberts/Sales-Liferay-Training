@@ -31,12 +31,11 @@ public class SaleProductServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.SaleProduct createProduct(
-		String name, double price, long productId, long categoryId,
-		long typeId) {
+	public com.liferay.sales.model.SaleProduct createSaleProduct(
+		String name, double price, long categoryId, long typeId) {
 
-		return _saleProductService.createProduct(
-			name, price, productId, categoryId, typeId);
+		return _saleProductService.createSaleProduct(
+			name, price, categoryId, typeId);
 	}
 
 	@Override

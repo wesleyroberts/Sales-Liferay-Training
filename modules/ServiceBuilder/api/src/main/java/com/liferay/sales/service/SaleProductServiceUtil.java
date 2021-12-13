@@ -37,12 +37,10 @@ public class SaleProductServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleProductServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static SaleProduct createProduct(
-		String name, double price, long productId, long categoryId,
-		long typeId) {
+	public static SaleProduct createSaleProduct(
+		String name, double price, long categoryId, long typeId) {
 
-		return getService().createProduct(
-			name, price, productId, categoryId, typeId);
+		return getService().createSaleProduct(name, price, categoryId, typeId);
 	}
 
 	public static SaleProduct deleteById(long id) {

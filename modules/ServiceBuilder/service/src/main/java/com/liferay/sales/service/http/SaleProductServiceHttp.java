@@ -51,17 +51,17 @@ import com.liferay.sales.service.SaleProductServiceUtil;
  */
 public class SaleProductServiceHttp {
 
-	public static com.liferay.sales.model.SaleProduct createProduct(
-		HttpPrincipal httpPrincipal, String name, double price, long productId,
-		long categoryId, long typeId) {
+	public static com.liferay.sales.model.SaleProduct createSaleProduct(
+		HttpPrincipal httpPrincipal, String name, double price, long categoryId,
+		long typeId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				SaleProductServiceUtil.class, "createProduct",
-				_createProductParameterTypes0);
+				SaleProductServiceUtil.class, "createSaleProduct",
+				_createSaleProductParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, name, price, productId, categoryId, typeId);
+				methodKey, name, price, categoryId, typeId);
 
 			Object returnObj = null;
 
@@ -212,10 +212,8 @@ public class SaleProductServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(
 		SaleProductServiceHttp.class);
 
-	private static final Class<?>[] _createProductParameterTypes0 =
-		new Class[] {
-			String.class, double.class, long.class, long.class, long.class
-		};
+	private static final Class<?>[] _createSaleProductParameterTypes0 =
+		new Class[] {String.class, double.class, long.class, long.class};
 	private static final Class<?>[] _getAllSaleProductsParameterTypes1 =
 		new Class[] {};
 	private static final Class<?>[] _getSaleProductByIdParameterTypes2 =
