@@ -14,35 +14,24 @@
 
 package com.liferay.sales.service;
 
-import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.PersistedModel;
-import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.sales.model.CartProductsList;
-
-import java.io.Serializable;
-
-import java.util.List;
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
- * Provides the local service utility for CartProductsList. This utility wraps
- * <code>com.liferay.sales.service.impl.CartProductsListLocalServiceImpl</code> and
- * is an access point for service operations in application layer code running
- * on the local server. Methods of this service will not have security checks
- * based on the propagated JAAS credentials because this service can only be
- * accessed from within the same VM.
+ * Provides a wrapper for {@link CartProductsListLocalService}.
  *
  * @author Brian Wing Shun Chan
  * @see CartProductsListLocalService
  * @generated
  */
-public class CartProductsListLocalServiceUtil {
+public class CartProductsListLocalServiceWrapper
+	implements CartProductsListLocalService,
+			   ServiceWrapper<CartProductsListLocalService> {
 
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.CartProductsListLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
-	 */
+	public CartProductsListLocalServiceWrapper(
+		CartProductsListLocalService cartProductsListLocalService) {
+
+		_cartProductsListLocalService = cartProductsListLocalService;
+	}
 
 	/**
 	 * Adds the cart products list to the database. Also notifies the appropriate model listeners.
@@ -54,16 +43,20 @@ public class CartProductsListLocalServiceUtil {
 	 * @param cartProductsList the cart products list
 	 * @return the cart products list that was added
 	 */
-	public static CartProductsList addCartProductsList(
-		CartProductsList cartProductsList) {
+	@Override
+	public com.liferay.sales.model.CartProductsList addCartProductsList(
+		com.liferay.sales.model.CartProductsList cartProductsList) {
 
-		return getService().addCartProductsList(cartProductsList);
+		return _cartProductsListLocalService.addCartProductsList(
+			cartProductsList);
 	}
 
-	public static CartProductsList addProductToCartList(
+	@Override
+	public com.liferay.sales.model.CartProductsList addProductToCartList(
 		long productId, long cartId) {
 
-		return getService().addProductToCartList(productId, cartId);
+		return _cartProductsListLocalService.addProductToCartList(
+			productId, cartId);
 	}
 
 	/**
@@ -72,18 +65,23 @@ public class CartProductsListLocalServiceUtil {
 	 * @param productId the primary key for the new cart products list
 	 * @return the new cart products list
 	 */
-	public static CartProductsList createCartProductsList(long productId) {
-		return getService().createCartProductsList(productId);
+	@Override
+	public com.liferay.sales.model.CartProductsList createCartProductsList(
+		long productId) {
+
+		return _cartProductsListLocalService.createCartProductsList(productId);
 	}
 
 	/**
 	 * @throws PortalException
 	 */
-	public static PersistedModel createPersistedModel(
-			Serializable primaryKeyObj)
-		throws PortalException {
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel createPersistedModel(
+			java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().createPersistedModel(primaryKeyObj);
+		return _cartProductsListLocalService.createPersistedModel(
+			primaryKeyObj);
 	}
 
 	/**
@@ -96,10 +94,12 @@ public class CartProductsListLocalServiceUtil {
 	 * @param cartProductsList the cart products list
 	 * @return the cart products list that was removed
 	 */
-	public static CartProductsList deleteCartProductsList(
-		CartProductsList cartProductsList) {
+	@Override
+	public com.liferay.sales.model.CartProductsList deleteCartProductsList(
+		com.liferay.sales.model.CartProductsList cartProductsList) {
 
-		return getService().deleteCartProductsList(cartProductsList);
+		return _cartProductsListLocalService.deleteCartProductsList(
+			cartProductsList);
 	}
 
 	/**
@@ -113,24 +113,29 @@ public class CartProductsListLocalServiceUtil {
 	 * @return the cart products list that was removed
 	 * @throws PortalException if a cart products list with the primary key could not be found
 	 */
-	public static CartProductsList deleteCartProductsList(long productId)
-		throws PortalException {
+	@Override
+	public com.liferay.sales.model.CartProductsList deleteCartProductsList(
+			long productId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().deleteCartProductsList(productId);
+		return _cartProductsListLocalService.deleteCartProductsList(productId);
 	}
 
 	/**
 	 * @throws PortalException
 	 */
-	public static PersistedModel deletePersistedModel(
-			PersistedModel persistedModel)
-		throws PortalException {
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+			com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().deletePersistedModel(persistedModel);
+		return _cartProductsListLocalService.deletePersistedModel(
+			persistedModel);
 	}
 
-	public static DynamicQuery dynamicQuery() {
-		return getService().dynamicQuery();
+	@Override
+	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return _cartProductsListLocalService.dynamicQuery();
 	}
 
 	/**
@@ -139,8 +144,11 @@ public class CartProductsListLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
-		return getService().dynamicQuery(dynamicQuery);
+	@Override
+	public <T> java.util.List<T> dynamicQuery(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+
+		return _cartProductsListLocalService.dynamicQuery(dynamicQuery);
 	}
 
 	/**
@@ -155,10 +163,13 @@ public class CartProductsListLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> List<T> dynamicQuery(
-		DynamicQuery dynamicQuery, int start, int end) {
+	@Override
+	public <T> java.util.List<T> dynamicQuery(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
+		int end) {
 
-		return getService().dynamicQuery(dynamicQuery, start, end);
+		return _cartProductsListLocalService.dynamicQuery(
+			dynamicQuery, start, end);
 	}
 
 	/**
@@ -174,11 +185,13 @@ public class CartProductsListLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> List<T> dynamicQuery(
-		DynamicQuery dynamicQuery, int start, int end,
-		OrderByComparator<T> orderByComparator) {
+	@Override
+	public <T> java.util.List<T> dynamicQuery(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
+		int end,
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 
-		return getService().dynamicQuery(
+		return _cartProductsListLocalService.dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
 	}
 
@@ -188,8 +201,11 @@ public class CartProductsListLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
-		return getService().dynamicQueryCount(dynamicQuery);
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+
+		return _cartProductsListLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
 	/**
@@ -199,27 +215,34 @@ public class CartProductsListLocalServiceUtil {
 	 * @param projection the projection to apply to the query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		DynamicQuery dynamicQuery,
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
-		return getService().dynamicQueryCount(dynamicQuery, projection);
+		return _cartProductsListLocalService.dynamicQueryCount(
+			dynamicQuery, projection);
 	}
 
-	public static CartProductsList fetchCartProductsList(long productId) {
-		return getService().fetchCartProductsList(productId);
+	@Override
+	public com.liferay.sales.model.CartProductsList fetchCartProductsList(
+		long productId) {
+
+		return _cartProductsListLocalService.fetchCartProductsList(productId);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
-		return getService().getActionableDynamicQuery();
+		return _cartProductsListLocalService.getActionableDynamicQuery();
 	}
 
-	public static List<com.liferay.sales.model.SaleProduct>
-		getAllProductsByCarID(long id) {
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		getAllProductsByCartID(long id) {
 
-		return getService().getAllProductsByCarID(id);
+		return _cartProductsListLocalService.getAllProductsByCartID(id);
 	}
 
 	/**
@@ -229,10 +252,12 @@ public class CartProductsListLocalServiceUtil {
 	 * @return the cart products list
 	 * @throws PortalException if a cart products list with the primary key could not be found
 	 */
-	public static CartProductsList getCartProductsList(long productId)
-		throws PortalException {
+	@Override
+	public com.liferay.sales.model.CartProductsList getCartProductsList(
+			long productId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().getCartProductsList(productId);
+		return _cartProductsListLocalService.getCartProductsList(productId);
 	}
 
 	/**
@@ -246,10 +271,11 @@ public class CartProductsListLocalServiceUtil {
 	 * @param end the upper bound of the range of cart products lists (not inclusive)
 	 * @return the range of cart products lists
 	 */
-	public static List<CartProductsList> getCartProductsLists(
-		int start, int end) {
+	@Override
+	public java.util.List<com.liferay.sales.model.CartProductsList>
+		getCartProductsLists(int start, int end) {
 
-		return getService().getCartProductsLists(start, end);
+		return _cartProductsListLocalService.getCartProductsLists(start, end);
 	}
 
 	/**
@@ -257,15 +283,17 @@ public class CartProductsListLocalServiceUtil {
 	 *
 	 * @return the number of cart products lists
 	 */
-	public static int getCartProductsListsCount() {
-		return getService().getCartProductsListsCount();
+	@Override
+	public int getCartProductsListsCount() {
+		return _cartProductsListLocalService.getCartProductsListsCount();
 	}
 
-	public static
-		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
-			getIndexableActionableDynamicQuery() {
+	@Override
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
+		getIndexableActionableDynamicQuery() {
 
-		return getService().getIndexableActionableDynamicQuery();
+		return _cartProductsListLocalService.
+			getIndexableActionableDynamicQuery();
 	}
 
 	/**
@@ -273,21 +301,26 @@ public class CartProductsListLocalServiceUtil {
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static String getOSGiServiceIdentifier() {
-		return getService().getOSGiServiceIdentifier();
+	@Override
+	public String getOSGiServiceIdentifier() {
+		return _cartProductsListLocalService.getOSGiServiceIdentifier();
 	}
 
 	/**
 	 * @throws PortalException
 	 */
-	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
-		throws PortalException {
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+			java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().getPersistedModel(primaryKeyObj);
+		return _cartProductsListLocalService.getPersistedModel(primaryKeyObj);
 	}
 
-	public static void removeProductToCartList(long productId, long cartId) {
-		getService().removeProductToCartList(productId, cartId);
+	@Override
+	public void removeProductToCartList(long productId, long cartId) {
+		_cartProductsListLocalService.removeProductToCartList(
+			productId, cartId);
 	}
 
 	/**
@@ -300,16 +333,26 @@ public class CartProductsListLocalServiceUtil {
 	 * @param cartProductsList the cart products list
 	 * @return the cart products list that was updated
 	 */
-	public static CartProductsList updateCartProductsList(
-		CartProductsList cartProductsList) {
+	@Override
+	public com.liferay.sales.model.CartProductsList updateCartProductsList(
+		com.liferay.sales.model.CartProductsList cartProductsList) {
 
-		return getService().updateCartProductsList(cartProductsList);
+		return _cartProductsListLocalService.updateCartProductsList(
+			cartProductsList);
 	}
 
-	public static CartProductsListLocalService getService() {
-		return _service;
+	@Override
+	public CartProductsListLocalService getWrappedService() {
+		return _cartProductsListLocalService;
 	}
 
-	private static volatile CartProductsListLocalService _service;
+	@Override
+	public void setWrappedService(
+		CartProductsListLocalService cartProductsListLocalService) {
+
+		_cartProductsListLocalService = cartProductsListLocalService;
+	}
+
+	private CartProductsListLocalService _cartProductsListLocalService;
 
 }

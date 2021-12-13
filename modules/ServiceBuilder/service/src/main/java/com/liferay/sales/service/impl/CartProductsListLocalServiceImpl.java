@@ -54,7 +54,7 @@ public class CartProductsListLocalServiceImpl
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.CartProductsListLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.CartProductsListLocalServiceUtil</code>.
 	 */
 
-	public List<SaleProduct> getAllProductsByCarID(long id){
+	public List<SaleProduct> getAllProductsByCartID(long id){
 		List<SaleProduct> listSaleProduct = new ArrayList<>();
 		for (CartProductsList e:cartProductsListPersistence.findAll()) {
 			if(e.getCartId() == id){

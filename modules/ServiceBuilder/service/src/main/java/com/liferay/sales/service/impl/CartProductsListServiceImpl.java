@@ -52,7 +52,7 @@ public class CartProductsListServiceImpl
 	 * Never reference this class directly. Always use <code>com.liferay.sales.service.CartProductsListServiceUtil</code> to access the cart products list remote service.
 	 */
 	public List<SaleProduct> getAllProductsByCarID(long id){
-		return cartProductsListLocalService.getAllProductsByCarID(id);
+		return cartProductsListLocalService.getAllProductsByCartID(id);
 	}
 	public CartProductsList addProductToCartList(long productId, long cartId){
 		return cartProductsListLocalService.addProductToCartList(productId,cartId);

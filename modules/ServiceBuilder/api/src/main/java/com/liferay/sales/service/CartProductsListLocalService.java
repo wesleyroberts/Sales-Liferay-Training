@@ -14,24 +14,53 @@
 
 package com.liferay.sales.service;
 
-import com.liferay.portal.kernel.service.ServiceWrapper;
+import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.Projection;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.service.BaseLocalService;
+import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
+import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.sales.model.CartProductsList;
+import com.liferay.sales.model.SaleProduct;
+
+import java.io.Serializable;
+
+import java.util.List;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * Provides a wrapper for {@link CartProductsListLocalService}.
+ * Provides the local service interface for CartProductsList. Methods of this
+ * service will not have security checks based on the propagated JAAS
+ * credentials because this service can only be accessed from within the same
+ * VM.
  *
  * @author Brian Wing Shun Chan
- * @see CartProductsListLocalService
+ * @see CartProductsListLocalServiceUtil
  * @generated
  */
-public class CartProductsListLocalServiceWrapper
-	implements CartProductsListLocalService,
-			   ServiceWrapper<CartProductsListLocalService> {
+@ProviderType
+@Transactional(
+	isolation = Isolation.PORTAL,
+	rollbackFor = {PortalException.class, SystemException.class}
+)
+public interface CartProductsListLocalService
+	extends BaseLocalService, PersistedModelLocalService {
 
-	public CartProductsListLocalServiceWrapper(
-		CartProductsListLocalService cartProductsListLocalService) {
-
-		_cartProductsListLocalService = cartProductsListLocalService;
-	}
+	/*
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.sales.service.impl.CartProductsListLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cart products list local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CartProductsListLocalServiceUtil} if injection and service tracking are not available.
+	 */
 
 	/**
 	 * Adds the cart products list to the database. Also notifies the appropriate model listeners.
@@ -43,21 +72,11 @@ public class CartProductsListLocalServiceWrapper
 	 * @param cartProductsList the cart products list
 	 * @return the cart products list that was added
 	 */
-	@Override
-	public com.liferay.sales.model.CartProductsList addCartProductsList(
-		com.liferay.sales.model.CartProductsList cartProductsList) {
+	@Indexable(type = IndexableType.REINDEX)
+	public CartProductsList addCartProductsList(
+		CartProductsList cartProductsList);
 
-		return _cartProductsListLocalService.addCartProductsList(
-			cartProductsList);
-	}
-
-	@Override
-	public com.liferay.sales.model.CartProductsList addProductToCartList(
-		long productId, long cartId) {
-
-		return _cartProductsListLocalService.addProductToCartList(
-			productId, cartId);
-	}
+	public CartProductsList addProductToCartList(long productId, long cartId);
 
 	/**
 	 * Creates a new cart products list with the primary key. Does not add the cart products list to the database.
@@ -65,24 +84,14 @@ public class CartProductsListLocalServiceWrapper
 	 * @param productId the primary key for the new cart products list
 	 * @return the new cart products list
 	 */
-	@Override
-	public com.liferay.sales.model.CartProductsList createCartProductsList(
-		long productId) {
-
-		return _cartProductsListLocalService.createCartProductsList(productId);
-	}
+	@Transactional(enabled = false)
+	public CartProductsList createCartProductsList(long productId);
 
 	/**
 	 * @throws PortalException
 	 */
-	@Override
-	public com.liferay.portal.kernel.model.PersistedModel createPersistedModel(
-			java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _cartProductsListLocalService.createPersistedModel(
-			primaryKeyObj);
-	}
+	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
+		throws PortalException;
 
 	/**
 	 * Deletes the cart products list from the database. Also notifies the appropriate model listeners.
@@ -94,13 +103,9 @@ public class CartProductsListLocalServiceWrapper
 	 * @param cartProductsList the cart products list
 	 * @return the cart products list that was removed
 	 */
-	@Override
-	public com.liferay.sales.model.CartProductsList deleteCartProductsList(
-		com.liferay.sales.model.CartProductsList cartProductsList) {
-
-		return _cartProductsListLocalService.deleteCartProductsList(
-			cartProductsList);
-	}
+	@Indexable(type = IndexableType.DELETE)
+	public CartProductsList deleteCartProductsList(
+		CartProductsList cartProductsList);
 
 	/**
 	 * Deletes the cart products list with the primary key from the database. Also notifies the appropriate model listeners.
@@ -113,30 +118,19 @@ public class CartProductsListLocalServiceWrapper
 	 * @return the cart products list that was removed
 	 * @throws PortalException if a cart products list with the primary key could not be found
 	 */
-	@Override
-	public com.liferay.sales.model.CartProductsList deleteCartProductsList(
-			long productId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _cartProductsListLocalService.deleteCartProductsList(productId);
-	}
+	@Indexable(type = IndexableType.DELETE)
+	public CartProductsList deleteCartProductsList(long productId)
+		throws PortalException;
 
 	/**
 	 * @throws PortalException
 	 */
 	@Override
-	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
-			com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
+		throws PortalException;
 
-		return _cartProductsListLocalService.deletePersistedModel(
-			persistedModel);
-	}
-
-	@Override
-	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return _cartProductsListLocalService.dynamicQuery();
-	}
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public DynamicQuery dynamicQuery();
 
 	/**
 	 * Performs a dynamic query on the database and returns the matching rows.
@@ -144,12 +138,8 @@ public class CartProductsListLocalServiceWrapper
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	@Override
-	public <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
-		return _cartProductsListLocalService.dynamicQuery(dynamicQuery);
-	}
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery);
 
 	/**
 	 * Performs a dynamic query on the database and returns a range of the matching rows.
@@ -163,14 +153,9 @@ public class CartProductsListLocalServiceWrapper
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	@Override
-	public <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
-
-		return _cartProductsListLocalService.dynamicQuery(
-			dynamicQuery, start, end);
-	}
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end);
 
 	/**
 	 * Performs a dynamic query on the database and returns an ordered range of the matching rows.
@@ -185,15 +170,10 @@ public class CartProductsListLocalServiceWrapper
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	@Override
-	public <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
-
-		return _cartProductsListLocalService.dynamicQuery(
-			dynamicQuery, start, end, orderByComparator);
-	}
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator);
 
 	/**
 	 * Returns the number of rows matching the dynamic query.
@@ -201,12 +181,8 @@ public class CartProductsListLocalServiceWrapper
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	@Override
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
-		return _cartProductsListLocalService.dynamicQueryCount(dynamicQuery);
-	}
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long dynamicQueryCount(DynamicQuery dynamicQuery);
 
 	/**
 	 * Returns the number of rows matching the dynamic query.
@@ -215,35 +191,18 @@ public class CartProductsListLocalServiceWrapper
 	 * @param projection the projection to apply to the query
 	 * @return the number of rows matching the dynamic query
 	 */
-	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
+		DynamicQuery dynamicQuery, Projection projection);
 
-		return _cartProductsListLocalService.dynamicQueryCount(
-			dynamicQuery, projection);
-	}
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CartProductsList fetchCartProductsList(long productId);
 
-	@Override
-	public com.liferay.sales.model.CartProductsList fetchCartProductsList(
-		long productId) {
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ActionableDynamicQuery getActionableDynamicQuery();
 
-		return _cartProductsListLocalService.fetchCartProductsList(productId);
-	}
-
-	@Override
-	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
-		getActionableDynamicQuery() {
-
-		return _cartProductsListLocalService.getActionableDynamicQuery();
-	}
-
-	@Override
-	public java.util.List<com.liferay.sales.model.SaleProduct>
-		getAllProductsByCarID(long id) {
-
-		return _cartProductsListLocalService.getAllProductsByCarID(id);
-	}
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleProduct> getAllProductsByCartID(long id);
 
 	/**
 	 * Returns the cart products list with the primary key.
@@ -252,13 +211,9 @@ public class CartProductsListLocalServiceWrapper
 	 * @return the cart products list
 	 * @throws PortalException if a cart products list with the primary key could not be found
 	 */
-	@Override
-	public com.liferay.sales.model.CartProductsList getCartProductsList(
-			long productId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _cartProductsListLocalService.getCartProductsList(productId);
-	}
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CartProductsList getCartProductsList(long productId)
+		throws PortalException;
 
 	/**
 	 * Returns a range of all the cart products lists.
@@ -271,57 +226,36 @@ public class CartProductsListLocalServiceWrapper
 	 * @param end the upper bound of the range of cart products lists (not inclusive)
 	 * @return the range of cart products lists
 	 */
-	@Override
-	public java.util.List<com.liferay.sales.model.CartProductsList>
-		getCartProductsLists(int start, int end) {
-
-		return _cartProductsListLocalService.getCartProductsLists(start, end);
-	}
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CartProductsList> getCartProductsLists(int start, int end);
 
 	/**
 	 * Returns the number of cart products lists.
 	 *
 	 * @return the number of cart products lists
 	 */
-	@Override
-	public int getCartProductsListsCount() {
-		return _cartProductsListLocalService.getCartProductsListsCount();
-	}
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCartProductsListsCount();
 
-	@Override
-	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
-		getIndexableActionableDynamicQuery() {
-
-		return _cartProductsListLocalService.
-			getIndexableActionableDynamicQuery();
-	}
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	@Override
-	public String getOSGiServiceIdentifier() {
-		return _cartProductsListLocalService.getOSGiServiceIdentifier();
-	}
+	public String getOSGiServiceIdentifier();
 
 	/**
 	 * @throws PortalException
 	 */
 	@Override
-	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
-			java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException;
 
-		return _cartProductsListLocalService.getPersistedModel(primaryKeyObj);
-	}
-
-	@Override
-	public void removeProductToCartList(long productId, long cartId) {
-		_cartProductsListLocalService.removeProductToCartList(
-			productId, cartId);
-	}
+	public void removeProductToCartList(long productId, long cartId);
 
 	/**
 	 * Updates the cart products list in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
@@ -333,26 +267,8 @@ public class CartProductsListLocalServiceWrapper
 	 * @param cartProductsList the cart products list
 	 * @return the cart products list that was updated
 	 */
-	@Override
-	public com.liferay.sales.model.CartProductsList updateCartProductsList(
-		com.liferay.sales.model.CartProductsList cartProductsList) {
-
-		return _cartProductsListLocalService.updateCartProductsList(
-			cartProductsList);
-	}
-
-	@Override
-	public CartProductsListLocalService getWrappedService() {
-		return _cartProductsListLocalService;
-	}
-
-	@Override
-	public void setWrappedService(
-		CartProductsListLocalService cartProductsListLocalService) {
-
-		_cartProductsListLocalService = cartProductsListLocalService;
-	}
-
-	private CartProductsListLocalService _cartProductsListLocalService;
+	@Indexable(type = IndexableType.REINDEX)
+	public CartProductsList updateCartProductsList(
+		CartProductsList cartProductsList);
 
 }

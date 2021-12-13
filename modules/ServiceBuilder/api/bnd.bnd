@@ -7,4 +7,4 @@ Export-Package:\
     com.liferay.sales.service,\
 	com.liferay.sales.service.persistence
 -check: EXPORTS
--includeresource: META-INF/service.xml=../Liferay-Training-ServiceBuilder-service/service.xml
+-includeresource: META-INF/service.xml=../service/service.xml
