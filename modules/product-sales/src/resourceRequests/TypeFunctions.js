@@ -8,10 +8,9 @@ export function GetAllTypes() {
     }
   ).then((res) => res.json());
 }
-export function createType(name, id, tax) {
+export function createType(name, tax) {
   let type = {
     name: name,
-    id: id,
     tax: tax,
   };
 

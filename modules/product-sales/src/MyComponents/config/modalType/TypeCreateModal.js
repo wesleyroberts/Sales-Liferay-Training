@@ -9,7 +9,6 @@ export default function TypeCreateModal({
   addType,
 }) {
   const [name, setName] = useState("");
-  const [id, setId] = useState(0);
   const [tax, setTax] = useState(0);
 
   const { observer, onClose } = useModal({
@@ -38,18 +37,11 @@ export default function TypeCreateModal({
                     setTax(e.target.value);
                   }}
                 ></ClayInput>
-                <label htmlFor="basicInput">Id</label>
-                <ClayInput
-                  type="number"
-                  onChange={(e) => {
-                    setId(e.target.value);
-                  }}
-                ></ClayInput>
               </ClayForm.Group>
               <ClayButton
                 displayType="primary"
                 onClick={() => {
-                  createType(name, id, tax).then((data) => addType(data));
+                  createType(name, tax).then((data) => addType(data));
                 }}
               >
                 Criar
