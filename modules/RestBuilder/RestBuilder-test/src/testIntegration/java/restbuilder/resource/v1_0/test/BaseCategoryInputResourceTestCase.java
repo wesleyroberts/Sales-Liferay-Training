@@ -58,20 +58,20 @@ import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 
-import restbuilder.client.dto.v1_0.ProductInput;
-import restbuilder.client.dto.v1_0.ProductOutput;
+import restbuilder.client.dto.v1_0.Category;
+import restbuilder.client.dto.v1_0.CategoryInput;
 import restbuilder.client.dto.v1_0.Type;
 import restbuilder.client.http.HttpInvoker;
 import restbuilder.client.pagination.Page;
-import restbuilder.client.resource.v1_0.ProductInputResource;
-import restbuilder.client.serdes.v1_0.ProductInputSerDes;
+import restbuilder.client.resource.v1_0.CategoryInputResource;
+import restbuilder.client.serdes.v1_0.CategoryInputSerDes;
 
 /**
  * @author Wesley Roberts
  * @generated
  */
 @Generated("")
-public abstract class BaseProductInputResourceTestCase {
+public abstract class BaseCategoryInputResourceTestCase {
 
 	@ClassRule
 	@Rule
@@ -92,11 +92,11 @@ public abstract class BaseProductInputResourceTestCase {
 		testCompany = CompanyLocalServiceUtil.getCompany(
 			testGroup.getCompanyId());
 
-		_productInputResource.setContextCompany(testCompany);
+		_categoryInputResource.setContextCompany(testCompany);
 
-		ProductInputResource.Builder builder = ProductInputResource.builder();
+		CategoryInputResource.Builder builder = CategoryInputResource.builder();
 
-		productInputResource = builder.authentication(
+		categoryInputResource = builder.authentication(
 			"test@liferay.com", "test"
 		).locale(
 			LocaleUtil.getDefault()
@@ -127,13 +127,13 @@ public abstract class BaseProductInputResourceTestCase {
 			}
 		};
 
-		ProductInput productInput1 = randomProductInput();
+		CategoryInput categoryInput1 = randomCategoryInput();
 
-		String json = objectMapper.writeValueAsString(productInput1);
+		String json = objectMapper.writeValueAsString(categoryInput1);
 
-		ProductInput productInput2 = ProductInputSerDes.toDTO(json);
+		CategoryInput categoryInput2 = CategoryInputSerDes.toDTO(json);
 
-		Assert.assertTrue(equals(productInput1, productInput2));
+		Assert.assertTrue(equals(categoryInput1, categoryInput2));
 	}
 
 	@Test
@@ -153,10 +153,10 @@ public abstract class BaseProductInputResourceTestCase {
 			}
 		};
 
-		ProductInput productInput = randomProductInput();
+		CategoryInput categoryInput = randomCategoryInput();
 
-		String json1 = objectMapper.writeValueAsString(productInput);
-		String json2 = ProductInputSerDes.toJSON(productInput);
+		String json1 = objectMapper.writeValueAsString(categoryInput);
+		String json2 = CategoryInputSerDes.toJSON(categoryInput);
 
 		Assert.assertEquals(
 			objectMapper.readTree(json1), objectMapper.readTree(json2));
@@ -166,21 +166,21 @@ public abstract class BaseProductInputResourceTestCase {
 	public void testEscapeRegexInStringFields() throws Exception {
 		String regex = "^[0-9]+(\\.[0-9]{1,2})\"?";
 
-		ProductInput productInput = randomProductInput();
+		CategoryInput categoryInput = randomCategoryInput();
 
-		productInput.setName(regex);
+		categoryInput.setName(regex);
 
-		String json = ProductInputSerDes.toJSON(productInput);
+		String json = CategoryInputSerDes.toJSON(categoryInput);
 
 		Assert.assertFalse(json.contains(regex));
 
-		productInput = ProductInputSerDes.toDTO(json);
+		categoryInput = CategoryInputSerDes.toDTO(json);
 
-		Assert.assertEquals(regex, productInput.getName());
+		Assert.assertEquals(regex, categoryInput.getName());
 	}
 
 	@Test
-	public void testCreateProduct() throws Exception {
+	public void testCreateCategory() throws Exception {
 		Assert.assertTrue(true);
 	}
 
@@ -193,44 +193,44 @@ public abstract class BaseProductInputResourceTestCase {
 	}
 
 	protected void assertEquals(
-		ProductInput productInput1, ProductInput productInput2) {
+		CategoryInput categoryInput1, CategoryInput categoryInput2) {
 
 		Assert.assertTrue(
-			productInput1 + " does not equal " + productInput2,
-			equals(productInput1, productInput2));
+			categoryInput1 + " does not equal " + categoryInput2,
+			equals(categoryInput1, categoryInput2));
 	}
 
 	protected void assertEquals(
-		List<ProductInput> productInputs1, List<ProductInput> productInputs2) {
+		List<CategoryInput> categoryInputs1,
+		List<CategoryInput> categoryInputs2) {
 
-		Assert.assertEquals(productInputs1.size(), productInputs2.size());
+		Assert.assertEquals(categoryInputs1.size(), categoryInputs2.size());
 
-		for (int i = 0; i < productInputs1.size(); i++) {
-			ProductInput productInput1 = productInputs1.get(i);
-			ProductInput productInput2 = productInputs2.get(i);
+		for (int i = 0; i < categoryInputs1.size(); i++) {
+			CategoryInput categoryInput1 = categoryInputs1.get(i);
+			CategoryInput categoryInput2 = categoryInputs2.get(i);
 
-			assertEquals(productInput1, productInput2);
+			assertEquals(categoryInput1, categoryInput2);
 		}
 	}
 
-	protected void assertEquals(
-		ProductOutput productOutput1, ProductOutput productOutput2) {
-
+	protected void assertEquals(Category category1, Category category2) {
 		Assert.assertTrue(
-			productOutput1 + " does not equal " + productOutput2,
-			equals(productOutput1, productOutput2));
+			category1 + " does not equal " + category2,
+			equals(category1, category2));
 	}
 
 	protected void assertEqualsIgnoringOrder(
-		List<ProductInput> productInputs1, List<ProductInput> productInputs2) {
+		List<CategoryInput> categoryInputs1,
+		List<CategoryInput> categoryInputs2) {
 
-		Assert.assertEquals(productInputs1.size(), productInputs2.size());
+		Assert.assertEquals(categoryInputs1.size(), categoryInputs2.size());
 
-		for (ProductInput productInput1 : productInputs1) {
+		for (CategoryInput categoryInput1 : categoryInputs1) {
 			boolean contains = false;
 
-			for (ProductInput productInput2 : productInputs2) {
-				if (equals(productInput1, productInput2)) {
+			for (CategoryInput categoryInput2 : categoryInputs2) {
+				if (equals(categoryInput1, categoryInput2)) {
 					contains = true;
 
 					break;
@@ -238,43 +238,27 @@ public abstract class BaseProductInputResourceTestCase {
 			}
 
 			Assert.assertTrue(
-				productInputs2 + " does not contain " + productInput1,
+				categoryInputs2 + " does not contain " + categoryInput1,
 				contains);
 		}
 	}
 
-	protected void assertValid(ProductInput productInput) throws Exception {
+	protected void assertValid(CategoryInput categoryInput) throws Exception {
 		boolean valid = true;
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
-			if (Objects.equals("categoryId", additionalAssertFieldName)) {
-				if (productInput.getCategoryId() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("name", additionalAssertFieldName)) {
-				if (productInput.getName() == null) {
+				if (categoryInput.getName() == null) {
 					valid = false;
 				}
 
 				continue;
 			}
 
-			if (Objects.equals("price", additionalAssertFieldName)) {
-				if (productInput.getPrice() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("typeId", additionalAssertFieldName)) {
-				if (productInput.getTypeId() == null) {
+			if (Objects.equals("tax", additionalAssertFieldName)) {
+				if (categoryInput.getTax() == null) {
 					valid = false;
 				}
 
@@ -289,12 +273,12 @@ public abstract class BaseProductInputResourceTestCase {
 		Assert.assertTrue(valid);
 	}
 
-	protected void assertValid(Page<ProductInput> page) {
+	protected void assertValid(Page<CategoryInput> page) {
 		boolean valid = false;
 
-		java.util.Collection<ProductInput> productInputs = page.getItems();
+		java.util.Collection<CategoryInput> categoryInputs = page.getItems();
 
-		int size = productInputs.size();
+		int size = categoryInputs.size();
 
 		if ((page.getLastPage() > 0) && (page.getPage() > 0) &&
 			(page.getPageSize() > 0) && (page.getTotalCount() > 0) &&
@@ -306,42 +290,26 @@ public abstract class BaseProductInputResourceTestCase {
 		Assert.assertTrue(valid);
 	}
 
-	protected void assertValid(ProductOutput productOutput) {
+	protected void assertValid(Category category) {
 		boolean valid = true;
 
-		if (productOutput.getId() == null) {
+		if (category.getId() == null) {
 			valid = false;
 		}
 
 		for (String additionalAssertFieldName :
-				getAdditionalProductOutputAssertFieldNames()) {
-
-			if (Objects.equals("category", additionalAssertFieldName)) {
-				if (productOutput.getCategory() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
+				getAdditionalCategoryAssertFieldNames()) {
 
 			if (Objects.equals("name", additionalAssertFieldName)) {
-				if (productOutput.getName() == null) {
+				if (category.getName() == null) {
 					valid = false;
 				}
 
 				continue;
 			}
 
-			if (Objects.equals("price", additionalAssertFieldName)) {
-				if (productOutput.getPrice() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("type", additionalAssertFieldName)) {
-				if (productOutput.getType() == null) {
+			if (Objects.equals("tax", additionalAssertFieldName)) {
+				if (category.getTax() == null) {
 					valid = false;
 				}
 
@@ -360,7 +328,7 @@ public abstract class BaseProductInputResourceTestCase {
 		return new String[0];
 	}
 
-	protected String[] getAdditionalProductOutputAssertFieldNames() {
+	protected String[] getAdditionalCategoryAssertFieldNames() {
 		return new String[0];
 	}
 
@@ -368,7 +336,7 @@ public abstract class BaseProductInputResourceTestCase {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
 		for (Field field :
-				getDeclaredFields(restbuilder.dto.v1_0.ProductInput.class)) {
+				getDeclaredFields(restbuilder.dto.v1_0.CategoryInput.class)) {
 
 			if (!ArrayUtil.contains(
 					getAdditionalAssertFieldNames(), field.getName())) {
@@ -416,29 +384,18 @@ public abstract class BaseProductInputResourceTestCase {
 	}
 
 	protected boolean equals(
-		ProductInput productInput1, ProductInput productInput2) {
+		CategoryInput categoryInput1, CategoryInput categoryInput2) {
 
-		if (productInput1 == productInput2) {
+		if (categoryInput1 == categoryInput2) {
 			return true;
 		}
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
-			if (Objects.equals("categoryId", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						productInput1.getCategoryId(),
-						productInput2.getCategoryId())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						productInput1.getName(), productInput2.getName())) {
+						categoryInput1.getName(), categoryInput2.getName())) {
 
 					return false;
 				}
@@ -446,19 +403,9 @@ public abstract class BaseProductInputResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("price", additionalAssertFieldName)) {
+			if (Objects.equals("tax", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						productInput1.getPrice(), productInput2.getPrice())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("typeId", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						productInput1.getTypeId(), productInput2.getTypeId())) {
+						categoryInput1.getTax(), categoryInput2.getTax())) {
 
 					return false;
 				}
@@ -500,31 +447,16 @@ public abstract class BaseProductInputResourceTestCase {
 		return false;
 	}
 
-	protected boolean equals(
-		ProductOutput productOutput1, ProductOutput productOutput2) {
-
-		if (productOutput1 == productOutput2) {
+	protected boolean equals(Category category1, Category category2) {
+		if (category1 == category2) {
 			return true;
 		}
 
 		for (String additionalAssertFieldName :
-				getAdditionalProductOutputAssertFieldNames()) {
-
-			if (Objects.equals("category", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						productOutput1.getCategory(),
-						productOutput2.getCategory())) {
-
-					return false;
-				}
-
-				continue;
-			}
+				getAdditionalCategoryAssertFieldNames()) {
 
 			if (Objects.equals("id", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						productOutput1.getId(), productOutput2.getId())) {
-
+				if (!Objects.deepEquals(category1.getId(), category2.getId())) {
 					return false;
 				}
 
@@ -533,7 +465,7 @@ public abstract class BaseProductInputResourceTestCase {
 
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						productOutput1.getName(), productOutput2.getName())) {
+						category1.getName(), category2.getName())) {
 
 					return false;
 				}
@@ -541,19 +473,9 @@ public abstract class BaseProductInputResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("price", additionalAssertFieldName)) {
+			if (Objects.equals("tax", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						productOutput1.getPrice(), productOutput2.getPrice())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("type", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						productOutput1.getType(), productOutput2.getType())) {
+						category1.getTax(), category2.getTax())) {
 
 					return false;
 				}
@@ -583,13 +505,13 @@ public abstract class BaseProductInputResourceTestCase {
 	protected java.util.Collection<EntityField> getEntityFields()
 		throws Exception {
 
-		if (!(_productInputResource instanceof EntityModelResource)) {
+		if (!(_categoryInputResource instanceof EntityModelResource)) {
 			throw new UnsupportedOperationException(
 				"Resource is not an instance of EntityModelResource");
 		}
 
 		EntityModelResource entityModelResource =
-			(EntityModelResource)_productInputResource;
+			(EntityModelResource)_categoryInputResource;
 
 		EntityModel entityModel = entityModelResource.getEntityModel(
 			new MultivaluedHashMap());
@@ -618,7 +540,7 @@ public abstract class BaseProductInputResourceTestCase {
 	}
 
 	protected String getFilterString(
-		EntityField entityField, String operator, ProductInput productInput) {
+		EntityField entityField, String operator, CategoryInput categoryInput) {
 
 		StringBundler sb = new StringBundler();
 
@@ -630,25 +552,15 @@ public abstract class BaseProductInputResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
-		if (entityFieldName.equals("categoryId")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
 		if (entityFieldName.equals("name")) {
 			sb.append("'");
-			sb.append(String.valueOf(productInput.getName()));
+			sb.append(String.valueOf(categoryInput.getName()));
 			sb.append("'");
 
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("price")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("typeId")) {
+		if (entityFieldName.equals("tax")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -694,38 +606,36 @@ public abstract class BaseProductInputResourceTestCase {
 			invoke(queryGraphQLField.toString()));
 	}
 
-	protected ProductInput randomProductInput() throws Exception {
-		return new ProductInput() {
+	protected CategoryInput randomCategoryInput() throws Exception {
+		return new CategoryInput() {
 			{
-				categoryId = RandomTestUtil.randomInt();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				price = RandomTestUtil.randomDouble();
-				typeId = RandomTestUtil.randomInt();
+				tax = RandomTestUtil.randomDouble();
 			}
 		};
 	}
 
-	protected ProductInput randomIrrelevantProductInput() throws Exception {
-		ProductInput randomIrrelevantProductInput = randomProductInput();
+	protected CategoryInput randomIrrelevantCategoryInput() throws Exception {
+		CategoryInput randomIrrelevantCategoryInput = randomCategoryInput();
 
-		return randomIrrelevantProductInput;
+		return randomIrrelevantCategoryInput;
 	}
 
-	protected ProductInput randomPatchProductInput() throws Exception {
-		return randomProductInput();
+	protected CategoryInput randomPatchCategoryInput() throws Exception {
+		return randomCategoryInput();
 	}
 
-	protected ProductOutput randomProductOutput() throws Exception {
-		return new ProductOutput() {
+	protected Category randomCategory() throws Exception {
+		return new Category() {
 			{
 				id = RandomTestUtil.randomInteger();
 				name = RandomTestUtil.randomString();
-				price = RandomTestUtil.randomDouble();
+				tax = RandomTestUtil.randomDouble();
 			}
 		};
 	}
 
-	protected ProductInputResource productInputResource;
+	protected CategoryInputResource categoryInputResource;
 	protected Group irrelevantGroup;
 	protected Company testCompany;
 	protected Group testGroup;
@@ -802,7 +712,7 @@ public abstract class BaseProductInputResourceTestCase {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		BaseProductInputResourceTestCase.class);
+		BaseCategoryInputResourceTestCase.class);
 
 	private static BeanUtilsBean _beanUtilsBean = new BeanUtilsBean() {
 
@@ -819,7 +729,7 @@ public abstract class BaseProductInputResourceTestCase {
 	private static DateFormat _dateFormat;
 
 	@Inject
-	private restbuilder.resource.v1_0.ProductInputResource
-		_productInputResource;
+	private restbuilder.resource.v1_0.CategoryInputResource
+		_categoryInputResource;
 
 }

@@ -15,8 +15,8 @@ import javax.ws.rs.core.UriInfo;
 
 import org.osgi.annotation.versioning.ProviderType;
 
-import restbuilder.dto.v1_0.CartInput;
-import restbuilder.dto.v1_0.CartOutput;
+import restbuilder.dto.v1_0.Type;
+import restbuilder.dto.v1_0.TypeInput;
 
 /**
  * To access this resource, run:
@@ -28,13 +28,13 @@ import restbuilder.dto.v1_0.CartOutput;
  */
 @Generated("")
 @ProviderType
-public interface CartInputResource {
+public interface TypeInputResource {
 
 	public static Builder builder() {
 		return FactoryHolder.factory.create();
 	}
 
-	public CartOutput createCart(CartInput cartInput) throws Exception;
+	public Type createType(TypeInput typeInput) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
@@ -70,7 +70,7 @@ public interface CartInputResource {
 	@ProviderType
 	public interface Builder {
 
-		public CartInputResource build();
+		public TypeInputResource build();
 
 		public Builder checkPermissions(boolean checkPermissions);
 

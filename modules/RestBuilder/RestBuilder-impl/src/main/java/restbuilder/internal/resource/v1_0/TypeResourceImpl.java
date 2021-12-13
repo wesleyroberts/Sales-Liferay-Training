@@ -69,26 +69,6 @@ public class TypeResourceImpl extends BaseTypeResourceImpl {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/type/create' -d $'{"id": ___, "name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Consumes({"application/json", "application/xml"})
-	@Override
-	@Path("/type/create")
-	@POST
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Type")})
-	public Type createType(Type type) throws Exception {
-		SaleType saleType = _saleTypeService.
-				createSaleType(
-						type.getId(),
-						type.getName(),
-						type.getTax());
-
-		return _toTypeDTO(saleType);
-	}
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/RestBuilder/v1.0/type/delete/{typeId}'  -u 'test@liferay.com:test'
 	 */
 	@DELETE

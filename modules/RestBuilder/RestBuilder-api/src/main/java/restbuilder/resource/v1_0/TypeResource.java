@@ -38,8 +38,6 @@ public interface TypeResource {
 
 	public Type getTypeById(Integer typeId) throws Exception;
 
-	public Type createType(Type type) throws Exception;
-
 	public void deleteTypeById(Integer typeId) throws Exception;
 
 	public default void setContextAcceptLanguage(

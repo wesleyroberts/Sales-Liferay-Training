@@ -32,6 +32,21 @@ import java.util.List;
 	scope = ServiceScope.PROTOTYPE, service = CartOutputResource.class
 )
 public class CartOutputResourceImpl extends BaseCartOutputResourceImpl {
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/cart/create'  -u 'test@liferay.com:test'
+	 */
+	@GET
+	@Override
+	@Path("/cart/create")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "CartOutput")})
+	public CartOutput createCart() throws Exception {
+		SaleCart saleCart = _saleCartService.createSaleCartById();
+		return _toCartDTO(saleCart);
+	}
 	/**
 	 * Invoke this method with the command line:
 	 *

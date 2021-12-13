@@ -8,7 +8,7 @@ import java.util.TreeMap;
 
 import javax.annotation.Generated;
 
-import restbuilder.client.dto.v1_0.CartInput;
+import restbuilder.client.dto.v1_0.TypeInput;
 import restbuilder.client.json.BaseJSONParser;
 
 /**
@@ -16,22 +16,22 @@ import restbuilder.client.json.BaseJSONParser;
  * @generated
  */
 @Generated("")
-public class CartInputSerDes {
+public class TypeInputSerDes {
 
-	public static CartInput toDTO(String json) {
-		CartInputJSONParser cartInputJSONParser = new CartInputJSONParser();
+	public static TypeInput toDTO(String json) {
+		TypeInputJSONParser typeInputJSONParser = new TypeInputJSONParser();
 
-		return cartInputJSONParser.parseToDTO(json);
+		return typeInputJSONParser.parseToDTO(json);
 	}
 
-	public static CartInput[] toDTOs(String json) {
-		CartInputJSONParser cartInputJSONParser = new CartInputJSONParser();
+	public static TypeInput[] toDTOs(String json) {
+		TypeInputJSONParser typeInputJSONParser = new TypeInputJSONParser();
 
-		return cartInputJSONParser.parseToDTOs(json);
+		return typeInputJSONParser.parseToDTOs(json);
 	}
 
-	public static String toJSON(CartInput cartInput) {
-		if (cartInput == null) {
+	public static String toJSON(TypeInput typeInput) {
+		if (typeInput == null) {
 			return "null";
 		}
 
@@ -39,14 +39,28 @@ public class CartInputSerDes {
 
 		sb.append("{");
 
-		if (cartInput.getId() != null) {
+		if (typeInput.getName() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"id\": ");
+			sb.append("\"name\": ");
 
-			sb.append(cartInput.getId());
+			sb.append("\"");
+
+			sb.append(_escape(typeInput.getName()));
+
+			sb.append("\"");
+		}
+
+		if (typeInput.getTax() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"tax\": ");
+
+			sb.append(typeInput.getTax());
 		}
 
 		sb.append("}");
@@ -55,49 +69,61 @@ public class CartInputSerDes {
 	}
 
 	public static Map<String, Object> toMap(String json) {
-		CartInputJSONParser cartInputJSONParser = new CartInputJSONParser();
+		TypeInputJSONParser typeInputJSONParser = new TypeInputJSONParser();
 
-		return cartInputJSONParser.parseToMap(json);
+		return typeInputJSONParser.parseToMap(json);
 	}
 
-	public static Map<String, String> toMap(CartInput cartInput) {
-		if (cartInput == null) {
+	public static Map<String, String> toMap(TypeInput typeInput) {
+		if (typeInput == null) {
 			return null;
 		}
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (cartInput.getId() == null) {
-			map.put("id", null);
+		if (typeInput.getName() == null) {
+			map.put("name", null);
 		}
 		else {
-			map.put("id", String.valueOf(cartInput.getId()));
+			map.put("name", String.valueOf(typeInput.getName()));
+		}
+
+		if (typeInput.getTax() == null) {
+			map.put("tax", null);
+		}
+		else {
+			map.put("tax", String.valueOf(typeInput.getTax()));
 		}
 
 		return map;
 	}
 
-	public static class CartInputJSONParser extends BaseJSONParser<CartInput> {
+	public static class TypeInputJSONParser extends BaseJSONParser<TypeInput> {
 
 		@Override
-		protected CartInput createDTO() {
-			return new CartInput();
+		protected TypeInput createDTO() {
+			return new TypeInput();
 		}
 
 		@Override
-		protected CartInput[] createDTOArray(int size) {
-			return new CartInput[size];
+		protected TypeInput[] createDTOArray(int size) {
+			return new TypeInput[size];
 		}
 
 		@Override
 		protected void setField(
-			CartInput cartInput, String jsonParserFieldName,
+			TypeInput typeInput, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "id")) {
+			if (Objects.equals(jsonParserFieldName, "name")) {
 				if (jsonParserFieldValue != null) {
-					cartInput.setId(
-						Integer.valueOf((String)jsonParserFieldValue));
+					typeInput.setName((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "tax")) {
+				if (jsonParserFieldValue != null) {
+					typeInput.setTax(
+						Double.valueOf((String)jsonParserFieldValue));
 				}
 			}
 		}

@@ -15,6 +15,17 @@ components:
           format: double
           type: number
       type: object
+    CategoryInput:
+      description: Category
+      properties:
+        name:
+          description: The category name.
+          type: string
+        tax:
+          description: The tax category.
+          format: double
+          type: number
+      type: object
     Type:
       description: Type
       properties:
@@ -29,15 +40,23 @@ components:
           format: double
           type: number
       type: object
+    TypeInput:
+      description: Type
+      properties:
+        name:
+          description: The type name.
+          type: string
+        tax:
+          description: the type tax.
+          format: double
+          type: number
+      type: object
     ProductInput:
       description: Product
       properties:
         name:
           description: The entity name.
           type: string
-        id:
-          description: The entity ID.
-          type: integer
         categoryId:
           description: The category ID.
           type: integer
@@ -68,13 +87,6 @@ components:
           description: The price product.
           format: double
           type: number
-      type: object
-    CartInput:
-      description: Cart
-      properties:
-        id:
-          description: The Cart ID.
-          type: integer
       type: object
     CartOutput:
       description: Cart
@@ -158,7 +170,7 @@ paths:
       tags: ["ProductOutput"]
   "/product/create":
     post:
-      operationId: creatProduct
+      operationId: createProduct
       requestBody:
         content:
           application/json:
@@ -263,10 +275,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Category"
+              $ref: "#/components/schemas/CategoryInput"
           application/xml:
             schema:
-              $ref: "#/components/schemas/Category"
+              $ref: "#/components/schemas/CategoryInput"
       responses:
         200:
           content:
@@ -277,7 +289,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Category"
           description: ""
-      tags: ["Category"]
+      tags: ["CategoryInput"]
 
   "/category/delete/{categoryId}":
     delete:
@@ -342,10 +354,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Type"
+              $ref: "#/components/schemas/TypeInput"
           application/xml:
             schema:
-              $ref: "#/components/schemas/Type"
+              $ref: "#/components/schemas/TypeInput"
       responses:
         200:
           content:
@@ -356,7 +368,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Type"
           description: ""
-      tags: ["Type"]
+      tags: ["TypeInput"]
 
   "/type/delete/{typeId}":
     delete:
@@ -434,16 +446,8 @@ paths:
       tags: ["CartOutput"]
 
   "/cart/create":
-    post:
+    get:
       operationId: createCart
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CartInput"
-          application/xml:
-            schema:
-              $ref: "#/components/schemas/CartInput"
       responses:
         200:
           content:
@@ -454,7 +458,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/CartOutput"
           description: ""
-      tags: ["CartInput"]
+      tags: ["CartOutput"]
 
   "/addProduct/carts/{cartId}/products/{productId}":
     post:

@@ -92,22 +92,6 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/category/create' -d $'{"id": ___, "name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Consumes({"application/json", "application/xml"})
-	@Override
-	@Path("/category/create")
-	@POST
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Category")})
-	public Category createCategory(Category category) throws Exception {
-		SaleCategory saleCategory = _saleCategoryService.createSaleCategory(category.getId(),category.getName(),category.getTax());
-		return _toCategoryDTO(saleCategory);
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/RestBuilder/v1.0/category/delete/{categoryId}'  -u 'test@liferay.com:test'
 	 */
 	@DELETE
@@ -122,7 +106,7 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 			@NotNull @Parameter(hidden = true) @PathParam("categoryId") Integer
 					categoryId)
 			throws Exception {
-		_saleCategoryService.deleCategoryById(categoryId);
+		_saleCategoryService.deleteCategoryById(categoryId);
 	}
 
 	private Category _toCategoryDTO(SaleCategory saleCategory){

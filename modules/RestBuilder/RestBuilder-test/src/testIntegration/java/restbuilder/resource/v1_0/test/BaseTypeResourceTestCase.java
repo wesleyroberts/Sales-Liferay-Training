@@ -239,21 +239,6 @@ public abstract class BaseTypeResourceTestCase {
 	}
 
 	@Test
-	public void testCreateType() throws Exception {
-		Type randomType = randomType();
-
-		Type postType = testCreateType_addType(randomType);
-
-		assertEquals(randomType, postType);
-		assertValid(postType);
-	}
-
-	protected Type testCreateType_addType(Type type) throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
 	public void testDeleteTypeById() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
 		Type type = testDeleteTypeById_addType();

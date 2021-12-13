@@ -298,23 +298,6 @@ public abstract class BaseCategoryResourceTestCase {
 	}
 
 	@Test
-	public void testCreateCategory() throws Exception {
-		Category randomCategory = randomCategory();
-
-		Category postCategory = testCreateCategory_addCategory(randomCategory);
-
-		assertEquals(randomCategory, postCategory);
-		assertValid(postCategory);
-	}
-
-	protected Category testCreateCategory_addCategory(Category category)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
 	public void testDeleteCategoryById() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
 		Category category = testDeleteCategoryById_addCategory();

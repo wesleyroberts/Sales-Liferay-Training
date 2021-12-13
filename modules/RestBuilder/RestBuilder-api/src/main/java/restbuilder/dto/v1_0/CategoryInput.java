@@ -28,44 +28,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName(description = "Product", value = "ProductInput")
+@GraphQLName(description = "Category", value = "CategoryInput")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "ProductInput")
-public class ProductInput implements Serializable {
+@XmlRootElement(name = "CategoryInput")
+public class CategoryInput implements Serializable {
 
-	public static ProductInput toDTO(String json) {
-		return ObjectMapperUtil.readValue(ProductInput.class, json);
+	public static CategoryInput toDTO(String json) {
+		return ObjectMapperUtil.readValue(CategoryInput.class, json);
 	}
 
-	@Schema(description = "The category ID.")
-	public Integer getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(Integer categoryId) {
-		this.categoryId = categoryId;
-	}
-
-	@JsonIgnore
-	public void setCategoryId(
-		UnsafeSupplier<Integer, Exception> categoryIdUnsafeSupplier) {
-
-		try {
-			categoryId = categoryIdUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField(description = "The category ID.")
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Integer categoryId;
-
-	@Schema(description = "The entity name.")
+	@Schema(description = "The category name.")
 	public String getName() {
 		return name;
 	}
@@ -87,25 +59,23 @@ public class ProductInput implements Serializable {
 		}
 	}
 
-	@GraphQLField(description = "The entity name.")
+	@GraphQLField(description = "The category name.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String name;
 
-	@Schema(description = "The price product.")
-	public Double getPrice() {
-		return price;
+	@Schema(description = "The tax category.")
+	public Double getTax() {
+		return tax;
 	}
 
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setTax(Double tax) {
+		this.tax = tax;
 	}
 
 	@JsonIgnore
-	public void setPrice(
-		UnsafeSupplier<Double, Exception> priceUnsafeSupplier) {
-
+	public void setTax(UnsafeSupplier<Double, Exception> taxUnsafeSupplier) {
 		try {
-			price = priceUnsafeSupplier.get();
+			tax = taxUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -115,37 +85,9 @@ public class ProductInput implements Serializable {
 		}
 	}
 
-	@GraphQLField(description = "The price product.")
+	@GraphQLField(description = "The tax category.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Double price;
-
-	@Schema(description = "The type ID.")
-	public Integer getTypeId() {
-		return typeId;
-	}
-
-	public void setTypeId(Integer typeId) {
-		this.typeId = typeId;
-	}
-
-	@JsonIgnore
-	public void setTypeId(
-		UnsafeSupplier<Integer, Exception> typeIdUnsafeSupplier) {
-
-		try {
-			typeId = typeIdUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField(description = "The type ID.")
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Integer typeId;
+	protected Double tax;
 
 	@Override
 	public boolean equals(Object object) {
@@ -153,13 +95,13 @@ public class ProductInput implements Serializable {
 			return true;
 		}
 
-		if (!(object instanceof ProductInput)) {
+		if (!(object instanceof CategoryInput)) {
 			return false;
 		}
 
-		ProductInput productInput = (ProductInput)object;
+		CategoryInput categoryInput = (CategoryInput)object;
 
-		return Objects.equals(toString(), productInput.toString());
+		return Objects.equals(toString(), categoryInput.toString());
 	}
 
 	@Override
@@ -173,16 +115,6 @@ public class ProductInput implements Serializable {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
-
-		if (categoryId != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"categoryId\": ");
-
-			sb.append(categoryId);
-		}
 
 		if (name != null) {
 			if (sb.length() > 1) {
@@ -198,24 +130,14 @@ public class ProductInput implements Serializable {
 			sb.append("\"");
 		}
 
-		if (price != null) {
+		if (tax != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"price\": ");
+			sb.append("\"tax\": ");
 
-			sb.append(price);
-		}
-
-		if (typeId != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"typeId\": ");
-
-			sb.append(typeId);
+			sb.append(tax);
 		}
 
 		sb.append("}");
@@ -225,7 +147,7 @@ public class ProductInput implements Serializable {
 
 	@Schema(
 		accessMode = Schema.AccessMode.READ_ONLY,
-		defaultValue = "restbuilder.dto.v1_0.ProductInput",
+		defaultValue = "restbuilder.dto.v1_0.CategoryInput",
 		name = "x-class-name"
 	)
 	public String xClassName;

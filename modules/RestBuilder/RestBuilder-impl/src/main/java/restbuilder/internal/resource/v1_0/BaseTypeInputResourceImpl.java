@@ -42,10 +42,10 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
-import restbuilder.dto.v1_0.CartInput;
-import restbuilder.dto.v1_0.CartOutput;
+import restbuilder.dto.v1_0.Type;
+import restbuilder.dto.v1_0.TypeInput;
 
-import restbuilder.resource.v1_0.CartInputResource;
+import restbuilder.resource.v1_0.TypeInputResource;
 
 /**
  * @author Wesley Roberts
@@ -53,36 +53,36 @@ import restbuilder.resource.v1_0.CartInputResource;
  */
 @Generated("")
 @Path("/v1.0")
-public abstract class BaseCartInputResourceImpl
-	implements CartInputResource, EntityModelResource,
-			   VulcanBatchEngineTaskItemDelegate<CartInput> {
+public abstract class BaseTypeInputResourceImpl
+	implements EntityModelResource, TypeInputResource,
+			   VulcanBatchEngineTaskItemDelegate<TypeInput> {
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/cart/create' -d $'{"id": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/type/create' -d $'{"name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Consumes({"application/json", "application/xml"})
 	@Override
-	@Path("/cart/create")
+	@Path("/type/create")
 	@POST
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartInput")})
-	public CartOutput createCart(CartInput cartInput) throws Exception {
-		return new CartOutput();
+	@Tags(value = {@Tag(name = "TypeInput")})
+	public Type createType(TypeInput typeInput) throws Exception {
+		return new Type();
 	}
 
 	@Override
 	@SuppressWarnings("PMD.UnusedLocalVariable")
 	public void create(
-			java.util.Collection<CartInput> cartInputs,
+			java.util.Collection<TypeInput> typeInputs,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
 
 	@Override
 	public void delete(
-			java.util.Collection<CartInput> cartInputs,
+			java.util.Collection<TypeInput> typeInputs,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
@@ -103,7 +103,7 @@ public abstract class BaseCartInputResourceImpl
 	}
 
 	@Override
-	public Page<CartInput> read(
+	public Page<TypeInput> read(
 			Filter filter, Pagination pagination, Sort[] sorts,
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
@@ -135,7 +135,7 @@ public abstract class BaseCartInputResourceImpl
 
 	@Override
 	public void update(
-			java.util.Collection<CartInput> cartInputs,
+			java.util.Collection<TypeInput> typeInputs,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}

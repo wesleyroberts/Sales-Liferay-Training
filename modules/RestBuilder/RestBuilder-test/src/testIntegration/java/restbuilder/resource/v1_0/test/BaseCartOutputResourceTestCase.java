@@ -240,6 +240,46 @@ public abstract class BaseCartOutputResourceTestCase {
 	}
 
 	@Test
+	public void testCreateCart() throws Exception {
+		CartOutput postCartOutput = testCreateCart_addCartOutput();
+
+		CartOutput getCartOutput = cartOutputResource.createCart();
+
+		assertEquals(postCartOutput, getCartOutput);
+		assertValid(getCartOutput);
+	}
+
+	protected CartOutput testCreateCart_addCartOutput() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLCreateCart() throws Exception {
+		CartOutput cartOutput = testGraphQLCartOutput_addCartOutput();
+
+		Assert.assertTrue(
+			equals(
+				cartOutput,
+				CartOutputSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"createCart",
+								new HashMap<String, Object>() {
+									{
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/createCart"))));
+	}
+
+	@Test
+	public void testGraphQLCreateCartNotFound() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
 	public void testAddProductToCart() throws Exception {
 		CartOutput randomCartOutput = randomCartOutput();
 

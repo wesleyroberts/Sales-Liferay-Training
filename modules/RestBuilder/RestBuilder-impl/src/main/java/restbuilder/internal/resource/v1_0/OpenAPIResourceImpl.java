@@ -66,17 +66,19 @@ public class OpenAPIResourceImpl {
 
 	private final Set<Class<?>> _resourceClasses = new HashSet<Class<?>>() {
 		{
-			add(CartInputResourceImpl.class);
-
 			add(CartOutputResourceImpl.class);
 
 			add(CategoryResourceImpl.class);
+
+			add(CategoryInputResourceImpl.class);
 
 			add(ProductInputResourceImpl.class);
 
 			add(ProductOutputResourceImpl.class);
 
 			add(TypeResourceImpl.class);
+
+			add(TypeInputResourceImpl.class);
 
 			add(OpenAPIResourceImpl.class);
 		}

@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 
 import javax.annotation.Generated;
 
-import restbuilder.client.dto.v1_0.CartInput;
-import restbuilder.client.dto.v1_0.CartOutput;
+import restbuilder.client.dto.v1_0.Category;
+import restbuilder.client.dto.v1_0.CategoryInput;
 import restbuilder.client.http.HttpInvoker;
 import restbuilder.client.problem.Problem;
 
@@ -18,15 +18,17 @@ import restbuilder.client.problem.Problem;
  * @generated
  */
 @Generated("")
-public interface CartInputResource {
+public interface CategoryInputResource {
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	public CartOutput createCart(CartInput cartInput) throws Exception;
+	public Category createCategory(CategoryInput categoryInput)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse createCartHttpResponse(CartInput cartInput)
+	public HttpInvoker.HttpResponse createCategoryHttpResponse(
+			CategoryInput categoryInput)
 		throws Exception;
 
 	public static class Builder {
@@ -38,8 +40,8 @@ public interface CartInputResource {
 			return this;
 		}
 
-		public CartInputResource build() {
-			return new CartInputResourceImpl(this);
+		public CategoryInputResource build() {
+			return new CategoryInputResourceImpl(this);
 		}
 
 		public Builder endpoint(String host, int port, String scheme) {
@@ -98,11 +100,14 @@ public interface CartInputResource {
 
 	}
 
-	public static class CartInputResourceImpl implements CartInputResource {
+	public static class CategoryInputResourceImpl
+		implements CategoryInputResource {
 
-		public CartOutput createCart(CartInput cartInput) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = createCartHttpResponse(
-				cartInput);
+		public Category createCategory(CategoryInput categoryInput)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse = createCategoryHttpResponse(
+				categoryInput);
 
 			String content = httpResponse.getContent();
 
@@ -130,7 +135,7 @@ public interface CartInputResource {
 			}
 
 			try {
-				return restbuilder.client.serdes.v1_0.CartOutputSerDes.toDTO(
+				return restbuilder.client.serdes.v1_0.CategorySerDes.toDTO(
 					content);
 			}
 			catch (Exception e) {
@@ -142,13 +147,13 @@ public interface CartInputResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse createCartHttpResponse(
-				CartInput cartInput)
+		public HttpInvoker.HttpResponse createCategoryHttpResponse(
+				CategoryInput categoryInput)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(cartInput.toString(), "application/json");
+			httpInvoker.body(categoryInput.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -171,7 +176,7 @@ public interface CartInputResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/RestBuilder/v1.0/cart/create");
+					_builder._port + "/o/RestBuilder/v1.0/category/create");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -179,12 +184,12 @@ public interface CartInputResource {
 			return httpInvoker.invoke();
 		}
 
-		private CartInputResourceImpl(Builder builder) {
+		private CategoryInputResourceImpl(Builder builder) {
 			_builder = builder;
 		}
 
 		private static final Logger _logger = Logger.getLogger(
-			CartInputResource.class.getName());
+			CategoryInputResource.class.getName());
 
 		private Builder _builder;
 

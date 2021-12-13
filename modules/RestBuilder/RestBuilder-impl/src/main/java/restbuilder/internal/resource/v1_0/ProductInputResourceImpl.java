@@ -31,7 +31,7 @@ public class ProductInputResourceImpl extends BaseProductInputResourceImpl {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/create' -d $'{"categoryId": ___, "id": ___, "name": ___, "price": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/create' -d $'{"categoryId": ___, "name": ___, "price": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Consumes({"application/json", "application/xml"})
 	@Override
@@ -39,12 +39,11 @@ public class ProductInputResourceImpl extends BaseProductInputResourceImpl {
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductInput")})
-	public ProductOutput creatProduct(ProductInput productInput)
+	public ProductOutput createProduct(ProductInput productInput)
 			throws Exception {
-		return _toProductOutput(_saleProductService.createProduct(
+		return _toProductOutput(_saleProductService.createSaleProduct(
 				productInput.getName(),
 				productInput.getPrice(),
-				productInput.getId(),
 				productInput.getCategoryId(),
 				productInput.getTypeId()
 		));

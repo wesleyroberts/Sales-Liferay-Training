@@ -34,7 +34,7 @@ public interface ProductInputResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public ProductOutput creatProduct(ProductInput productInput)
+	public ProductOutput createProduct(ProductInput productInput)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

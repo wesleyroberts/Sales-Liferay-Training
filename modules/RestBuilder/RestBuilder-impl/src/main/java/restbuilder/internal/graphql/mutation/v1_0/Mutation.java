@@ -20,18 +20,20 @@ import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
 
-import restbuilder.dto.v1_0.CartInput;
 import restbuilder.dto.v1_0.CartOutput;
 import restbuilder.dto.v1_0.Category;
+import restbuilder.dto.v1_0.CategoryInput;
 import restbuilder.dto.v1_0.ProductInput;
 import restbuilder.dto.v1_0.ProductOutput;
 import restbuilder.dto.v1_0.Type;
+import restbuilder.dto.v1_0.TypeInput;
 
-import restbuilder.resource.v1_0.CartInputResource;
 import restbuilder.resource.v1_0.CartOutputResource;
+import restbuilder.resource.v1_0.CategoryInputResource;
 import restbuilder.resource.v1_0.CategoryResource;
 import restbuilder.resource.v1_0.ProductInputResource;
 import restbuilder.resource.v1_0.ProductOutputResource;
+import restbuilder.resource.v1_0.TypeInputResource;
 import restbuilder.resource.v1_0.TypeResource;
 
 /**
@@ -40,14 +42,6 @@ import restbuilder.resource.v1_0.TypeResource;
  */
 @Generated("")
 public class Mutation {
-
-	public static void setCartInputResourceComponentServiceObjects(
-		ComponentServiceObjects<CartInputResource>
-			cartInputResourceComponentServiceObjects) {
-
-		_cartInputResourceComponentServiceObjects =
-			cartInputResourceComponentServiceObjects;
-	}
 
 	public static void setCartOutputResourceComponentServiceObjects(
 		ComponentServiceObjects<CartOutputResource>
@@ -63,6 +57,14 @@ public class Mutation {
 
 		_categoryResourceComponentServiceObjects =
 			categoryResourceComponentServiceObjects;
+	}
+
+	public static void setCategoryInputResourceComponentServiceObjects(
+		ComponentServiceObjects<CategoryInputResource>
+			categoryInputResourceComponentServiceObjects) {
+
+		_categoryInputResourceComponentServiceObjects =
+			categoryInputResourceComponentServiceObjects;
 	}
 
 	public static void setProductInputResourceComponentServiceObjects(
@@ -89,14 +91,12 @@ public class Mutation {
 			typeResourceComponentServiceObjects;
 	}
 
-	@GraphQLField
-	public CartOutput createCart(@GraphQLName("cartInput") CartInput cartInput)
-		throws Exception {
+	public static void setTypeInputResourceComponentServiceObjects(
+		ComponentServiceObjects<TypeInputResource>
+			typeInputResourceComponentServiceObjects) {
 
-		return _applyComponentServiceObjects(
-			_cartInputResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			cartInputResource -> cartInputResource.createCart(cartInput));
+		_typeInputResourceComponentServiceObjects =
+			typeInputResourceComponentServiceObjects;
 	}
 
 	@GraphQLField
@@ -140,16 +140,6 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Category createCategory(@GraphQLName("category") Category category)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_categoryResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			categoryResource -> categoryResource.createCategory(category));
-	}
-
-	@GraphQLField
 	public boolean deleteCategoryById(
 			@GraphQLName("categoryId") Integer categoryId)
 		throws Exception {
@@ -164,14 +154,26 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ProductOutput creatProduct(
+	public Category createCategory(
+			@GraphQLName("categoryInput") CategoryInput categoryInput)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_categoryInputResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			categoryInputResource -> categoryInputResource.createCategory(
+				categoryInput));
+	}
+
+	@GraphQLField
+	public ProductOutput createProduct(
 			@GraphQLName("productInput") ProductInput productInput)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_productInputResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			productInputResource -> productInputResource.creatProduct(
+			productInputResource -> productInputResource.createProduct(
 				productInput));
 	}
 
@@ -190,14 +192,6 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Type createType(@GraphQLName("type") Type type) throws Exception {
-		return _applyComponentServiceObjects(
-			_typeResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			typeResource -> typeResource.createType(type));
-	}
-
-	@GraphQLField
 	public boolean deleteTypeById(@GraphQLName("typeId") Integer typeId)
 		throws Exception {
 
@@ -207,6 +201,16 @@ public class Mutation {
 			typeResource -> typeResource.deleteTypeById(typeId));
 
 		return true;
+	}
+
+	@GraphQLField
+	public Type createType(@GraphQLName("typeInput") TypeInput typeInput)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_typeInputResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			typeInputResource -> typeInputResource.createType(typeInput));
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
@@ -247,19 +251,6 @@ public class Mutation {
 		}
 	}
 
-	private void _populateResourceContext(CartInputResource cartInputResource)
-		throws Exception {
-
-		cartInputResource.setContextAcceptLanguage(_acceptLanguage);
-		cartInputResource.setContextCompany(_company);
-		cartInputResource.setContextHttpServletRequest(_httpServletRequest);
-		cartInputResource.setContextHttpServletResponse(_httpServletResponse);
-		cartInputResource.setContextUriInfo(_uriInfo);
-		cartInputResource.setContextUser(_user);
-		cartInputResource.setGroupLocalService(_groupLocalService);
-		cartInputResource.setRoleLocalService(_roleLocalService);
-	}
-
 	private void _populateResourceContext(CartOutputResource cartOutputResource)
 		throws Exception {
 
@@ -284,6 +275,21 @@ public class Mutation {
 		categoryResource.setContextUser(_user);
 		categoryResource.setGroupLocalService(_groupLocalService);
 		categoryResource.setRoleLocalService(_roleLocalService);
+	}
+
+	private void _populateResourceContext(
+			CategoryInputResource categoryInputResource)
+		throws Exception {
+
+		categoryInputResource.setContextAcceptLanguage(_acceptLanguage);
+		categoryInputResource.setContextCompany(_company);
+		categoryInputResource.setContextHttpServletRequest(_httpServletRequest);
+		categoryInputResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		categoryInputResource.setContextUriInfo(_uriInfo);
+		categoryInputResource.setContextUser(_user);
+		categoryInputResource.setGroupLocalService(_groupLocalService);
+		categoryInputResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -329,18 +335,33 @@ public class Mutation {
 		typeResource.setRoleLocalService(_roleLocalService);
 	}
 
-	private static ComponentServiceObjects<CartInputResource>
-		_cartInputResourceComponentServiceObjects;
+	private void _populateResourceContext(TypeInputResource typeInputResource)
+		throws Exception {
+
+		typeInputResource.setContextAcceptLanguage(_acceptLanguage);
+		typeInputResource.setContextCompany(_company);
+		typeInputResource.setContextHttpServletRequest(_httpServletRequest);
+		typeInputResource.setContextHttpServletResponse(_httpServletResponse);
+		typeInputResource.setContextUriInfo(_uriInfo);
+		typeInputResource.setContextUser(_user);
+		typeInputResource.setGroupLocalService(_groupLocalService);
+		typeInputResource.setRoleLocalService(_roleLocalService);
+	}
+
 	private static ComponentServiceObjects<CartOutputResource>
 		_cartOutputResourceComponentServiceObjects;
 	private static ComponentServiceObjects<CategoryResource>
 		_categoryResourceComponentServiceObjects;
+	private static ComponentServiceObjects<CategoryInputResource>
+		_categoryInputResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductInputResource>
 		_productInputResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductOutputResource>
 		_productOutputResourceComponentServiceObjects;
 	private static ComponentServiceObjects<TypeResource>
 		_typeResourceComponentServiceObjects;
+	private static ComponentServiceObjects<TypeInputResource>
+		_typeInputResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
 	private com.liferay.portal.kernel.model.Company _company;

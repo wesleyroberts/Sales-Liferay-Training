@@ -41,25 +41,6 @@ public class ProductInput implements Cloneable, Serializable {
 
 	protected Integer categoryId;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public void setId(UnsafeSupplier<Integer, Exception> idUnsafeSupplier) {
-		try {
-			id = idUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Integer id;
-
 	public String getName() {
 		return name;
 	}

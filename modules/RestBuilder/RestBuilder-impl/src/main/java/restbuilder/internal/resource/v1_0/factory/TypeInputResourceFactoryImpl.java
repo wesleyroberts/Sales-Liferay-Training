@@ -31,36 +31,36 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceScope;
 
-import restbuilder.resource.v1_0.CartInputResource;
+import restbuilder.resource.v1_0.TypeInputResource;
 
 /**
  * @author Wesley Roberts
  * @generated
  */
-@Component(immediate = true, service = CartInputResource.Factory.class)
+@Component(immediate = true, service = TypeInputResource.Factory.class)
 @Generated("")
-public class CartInputResourceFactoryImpl implements CartInputResource.Factory {
+public class TypeInputResourceFactoryImpl implements TypeInputResource.Factory {
 
 	@Override
-	public CartInputResource.Builder create() {
-		return new CartInputResource.Builder() {
+	public TypeInputResource.Builder create() {
+		return new TypeInputResource.Builder() {
 
 			@Override
-			public CartInputResource build() {
+			public TypeInputResource build() {
 				if (_user == null) {
 					throw new IllegalArgumentException("User is not set");
 				}
 
-				return (CartInputResource)ProxyUtil.newProxyInstance(
-					CartInputResource.class.getClassLoader(),
-					new Class<?>[] {CartInputResource.class},
+				return (TypeInputResource)ProxyUtil.newProxyInstance(
+					TypeInputResource.class.getClassLoader(),
+					new Class<?>[] {TypeInputResource.class},
 					(proxy, method, arguments) -> _invoke(
 						method, arguments, _checkPermissions,
 						_httpServletRequest, _preferredLocale, _user));
 			}
 
 			@Override
-			public CartInputResource.Builder checkPermissions(
+			public TypeInputResource.Builder checkPermissions(
 				boolean checkPermissions) {
 
 				_checkPermissions = checkPermissions;
@@ -69,7 +69,7 @@ public class CartInputResourceFactoryImpl implements CartInputResource.Factory {
 			}
 
 			@Override
-			public CartInputResource.Builder httpServletRequest(
+			public TypeInputResource.Builder httpServletRequest(
 				HttpServletRequest httpServletRequest) {
 
 				_httpServletRequest = httpServletRequest;
@@ -78,7 +78,7 @@ public class CartInputResourceFactoryImpl implements CartInputResource.Factory {
 			}
 
 			@Override
-			public CartInputResource.Builder preferredLocale(
+			public TypeInputResource.Builder preferredLocale(
 				Locale preferredLocale) {
 
 				_preferredLocale = preferredLocale;
@@ -87,7 +87,7 @@ public class CartInputResourceFactoryImpl implements CartInputResource.Factory {
 			}
 
 			@Override
-			public CartInputResource.Builder user(User user) {
+			public TypeInputResource.Builder user(User user) {
 				_user = user;
 
 				return this;
@@ -103,12 +103,12 @@ public class CartInputResourceFactoryImpl implements CartInputResource.Factory {
 
 	@Activate
 	protected void activate() {
-		CartInputResource.FactoryHolder.factory = this;
+		TypeInputResource.FactoryHolder.factory = this;
 	}
 
 	@Deactivate
 	protected void deactivate() {
-		CartInputResource.FactoryHolder.factory = null;
+		TypeInputResource.FactoryHolder.factory = null;
 	}
 
 	private Object _invoke(
@@ -133,27 +133,27 @@ public class CartInputResourceFactoryImpl implements CartInputResource.Factory {
 				_liberalPermissionCheckerFactory.create(user));
 		}
 
-		CartInputResource cartInputResource =
+		TypeInputResource typeInputResource =
 			_componentServiceObjects.getService();
 
-		cartInputResource.setContextAcceptLanguage(
+		typeInputResource.setContextAcceptLanguage(
 			new AcceptLanguageImpl(httpServletRequest, preferredLocale, user));
 
 		Company company = _companyLocalService.getCompany(user.getCompanyId());
 
-		cartInputResource.setContextCompany(company);
+		typeInputResource.setContextCompany(company);
 
-		cartInputResource.setContextHttpServletRequest(httpServletRequest);
-		cartInputResource.setContextUser(user);
+		typeInputResource.setContextHttpServletRequest(httpServletRequest);
+		typeInputResource.setContextUser(user);
 
 		try {
-			return method.invoke(cartInputResource, arguments);
+			return method.invoke(typeInputResource, arguments);
 		}
 		catch (InvocationTargetException invocationTargetException) {
 			throw invocationTargetException.getTargetException();
 		}
 		finally {
-			_componentServiceObjects.ungetService(cartInputResource);
+			_componentServiceObjects.ungetService(typeInputResource);
 
 			PrincipalThreadLocal.setName(name);
 
@@ -165,7 +165,7 @@ public class CartInputResourceFactoryImpl implements CartInputResource.Factory {
 	private CompanyLocalService _companyLocalService;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<CartInputResource> _componentServiceObjects;
+	private ComponentServiceObjects<TypeInputResource> _componentServiceObjects;
 
 	@Reference
 	private PermissionCheckerFactory _defaultPermissionCheckerFactory;

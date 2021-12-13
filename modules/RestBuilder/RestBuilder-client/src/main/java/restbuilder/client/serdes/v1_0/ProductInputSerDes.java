@@ -51,16 +51,6 @@ public class ProductInputSerDes {
 			sb.append(productInput.getCategoryId());
 		}
 
-		if (productInput.getId() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"id\": ");
-
-			sb.append(productInput.getId());
-		}
-
 		if (productInput.getName() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -121,13 +111,6 @@ public class ProductInputSerDes {
 			map.put("categoryId", String.valueOf(productInput.getCategoryId()));
 		}
 
-		if (productInput.getId() == null) {
-			map.put("id", null);
-		}
-		else {
-			map.put("id", String.valueOf(productInput.getId()));
-		}
-
 		if (productInput.getName() == null) {
 			map.put("name", null);
 		}
@@ -173,12 +156,6 @@ public class ProductInputSerDes {
 			if (Objects.equals(jsonParserFieldName, "categoryId")) {
 				if (jsonParserFieldValue != null) {
 					productInput.setCategoryId(
-						Integer.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "id")) {
-				if (jsonParserFieldValue != null) {
-					productInput.setId(
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}

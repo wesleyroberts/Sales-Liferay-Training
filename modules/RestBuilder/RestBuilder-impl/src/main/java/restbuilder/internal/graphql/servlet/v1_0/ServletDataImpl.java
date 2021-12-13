@@ -14,11 +14,12 @@ import org.osgi.service.component.annotations.ReferenceScope;
 import restbuilder.internal.graphql.mutation.v1_0.Mutation;
 import restbuilder.internal.graphql.query.v1_0.Query;
 
-import restbuilder.resource.v1_0.CartInputResource;
 import restbuilder.resource.v1_0.CartOutputResource;
+import restbuilder.resource.v1_0.CategoryInputResource;
 import restbuilder.resource.v1_0.CategoryResource;
 import restbuilder.resource.v1_0.ProductInputResource;
 import restbuilder.resource.v1_0.ProductOutputResource;
+import restbuilder.resource.v1_0.TypeInputResource;
 import restbuilder.resource.v1_0.TypeResource;
 
 /**
@@ -31,18 +32,20 @@ public class ServletDataImpl implements ServletData {
 
 	@Activate
 	public void activate(BundleContext bundleContext) {
-		Mutation.setCartInputResourceComponentServiceObjects(
-			_cartInputResourceComponentServiceObjects);
 		Mutation.setCartOutputResourceComponentServiceObjects(
 			_cartOutputResourceComponentServiceObjects);
 		Mutation.setCategoryResourceComponentServiceObjects(
 			_categoryResourceComponentServiceObjects);
+		Mutation.setCategoryInputResourceComponentServiceObjects(
+			_categoryInputResourceComponentServiceObjects);
 		Mutation.setProductInputResourceComponentServiceObjects(
 			_productInputResourceComponentServiceObjects);
 		Mutation.setProductOutputResourceComponentServiceObjects(
 			_productOutputResourceComponentServiceObjects);
 		Mutation.setTypeResourceComponentServiceObjects(
 			_typeResourceComponentServiceObjects);
+		Mutation.setTypeInputResourceComponentServiceObjects(
+			_typeInputResourceComponentServiceObjects);
 
 		Query.setCartOutputResourceComponentServiceObjects(
 			_cartOutputResourceComponentServiceObjects);
@@ -70,16 +73,16 @@ public class ServletDataImpl implements ServletData {
 	}
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<CartInputResource>
-		_cartInputResourceComponentServiceObjects;
-
-	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<CartOutputResource>
 		_cartOutputResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<CategoryResource>
 		_categoryResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<CategoryInputResource>
+		_categoryInputResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<ProductInputResource>
@@ -92,5 +95,9 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<TypeResource>
 		_typeResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<TypeInputResource>
+		_typeInputResourceComponentServiceObjects;
 
 }

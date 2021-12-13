@@ -28,28 +28,28 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName(description = "Cart", value = "CartInput")
+@GraphQLName(description = "Type", value = "TypeInput")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "CartInput")
-public class CartInput implements Serializable {
+@XmlRootElement(name = "TypeInput")
+public class TypeInput implements Serializable {
 
-	public static CartInput toDTO(String json) {
-		return ObjectMapperUtil.readValue(CartInput.class, json);
+	public static TypeInput toDTO(String json) {
+		return ObjectMapperUtil.readValue(TypeInput.class, json);
 	}
 
-	@Schema(description = "The Cart ID.")
-	public Integer getId() {
-		return id;
+	@Schema(description = "The type name.")
+	public String getName() {
+		return name;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@JsonIgnore
-	public void setId(UnsafeSupplier<Integer, Exception> idUnsafeSupplier) {
+	public void setName(UnsafeSupplier<String, Exception> nameUnsafeSupplier) {
 		try {
-			id = idUnsafeSupplier.get();
+			name = nameUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -59,9 +59,35 @@ public class CartInput implements Serializable {
 		}
 	}
 
-	@GraphQLField(description = "The Cart ID.")
+	@GraphQLField(description = "The type name.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Integer id;
+	protected String name;
+
+	@Schema(description = "the type tax.")
+	public Double getTax() {
+		return tax;
+	}
+
+	public void setTax(Double tax) {
+		this.tax = tax;
+	}
+
+	@JsonIgnore
+	public void setTax(UnsafeSupplier<Double, Exception> taxUnsafeSupplier) {
+		try {
+			tax = taxUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField(description = "the type tax.")
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double tax;
 
 	@Override
 	public boolean equals(Object object) {
@@ -69,13 +95,13 @@ public class CartInput implements Serializable {
 			return true;
 		}
 
-		if (!(object instanceof CartInput)) {
+		if (!(object instanceof TypeInput)) {
 			return false;
 		}
 
-		CartInput cartInput = (CartInput)object;
+		TypeInput typeInput = (TypeInput)object;
 
-		return Objects.equals(toString(), cartInput.toString());
+		return Objects.equals(toString(), typeInput.toString());
 	}
 
 	@Override
@@ -90,14 +116,28 @@ public class CartInput implements Serializable {
 
 		sb.append("{");
 
-		if (id != null) {
+		if (name != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"id\": ");
+			sb.append("\"name\": ");
 
-			sb.append(id);
+			sb.append("\"");
+
+			sb.append(_escape(name));
+
+			sb.append("\"");
+		}
+
+		if (tax != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"tax\": ");
+
+			sb.append(tax);
 		}
 
 		sb.append("}");
@@ -107,7 +147,7 @@ public class CartInput implements Serializable {
 
 	@Schema(
 		accessMode = Schema.AccessMode.READ_ONLY,
-		defaultValue = "restbuilder.dto.v1_0.CartInput", name = "x-class-name"
+		defaultValue = "restbuilder.dto.v1_0.TypeInput", name = "x-class-name"
 	)
 	public String xClassName;
 

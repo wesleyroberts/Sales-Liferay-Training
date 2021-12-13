@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 
 import javax.annotation.Generated;
 
-import restbuilder.client.dto.v1_0.ProductInput;
-import restbuilder.client.dto.v1_0.ProductOutput;
+import restbuilder.client.dto.v1_0.Type;
+import restbuilder.client.dto.v1_0.TypeInput;
 import restbuilder.client.http.HttpInvoker;
 import restbuilder.client.problem.Problem;
 
@@ -18,17 +18,15 @@ import restbuilder.client.problem.Problem;
  * @generated
  */
 @Generated("")
-public interface ProductInputResource {
+public interface TypeInputResource {
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	public ProductOutput createProduct(ProductInput productInput)
-		throws Exception;
+	public Type createType(TypeInput typeInput) throws Exception;
 
-	public HttpInvoker.HttpResponse createProductHttpResponse(
-			ProductInput productInput)
+	public HttpInvoker.HttpResponse createTypeHttpResponse(TypeInput typeInput)
 		throws Exception;
 
 	public static class Builder {
@@ -40,8 +38,8 @@ public interface ProductInputResource {
 			return this;
 		}
 
-		public ProductInputResource build() {
-			return new ProductInputResourceImpl(this);
+		public TypeInputResource build() {
+			return new TypeInputResourceImpl(this);
 		}
 
 		public Builder endpoint(String host, int port, String scheme) {
@@ -100,14 +98,11 @@ public interface ProductInputResource {
 
 	}
 
-	public static class ProductInputResourceImpl
-		implements ProductInputResource {
+	public static class TypeInputResourceImpl implements TypeInputResource {
 
-		public ProductOutput createProduct(ProductInput productInput)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse = createProductHttpResponse(
-				productInput);
+		public Type createType(TypeInput typeInput) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = createTypeHttpResponse(
+				typeInput);
 
 			String content = httpResponse.getContent();
 
@@ -135,8 +130,7 @@ public interface ProductInputResource {
 			}
 
 			try {
-				return restbuilder.client.serdes.v1_0.ProductOutputSerDes.toDTO(
-					content);
+				return restbuilder.client.serdes.v1_0.TypeSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -147,13 +141,13 @@ public interface ProductInputResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse createProductHttpResponse(
-				ProductInput productInput)
+		public HttpInvoker.HttpResponse createTypeHttpResponse(
+				TypeInput typeInput)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(productInput.toString(), "application/json");
+			httpInvoker.body(typeInput.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -176,7 +170,7 @@ public interface ProductInputResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/RestBuilder/v1.0/product/create");
+					_builder._port + "/o/RestBuilder/v1.0/type/create");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -184,12 +178,12 @@ public interface ProductInputResource {
 			return httpInvoker.invoke();
 		}
 
-		private ProductInputResourceImpl(Builder builder) {
+		private TypeInputResourceImpl(Builder builder) {
 			_builder = builder;
 		}
 
 		private static final Logger _logger = Logger.getLogger(
-			ProductInputResource.class.getName());
+			TypeInputResource.class.getName());
 
 		private Builder _builder;
 

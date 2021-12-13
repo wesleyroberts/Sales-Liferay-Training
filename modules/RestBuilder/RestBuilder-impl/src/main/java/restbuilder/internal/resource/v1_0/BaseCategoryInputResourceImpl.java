@@ -20,15 +20,11 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.ActionUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 
 import java.io.Serializable;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -38,20 +34,18 @@ import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import javax.validation.constraints.NotNull;
-
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
-import restbuilder.dto.v1_0.Type;
+import restbuilder.dto.v1_0.Category;
+import restbuilder.dto.v1_0.CategoryInput;
 
-import restbuilder.resource.v1_0.TypeResource;
+import restbuilder.resource.v1_0.CategoryInputResource;
 
 /**
  * @author Wesley Roberts
@@ -59,71 +53,38 @@ import restbuilder.resource.v1_0.TypeResource;
  */
 @Generated("")
 @Path("/v1.0")
-public abstract class BaseTypeResourceImpl
-	implements EntityModelResource, TypeResource,
-			   VulcanBatchEngineTaskItemDelegate<Type> {
+public abstract class BaseCategoryInputResourceImpl
+	implements CategoryInputResource, EntityModelResource,
+			   VulcanBatchEngineTaskItemDelegate<CategoryInput> {
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/type/all'  -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/category/create' -d $'{"name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@GET
+	@Consumes({"application/json", "application/xml"})
 	@Override
-	@Path("/type/all")
+	@Path("/category/create")
+	@POST
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Type")})
-	public Page<Type> getAllTypes() throws Exception {
-		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/type/{typeId}'  -u 'test@liferay.com:test'
-	 */
-	@GET
-	@Override
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "typeId")})
-	@Path("/type/{typeId}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Type")})
-	public Type getTypeById(
-			@NotNull @Parameter(hidden = true) @PathParam("typeId") Integer
-				typeId)
+	@Tags(value = {@Tag(name = "CategoryInput")})
+	public Category createCategory(CategoryInput categoryInput)
 		throws Exception {
 
-		return new Type();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/RestBuilder/v1.0/type/delete/{typeId}'  -u 'test@liferay.com:test'
-	 */
-	@DELETE
-	@Override
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "typeId")})
-	@Path("/type/delete/{typeId}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Type")})
-	public void deleteTypeById(
-			@NotNull @Parameter(hidden = true) @PathParam("typeId") Integer
-				typeId)
-		throws Exception {
+		return new Category();
 	}
 
 	@Override
 	@SuppressWarnings("PMD.UnusedLocalVariable")
 	public void create(
-			java.util.Collection<Type> types,
+			java.util.Collection<CategoryInput> categoryInputs,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
 
 	@Override
 	public void delete(
-			java.util.Collection<Type> types,
+			java.util.Collection<CategoryInput> categoryInputs,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
@@ -144,7 +105,7 @@ public abstract class BaseTypeResourceImpl
 	}
 
 	@Override
-	public Page<Type> read(
+	public Page<CategoryInput> read(
 			Filter filter, Pagination pagination, Sort[] sorts,
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
@@ -176,7 +137,7 @@ public abstract class BaseTypeResourceImpl
 
 	@Override
 	public void update(
-			java.util.Collection<Type> types,
+			java.util.Collection<CategoryInput> categoryInputs,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}

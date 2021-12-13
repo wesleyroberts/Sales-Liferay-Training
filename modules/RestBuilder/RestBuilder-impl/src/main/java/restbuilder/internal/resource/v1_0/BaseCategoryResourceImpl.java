@@ -40,10 +40,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.validation.constraints.NotNull;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -118,21 +116,6 @@ public abstract class BaseCategoryResourceImpl
 				categoryId)
 		throws Exception {
 
-		return new Category();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/category/create' -d $'{"id": ___, "name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Consumes({"application/json", "application/xml"})
-	@Override
-	@Path("/category/create")
-	@POST
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Category")})
-	public Category createCategory(Category category) throws Exception {
 		return new Category();
 	}
 

@@ -40,6 +40,8 @@ public interface CartOutputResource {
 
 	public Integer getTotalValueByCartId(Integer cartId) throws Exception;
 
+	public CartOutput createCart() throws Exception;
+
 	public CartOutput addProductToCart(Integer cartId, Integer productId)
 		throws Exception;
 

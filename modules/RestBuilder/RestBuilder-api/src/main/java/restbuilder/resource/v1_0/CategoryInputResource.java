@@ -3,7 +3,6 @@ package restbuilder.resource.v1_0;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
-import com.liferay.portal.vulcan.pagination.Page;
 
 import java.util.Locale;
 
@@ -17,6 +16,7 @@ import javax.ws.rs.core.UriInfo;
 import org.osgi.annotation.versioning.ProviderType;
 
 import restbuilder.dto.v1_0.Category;
+import restbuilder.dto.v1_0.CategoryInput;
 
 /**
  * To access this resource, run:
@@ -28,19 +28,14 @@ import restbuilder.dto.v1_0.Category;
  */
 @Generated("")
 @ProviderType
-public interface CategoryResource {
+public interface CategoryInputResource {
 
 	public static Builder builder() {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<Category> getAllCategories() throws Exception;
-
-	public Category getCategoryByName(String categoryName) throws Exception;
-
-	public Category getCategoryById(Integer categoryId) throws Exception;
-
-	public void deleteCategoryById(Integer categoryId) throws Exception;
+	public Category createCategory(CategoryInput categoryInput)
+		throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
@@ -76,7 +71,7 @@ public interface CategoryResource {
 	@ProviderType
 	public interface Builder {
 
-		public CategoryResource build();
+		public CategoryInputResource build();
 
 		public Builder checkPermissions(boolean checkPermissions);
 
