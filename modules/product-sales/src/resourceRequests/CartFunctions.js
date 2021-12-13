@@ -19,20 +19,15 @@ export function GetAllProductsByCartId(cartId) {
   ).then((res) => res.json());
 }
 
-export function CreateCart(id) {
-  let cart = {
-    id: id,
-  };
+export function CreateCart() {
 
   return Liferay.Util.fetch(
     `http://localhost:8080/o/RestBuilder/v1.0/cart/create/`,
     {
-      method: "POST",
+      method: "GET",
       headers: {
-        "Content-Type": "application/json",
         Authorization: "Basic " + test,
-      },
-      body: JSON.stringify(cart),
+      }
     }
   ).then((res) => res.json());
 }

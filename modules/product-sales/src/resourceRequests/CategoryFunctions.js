@@ -8,10 +8,9 @@ export function GetAllCategories() {
     }
   ).then((res) => res.json());
 }
-export function CreateCategory(name, id, tax) {
+export function CreateCategory(name, tax) {
   let category = {
     name: name,
-    id: id,
     tax: tax,
   };
 

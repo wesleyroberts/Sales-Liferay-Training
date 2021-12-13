@@ -10,7 +10,6 @@ export default function CategoryCreateModal({
   addCategory,
 }) {
   const [name, setName] = useState("");
-  const [id, setId] = useState(0);
   const [tax, setTax] = useState(0);
 
   const { observer, onClose } = useModal({
@@ -39,18 +38,11 @@ export default function CategoryCreateModal({
                     setTax(e.target.value);
                   }}
                 ></ClayInput>
-                <label htmlFor="basicInput">Id</label>
-                <ClayInput
-                  type="number"
-                  onChange={(e) => {
-                    setId(e.target.value);
-                  }}
-                ></ClayInput>
               </ClayForm.Group>
               <ClayButton
                 displayType="primary"
                 onClick={() => {
-                  CreateCategory(name, id, tax).then((data) =>
+                  CreateCategory(name, tax).then((data) =>
                     addCategory(data)
                   );
                 }}

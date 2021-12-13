@@ -10,15 +10,14 @@ export function GetAllProducts() {
   ).then((res) => res.json());
 }
 
-export function PostProduct(name, price, id, category, type) {
+export function CreateProduct(name, price, category, type) {
   let product = {
     categoryId: category,
-    id: id,
     name: name,
     price: price,
     typeId: type,
   };
-
+  console.log(product);
   return Liferay.Util.fetch(
     `http://localhost:8080/o/RestBuilder/v1.0/product/create`,
     {
