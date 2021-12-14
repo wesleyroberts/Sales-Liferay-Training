@@ -63,6 +63,13 @@ public class SaleTypeServiceWrapper
 	}
 
 	@Override
+	public com.liferay.sales.model.SaleType updateSaleType(
+		Long id, String name, double tax) {
+
+		return _saleTypeService.updateSaleType(id, name, tax);
+	}
+
+	@Override
 	public SaleTypeService getWrappedService() {
 		return _saleTypeService;
 	}

@@ -83,11 +83,43 @@ public class SaleTypeServiceHttp {
 		}
 	}
 
+	public static com.liferay.sales.model.SaleType updateSaleType(
+		HttpPrincipal httpPrincipal, Long id, String name, double tax) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleTypeServiceUtil.class, "updateSaleType",
+				_updateSaleTypeParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, id, name, tax);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleType)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static void deleteTypeById(HttpPrincipal httpPrincipal, long id) {
 		try {
 			MethodKey methodKey = new MethodKey(
 				SaleTypeServiceUtil.class, "deleteTypeById",
-				_deleteTypeByIdParameterTypes1);
+				_deleteTypeByIdParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, id);
 
@@ -113,7 +145,7 @@ public class SaleTypeServiceHttp {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				SaleTypeServiceUtil.class, "getAll", _getAllParameterTypes2);
+				SaleTypeServiceUtil.class, "getAll", _getAllParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -144,7 +176,7 @@ public class SaleTypeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				SaleTypeServiceUtil.class, "getSaleTypeByID",
-				_getSaleTypeByIDParameterTypes3);
+				_getSaleTypeByIDParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, id);
 
@@ -173,10 +205,12 @@ public class SaleTypeServiceHttp {
 
 	private static final Class<?>[] _createSaleTypeParameterTypes0 =
 		new Class[] {String.class, double.class};
-	private static final Class<?>[] _deleteTypeByIdParameterTypes1 =
+	private static final Class<?>[] _updateSaleTypeParameterTypes1 =
+		new Class[] {Long.class, String.class, double.class};
+	private static final Class<?>[] _deleteTypeByIdParameterTypes2 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getAllParameterTypes2 = new Class[] {};
-	private static final Class<?>[] _getSaleTypeByIDParameterTypes3 =
+	private static final Class<?>[] _getAllParameterTypes3 = new Class[] {};
+	private static final Class<?>[] _getSaleTypeByIDParameterTypes4 =
 		new Class[] {long.class};
 
 }

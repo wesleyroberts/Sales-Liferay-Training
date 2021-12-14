@@ -81,6 +81,24 @@ public class SaleTypeServiceSoap {
 		}
 	}
 
+	public static com.liferay.sales.model.SaleTypeSoap updateSaleType(
+			Long id, String name, double tax)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleType returnValue =
+				SaleTypeServiceUtil.updateSaleType(id, name, tax);
+
+			return com.liferay.sales.model.SaleTypeSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static void deleteTypeById(long id) throws RemoteException {
 		try {
 			SaleTypeServiceUtil.deleteTypeById(id);

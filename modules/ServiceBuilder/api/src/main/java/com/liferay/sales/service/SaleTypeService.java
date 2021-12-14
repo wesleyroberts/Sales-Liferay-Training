@@ -68,4 +68,6 @@ public interface SaleTypeService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleType getSaleTypeByID(long id);
 
+	public SaleType updateSaleType(Long id, String name, double tax);
+
 }

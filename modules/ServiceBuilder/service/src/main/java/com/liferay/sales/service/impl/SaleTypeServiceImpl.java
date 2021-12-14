@@ -53,6 +53,10 @@ public class SaleTypeServiceImpl extends SaleTypeServiceBaseImpl {
 		return saleTypeLocalService.createSaleType(name, tax);
 	}
 
+	public SaleType updateSaleType(Long id, String name, double tax){
+		return saleTypeLocalService.updateSaleType(id,name,tax);
+	}
+
 	@Override
 	public void deleteTypeById(long id) {
 		saleTypeLocalService.deleteTypeById(id);

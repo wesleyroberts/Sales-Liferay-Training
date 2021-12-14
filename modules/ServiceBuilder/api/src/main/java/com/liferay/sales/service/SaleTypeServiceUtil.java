@@ -62,6 +62,10 @@ public class SaleTypeServiceUtil {
 		return getService().getSaleTypeByID(id);
 	}
 
+	public static SaleType updateSaleType(Long id, String name, double tax) {
+		return getService().updateSaleType(id, name, tax);
+	}
+
 	public static SaleTypeService getService() {
 		return _service;
 	}

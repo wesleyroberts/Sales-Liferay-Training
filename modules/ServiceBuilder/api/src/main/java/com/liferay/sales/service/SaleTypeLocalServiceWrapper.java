@@ -311,6 +311,13 @@ public class SaleTypeLocalServiceWrapper
 		return _saleTypeLocalService.getSaleTypesCount();
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleType updateSaleType(
+		Long id, String name, double tax) {
+
+		return _saleTypeLocalService.updateSaleType(id, name, tax);
+	}
+
 	/**
 	 * Updates the sale type in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

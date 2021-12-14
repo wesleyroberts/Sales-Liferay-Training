@@ -280,6 +280,10 @@ public class SaleTypeLocalServiceUtil {
 		return getService().getSaleTypesCount();
 	}
 
+	public static SaleType updateSaleType(Long id, String name, double tax) {
+		return getService().updateSaleType(id, name, tax);
+	}
+
 	/**
 	 * Updates the sale type in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

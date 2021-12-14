@@ -16,6 +16,7 @@ package com.liferay.sales.service.impl;
 
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.NoSuchModelException;
 import com.liferay.sales.exception.NoSuchSaleTypeException;
 import com.liferay.sales.model.SaleType;
 import com.liferay.sales.service.base.SaleTypeLocalServiceBaseImpl;
@@ -55,6 +56,26 @@ public class SaleTypeLocalServiceImpl extends SaleTypeLocalServiceBaseImpl {
 			saleType.setName(name);
 			saleType.setTax(tax);
 			return saleTypePersistence.update(saleType);
+		}else{
+			return null;
+		}
+	}
+
+	public SaleType updateSaleType(Long id, String name, double tax){
+		SaleType updateType = null;
+		try {
+			updateType = saleTypePersistence.findByPrimaryKey(id);
+		} catch (NoSuchModelException e) {
+			e.printStackTrace();
+		}
+		if (updateType != null) {
+			if(!(name == null || name.equals(""))) {
+				updateType.setName(name);
+				updateType.setTax(tax);
+				return saleTypePersistence.update(updateType);
+			}else{
+				return null;
+			}
 		}else{
 			return null;
 		}
