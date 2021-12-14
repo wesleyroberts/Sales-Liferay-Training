@@ -66,6 +66,12 @@ public class SaleCategoryServiceUtil {
 		return getService().getSaleCategoryById(id);
 	}
 
+	public static SaleCategory updateSaleCategory(
+		long id, String name, double tax) {
+
+		return getService().updateSaleCategory(id, name, tax);
+	}
+
 	public static SaleCategoryService getService() {
 		return _service;
 	}

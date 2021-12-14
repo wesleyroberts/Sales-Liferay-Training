@@ -127,6 +127,24 @@ public class SaleCategoryServiceSoap {
 		}
 	}
 
+	public static com.liferay.sales.model.SaleCategorySoap updateSaleCategory(
+			long id, String name, double tax)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleCategory returnValue =
+				SaleCategoryServiceUtil.updateSaleCategory(id, name, tax);
+
+			return com.liferay.sales.model.SaleCategorySoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.sales.model.SaleCategorySoap getCategoryByName(
 			String name)
 		throws RemoteException {

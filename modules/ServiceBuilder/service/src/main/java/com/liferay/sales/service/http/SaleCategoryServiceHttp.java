@@ -173,13 +173,45 @@ public class SaleCategoryServiceHttp {
 		}
 	}
 
+	public static com.liferay.sales.model.SaleCategory updateSaleCategory(
+		HttpPrincipal httpPrincipal, long id, String name, double tax) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleCategoryServiceUtil.class, "updateSaleCategory",
+				_updateSaleCategoryParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, id, name, tax);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleCategory)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static com.liferay.sales.model.SaleCategory getCategoryByName(
 		HttpPrincipal httpPrincipal, String name) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				SaleCategoryServiceUtil.class, "getCategoryByName",
-				_getCategoryByNameParameterTypes4);
+				_getCategoryByNameParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, name);
 
@@ -214,7 +246,9 @@ public class SaleCategoryServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _deleteCategoryByIdParameterTypes3 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getCategoryByNameParameterTypes4 =
+	private static final Class<?>[] _updateSaleCategoryParameterTypes4 =
+		new Class[] {long.class, String.class, double.class};
+	private static final Class<?>[] _getCategoryByNameParameterTypes5 =
 		new Class[] {String.class};
 
 }

@@ -15,6 +15,7 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.sales.exception.NoSuchSaleCategoryException;
 import com.liferay.sales.model.SaleCategory;
 import com.liferay.sales.service.base.SaleCategoryLocalServiceBaseImpl;
@@ -57,6 +58,27 @@ public class SaleCategoryLocalServiceImpl
 			return saleCategoryPersistence.update(category);
 		}else{
 			return  null;
+		}
+	}
+
+	public SaleCategory updateSaleCategory(long id, String name, double tax){
+
+		SaleCategory updateCategory = null;
+		try {
+			updateCategory = saleCategoryPersistence.findByPrimaryKey(id);
+		} catch (NoSuchSaleCategoryException e) {
+			e.printStackTrace();
+		}
+			if (updateCategory != null) {
+				if(!(name == null || name.equals(""))) {
+					updateCategory.setName(name);
+					updateCategory.setTax(tax);
+					return saleCategoryPersistence.update(updateCategory);
+				}else{
+					return null;
+				}
+			}else{
+				return null;
 		}
 	}
 

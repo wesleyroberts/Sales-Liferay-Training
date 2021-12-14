@@ -68,6 +68,13 @@ public class SaleCategoryServiceWrapper
 	}
 
 	@Override
+	public com.liferay.sales.model.SaleCategory updateSaleCategory(
+		long id, String name, double tax) {
+
+		return _saleCategoryService.updateSaleCategory(id, name, tax);
+	}
+
+	@Override
 	public SaleCategoryService getWrappedService() {
 		return _saleCategoryService;
 	}

@@ -71,4 +71,6 @@ public interface SaleCategoryService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleCategory getSaleCategoryById(long id);
 
+	public SaleCategory updateSaleCategory(long id, String name, double tax);
+
 }

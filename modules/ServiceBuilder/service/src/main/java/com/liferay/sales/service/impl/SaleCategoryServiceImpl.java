@@ -65,6 +65,10 @@ public class SaleCategoryServiceImpl extends SaleCategoryServiceBaseImpl {
 		saleCategoryLocalService.deleteCategoryById(id);
 	}
 
+	public SaleCategory updateSaleCategory(long id, String name, double tax){
+		return  saleCategoryLocalService.updateSaleCategory(id,name,tax);
+	}
+
 	public SaleCategory getCategoryByName(String name){
 		return saleCategoryLocalService.getByCategoryName(name);
 	}

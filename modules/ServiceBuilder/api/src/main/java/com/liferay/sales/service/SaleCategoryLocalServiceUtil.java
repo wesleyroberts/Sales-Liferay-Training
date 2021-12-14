@@ -288,6 +288,12 @@ public class SaleCategoryLocalServiceUtil {
 		return getService().getSaleCategoryById(id);
 	}
 
+	public static SaleCategory updateSaleCategory(
+		long id, String name, double tax) {
+
+		return getService().updateSaleCategory(id, name, tax);
+	}
+
 	/**
 	 * Updates the sale category in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
