@@ -22,7 +22,6 @@ import com.liferay.sales.model.SaleType;
 import com.liferay.sales.service.SaleCategoryService;
 import com.liferay.sales.service.SaleTypeService;
 import com.liferay.sales.service.base.SaleProductLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -63,6 +62,29 @@ public class SaleProductLocalServiceImpl
 			product.setCategoryId(categoryId);
 			product.setTypeId(typeId);
 			return saleProductPersistence.update(applyTax(product));
+		}else{
+			return null;
+		}
+	}
+
+	public SaleProduct updateSaleProduct(long productId, String name, double price, long categoryId, long typeId){
+
+		SaleProduct updateProduct = null;
+		try {
+			updateProduct = saleProductPersistence.findByPrimaryKey(productId);
+		} catch (NoSuchSaleProductException e) {
+			e.printStackTrace();
+		}
+		if (updateProduct != null) {
+			if(!(name == null || name.equals(""))) {
+				updateProduct.setName(name);
+				updateProduct.setPrice(price);
+				updateProduct.setCategoryId(categoryId);
+				updateProduct.setTypeId(typeId);
+				return saleProductPersistence.update(updateProduct);
+			}else{
+				return null;
+			}
 		}else{
 			return null;
 		}

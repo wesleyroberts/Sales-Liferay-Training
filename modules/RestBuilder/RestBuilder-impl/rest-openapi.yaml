@@ -190,7 +190,34 @@ paths:
                 $ref: "#/components/schemas/ProductOutput"
           description: ""
       tags: ["ProductInput"]
-
+  "/product/update/{productId}":
+    put:
+      operationId: updateProductById
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductInput"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/ProductInput"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductOutput"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ProductOutput"
+          description: ""
+      tags: ["ProductInput"]
   "/product/delete/{productId}":
     delete:
       operationId: deleteProductById
@@ -290,6 +317,34 @@ paths:
                 $ref: "#/components/schemas/Category"
           description: ""
       tags: ["CategoryInput"]
+  "/category/update/{categoryId}":
+    put:
+      operationId: updateCategoryById
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoryInput"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/CategoryInput"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Category"
+          description: ""
+      tags: ["CategoryInput"]
 
   "/category/delete/{categoryId}":
     delete:
@@ -350,6 +405,34 @@ paths:
   "/type/create":
     post:
       operationId: createType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TypeInput"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/TypeInput"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Type"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Type"
+          description: ""
+      tags: ["TypeInput"]
+  "/type/update/{typeId}":
+    put:
+      operationId: updateTypeById
+      parameters:
+        - in: path
+          name: typeId
+          required: true
+          schema:
+            type: integer
       requestBody:
         content:
           application/json:

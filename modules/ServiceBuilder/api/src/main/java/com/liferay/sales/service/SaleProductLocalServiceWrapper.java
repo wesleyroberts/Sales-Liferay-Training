@@ -322,6 +322,15 @@ public class SaleProductLocalServiceWrapper
 		return _saleProductLocalService.getSaleProductsCount();
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleProduct updateSaleProduct(
+		long productId, String name, double price, long categoryId,
+		long typeId) {
+
+		return _saleProductLocalService.updateSaleProduct(
+			productId, name, price, categoryId, typeId);
+	}
+
 	/**
 	 * Updates the sale product in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

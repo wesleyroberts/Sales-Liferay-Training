@@ -68,6 +68,14 @@ public class SaleProductServiceUtil {
 		return getService().getSaleProductByName(name);
 	}
 
+	public static SaleProduct updateSaleProduct(
+		long productId, String name, double price, long categoryId,
+		long typeId) {
+
+		return getService().updateSaleProduct(
+			productId, name, price, categoryId, typeId);
+	}
+
 	public static SaleProductService getService() {
 		return _service;
 	}

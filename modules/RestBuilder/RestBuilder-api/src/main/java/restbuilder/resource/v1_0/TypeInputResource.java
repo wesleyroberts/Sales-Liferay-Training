@@ -36,6 +36,9 @@ public interface TypeInputResource {
 
 	public Type createType(TypeInput typeInput) throws Exception;
 
+	public Type updateTypeById(Integer typeId, TypeInput typeInput)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

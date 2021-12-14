@@ -72,4 +72,8 @@ public interface SaleProductService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleProduct getSaleProductByName(String name);
 
+	public SaleProduct updateSaleProduct(
+		long productId, String name, double price, long categoryId,
+		long typeId);
+
 }

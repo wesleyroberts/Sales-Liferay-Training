@@ -37,6 +37,10 @@ public interface CategoryInputResource {
 	public Category createCategory(CategoryInput categoryInput)
 		throws Exception;
 
+	public Category updateCategoryById(
+			Integer categoryId, CategoryInput categoryInput)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

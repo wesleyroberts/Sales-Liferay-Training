@@ -37,6 +37,10 @@ public interface ProductInputResource {
 	public ProductOutput createProduct(ProductInput productInput)
 		throws Exception;
 
+	public ProductOutput updateProductById(
+			Integer productId, ProductInput productInput)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

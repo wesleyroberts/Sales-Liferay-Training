@@ -99,6 +99,26 @@ public class SaleProductServiceSoap {
 		}
 	}
 
+	public static com.liferay.sales.model.SaleProductSoap updateSaleProduct(
+			long productId, String name, double price, long categoryId,
+			long typeId)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleProduct returnValue =
+				SaleProductServiceUtil.updateSaleProduct(
+					productId, name, price, categoryId, typeId);
+
+			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.sales.model.SaleProductSoap getSaleProductById(
 			long id)
 		throws RemoteException {
