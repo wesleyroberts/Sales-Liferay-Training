@@ -123,6 +123,8 @@ public class CartProductsListPersistenceTest {
 
 		newCartProductsList.setCartId(RandomTestUtil.nextLong());
 
+		newCartProductsList.setQuantity(RandomTestUtil.nextInt());
+
 		_cartProductsLists.add(_persistence.update(newCartProductsList));
 
 		CartProductsList existingCartProductsList =
@@ -134,6 +136,9 @@ public class CartProductsListPersistenceTest {
 		Assert.assertEquals(
 			existingCartProductsList.getCartId(),
 			newCartProductsList.getCartId());
+		Assert.assertEquals(
+			existingCartProductsList.getQuantity(),
+			newCartProductsList.getQuantity());
 	}
 
 	@Test
@@ -161,7 +166,8 @@ public class CartProductsListPersistenceTest {
 
 	protected OrderByComparator<CartProductsList> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create(
-			"SalesTaxe_CartProductsList", "productId", true, "cartId", true);
+			"SalesTaxe_CartProductsList", "productId", true, "cartId", true,
+			"quantity", true);
 	}
 
 	@Test
@@ -381,6 +387,8 @@ public class CartProductsListPersistenceTest {
 		CartProductsList cartProductsList = _persistence.create(pk);
 
 		cartProductsList.setCartId(RandomTestUtil.nextLong());
+
+		cartProductsList.setQuantity(RandomTestUtil.nextInt());
 
 		_cartProductsLists.add(_persistence.update(cartProductsList));
 

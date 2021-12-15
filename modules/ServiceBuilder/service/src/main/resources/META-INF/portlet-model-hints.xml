@@ -4,6 +4,7 @@
 	<model name="com.liferay.sales.model.CartProductsList">
 		<field name="productId" type="long" />
 		<field name="cartId" type="long" />
+		<field name="quantity" type="int" />
 	</model>
 	<model name="com.liferay.sales.model.SaleCart">
 		<field name="cartId" type="long" />
@@ -20,6 +21,7 @@
 		<field name="price" type="double" />
 		<field name="categoryId" type="long" />
 		<field name="typeId" type="long" />
+		<field name="quantity" type="int" />
 	</model>
 	<model name="com.liferay.sales.model.SaleType">
 		<field name="typeId" type="long" />

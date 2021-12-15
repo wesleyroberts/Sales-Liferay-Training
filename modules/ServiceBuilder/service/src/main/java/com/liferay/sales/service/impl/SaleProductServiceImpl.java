@@ -50,8 +50,8 @@ public class SaleProductServiceImpl extends SaleProductServiceBaseImpl {
 	 * Never reference this class directly. Always use <code>com.liferay.sales.service.SaleProductServiceUtil</code> to access the sale product remote service.
 	 */
 
-	public SaleProduct createSaleProduct(String name, double price, long categoryId, long typeId){
-		return saleProductLocalService.createSaleProduct(name, price, categoryId, typeId);
+	public SaleProduct createSaleProduct(String name, double price, long categoryId, long typeId , int quantity){
+		return saleProductLocalService.createSaleProduct(name, price, categoryId, typeId, quantity);
 	}
 
 	public List<SaleProduct> getAllSaleProducts(){
@@ -60,6 +60,13 @@ public class SaleProductServiceImpl extends SaleProductServiceBaseImpl {
 
 	public SaleProduct updateSaleProduct(long productId, String name, double price, long categoryId, long typeId){
 		return saleProductLocalService.updateSaleProduct(productId, name, price, categoryId, typeId);
+	}
+
+	public SaleProduct addSaleProductInStock (long porductId,int quantity){
+		return saleProductLocalService.addSaleProductInStock(porductId, quantity);
+	}
+	public SaleProduct removeSaleProductInStock (long porductId,int quantity){
+		return saleProductLocalService.removeSaleProductInStock(porductId, quantity);
 	}
 
 	public SaleProduct getSaleProductById(long id){

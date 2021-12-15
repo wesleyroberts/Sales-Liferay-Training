@@ -74,6 +74,8 @@ public interface SaleProductLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public SaleProduct addSaleProduct(SaleProduct saleProduct);
 
+	public SaleProduct addSaleProductInStock(long porductId, int quantity);
+
 	/**
 	 * @throws PortalException
 	 */
@@ -90,7 +92,7 @@ public interface SaleProductLocalService
 	public SaleProduct createSaleProduct(long productId);
 
 	public SaleProduct createSaleProduct(
-		String name, double price, long categoryId, long typeId);
+		String name, double price, long categoryId, long typeId, int quantity);
 
 	public SaleProduct deleteById(long id);
 
@@ -258,6 +260,8 @@ public interface SaleProductLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getSaleProductsCount();
+
+	public SaleProduct removeSaleProductInStock(long porductId, int quantity);
 
 	public SaleProduct updateSaleProduct(
 		long productId, String name, double price, long categoryId,

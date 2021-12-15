@@ -58,6 +58,12 @@ public class SaleProductLocalServiceUtil {
 		return getService().addSaleProduct(saleProduct);
 	}
 
+	public static SaleProduct addSaleProductInStock(
+		long porductId, int quantity) {
+
+		return getService().addSaleProductInStock(porductId, quantity);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -79,9 +85,10 @@ public class SaleProductLocalServiceUtil {
 	}
 
 	public static SaleProduct createSaleProduct(
-		String name, double price, long categoryId, long typeId) {
+		String name, double price, long categoryId, long typeId, int quantity) {
 
-		return getService().createSaleProduct(name, price, categoryId, typeId);
+		return getService().createSaleProduct(
+			name, price, categoryId, typeId, quantity);
 	}
 
 	public static SaleProduct deleteById(long id) {
@@ -288,6 +295,12 @@ public class SaleProductLocalServiceUtil {
 	 */
 	public static int getSaleProductsCount() {
 		return getService().getSaleProductsCount();
+	}
+
+	public static SaleProduct removeSaleProductInStock(
+		long porductId, int quantity) {
+
+		return getService().removeSaleProductInStock(porductId, quantity);
 	}
 
 	public static SaleProduct updateSaleProduct(

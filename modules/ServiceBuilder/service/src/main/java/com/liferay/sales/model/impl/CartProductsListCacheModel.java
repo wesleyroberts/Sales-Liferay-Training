@@ -60,12 +60,14 @@ public class CartProductsListCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(5);
+		StringBundler sb = new StringBundler(7);
 
 		sb.append("{productId=");
 		sb.append(productId);
 		sb.append(", cartId=");
 		sb.append(cartId);
+		sb.append(", quantity=");
+		sb.append(quantity);
 		sb.append("}");
 
 		return sb.toString();
@@ -77,6 +79,7 @@ public class CartProductsListCacheModel
 
 		cartProductsListImpl.setProductId(productId);
 		cartProductsListImpl.setCartId(cartId);
+		cartProductsListImpl.setQuantity(quantity);
 
 		cartProductsListImpl.resetOriginalValues();
 
@@ -88,6 +91,8 @@ public class CartProductsListCacheModel
 		productId = objectInput.readLong();
 
 		cartId = objectInput.readLong();
+
+		quantity = objectInput.readInt();
 	}
 
 	@Override
@@ -95,9 +100,12 @@ public class CartProductsListCacheModel
 		objectOutput.writeLong(productId);
 
 		objectOutput.writeLong(cartId);
+
+		objectOutput.writeInt(quantity);
 	}
 
 	public long productId;
 	public long cartId;
+	public int quantity;
 
 }

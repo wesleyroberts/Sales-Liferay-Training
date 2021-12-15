@@ -46,6 +46,7 @@ public class SaleProductWrapper
 		attributes.put("price", getPrice());
 		attributes.put("categoryId", getCategoryId());
 		attributes.put("typeId", getTypeId());
+		attributes.put("quantity", getQuantity());
 
 		return attributes;
 	}
@@ -80,6 +81,12 @@ public class SaleProductWrapper
 
 		if (typeId != null) {
 			setTypeId(typeId);
+		}
+
+		Integer quantity = (Integer)attributes.get("quantity");
+
+		if (quantity != null) {
+			setQuantity(quantity);
 		}
 	}
 
@@ -131,6 +138,16 @@ public class SaleProductWrapper
 	@Override
 	public long getProductId() {
 		return model.getProductId();
+	}
+
+	/**
+	 * Returns the quantity of this sale product.
+	 *
+	 * @return the quantity of this sale product
+	 */
+	@Override
+	public int getQuantity() {
+		return model.getQuantity();
 	}
 
 	/**
@@ -196,6 +213,16 @@ public class SaleProductWrapper
 	@Override
 	public void setProductId(long productId) {
 		model.setProductId(productId);
+	}
+
+	/**
+	 * Sets the quantity of this sale product.
+	 *
+	 * @param quantity the quantity of this sale product
+	 */
+	@Override
+	public void setQuantity(int quantity) {
+		model.setQuantity(quantity);
 	}
 
 	/**

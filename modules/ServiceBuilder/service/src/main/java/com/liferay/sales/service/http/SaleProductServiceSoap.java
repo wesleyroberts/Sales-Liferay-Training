@@ -64,13 +64,14 @@ import java.rmi.RemoteException;
 public class SaleProductServiceSoap {
 
 	public static com.liferay.sales.model.SaleProductSoap createSaleProduct(
-			String name, double price, long categoryId, long typeId)
+			String name, double price, long categoryId, long typeId,
+			int quantity)
 		throws RemoteException {
 
 		try {
 			com.liferay.sales.model.SaleProduct returnValue =
 				SaleProductServiceUtil.createSaleProduct(
-					name, price, categoryId, typeId);
+					name, price, categoryId, typeId, quantity);
 
 			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
 				returnValue);
@@ -108,6 +109,44 @@ public class SaleProductServiceSoap {
 			com.liferay.sales.model.SaleProduct returnValue =
 				SaleProductServiceUtil.updateSaleProduct(
 					productId, name, price, categoryId, typeId);
+
+			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleProductSoap addSaleProductInStock(
+			long porductId, int quantity)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleProduct returnValue =
+				SaleProductServiceUtil.addSaleProductInStock(
+					porductId, quantity);
+
+			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleProductSoap
+			removeSaleProductInStock(long porductId, int quantity)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleProduct returnValue =
+				SaleProductServiceUtil.removeSaleProductInStock(
+					porductId, quantity);
 
 			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
 				returnValue);

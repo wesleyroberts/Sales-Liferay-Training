@@ -34,6 +34,7 @@ public class CartProductsListSoap implements Serializable {
 
 		soapModel.setProductId(model.getProductId());
 		soapModel.setCartId(model.getCartId());
+		soapModel.setQuantity(model.getQuantity());
 
 		return soapModel;
 	}
@@ -111,7 +112,16 @@ public class CartProductsListSoap implements Serializable {
 		_cartId = cartId;
 	}
 
+	public int getQuantity() {
+		return _quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		_quantity = quantity;
+	}
+
 	private long _productId;
 	private long _cartId;
+	private int _quantity;
 
 }

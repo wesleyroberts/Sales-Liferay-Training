@@ -60,7 +60,7 @@ public class SaleProductCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{productId=");
 		sb.append(productId);
@@ -72,6 +72,8 @@ public class SaleProductCacheModel
 		sb.append(categoryId);
 		sb.append(", typeId=");
 		sb.append(typeId);
+		sb.append(", quantity=");
+		sb.append(quantity);
 		sb.append("}");
 
 		return sb.toString();
@@ -93,6 +95,7 @@ public class SaleProductCacheModel
 		saleProductImpl.setPrice(price);
 		saleProductImpl.setCategoryId(categoryId);
 		saleProductImpl.setTypeId(typeId);
+		saleProductImpl.setQuantity(quantity);
 
 		saleProductImpl.resetOriginalValues();
 
@@ -109,6 +112,8 @@ public class SaleProductCacheModel
 		categoryId = objectInput.readLong();
 
 		typeId = objectInput.readLong();
+
+		quantity = objectInput.readInt();
 	}
 
 	@Override
@@ -127,6 +132,8 @@ public class SaleProductCacheModel
 		objectOutput.writeLong(categoryId);
 
 		objectOutput.writeLong(typeId);
+
+		objectOutput.writeInt(quantity);
 	}
 
 	public long productId;
@@ -134,5 +141,6 @@ public class SaleProductCacheModel
 	public double price;
 	public long categoryId;
 	public long typeId;
+	public int quantity;
 
 }

@@ -51,8 +51,10 @@ public interface SaleProductService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleProductServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the sale product remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link SaleProductServiceUtil} if injection and service tracking are not available.
 	 */
+	public SaleProduct addSaleProductInStock(long porductId, int quantity);
+
 	public SaleProduct createSaleProduct(
-		String name, double price, long categoryId, long typeId);
+		String name, double price, long categoryId, long typeId, int quantity);
 
 	public SaleProduct deleteById(long id);
 
@@ -71,6 +73,8 @@ public interface SaleProductService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleProduct getSaleProductByName(String name);
+
+	public SaleProduct removeSaleProductInStock(long porductId, int quantity);
 
 	public SaleProduct updateSaleProduct(
 		long productId, String name, double price, long categoryId,

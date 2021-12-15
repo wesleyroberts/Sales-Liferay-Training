@@ -68,7 +68,8 @@ public class CartProductsListModelImpl
 	public static final String TABLE_NAME = "SalesTaxe_CartProductsList";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"productId", Types.BIGINT}, {"cartId", Types.BIGINT}
+		{"productId", Types.BIGINT}, {"cartId", Types.BIGINT},
+		{"quantity", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -77,10 +78,11 @@ public class CartProductsListModelImpl
 	static {
 		TABLE_COLUMNS_MAP.put("productId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("cartId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("quantity", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SalesTaxe_CartProductsList (productId LONG not null primary key,cartId LONG)";
+		"create table SalesTaxe_CartProductsList (productId LONG not null primary key,cartId LONG,quantity INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table SalesTaxe_CartProductsList";
@@ -135,6 +137,7 @@ public class CartProductsListModelImpl
 
 		model.setProductId(soapModel.getProductId());
 		model.setCartId(soapModel.getCartId());
+		model.setQuantity(soapModel.getQuantity());
 
 		return model;
 	}
@@ -299,6 +302,11 @@ public class CartProductsListModelImpl
 		attributeSetterBiConsumers.put(
 			"cartId",
 			(BiConsumer<CartProductsList, Long>)CartProductsList::setCartId);
+		attributeGetterFunctions.put("quantity", CartProductsList::getQuantity);
+		attributeSetterBiConsumers.put(
+			"quantity",
+			(BiConsumer<CartProductsList, Integer>)
+				CartProductsList::setQuantity);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -334,6 +342,21 @@ public class CartProductsListModelImpl
 		}
 
 		_cartId = cartId;
+	}
+
+	@JSON
+	@Override
+	public int getQuantity() {
+		return _quantity;
+	}
+
+	@Override
+	public void setQuantity(int quantity) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_quantity = quantity;
 	}
 
 	public long getColumnBitmask() {
@@ -394,6 +417,7 @@ public class CartProductsListModelImpl
 
 		cartProductsListImpl.setProductId(getProductId());
 		cartProductsListImpl.setCartId(getCartId());
+		cartProductsListImpl.setQuantity(getQuantity());
 
 		cartProductsListImpl.resetOriginalValues();
 
@@ -476,6 +500,8 @@ public class CartProductsListModelImpl
 
 		cartProductsListCacheModel.cartId = getCartId();
 
+		cartProductsListCacheModel.quantity = getQuantity();
+
 		return cartProductsListCacheModel;
 	}
 
@@ -551,6 +577,7 @@ public class CartProductsListModelImpl
 
 	private long _productId;
 	private long _cartId;
+	private int _quantity;
 
 	public <T> T getColumnValue(String columnName) {
 		Function<CartProductsList, Object> function =
@@ -581,6 +608,7 @@ public class CartProductsListModelImpl
 
 		_columnOriginalValues.put("productId", _productId);
 		_columnOriginalValues.put("cartId", _cartId);
+		_columnOriginalValues.put("quantity", _quantity);
 	}
 
 	private transient Map<String, Object> _columnOriginalValues;
@@ -597,6 +625,8 @@ public class CartProductsListModelImpl
 		columnBitmasks.put("productId", 1L);
 
 		columnBitmasks.put("cartId", 2L);
+
+		columnBitmasks.put("quantity", 4L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

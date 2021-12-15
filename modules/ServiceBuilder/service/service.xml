@@ -13,6 +13,7 @@
 		<column name="price" type="double" />
 		<column name="categoryId" type="long" />
 		<column name="typeId" type="long" />
+		<column name="quantity" type="int"/>
 
 		<!-- Creating finder -->
 		<finder name="Name" return-type="SaleProducts">
@@ -64,6 +65,7 @@
 		<!-- Other fields -->
 		<column name="productId" primary="true" type="long"/>
 		<column name="cartId" type="long" />
+		<column name="quantity" type="int"/>
 
 	</entity>
 	<exceptions>

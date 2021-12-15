@@ -43,6 +43,7 @@ public class CartProductsListWrapper
 
 		attributes.put("productId", getProductId());
 		attributes.put("cartId", getCartId());
+		attributes.put("quantity", getQuantity());
 
 		return attributes;
 	}
@@ -59,6 +60,12 @@ public class CartProductsListWrapper
 
 		if (cartId != null) {
 			setCartId(cartId);
+		}
+
+		Integer quantity = (Integer)attributes.get("quantity");
+
+		if (quantity != null) {
+			setQuantity(quantity);
 		}
 	}
 
@@ -90,6 +97,16 @@ public class CartProductsListWrapper
 	@Override
 	public long getProductId() {
 		return model.getProductId();
+	}
+
+	/**
+	 * Returns the quantity of this cart products list.
+	 *
+	 * @return the quantity of this cart products list
+	 */
+	@Override
+	public int getQuantity() {
+		return model.getQuantity();
 	}
 
 	@Override
@@ -125,6 +142,16 @@ public class CartProductsListWrapper
 	@Override
 	public void setProductId(long productId) {
 		model.setProductId(productId);
+	}
+
+	/**
+	 * Sets the quantity of this cart products list.
+	 *
+	 * @param quantity the quantity of this cart products list
+	 */
+	@Override
+	public void setQuantity(int quantity) {
+		model.setQuantity(quantity);
 	}
 
 	@Override

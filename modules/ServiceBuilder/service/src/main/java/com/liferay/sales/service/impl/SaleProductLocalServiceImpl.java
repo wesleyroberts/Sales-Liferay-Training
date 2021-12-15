@@ -53,7 +53,7 @@ public class SaleProductLocalServiceImpl
 	 *
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.SaleProductLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleProductLocalServiceUtil</code>.
 	 */
-	public SaleProduct createSaleProduct(String name, double price,long categoryId, long typeId){
+	public SaleProduct createSaleProduct(String name, double price,long categoryId, long typeId,int quantity){
 
 		SaleProduct product = saleProductPersistence.create(counterLocalService.increment());
 		if(!(name == null || name.equals(""))){
@@ -61,11 +61,37 @@ public class SaleProductLocalServiceImpl
 			product.setPrice(price);
 			product.setCategoryId(categoryId);
 			product.setTypeId(typeId);
+			product.setQuantity(quantity);
 			return saleProductPersistence.update(applyTax(product));
 		}else{
 			return null;
 		}
 	}
+
+	public SaleProduct addSaleProductInStock (long porductId,int quantity){
+		try {
+			SaleProduct saleProduct = saleProductPersistence.findByPrimaryKey(porductId);
+			saleProduct.setQuantity(saleProduct.getQuantity() + quantity);
+			return  saleProductPersistence.update(saleProduct);
+
+		} catch (NoSuchSaleProductException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public SaleProduct removeSaleProductInStock (long porductId,int quantity){
+		try {
+			SaleProduct saleProduct = saleProductPersistence.findByPrimaryKey(porductId);
+			saleProduct.setQuantity(saleProduct.getQuantity() - quantity);
+			return  saleProductPersistence.update(saleProduct);
+
+		} catch (NoSuchSaleProductException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 
 	public SaleProduct updateSaleProduct(long productId, String name, double price, long categoryId, long typeId){
 

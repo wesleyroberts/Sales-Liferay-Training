@@ -1,6 +1,7 @@
 create table SalesTaxe_CartProductsList (
 	productId LONG not null primary key,
-	cartId LONG
+	cartId LONG,
+	quantity INTEGER
 );
 
 create table SalesTaxe_SaleCart (
@@ -19,7 +20,8 @@ create table SalesTaxe_SaleProduct (
 	name VARCHAR(75) null,
 	price DOUBLE,
 	categoryId LONG,
-	typeId LONG
+	typeId LONG,
+	quantity INTEGER
 );
 
 create table SalesTaxe_SaleType (

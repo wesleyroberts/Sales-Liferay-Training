@@ -31,11 +31,18 @@ public class SaleProductServiceWrapper
 	}
 
 	@Override
+	public com.liferay.sales.model.SaleProduct addSaleProductInStock(
+		long porductId, int quantity) {
+
+		return _saleProductService.addSaleProductInStock(porductId, quantity);
+	}
+
+	@Override
 	public com.liferay.sales.model.SaleProduct createSaleProduct(
-		String name, double price, long categoryId, long typeId) {
+		String name, double price, long categoryId, long typeId, int quantity) {
 
 		return _saleProductService.createSaleProduct(
-			name, price, categoryId, typeId);
+			name, price, categoryId, typeId, quantity);
 	}
 
 	@Override
@@ -70,6 +77,14 @@ public class SaleProductServiceWrapper
 		String name) {
 
 		return _saleProductService.getSaleProductByName(name);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleProduct removeSaleProductInStock(
+		long porductId, int quantity) {
+
+		return _saleProductService.removeSaleProductInStock(
+			porductId, quantity);
 	}
 
 	@Override

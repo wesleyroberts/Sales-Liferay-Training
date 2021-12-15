@@ -80,4 +80,18 @@ public interface CartProductsListModel extends BaseModel<CartProductsList> {
 	 */
 	public void setCartId(long cartId);
 
+	/**
+	 * Returns the quantity of this cart products list.
+	 *
+	 * @return the quantity of this cart products list
+	 */
+	public int getQuantity();
+
+	/**
+	 * Sets the quantity of this cart products list.
+	 *
+	 * @param quantity the quantity of this cart products list
+	 */
+	public void setQuantity(int quantity);
+
 }

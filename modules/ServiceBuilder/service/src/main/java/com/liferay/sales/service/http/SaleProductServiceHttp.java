@@ -53,7 +53,7 @@ public class SaleProductServiceHttp {
 
 	public static com.liferay.sales.model.SaleProduct createSaleProduct(
 		HttpPrincipal httpPrincipal, String name, double price, long categoryId,
-		long typeId) {
+		long typeId, int quantity) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -61,7 +61,7 @@ public class SaleProductServiceHttp {
 				_createSaleProductParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, name, price, categoryId, typeId);
+				methodKey, name, price, categoryId, typeId, quantity);
 
 			Object returnObj = null;
 
@@ -149,13 +149,77 @@ public class SaleProductServiceHttp {
 		}
 	}
 
+	public static com.liferay.sales.model.SaleProduct addSaleProductInStock(
+		HttpPrincipal httpPrincipal, long porductId, int quantity) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleProductServiceUtil.class, "addSaleProductInStock",
+				_addSaleProductInStockParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, porductId, quantity);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleProduct)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.sales.model.SaleProduct removeSaleProductInStock(
+		HttpPrincipal httpPrincipal, long porductId, int quantity) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleProductServiceUtil.class, "removeSaleProductInStock",
+				_removeSaleProductInStockParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, porductId, quantity);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleProduct)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static com.liferay.sales.model.SaleProduct getSaleProductById(
 		HttpPrincipal httpPrincipal, long id) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				SaleProductServiceUtil.class, "getSaleProductById",
-				_getSaleProductByIdParameterTypes3);
+				_getSaleProductByIdParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, id);
 
@@ -186,7 +250,7 @@ public class SaleProductServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				SaleProductServiceUtil.class, "getSaleProductByName",
-				_getSaleProductByNameParameterTypes4);
+				_getSaleProductByNameParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, name);
 
@@ -217,7 +281,7 @@ public class SaleProductServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				SaleProductServiceUtil.class, "deleteById",
-				_deleteByIdParameterTypes5);
+				_deleteByIdParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, id);
 
@@ -246,18 +310,24 @@ public class SaleProductServiceHttp {
 		SaleProductServiceHttp.class);
 
 	private static final Class<?>[] _createSaleProductParameterTypes0 =
-		new Class[] {String.class, double.class, long.class, long.class};
+		new Class[] {
+			String.class, double.class, long.class, long.class, int.class
+		};
 	private static final Class<?>[] _getAllSaleProductsParameterTypes1 =
 		new Class[] {};
 	private static final Class<?>[] _updateSaleProductParameterTypes2 =
 		new Class[] {
 			long.class, String.class, double.class, long.class, long.class
 		};
-	private static final Class<?>[] _getSaleProductByIdParameterTypes3 =
+	private static final Class<?>[] _addSaleProductInStockParameterTypes3 =
+		new Class[] {long.class, int.class};
+	private static final Class<?>[] _removeSaleProductInStockParameterTypes4 =
+		new Class[] {long.class, int.class};
+	private static final Class<?>[] _getSaleProductByIdParameterTypes5 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getSaleProductByNameParameterTypes4 =
+	private static final Class<?>[] _getSaleProductByNameParameterTypes6 =
 		new Class[] {String.class};
-	private static final Class<?>[] _deleteByIdParameterTypes5 = new Class[] {
+	private static final Class<?>[] _deleteByIdParameterTypes7 = new Class[] {
 		long.class
 	};
 

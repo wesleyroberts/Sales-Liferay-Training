@@ -71,7 +71,7 @@ public class SaleProductModelImpl
 	public static final Object[][] TABLE_COLUMNS = {
 		{"productId", Types.BIGINT}, {"name", Types.VARCHAR},
 		{"price", Types.DOUBLE}, {"categoryId", Types.BIGINT},
-		{"typeId", Types.BIGINT}
+		{"typeId", Types.BIGINT}, {"quantity", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -83,10 +83,11 @@ public class SaleProductModelImpl
 		TABLE_COLUMNS_MAP.put("price", Types.DOUBLE);
 		TABLE_COLUMNS_MAP.put("categoryId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("typeId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("quantity", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SalesTaxe_SaleProduct (productId LONG not null primary key,name VARCHAR(75) null,price DOUBLE,categoryId LONG,typeId LONG)";
+		"create table SalesTaxe_SaleProduct (productId LONG not null primary key,name VARCHAR(75) null,price DOUBLE,categoryId LONG,typeId LONG,quantity INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table SalesTaxe_SaleProduct";
@@ -156,6 +157,7 @@ public class SaleProductModelImpl
 		model.setPrice(soapModel.getPrice());
 		model.setCategoryId(soapModel.getCategoryId());
 		model.setTypeId(soapModel.getTypeId());
+		model.setQuantity(soapModel.getQuantity());
 
 		return model;
 	}
@@ -324,6 +326,10 @@ public class SaleProductModelImpl
 		attributeGetterFunctions.put("typeId", SaleProduct::getTypeId);
 		attributeSetterBiConsumers.put(
 			"typeId", (BiConsumer<SaleProduct, Long>)SaleProduct::setTypeId);
+		attributeGetterFunctions.put("quantity", SaleProduct::getQuantity);
+		attributeSetterBiConsumers.put(
+			"quantity",
+			(BiConsumer<SaleProduct, Integer>)SaleProduct::setQuantity);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -430,6 +436,21 @@ public class SaleProductModelImpl
 		_typeId = typeId;
 	}
 
+	@JSON
+	@Override
+	public int getQuantity() {
+		return _quantity;
+	}
+
+	@Override
+	public void setQuantity(int quantity) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_quantity = quantity;
+	}
+
 	public long getColumnBitmask() {
 		if (_columnBitmask > 0) {
 			return _columnBitmask;
@@ -491,6 +512,7 @@ public class SaleProductModelImpl
 		saleProductImpl.setPrice(getPrice());
 		saleProductImpl.setCategoryId(getCategoryId());
 		saleProductImpl.setTypeId(getTypeId());
+		saleProductImpl.setQuantity(getQuantity());
 
 		saleProductImpl.resetOriginalValues();
 
@@ -585,6 +607,8 @@ public class SaleProductModelImpl
 
 		saleProductCacheModel.typeId = getTypeId();
 
+		saleProductCacheModel.quantity = getQuantity();
+
 		return saleProductCacheModel;
 	}
 
@@ -663,6 +687,7 @@ public class SaleProductModelImpl
 	private double _price;
 	private long _categoryId;
 	private long _typeId;
+	private int _quantity;
 
 	public <T> T getColumnValue(String columnName) {
 		Function<SaleProduct, Object> function = _attributeGetterFunctions.get(
@@ -696,6 +721,7 @@ public class SaleProductModelImpl
 		_columnOriginalValues.put("price", _price);
 		_columnOriginalValues.put("categoryId", _categoryId);
 		_columnOriginalValues.put("typeId", _typeId);
+		_columnOriginalValues.put("quantity", _quantity);
 	}
 
 	private transient Map<String, Object> _columnOriginalValues;
@@ -718,6 +744,8 @@ public class SaleProductModelImpl
 		columnBitmasks.put("categoryId", 8L);
 
 		columnBitmasks.put("typeId", 16L);
+
+		columnBitmasks.put("quantity", 32L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

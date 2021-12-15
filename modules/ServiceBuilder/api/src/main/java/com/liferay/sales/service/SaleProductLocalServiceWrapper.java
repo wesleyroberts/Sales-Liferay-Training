@@ -50,6 +50,14 @@ public class SaleProductLocalServiceWrapper
 		return _saleProductLocalService.addSaleProduct(saleProduct);
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleProduct addSaleProductInStock(
+		long porductId, int quantity) {
+
+		return _saleProductLocalService.addSaleProductInStock(
+			porductId, quantity);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -76,10 +84,10 @@ public class SaleProductLocalServiceWrapper
 
 	@Override
 	public com.liferay.sales.model.SaleProduct createSaleProduct(
-		String name, double price, long categoryId, long typeId) {
+		String name, double price, long categoryId, long typeId, int quantity) {
 
 		return _saleProductLocalService.createSaleProduct(
-			name, price, categoryId, typeId);
+			name, price, categoryId, typeId, quantity);
 	}
 
 	@Override
@@ -320,6 +328,14 @@ public class SaleProductLocalServiceWrapper
 	@Override
 	public int getSaleProductsCount() {
 		return _saleProductLocalService.getSaleProductsCount();
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleProduct removeSaleProductInStock(
+		long porductId, int quantity) {
+
+		return _saleProductLocalService.removeSaleProductInStock(
+			porductId, quantity);
 	}
 
 	@Override

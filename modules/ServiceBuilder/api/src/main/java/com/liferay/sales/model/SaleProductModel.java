@@ -124,4 +124,18 @@ public interface SaleProductModel extends BaseModel<SaleProduct> {
 	 */
 	public void setTypeId(long typeId);
 
+	/**
+	 * Returns the quantity of this sale product.
+	 *
+	 * @return the quantity of this sale product
+	 */
+	public int getQuantity();
+
+	/**
+	 * Sets the quantity of this sale product.
+	 *
+	 * @param quantity the quantity of this sale product
+	 */
+	public void setQuantity(int quantity);
+
 }

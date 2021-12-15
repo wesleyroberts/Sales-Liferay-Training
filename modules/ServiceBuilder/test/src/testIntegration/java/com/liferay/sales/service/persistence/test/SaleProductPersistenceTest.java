@@ -132,6 +132,8 @@ public class SaleProductPersistenceTest {
 
 		newSaleProduct.setTypeId(RandomTestUtil.nextLong());
 
+		newSaleProduct.setQuantity(RandomTestUtil.nextInt());
+
 		_saleProducts.add(_persistence.update(newSaleProduct));
 
 		SaleProduct existingSaleProduct = _persistence.findByPrimaryKey(
@@ -148,6 +150,8 @@ public class SaleProductPersistenceTest {
 			newSaleProduct.getCategoryId());
 		Assert.assertEquals(
 			existingSaleProduct.getTypeId(), newSaleProduct.getTypeId());
+		Assert.assertEquals(
+			existingSaleProduct.getQuantity(), newSaleProduct.getQuantity());
 	}
 
 	@Test
@@ -192,7 +196,7 @@ public class SaleProductPersistenceTest {
 	protected OrderByComparator<SaleProduct> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create(
 			"SalesTaxe_SaleProduct", "productId", true, "name", true, "price",
-			true, "categoryId", true, "typeId", true);
+			true, "categoryId", true, "typeId", true, "quantity", true);
 	}
 
 	@Test
@@ -471,6 +475,8 @@ public class SaleProductPersistenceTest {
 		saleProduct.setCategoryId(RandomTestUtil.nextLong());
 
 		saleProduct.setTypeId(RandomTestUtil.nextLong());
+
+		saleProduct.setQuantity(RandomTestUtil.nextInt());
 
 		_saleProducts.add(_persistence.update(saleProduct));
 
