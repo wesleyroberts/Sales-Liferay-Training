@@ -32,6 +32,18 @@ export function CreateCart() {
   ).then((res) => res.json());
 }
 
+export function getTotalValueByCartId(cartId){
+  return Liferay.Util.fetch(
+    `http://localhost:8080/o/RestBuilder/v1.0/cart/getTotalValue/${cartId}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: "Basic " + test,
+      }
+    }
+  ).then((res) => res.json());
+}
+
 export function DeleteCartByID(cartId) {
   return Liferay.Util.fetch(
     `http://localhost:8080/o/RestBuilder/v1.0/cart/delete/${cartId}`,
