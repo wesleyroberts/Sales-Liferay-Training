@@ -7,6 +7,7 @@ export default function FinishedBuyModal({
   showFinishedBuyModal,
   setShowFinishedBuyModal,
   productsInCartList,
+  totalValue
 }) {
   const { observer, onClose } = useModal({
     onClose: () => setShowFinishedBuyModal(false),
@@ -24,10 +25,10 @@ export default function FinishedBuyModal({
                     {"Produtos "}
                   </ClayTable.Cell>
                   <ClayTable.Cell expanded headingCell>
-                    {"preço "}
+                    {"Categoria "}
                   </ClayTable.Cell>
                   <ClayTable.Cell expanded headingCell>
-                    {"categoria "}
+                    {"Preço "}
                   </ClayTable.Cell>
                 </ClayTable.Row>
               </ClayTable.Head>
@@ -35,16 +36,25 @@ export default function FinishedBuyModal({
                 {productsInCartList.map((item, index) => (
                   <ClayTable.Row key={index}>
                     <ClayTable.Cell headingTitle>{item.name}</ClayTable.Cell>
-                    <ClayTable.Cell>{item.price}</ClayTable.Cell>
                     <ClayTable.Cell>{item.category.name}</ClayTable.Cell>
+                    <ClayTable.Cell>{item.price}</ClayTable.Cell>
                   </ClayTable.Row>
                 ))}
+                <ClayTable.Row>
+                  <ClayTable.Cell expanded headingCell>
+                    {"Total "}
+                  </ClayTable.Cell>
+                  <ClayTable.Cell expanded headingCell />
+                  <ClayTable.Cell expanded>
+                    {totalValue}
+                  </ClayTable.Cell>
+                </ClayTable.Row>
               </ClayTable.Body>
             </ClayTable>
           </ClayModal.Body>
           <ClayModal.Footer
-            first={<ClayButton.Group spaced></ClayButton.Group>}
-            last={<ClayButton onClick={onClose}>{"Fechar"}</ClayButton>}
+            first={<ClayButton onClick={onClose} displayType="secondary">{"Fechar"}</ClayButton>}
+            last={<ClayButton onClick={onClose} displayType="primary">{"Finalizar Compra"}</ClayButton>}
           />
         </ClayModal>
       )}

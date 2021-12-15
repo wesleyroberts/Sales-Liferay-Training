@@ -5,6 +5,7 @@ import {
   CreateCart,
   DeleteCartByID,
   GetAllProductsByCartId,
+  getTotalValueByCartId
 } from "../../resourceRequests/CartFunctions";
 import RemoveProductsModal from "./modal/RemoveProductsModal";
 import FinishedBuyModal from "./modal/FinishedBuyModal";
@@ -13,6 +14,7 @@ export default function Carts({ cartList, addCart, deleteCart }) {
   const [cartIdSelected, setCartIdSelected] = useState([]);
   const [showFinishedBuyModal, setShowFinishedBuyModal] = useState(false);
   const [productsInCartList, setProductsInCartList] = useState([]);
+  const [totalValue, setTotalValue] = useState(0)
 
   const removeProductOfList = (id) => {
     var res = [];
@@ -31,9 +33,12 @@ export default function Carts({ cartList, addCart, deleteCart }) {
   }
 
   function handleModalFinishedBuy(cartId) {
-    GetAllProductsByCartId(cartId).then((data) =>
+    GetAllProductsByCartId(cartId).then((data) => {
       setProductsInCartList([...data.productList])
-    );
+    });
+    getTotalValueByCartId(cartId).then((data) => {
+      setTotalValue(data)
+    })
     setShowFinishedBuyModal(true);
   }
 
@@ -43,6 +48,7 @@ export default function Carts({ cartList, addCart, deleteCart }) {
         showFinishedBuyModal={showFinishedBuyModal}
         setShowFinishedBuyModal={setShowFinishedBuyModal}
         productsInCartList={productsInCartList}
+        totalValue={totalValue}
       />
       <RemoveProductsModal
         showRemoveproductsModal={showRemoveproductsModal}

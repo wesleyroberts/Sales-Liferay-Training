@@ -8,6 +8,7 @@ import { GetAllTypes } from "../../resourceRequests/TypeFunctions";
 import { GetAllCategories } from "../../resourceRequests/CategoryFunctions";
 import { GetAllCarts } from "../../resourceRequests/CartFunctions";
 import { GetAllProducts } from "../../resourceRequests/ProductFunctionsREST";
+import { getTotalValueByCartId } from "../../resourceRequests/ProductFunctionsREST";
 
 export default function Menu() {
   const btnStyle = {
