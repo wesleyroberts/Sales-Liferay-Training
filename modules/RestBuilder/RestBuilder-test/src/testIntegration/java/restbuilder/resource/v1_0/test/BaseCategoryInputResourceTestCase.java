@@ -184,6 +184,31 @@ public abstract class BaseCategoryInputResourceTestCase {
 		Assert.assertTrue(true);
 	}
 
+	@Test
+	public void testUpdateCategoryById() throws Exception {
+		CategoryInput postCategoryInput =
+			testPutCategoryInput_addCategoryInput();
+
+		testUpdateCategoryById_addCategory(
+			postCategoryInput.getId(), randomCategory());
+
+		Category randomCategory = randomCategory();
+
+		Category putCategory = categoryInputResource.updateCategoryById(
+			null, null);
+
+		assertEquals(randomCategory, putCategory);
+		assertValid(putCategory);
+	}
+
+	protected Category testUpdateCategoryById_addCategory(
+			long categoryInputId, Category category)
+		throws Exception {
+
+		return categoryInputResource.updateCategoryById(
+			categoryInputId, category);
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {

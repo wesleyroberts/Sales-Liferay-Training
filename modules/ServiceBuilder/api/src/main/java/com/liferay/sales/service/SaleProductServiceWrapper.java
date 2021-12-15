@@ -73,6 +73,15 @@ public class SaleProductServiceWrapper
 	}
 
 	@Override
+	public com.liferay.sales.model.SaleProduct updateSaleProduct(
+		long productId, String name, double price, long categoryId,
+		long typeId) {
+
+		return _saleProductService.updateSaleProduct(
+			productId, name, price, categoryId, typeId);
+	}
+
+	@Override
 	public SaleProductService getWrappedService() {
 		return _saleProductService;
 	}

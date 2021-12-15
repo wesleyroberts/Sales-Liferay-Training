@@ -184,6 +184,30 @@ public abstract class BaseProductInputResourceTestCase {
 		Assert.assertTrue(true);
 	}
 
+	@Test
+	public void testUpdateProductById() throws Exception {
+		ProductInput postProductInput = testPutProductInput_addProductInput();
+
+		testUpdateProductById_addProductOutput(
+			postProductInput.getId(), randomProductOutput());
+
+		ProductOutput randomProductOutput = randomProductOutput();
+
+		ProductOutput putProductOutput = productInputResource.updateProductById(
+			null, null);
+
+		assertEquals(randomProductOutput, putProductOutput);
+		assertValid(putProductOutput);
+	}
+
+	protected ProductOutput testUpdateProductById_addProductOutput(
+			long productInputId, ProductOutput productOutput)
+		throws Exception {
+
+		return productInputResource.updateProductById(
+			productInputId, productOutput);
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {

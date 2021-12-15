@@ -58,6 +58,10 @@ public class SaleProductServiceImpl extends SaleProductServiceBaseImpl {
 		return saleProductLocalService.getAll();
 	}
 
+	public SaleProduct updateSaleProduct(long productId, String name, double price, long categoryId, long typeId){
+		return saleProductLocalService.updateSaleProduct(productId, name, price, categoryId, typeId);
+	}
+
 	public SaleProduct getSaleProductById(long id){
 		return saleProductLocalService.getById(id);
 	}

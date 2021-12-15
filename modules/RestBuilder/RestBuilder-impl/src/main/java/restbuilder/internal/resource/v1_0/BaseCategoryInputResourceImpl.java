@@ -20,6 +20,9 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.ActionUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 
@@ -34,9 +37,13 @@ import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.validation.constraints.NotNull;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
@@ -69,6 +76,29 @@ public abstract class BaseCategoryInputResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "CategoryInput")})
 	public Category createCategory(CategoryInput categoryInput)
+		throws Exception {
+
+		return new Category();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/RestBuilder/v1.0/category/update/{categoryId}' -d $'{"name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Consumes({"application/json", "application/xml"})
+	@Override
+	@Parameters(
+		value = {@Parameter(in = ParameterIn.PATH, name = "categoryId")}
+	)
+	@Path("/category/update/{categoryId}")
+	@Produces({"application/json", "application/xml"})
+	@PUT
+	@Tags(value = {@Tag(name = "CategoryInput")})
+	public Category updateCategoryById(
+			@NotNull @Parameter(hidden = true) @PathParam("categoryId") Integer
+				categoryId,
+			CategoryInput categoryInput)
 		throws Exception {
 
 		return new Category();

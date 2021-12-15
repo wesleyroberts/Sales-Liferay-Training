@@ -2,6 +2,9 @@ package restbuilder.internal.resource.v1_0;
 
 import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.service.SaleProductService;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import org.osgi.service.component.annotations.Component;
@@ -14,10 +17,8 @@ import restbuilder.resource.v1_0.CategoryResource;
 import restbuilder.resource.v1_0.ProductInputResource;
 import restbuilder.resource.v1_0.TypeResource;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.*;
 
 /**
  * @author Wesley Roberts
@@ -47,6 +48,34 @@ public class ProductInputResourceImpl extends BaseProductInputResourceImpl {
 				productInput.getCategoryId(),
 				productInput.getTypeId()
 		));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/RestBuilder/v1.0/product/update/{productId}' -d $'{"categoryId": ___, "name": ___, "price": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Consumes({"application/json", "application/xml"})
+	@Override
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "productId")})
+	@Path("/product/update/{productId}")
+	@Produces({"application/json", "application/xml"})
+	@PUT
+	@Tags(value = {@Tag(name = "ProductInput")})
+	public ProductOutput updateProductById(
+			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
+					productId,
+			ProductInput productInput)
+			throws Exception {
+		SaleProduct saleProduct = _saleProductService.
+				updateSaleProduct(
+						productId,
+						productInput.getName(),
+						productInput.getPrice(),
+						productInput.getCategoryId(),
+						productInput.getTypeId());
+
+		return _toProductOutput(saleProduct);
 	}
 
 	private ProductOutput _toProductOutput(SaleProduct saleProduct){

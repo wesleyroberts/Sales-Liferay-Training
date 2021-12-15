@@ -259,6 +259,10 @@ public interface SaleProductLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getSaleProductsCount();
 
+	public SaleProduct updateSaleProduct(
+		long productId, String name, double price, long categoryId,
+		long typeId);
+
 	/**
 	 * Updates the sale product in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

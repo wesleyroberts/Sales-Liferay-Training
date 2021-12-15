@@ -166,6 +166,19 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public Category updateCategoryById(
+			@GraphQLName("categoryId") Integer categoryId,
+			@GraphQLName("categoryInput") CategoryInput categoryInput)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_categoryInputResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			categoryInputResource -> categoryInputResource.updateCategoryById(
+				categoryId, categoryInput));
+	}
+
+	@GraphQLField
 	public ProductOutput createProduct(
 			@GraphQLName("productInput") ProductInput productInput)
 		throws Exception {
@@ -175,6 +188,19 @@ public class Mutation {
 			this::_populateResourceContext,
 			productInputResource -> productInputResource.createProduct(
 				productInput));
+	}
+
+	@GraphQLField
+	public ProductOutput updateProductById(
+			@GraphQLName("productId") Integer productId,
+			@GraphQLName("productInput") ProductInput productInput)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productInputResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productInputResource -> productInputResource.updateProductById(
+				productId, productInput));
 	}
 
 	@GraphQLField
@@ -211,6 +237,19 @@ public class Mutation {
 			_typeInputResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			typeInputResource -> typeInputResource.createType(typeInput));
+	}
+
+	@GraphQLField
+	public Type updateTypeById(
+			@GraphQLName("typeId") Integer typeId,
+			@GraphQLName("typeInput") TypeInput typeInput)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_typeInputResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			typeInputResource -> typeInputResource.updateTypeById(
+				typeId, typeInput));
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R

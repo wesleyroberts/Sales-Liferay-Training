@@ -183,6 +183,26 @@ public abstract class BaseTypeInputResourceTestCase {
 		Assert.assertTrue(true);
 	}
 
+	@Test
+	public void testUpdateTypeById() throws Exception {
+		TypeInput postTypeInput = testPutTypeInput_addTypeInput();
+
+		testUpdateTypeById_addType(postTypeInput.getId(), randomType());
+
+		Type randomType = randomType();
+
+		Type putType = typeInputResource.updateTypeById(null, null);
+
+		assertEquals(randomType, putType);
+		assertValid(putType);
+	}
+
+	protected Type testUpdateTypeById_addType(long typeInputId, Type type)
+		throws Exception {
+
+		return typeInputResource.updateTypeById(typeInputId, type);
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {

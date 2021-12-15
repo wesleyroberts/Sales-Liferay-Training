@@ -290,6 +290,14 @@ public class SaleProductLocalServiceUtil {
 		return getService().getSaleProductsCount();
 	}
 
+	public static SaleProduct updateSaleProduct(
+		long productId, String name, double price, long categoryId,
+		long typeId) {
+
+		return getService().updateSaleProduct(
+			productId, name, price, categoryId, typeId);
+	}
+
 	/**
 	 * Updates the sale product in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
