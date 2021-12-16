@@ -32,9 +32,10 @@ public class SaleCartServiceWrapper
 
 	@Override
 	public com.liferay.sales.model.SaleCart addProductPriceToCartTotalValue(
-		double price, long cartId) {
+		double price, long cartId, int quantity) {
 
-		return _saleCartService.addProductPriceToCartTotalValue(price, cartId);
+		return _saleCartService.addProductPriceToCartTotalValue(
+			price, cartId, quantity);
 	}
 
 	@Override
@@ -74,10 +75,10 @@ public class SaleCartServiceWrapper
 
 	@Override
 	public com.liferay.sales.model.SaleCart removeProductPriceToCartTotalValue(
-		double price, long cartId) {
+		double price, long cartId, int quantity) {
 
 		return _saleCartService.removeProductPriceToCartTotalValue(
-			price, cartId);
+			price, cartId, quantity);
 	}
 
 	@Override

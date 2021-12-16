@@ -15,6 +15,7 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.sales.exception.NoSuchSaleCartException;
 import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.service.base.SaleCartLocalServiceBaseImpl;
@@ -47,7 +48,7 @@ public class SaleCartLocalServiceImpl extends SaleCartLocalServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.SaleCartLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleCartLocalServiceUtil</code>.
 	 */
-	public List<SaleCart> getAllSaleCart(){
+	public List<SaleCart> getAllSaleCart() {
 		return saleCartPersistence.findAll();
 	}
 
@@ -59,14 +60,14 @@ public class SaleCartLocalServiceImpl extends SaleCartLocalServiceBaseImpl {
 			return null;
 		}
 	}
-	public SaleCart addProductPriceToCartTotalValue(double price, long cartId){
+	public SaleCart addProductPriceToCartTotalValue(double price, long cartId,int quantity){
 		SaleCart cart = saleCartPersistence.fetchByPrimaryKey(cartId);
-		cart.setTotalPrice(cart.getTotalPrice()+price);
+		cart.setTotalPrice(cart.getTotalPrice()+(price*quantity));
 		return saleCartPersistence.update(cart);
 	}
-	public SaleCart removeProductPriceToCartTotalValue(double price,long cartId){
+	public SaleCart removeProductPriceToCartTotalValue(double price,long cartId , int quantity){
 		SaleCart cart = saleCartPersistence.fetchByPrimaryKey(cartId);
-		cart.setTotalPrice(cart.getTotalPrice()-price);
+		cart.setTotalPrice(cart.getTotalPrice()-(price*quantity));
 		return saleCartPersistence.update(cart);
 	}
 

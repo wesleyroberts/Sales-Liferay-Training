@@ -115,7 +115,8 @@ public class SaleCartServiceHttp {
 
 	public static com.liferay.sales.model.SaleCart
 		addProductPriceToCartTotalValue(
-			HttpPrincipal httpPrincipal, double price, long cartId) {
+			HttpPrincipal httpPrincipal, double price, long cartId,
+			int quantity) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -123,7 +124,7 @@ public class SaleCartServiceHttp {
 				_addProductPriceToCartTotalValueParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, price, cartId);
+				methodKey, price, cartId, quantity);
 
 			Object returnObj = null;
 
@@ -148,7 +149,8 @@ public class SaleCartServiceHttp {
 
 	public static com.liferay.sales.model.SaleCart
 		removeProductPriceToCartTotalValue(
-			HttpPrincipal httpPrincipal, double price, long cartId) {
+			HttpPrincipal httpPrincipal, double price, long cartId,
+			int quantity) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -156,7 +158,7 @@ public class SaleCartServiceHttp {
 				_removeProductPriceToCartTotalValueParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, price, cartId);
+				methodKey, price, cartId, quantity);
 
 			Object returnObj = null;
 
@@ -276,11 +278,11 @@ public class SaleCartServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[]
 		_addProductPriceToCartTotalValueParameterTypes2 = new Class[] {
-			double.class, long.class
+			double.class, long.class, int.class
 		};
 	private static final Class<?>[]
 		_removeProductPriceToCartTotalValueParameterTypes3 = new Class[] {
-			double.class, long.class
+			double.class, long.class, int.class
 		};
 	private static final Class<?>[] _getFinalValueParameterTypes4 =
 		new Class[] {long.class};

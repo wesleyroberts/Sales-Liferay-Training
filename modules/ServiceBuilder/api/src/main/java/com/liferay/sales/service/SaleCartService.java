@@ -51,7 +51,8 @@ public interface SaleCartService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleCartServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the sale cart remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link SaleCartServiceUtil} if injection and service tracking are not available.
 	 */
-	public SaleCart addProductPriceToCartTotalValue(double price, long cartId);
+	public SaleCart addProductPriceToCartTotalValue(
+		double price, long cartId, int quantity);
 
 	public SaleCart createSaleCartById();
 
@@ -74,6 +75,6 @@ public interface SaleCartService extends BaseService {
 	public SaleCart getSaleCartById(long id);
 
 	public SaleCart removeProductPriceToCartTotalValue(
-		double price, long cartId);
+		double price, long cartId, int quantity);
 
 }

@@ -98,13 +98,14 @@ public class SaleCartServiceSoap {
 	}
 
 	public static com.liferay.sales.model.SaleCartSoap
-			addProductPriceToCartTotalValue(double price, long cartId)
+			addProductPriceToCartTotalValue(
+				double price, long cartId, int quantity)
 		throws RemoteException {
 
 		try {
 			com.liferay.sales.model.SaleCart returnValue =
 				SaleCartServiceUtil.addProductPriceToCartTotalValue(
-					price, cartId);
+					price, cartId, quantity);
 
 			return com.liferay.sales.model.SaleCartSoap.toSoapModel(
 				returnValue);
@@ -117,13 +118,14 @@ public class SaleCartServiceSoap {
 	}
 
 	public static com.liferay.sales.model.SaleCartSoap
-			removeProductPriceToCartTotalValue(double price, long cartId)
+			removeProductPriceToCartTotalValue(
+				double price, long cartId, int quantity)
 		throws RemoteException {
 
 		try {
 			com.liferay.sales.model.SaleCart returnValue =
 				SaleCartServiceUtil.removeProductPriceToCartTotalValue(
-					price, cartId);
+					price, cartId, quantity);
 
 			return com.liferay.sales.model.SaleCartSoap.toSoapModel(
 				returnValue);
