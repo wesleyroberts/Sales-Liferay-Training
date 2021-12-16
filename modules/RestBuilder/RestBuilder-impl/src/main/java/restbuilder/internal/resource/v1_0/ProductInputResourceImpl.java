@@ -32,7 +32,7 @@ public class ProductInputResourceImpl extends BaseProductInputResourceImpl {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/create' -d $'{"categoryId": ___, "name": ___, "price": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/create' -d $'{"categoryId": ___, "name": ___, "price": ___, "quantity": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Consumes({"application/json", "application/xml"})
 	@Override
@@ -46,7 +46,8 @@ public class ProductInputResourceImpl extends BaseProductInputResourceImpl {
 				productInput.getName(),
 				productInput.getPrice(),
 				productInput.getCategoryId(),
-				productInput.getTypeId()
+				productInput.getTypeId(),
+				productInput.getQuantity()
 		));
 	}
 
@@ -78,6 +79,61 @@ public class ProductInputResourceImpl extends BaseProductInputResourceImpl {
 		return _toProductOutput(saleProduct);
 	}
 
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/addProductInStock/product/products/{productId}/quantity/{quantity}'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Parameters(
+			value = {
+					@Parameter(in = ParameterIn.PATH, name = "productId"),
+					@Parameter(in = ParameterIn.PATH, name = "quantity")
+			}
+	)
+	@PATCH
+	@Path("/addProductInStock/product/products/{productId}/quantity/{quantity}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ProductInput")})
+	public ProductOutput addProductInStock(
+			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
+					productId,
+			@NotNull @Parameter(hidden = true) @PathParam("quantity") Integer
+					quantity)
+			throws Exception {
+		_saleProductService.addSaleProductInStock(productId,quantity);
+		SaleProduct saleProduct = _saleProductService.getSaleProductById(productId);
+		return _toProductOutput(saleProduct);
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/removeProductFromStock/product/products/{productId}/quantity/{quantity}'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Parameters(
+			value = {
+					@Parameter(in = ParameterIn.PATH, name = "productId"),
+					@Parameter(in = ParameterIn.PATH, name = "quantity")
+			}
+	)
+	@PATCH
+	@Path(
+			"/removeProductFromStock/product/products/{productId}/quantity/{quantity}"
+	)
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ProductInput")})
+	public void removeProductFromStock(
+			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
+					productId,
+			@NotNull @Parameter(hidden = true) @PathParam("quantity") Integer
+					quantity)
+			throws Exception {
+		_saleProductService.removeSaleProductInStock(productId,quantity);
+	}
+
 	private ProductOutput _toProductOutput(SaleProduct saleProduct){
 		return new ProductOutput(){
 			{
@@ -94,6 +150,8 @@ public class ProductInputResourceImpl extends BaseProductInputResourceImpl {
 				id = (int)saleProduct.getProductId();
 				name = saleProduct.getName();
 				price = saleProduct.getPrice();
+				quantity = saleProduct.getQuantity();
+
 			}
 		};
 	}

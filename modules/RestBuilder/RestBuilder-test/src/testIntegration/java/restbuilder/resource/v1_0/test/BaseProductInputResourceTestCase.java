@@ -180,6 +180,11 @@ public abstract class BaseProductInputResourceTestCase {
 	}
 
 	@Test
+	public void testRemoveProductFromStock() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testCreateProduct() throws Exception {
 		Assert.assertTrue(true);
 	}
@@ -205,6 +210,30 @@ public abstract class BaseProductInputResourceTestCase {
 		throws Exception {
 
 		return productInputResource.updateProductById(
+			productInputId, productOutput);
+	}
+
+	@Test
+	public void testAddProductInStock() throws Exception {
+		ProductInput postProductInput = testPatchProductInput_addProductInput();
+
+		testAddProductInStock_addProductOutput(
+			postProductInput.getId(), randomProductOutput());
+
+		ProductOutput randomProductOutput = randomProductOutput();
+
+		ProductOutput patchProductOutput =
+			productInputResource.addProductInStock(null, null);
+
+		assertEquals(randomProductOutput, patchProductOutput);
+		assertValid(patchProductOutput);
+	}
+
+	protected ProductOutput testAddProductInStock_addProductOutput(
+			long productInputId, ProductOutput productOutput)
+		throws Exception {
+
+		return productInputResource.addProductInStock(
 			productInputId, productOutput);
 	}
 
@@ -297,6 +326,14 @@ public abstract class BaseProductInputResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("quantity", additionalAssertFieldName)) {
+				if (productInput.getQuantity() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("typeId", additionalAssertFieldName)) {
 				if (productInput.getTypeId() == null) {
 					valid = false;
@@ -358,6 +395,14 @@ public abstract class BaseProductInputResourceTestCase {
 
 			if (Objects.equals("price", additionalAssertFieldName)) {
 				if (productOutput.getPrice() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("quantity", additionalAssertFieldName)) {
+				if (productOutput.getQuantity() == null) {
 					valid = false;
 				}
 
@@ -480,6 +525,17 @@ public abstract class BaseProductInputResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("quantity", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						productInput1.getQuantity(),
+						productInput2.getQuantity())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("typeId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						productInput1.getTypeId(), productInput2.getTypeId())) {
@@ -568,6 +624,17 @@ public abstract class BaseProductInputResourceTestCase {
 			if (Objects.equals("price", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						productOutput1.getPrice(), productOutput2.getPrice())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("quantity", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						productOutput1.getQuantity(),
+						productOutput2.getQuantity())) {
 
 					return false;
 				}
@@ -672,6 +739,11 @@ public abstract class BaseProductInputResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("quantity")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("typeId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -724,6 +796,7 @@ public abstract class BaseProductInputResourceTestCase {
 				categoryId = RandomTestUtil.randomInt();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				price = RandomTestUtil.randomDouble();
+				quantity = RandomTestUtil.randomInt();
 				typeId = RandomTestUtil.randomInt();
 			}
 		};
@@ -745,6 +818,7 @@ public abstract class BaseProductInputResourceTestCase {
 				id = RandomTestUtil.randomInteger();
 				name = RandomTestUtil.randomString();
 				price = RandomTestUtil.randomDouble();
+				quantity = RandomTestUtil.randomInteger();
 			}
 		};
 	}

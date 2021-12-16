@@ -102,27 +102,29 @@ public class Mutation {
 	@GraphQLField
 	public CartOutput addProductToCart(
 			@GraphQLName("cartId") Integer cartId,
-			@GraphQLName("productId") Integer productId)
+			@GraphQLName("productId") Integer productId,
+			@GraphQLName("quantity") Integer quantity)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_cartOutputResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			cartOutputResource -> cartOutputResource.addProductToCart(
-				cartId, productId));
+				cartId, productId, quantity));
 	}
 
 	@GraphQLField
 	public boolean removeProductToCart(
 			@GraphQLName("cartId") Integer cartId,
-			@GraphQLName("productId") Integer productId)
+			@GraphQLName("productId") Integer productId,
+			@GraphQLName("quantity") Integer quantity)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_cartOutputResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			cartOutputResource -> cartOutputResource.removeProductToCart(
-				cartId, productId));
+				cartId, productId, quantity));
 
 		return true;
 	}
@@ -201,6 +203,34 @@ public class Mutation {
 			this::_populateResourceContext,
 			productInputResource -> productInputResource.updateProductById(
 				productId, productInput));
+	}
+
+	@GraphQLField
+	public ProductOutput addProductInStock(
+			@GraphQLName("productId") Integer productId,
+			@GraphQLName("quantity") Integer quantity)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productInputResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productInputResource -> productInputResource.addProductInStock(
+				productId, quantity));
+	}
+
+	@GraphQLField
+	public boolean removeProductFromStock(
+			@GraphQLName("productId") Integer productId,
+			@GraphQLName("quantity") Integer quantity)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_productInputResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productInputResource -> productInputResource.removeProductFromStock(
+				productId, quantity));
+
+		return true;
 	}
 
 	@GraphQLField

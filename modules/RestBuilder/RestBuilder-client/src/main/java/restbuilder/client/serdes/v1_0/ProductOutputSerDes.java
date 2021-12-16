@@ -85,6 +85,16 @@ public class ProductOutputSerDes {
 			sb.append(productOutput.getPrice());
 		}
 
+		if (productOutput.getQuantity() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"quantity\": ");
+
+			sb.append(productOutput.getQuantity());
+		}
+
 		if (productOutput.getType() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -142,6 +152,13 @@ public class ProductOutputSerDes {
 			map.put("price", String.valueOf(productOutput.getPrice()));
 		}
 
+		if (productOutput.getQuantity() == null) {
+			map.put("quantity", null);
+		}
+		else {
+			map.put("quantity", String.valueOf(productOutput.getQuantity()));
+		}
+
 		if (productOutput.getType() == null) {
 			map.put("type", null);
 		}
@@ -191,6 +208,12 @@ public class ProductOutputSerDes {
 				if (jsonParserFieldValue != null) {
 					productOutput.setPrice(
 						Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "quantity")) {
+				if (jsonParserFieldValue != null) {
+					productOutput.setQuantity(
+						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "type")) {

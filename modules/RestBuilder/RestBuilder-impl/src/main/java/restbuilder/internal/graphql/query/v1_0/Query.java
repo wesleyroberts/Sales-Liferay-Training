@@ -195,7 +195,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productById(productId: ___){name, id, category, type, price}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productById(productId: ___){name, id, quantity, category, type, price}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public ProductOutput productById(

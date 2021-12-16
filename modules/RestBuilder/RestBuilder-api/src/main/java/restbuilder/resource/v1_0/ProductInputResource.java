@@ -41,6 +41,12 @@ public interface ProductInputResource {
 			Integer productId, ProductInput productInput)
 		throws Exception;
 
+	public ProductOutput addProductInStock(Integer productId, Integer quantity)
+		throws Exception;
+
+	public void removeProductFromStock(Integer productId, Integer quantity)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

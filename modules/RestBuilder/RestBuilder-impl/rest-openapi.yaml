@@ -60,6 +60,9 @@ components:
         categoryId:
           description: The category ID.
           type: integer
+        quantity:
+          description: Quantity products have in stock.
+          type: integer
         typeId:
           description: The type ID.
           type: integer
@@ -76,6 +79,9 @@ components:
           type: string
         id:
           description: The entity ID.
+          type: integer
+        quantity:
+          description: Quantity products have in stock.
           type: integer
         category:
           allOf:
@@ -109,6 +115,9 @@ components:
                 type: string
               id:
                 description: The entity ID.
+                type: integer
+              quantity:
+                description: Quantity products have in stock.
                 type: integer
               category:
                 allOf:
@@ -216,6 +225,53 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/ProductOutput"
+          description: ""
+      tags: ["ProductInput"]
+  "/addProductInStock/product/products/{productId}/quantity/{quantity}":
+    patch:
+      operationId: addProductInStock
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: quantity
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductOutput"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ProductOutput"
+          description: ""
+      tags: ["ProductInput"]
+
+  "/removeProductFromStock/product/products/{productId}/quantity/{quantity}":
+    patch:
+      operationId: removeProductFromStock
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: quantity
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          content:
+            application/json: {}
+            application/xml: {}
           description: ""
       tags: ["ProductInput"]
   "/product/delete/{productId}":
@@ -543,8 +599,8 @@ paths:
           description: ""
       tags: ["CartOutput"]
 
-  "/addProduct/carts/{cartId}/products/{productId}":
-    post:
+  "/addProduct/carts/{cartId}/products/{productId}/quantity/{quantity}":
+    patch:
       operationId: addProductToCart
       parameters:
         - in: path
@@ -554,6 +610,11 @@ paths:
             type: integer
         - in: path
           name: productId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: quantity
           required: true
           schema:
             type: integer
@@ -569,8 +630,8 @@ paths:
           description: ""
       tags: ["CartOutput"]
 
-  "/removeProduct/carts/{cartId}/products/{productId}":
-    post:
+  "/removeProduct/carts/{cartId}/products/{productId}/quantity/{quantity}":
+    patch:
       operationId: removeProductToCart
       parameters:
         - in: path
@@ -580,6 +641,11 @@ paths:
             type: integer
         - in: path
           name: productId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: quantity
           required: true
           schema:
             type: integer

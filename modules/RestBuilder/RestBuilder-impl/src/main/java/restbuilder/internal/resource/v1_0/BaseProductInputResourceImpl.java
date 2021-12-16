@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -67,7 +68,7 @@ public abstract class BaseProductInputResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/create' -d $'{"categoryId": ___, "name": ___, "price": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/create' -d $'{"categoryId": ___, "name": ___, "price": ___, "quantity": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Consumes({"application/json", "application/xml"})
 	@Override
@@ -84,7 +85,7 @@ public abstract class BaseProductInputResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/RestBuilder/v1.0/product/update/{productId}' -d $'{"categoryId": ___, "name": ___, "price": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/RestBuilder/v1.0/product/update/{productId}' -d $'{"categoryId": ___, "name": ___, "price": ___, "quantity": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Consumes({"application/json", "application/xml"})
 	@Override
@@ -100,6 +101,58 @@ public abstract class BaseProductInputResourceImpl
 		throws Exception {
 
 		return new ProductOutput();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/addProductInStock/product/products/{productId}/quantity/{quantity}'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "productId"),
+			@Parameter(in = ParameterIn.PATH, name = "quantity")
+		}
+	)
+	@PATCH
+	@Path("/addProductInStock/product/products/{productId}/quantity/{quantity}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ProductInput")})
+	public ProductOutput addProductInStock(
+			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
+				productId,
+			@NotNull @Parameter(hidden = true) @PathParam("quantity") Integer
+				quantity)
+		throws Exception {
+
+		return new ProductOutput();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/removeProductFromStock/product/products/{productId}/quantity/{quantity}'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "productId"),
+			@Parameter(in = ParameterIn.PATH, name = "quantity")
+		}
+	)
+	@PATCH
+	@Path(
+		"/removeProductFromStock/product/products/{productId}/quantity/{quantity}"
+	)
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ProductInput")})
+	public void removeProductFromStock(
+			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
+				productId,
+			@NotNull @Parameter(hidden = true) @PathParam("quantity") Integer
+				quantity)
+		throws Exception {
 	}
 
 	@Override

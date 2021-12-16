@@ -81,6 +81,27 @@ public class ProductInput implements Cloneable, Serializable {
 
 	protected Double price;
 
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public void setQuantity(
+		UnsafeSupplier<Integer, Exception> quantityUnsafeSupplier) {
+
+		try {
+			quantity = quantityUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Integer quantity;
+
 	public Integer getTypeId() {
 		return typeId;
 	}

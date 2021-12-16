@@ -359,6 +359,14 @@ public abstract class BaseProductOutputResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("quantity", additionalAssertFieldName)) {
+				if (productOutput.getQuantity() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("type", additionalAssertFieldName)) {
 				if (productOutput.getType() == null) {
 					valid = false;
@@ -498,6 +506,17 @@ public abstract class BaseProductOutputResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("quantity", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						productOutput1.getQuantity(),
+						productOutput2.getQuantity())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("type", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						productOutput1.getType(), productOutput2.getType())) {
@@ -626,6 +645,11 @@ public abstract class BaseProductOutputResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("quantity")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("type")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -678,6 +702,7 @@ public abstract class BaseProductOutputResourceTestCase {
 				id = RandomTestUtil.randomInt();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				price = RandomTestUtil.randomDouble();
+				quantity = RandomTestUtil.randomInt();
 			}
 		};
 	}

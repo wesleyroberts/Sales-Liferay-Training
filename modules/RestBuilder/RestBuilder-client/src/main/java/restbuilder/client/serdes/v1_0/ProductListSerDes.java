@@ -85,6 +85,16 @@ public class ProductListSerDes {
 			sb.append(productList.getPrice());
 		}
 
+		if (productList.getQuantity() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"quantity\": ");
+
+			sb.append(productList.getQuantity());
+		}
+
 		if (productList.getType() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -142,6 +152,13 @@ public class ProductListSerDes {
 			map.put("price", String.valueOf(productList.getPrice()));
 		}
 
+		if (productList.getQuantity() == null) {
+			map.put("quantity", null);
+		}
+		else {
+			map.put("quantity", String.valueOf(productList.getQuantity()));
+		}
+
 		if (productList.getType() == null) {
 			map.put("type", null);
 		}
@@ -191,6 +208,12 @@ public class ProductListSerDes {
 				if (jsonParserFieldValue != null) {
 					productList.setPrice(
 						Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "quantity")) {
+				if (jsonParserFieldValue != null) {
+					productList.setQuantity(
+						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "type")) {
