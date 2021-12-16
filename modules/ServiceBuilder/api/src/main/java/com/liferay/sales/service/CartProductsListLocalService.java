@@ -76,7 +76,10 @@ public interface CartProductsListLocalService
 	public CartProductsList addCartProductsList(
 		CartProductsList cartProductsList);
 
-	public CartProductsList addProductToCartList(long productId, long cartId);
+	public CartProductsList addProductToCartList(
+		long productId, long cartId, int quantity);
+
+	public Boolean checkSaleProductInTheList(long cartId, long productId);
 
 	/**
 	 * Creates a new cart products list with the primary key. Does not add the cart products list to the database.
@@ -92,6 +95,8 @@ public interface CartProductsListLocalService
 	 */
 	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	public void deleteCartListByID(long id);
 
 	/**
 	 * Deletes the cart products list from the database. Also notifies the appropriate model listeners.
@@ -202,7 +207,10 @@ public interface CartProductsListLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<SaleProduct> getAllProductsByCartID(long id);
+	public List<SaleProduct> getAllProductsInCartByCartID(long id);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CartProductsList getCartPorductListByID(long id);
 
 	/**
 	 * Returns the cart products list with the primary key.
@@ -255,7 +263,8 @@ public interface CartProductsListLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public void removeProductToCartList(long productId, long cartId);
+	public void removeProductFromList(
+		long productId, long cartId, int quantity);
 
 	/**
 	 * Updates the cart products list in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

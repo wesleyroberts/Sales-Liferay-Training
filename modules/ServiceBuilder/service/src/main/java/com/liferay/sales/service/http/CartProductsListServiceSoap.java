@@ -64,12 +64,12 @@ import java.rmi.RemoteException;
 public class CartProductsListServiceSoap {
 
 	public static com.liferay.sales.model.SaleProductSoap[]
-			getAllProductsByCarID(long id)
+			getAllProductsInCartByCartID(long id)
 		throws RemoteException {
 
 		try {
 			java.util.List<com.liferay.sales.model.SaleProduct> returnValue =
-				CartProductsListServiceUtil.getAllProductsByCarID(id);
+				CartProductsListServiceUtil.getAllProductsInCartByCartID(id);
 
 			return com.liferay.sales.model.SaleProductSoap.toSoapModels(
 				returnValue);
@@ -82,13 +82,13 @@ public class CartProductsListServiceSoap {
 	}
 
 	public static com.liferay.sales.model.CartProductsListSoap
-			addProductToCartList(long productId, long cartId)
+			addProductToCartList(long productId, long cartId, int quantity)
 		throws RemoteException {
 
 		try {
 			com.liferay.sales.model.CartProductsList returnValue =
 				CartProductsListServiceUtil.addProductToCartList(
-					productId, cartId);
+					productId, cartId, quantity);
 
 			return com.liferay.sales.model.CartProductsListSoap.toSoapModel(
 				returnValue);
@@ -100,12 +100,42 @@ public class CartProductsListServiceSoap {
 		}
 	}
 
-	public static void removeProductToCartList(long productId, long cartId)
+	public static void removeProductFromList(
+			long productId, long cartId, int quantity)
 		throws RemoteException {
 
 		try {
-			CartProductsListServiceUtil.removeProductToCartList(
-				productId, cartId);
+			CartProductsListServiceUtil.removeProductFromList(
+				productId, cartId, quantity);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static void deleteCartListByID(long id) throws RemoteException {
+		try {
+			CartProductsListServiceUtil.deleteCartListByID(id);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.CartProductsListSoap
+			getCartPorductListByID(long id)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.CartProductsList returnValue =
+				CartProductsListServiceUtil.getCartPorductListByID(id);
+
+			return com.liferay.sales.model.CartProductsListSoap.toSoapModel(
+				returnValue);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

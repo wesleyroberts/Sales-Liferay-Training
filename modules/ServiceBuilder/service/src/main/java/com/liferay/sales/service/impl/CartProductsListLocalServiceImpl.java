@@ -15,6 +15,7 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.sales.exception.NoSuchCartProductsListException;
 import com.liferay.sales.model.CartProductsList;
 import com.liferay.sales.model.SaleProduct;
@@ -25,6 +26,7 @@ import com.liferay.sales.service.base.CartProductsListLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import javax.swing.text.StyledEditorKit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class CartProductsListLocalServiceImpl
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.CartProductsListLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.CartProductsListLocalServiceUtil</code>.
 	 */
 
-	public List<SaleProduct> getAllProductsByCartID(long id){
+	public List<SaleProduct> getAllProductsInCartByCartID(long id){
 		List<SaleProduct> listSaleProduct = new ArrayList<>();
 		for (CartProductsList e:cartProductsListPersistence.findAll()) {
 			if(e.getCartId() == id){
@@ -65,25 +67,85 @@ public class CartProductsListLocalServiceImpl
 
 	}
 
-	public CartProductsList addProductToCartList(long productId, long cartId){
-		CartProductsList cartProductsList = cartProductsListPersistence.create(productId);
-		cartProductsList.setCartId(cartId);
-		saleCartService.
-				addProductPriceToCartTotalValue(saleProductService.
-								getSaleProductById(productId).
-								getPrice(),
-						cartId);
-		return cartProductsListPersistence.update(cartProductsList);
+	public CartProductsList addProductToCartList(long productId, long cartId,int quantity) {
+
+		if(!checkSaleProductInTheList(cartId,productId)){
+			try {
+				CartProductsList cartProductsList = cartProductsListPersistence.create(productId);
+				cartProductsList.setCartId(cartId);
+				cartProductsList.setQuantity(quantity);
+				double price = saleProductService.getSaleProductById(productId).getPrice();
+				saleProductService.removeSaleProductInStock(productId,quantity);
+				saleCartService.addProductPriceToCartTotalValue(price, cartId, quantity);
+				return cartProductsListPersistence.update(cartProductsList);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}else{
+			try {
+				CartProductsList cartProductsList = cartProductsListPersistence.findByPrimaryKey(productId) ;
+				cartProductsList.setQuantity(quantity + cartProductsList.getQuantity());
+				saleProductService.removeSaleProductInStock(productId,quantity);
+				return cartProductsListPersistence.update(cartProductsList);
+			} catch (NoSuchCartProductsListException e) {
+				e.printStackTrace();
+				return  null;
+			}
+
+		}
 	}
 
-	public void removeProductToCartList(long productId,long cartId){
+	public void removeProductFromList(long productId,long cartId, int quantity) {
+		CartProductsList cartProductsList = cartProductsListLocalService.getCartPorductListByID(productId);
+			if(cartProductsList.getQuantity() == quantity) {
+				try {
+					double price = saleProductService.getSaleProductById(productId).getPrice();
+					saleCartService.removeProductPriceToCartTotalValue(price, cartId, quantity);
+					saleProductService.addSaleProductInStock(productId,quantity);
+					cartProductsListLocalService.deleteCartListByID(productId);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}if(cartProductsList.getQuantity() > quantity) {
+			try {
+				cartProductsList.setQuantity(cartProductsList.getQuantity() - quantity);
+				double price = saleProductService.getSaleProductById(productId).getPrice();
+				saleCartService.removeProductPriceToCartTotalValue(price, cartId, quantity);
+				saleProductService.addSaleProductInStock(productId,quantity);
+				cartProductsListPersistence.update(cartProductsList);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
+	public CartProductsList getCartPorductListByID(long id) {
 		try {
-			saleCartService.removeProductPriceToCartTotalValue(saleProductService.
-							getSaleProductById(productId).
-							getPrice(),
-					cartId);
-			cartProductsListPersistence.remove(productId);
+			return cartProductsListPersistence.findByPrimaryKey(id);
+		} catch (NoSuchCartProductsListException e) {
+			e.printStackTrace();
+			e.getMessage();
+			e.getCause();
+			return null;
+		}
+	}
+
+	public Boolean checkSaleProductInTheList(long cartId, long productId){
+		boolean exist = false;
+		List<SaleProduct> saleProductList = cartProductsListLocalService.getAllProductsInCartByCartID(cartId);
+		for (SaleProduct p : saleProductList) {
+			if(p.getProductId() == productId){
+				exist = true;
+				break;
+			}
+		}
+		return exist;
+	}
+
+	public void deleteCartListByID(long id) {
+		try {
+			cartProductsListPersistence.remove(id);
 		} catch (NoSuchCartProductsListException e) {
 			e.printStackTrace();
 		}

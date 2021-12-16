@@ -38,15 +38,23 @@ public class CartProductsListServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.CartProductsListServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static CartProductsList addProductToCartList(
-		long productId, long cartId) {
+		long productId, long cartId, int quantity) {
 
-		return getService().addProductToCartList(productId, cartId);
+		return getService().addProductToCartList(productId, cartId, quantity);
+	}
+
+	public static void deleteCartListByID(long id) {
+		getService().deleteCartListByID(id);
 	}
 
 	public static List<com.liferay.sales.model.SaleProduct>
-		getAllProductsByCarID(long id) {
+		getAllProductsInCartByCartID(long id) {
 
-		return getService().getAllProductsByCarID(id);
+		return getService().getAllProductsInCartByCartID(id);
+	}
+
+	public static CartProductsList getCartPorductListByID(long id) {
+		return getService().getCartPorductListByID(id);
 	}
 
 	/**
@@ -58,8 +66,10 @@ public class CartProductsListServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static void removeProductToCartList(long productId, long cartId) {
-		getService().removeProductToCartList(productId, cartId);
+	public static void removeProductFromList(
+		long productId, long cartId, int quantity) {
+
+		getService().removeProductFromList(productId, cartId, quantity);
 	}
 
 	public static CartProductsListService getService() {

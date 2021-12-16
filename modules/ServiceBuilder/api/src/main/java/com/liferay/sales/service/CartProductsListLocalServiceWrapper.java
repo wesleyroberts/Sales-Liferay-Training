@@ -53,10 +53,16 @@ public class CartProductsListLocalServiceWrapper
 
 	@Override
 	public com.liferay.sales.model.CartProductsList addProductToCartList(
-		long productId, long cartId) {
+		long productId, long cartId, int quantity) {
 
 		return _cartProductsListLocalService.addProductToCartList(
-			productId, cartId);
+			productId, cartId, quantity);
+	}
+
+	@Override
+	public Boolean checkSaleProductInTheList(long cartId, long productId) {
+		return _cartProductsListLocalService.checkSaleProductInTheList(
+			cartId, productId);
 	}
 
 	/**
@@ -82,6 +88,11 @@ public class CartProductsListLocalServiceWrapper
 
 		return _cartProductsListLocalService.createPersistedModel(
 			primaryKeyObj);
+	}
+
+	@Override
+	public void deleteCartListByID(long id) {
+		_cartProductsListLocalService.deleteCartListByID(id);
 	}
 
 	/**
@@ -240,9 +251,16 @@ public class CartProductsListLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.sales.model.SaleProduct>
-		getAllProductsByCartID(long id) {
+		getAllProductsInCartByCartID(long id) {
 
-		return _cartProductsListLocalService.getAllProductsByCartID(id);
+		return _cartProductsListLocalService.getAllProductsInCartByCartID(id);
+	}
+
+	@Override
+	public com.liferay.sales.model.CartProductsList getCartPorductListByID(
+		long id) {
+
+		return _cartProductsListLocalService.getCartPorductListByID(id);
 	}
 
 	/**
@@ -318,9 +336,11 @@ public class CartProductsListLocalServiceWrapper
 	}
 
 	@Override
-	public void removeProductToCartList(long productId, long cartId) {
-		_cartProductsListLocalService.removeProductToCartList(
-			productId, cartId);
+	public void removeProductFromList(
+		long productId, long cartId, int quantity) {
+
+		_cartProductsListLocalService.removeProductFromList(
+			productId, cartId, quantity);
 	}
 
 	/**

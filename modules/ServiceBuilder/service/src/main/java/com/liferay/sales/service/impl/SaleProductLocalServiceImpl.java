@@ -81,11 +81,15 @@ public class SaleProductLocalServiceImpl
 	}
 
 	public SaleProduct removeSaleProductInStock (long porductId,int quantity){
+
 		try {
 			SaleProduct saleProduct = saleProductPersistence.findByPrimaryKey(porductId);
-			saleProduct.setQuantity(saleProduct.getQuantity() - quantity);
-			return  saleProductPersistence.update(saleProduct);
-
+			if(!((saleProduct.getQuantity() - quantity) < 0)) {
+				saleProduct.setQuantity(saleProduct.getQuantity() - quantity);
+				return saleProductPersistence.update(saleProduct);
+			}else{
+				return null;
+			}
 		} catch (NoSuchSaleProductException e) {
 			e.printStackTrace();
 			return null;

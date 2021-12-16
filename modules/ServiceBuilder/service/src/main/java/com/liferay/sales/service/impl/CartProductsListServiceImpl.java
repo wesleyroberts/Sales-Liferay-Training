@@ -15,6 +15,7 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.sales.model.CartProductsList;
 import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.service.base.CartProductsListServiceBaseImpl;
@@ -51,13 +52,19 @@ public class CartProductsListServiceImpl
 	 *
 	 * Never reference this class directly. Always use <code>com.liferay.sales.service.CartProductsListServiceUtil</code> to access the cart products list remote service.
 	 */
-	public List<SaleProduct> getAllProductsByCarID(long id){
-		return cartProductsListLocalService.getAllProductsByCartID(id);
+	public List<SaleProduct> getAllProductsInCartByCartID(long id) {
+		return cartProductsListLocalService.getAllProductsInCartByCartID(id);
 	}
-	public CartProductsList addProductToCartList(long productId, long cartId){
-		return cartProductsListLocalService.addProductToCartList(productId,cartId);
+	public CartProductsList addProductToCartList(long productId, long cartId, int quantity) {
+		return cartProductsListLocalService.addProductToCartList(productId,cartId,quantity);
 	}
-	public void removeProductToCartList(long productId, long cartId){
-		cartProductsListLocalService.removeProductToCartList(productId, cartId);
+	public void removeProductFromList(long productId, long cartId, int quantity) {
+		cartProductsListLocalService.removeProductFromList(productId, cartId, quantity);
+	}
+	public void deleteCartListByID(long id)  {
+		cartProductsListLocalService.deleteCartListByID(id);
+	}
+	public CartProductsList getCartPorductListByID(long id)  {
+		return cartProductsListLocalService.getCartPorductListByID(id);
 	}
 }

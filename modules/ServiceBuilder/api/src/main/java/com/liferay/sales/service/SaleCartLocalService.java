@@ -60,7 +60,8 @@ public interface SaleCartLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleCartLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the sale cart local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link SaleCartLocalServiceUtil} if injection and service tracking are not available.
 	 */
-	public SaleCart addProductPriceToCartTotalValue(double price, long cartId);
+	public SaleCart addProductPriceToCartTotalValue(
+		double price, long cartId, int quantity);
 
 	/**
 	 * Adds the sale cart to the database. Also notifies the appropriate model listeners.
@@ -260,7 +261,7 @@ public interface SaleCartLocalService
 	public int getSaleCartsCount();
 
 	public SaleCart removeProductPriceToCartTotalValue(
-		double price, long cartId);
+		double price, long cartId, int quantity);
 
 	/**
 	 * Updates the sale cart in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

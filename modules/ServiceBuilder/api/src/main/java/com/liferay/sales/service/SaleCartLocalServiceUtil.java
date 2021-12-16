@@ -44,9 +44,10 @@ public class SaleCartLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleCartLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static SaleCart addProductPriceToCartTotalValue(
-		double price, long cartId) {
+		double price, long cartId, int quantity) {
 
-		return getService().addProductPriceToCartTotalValue(price, cartId);
+		return getService().addProductPriceToCartTotalValue(
+			price, cartId, quantity);
 	}
 
 	/**
@@ -290,9 +291,10 @@ public class SaleCartLocalServiceUtil {
 	}
 
 	public static SaleCart removeProductPriceToCartTotalValue(
-		double price, long cartId) {
+		double price, long cartId, int quantity) {
 
-		return getService().removeProductPriceToCartTotalValue(price, cartId);
+		return getService().removeProductPriceToCartTotalValue(
+			price, cartId, quantity);
 	}
 
 	/**
