@@ -140,12 +140,13 @@ public class SaleTypeServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.sales.model.SaleType> getAll(
-		HttpPrincipal httpPrincipal) {
+	public static java.util.List<com.liferay.sales.model.SaleType>
+		getAllSaleType(HttpPrincipal httpPrincipal) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				SaleTypeServiceUtil.class, "getAll", _getAllParameterTypes3);
+				SaleTypeServiceUtil.class, "getAllSaleType",
+				_getAllSaleTypeParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -209,7 +210,8 @@ public class SaleTypeServiceHttp {
 		new Class[] {Long.class, String.class, double.class};
 	private static final Class<?>[] _deleteTypeByIdParameterTypes2 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getAllParameterTypes3 = new Class[] {};
+	private static final Class<?>[] _getAllSaleTypeParameterTypes3 =
+		new Class[] {};
 	private static final Class<?>[] _getSaleTypeByIDParameterTypes4 =
 		new Class[] {long.class};
 

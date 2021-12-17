@@ -53,8 +53,8 @@ public class SaleCategoryServiceImpl extends SaleCategoryServiceBaseImpl {
 		return saleCategoryLocalService.createSaleCategory(name,tax);
 	}
 
-	public List<SaleCategory> getAll(){
-		return saleCategoryLocalService.getAll();
+	public List<SaleCategory> getAllSaleCategory(){
+		return saleCategoryLocalService.getAllSaleCategory();
 	}
 
 	public SaleCategory getSaleCategoryById(long id){
@@ -70,6 +70,6 @@ public class SaleCategoryServiceImpl extends SaleCategoryServiceBaseImpl {
 	}
 
 	public SaleCategory getCategoryByName(String name){
-		return saleCategoryLocalService.getByCategoryName(name);
+		return saleCategoryLocalService.getSaleCategoryByName(name);
 	}
 }

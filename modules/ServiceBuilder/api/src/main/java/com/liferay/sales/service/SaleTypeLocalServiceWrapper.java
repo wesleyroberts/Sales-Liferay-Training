@@ -232,8 +232,8 @@ public class SaleTypeLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.List<com.liferay.sales.model.SaleType> getAll() {
-		return _saleTypeLocalService.getAll();
+	public java.util.List<com.liferay.sales.model.SaleType> getAllSaleType() {
+		return _saleTypeLocalService.getAllSaleType();
 	}
 
 	@Override

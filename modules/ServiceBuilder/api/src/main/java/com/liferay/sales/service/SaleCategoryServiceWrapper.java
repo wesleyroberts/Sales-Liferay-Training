@@ -43,8 +43,10 @@ public class SaleCategoryServiceWrapper
 	}
 
 	@Override
-	public java.util.List<com.liferay.sales.model.SaleCategory> getAll() {
-		return _saleCategoryService.getAll();
+	public java.util.List<com.liferay.sales.model.SaleCategory>
+		getAllSaleCategory() {
+
+		return _saleCategoryService.getAllSaleCategory();
 	}
 
 	@Override

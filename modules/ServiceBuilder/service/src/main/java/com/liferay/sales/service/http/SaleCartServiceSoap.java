@@ -135,9 +135,12 @@ public class SaleCartServiceSoap {
 		}
 	}
 
-	public static Double getFinalValue(long cartId) throws RemoteException {
+	public static Double getFinalValueByCartId(long cartId)
+		throws RemoteException {
+
 		try {
-			Double returnValue = SaleCartServiceUtil.getFinalValue(cartId);
+			Double returnValue = SaleCartServiceUtil.getFinalValueByCartId(
+				cartId);
 
 			return returnValue;
 		}

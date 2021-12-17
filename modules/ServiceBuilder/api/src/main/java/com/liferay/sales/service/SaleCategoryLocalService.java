@@ -201,10 +201,7 @@ public interface SaleCategoryLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<SaleCategory> getAll();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public SaleCategory getByCategoryName(String name);
+	public List<SaleCategory> getAllSaleCategory();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
@@ -258,6 +255,9 @@ public interface SaleCategoryLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleCategory getSaleCategoryById(long id);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleCategory getSaleCategoryByName(String name);
 
 	public SaleCategory updateSaleCategory(long id, String name, double tax);
 

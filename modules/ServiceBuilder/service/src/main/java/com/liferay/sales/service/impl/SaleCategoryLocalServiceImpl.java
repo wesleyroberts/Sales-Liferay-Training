@@ -82,7 +82,7 @@ public class SaleCategoryLocalServiceImpl
 		}
 	}
 
-	public List<SaleCategory> getAll(){
+	public List<SaleCategory> getAllSaleCategory(){
 		try{
 		return saleCategoryPersistence.findAll();
 		} catch (Exception e) {
@@ -91,7 +91,7 @@ public class SaleCategoryLocalServiceImpl
 		}
 	}
 
-	public SaleCategory getByCategoryName(String name){
+	public SaleCategory getSaleCategoryByName(String name){
 		try {
 			return saleCategoryPersistence.findByName(name);
 		} catch (NoSuchSaleCategoryException | IllegalArgumentException e) {

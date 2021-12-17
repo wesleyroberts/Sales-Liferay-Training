@@ -179,13 +179,13 @@ public class SaleCartServiceHttp {
 		}
 	}
 
-	public static Double getFinalValue(
+	public static Double getFinalValueByCartId(
 		HttpPrincipal httpPrincipal, long cartId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				SaleCartServiceUtil.class, "getFinalValue",
-				_getFinalValueParameterTypes4);
+				SaleCartServiceUtil.class, "getFinalValueByCartId",
+				_getFinalValueByCartIdParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, cartId);
 
@@ -282,7 +282,7 @@ public class SaleCartServiceHttp {
 		_removeProductPriceToCartTotalValueParameterTypes3 = new Class[] {
 			double.class, long.class
 		};
-	private static final Class<?>[] _getFinalValueParameterTypes4 =
+	private static final Class<?>[] _getFinalValueByCartIdParameterTypes4 =
 		new Class[] {long.class};
 	private static final Class<?>[] _createSaleCartByIdParameterTypes5 =
 		new Class[] {};

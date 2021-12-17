@@ -238,13 +238,10 @@ public class SaleCategoryLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.List<com.liferay.sales.model.SaleCategory> getAll() {
-		return _saleCategoryLocalService.getAll();
-	}
+	public java.util.List<com.liferay.sales.model.SaleCategory>
+		getAllSaleCategory() {
 
-	@Override
-	public com.liferay.sales.model.SaleCategory getByCategoryName(String name) {
-		return _saleCategoryLocalService.getByCategoryName(name);
+		return _saleCategoryLocalService.getAllSaleCategory();
 	}
 
 	@Override
@@ -320,6 +317,13 @@ public class SaleCategoryLocalServiceWrapper
 	@Override
 	public com.liferay.sales.model.SaleCategory getSaleCategoryById(long id) {
 		return _saleCategoryLocalService.getSaleCategoryById(id);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleCategory getSaleCategoryByName(
+		String name) {
+
+		return _saleCategoryLocalService.getSaleCategoryByName(name);
 	}
 
 	@Override

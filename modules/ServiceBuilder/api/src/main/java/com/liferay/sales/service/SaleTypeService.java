@@ -56,7 +56,7 @@ public interface SaleTypeService extends BaseService {
 	public void deleteTypeById(long id);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<SaleType> getAll();
+	public List<SaleType> getAllSaleType();
 
 	/**
 	 * Returns the OSGi service identifier.

@@ -84,10 +84,6 @@ public class SaleProductLocalServiceUtil {
 		return getService().createSaleProduct(name, price, categoryId, typeId);
 	}
 
-	public static SaleProduct deleteById(long id) {
-		return getService().deleteById(id);
-	}
-
 	/**
 	 * @throws PortalException
 	 */
@@ -127,6 +123,10 @@ public class SaleProductLocalServiceUtil {
 	 */
 	public static SaleProduct deleteSaleProduct(SaleProduct saleProduct) {
 		return getService().deleteSaleProduct(saleProduct);
+	}
+
+	public static SaleProduct deleteSaleProductById(long id) {
+		return getService().deleteSaleProductById(id);
 	}
 
 	public static DynamicQuery dynamicQuery() {
@@ -216,16 +216,8 @@ public class SaleProductLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	public static List<SaleProduct> getAll() {
-		return getService().getAll();
-	}
-
-	public static SaleProduct getById(long id) {
-		return getService().getById(id);
-	}
-
-	public static SaleProduct getByName(String name) {
-		return getService().getByName(name);
+	public static List<SaleProduct> getAllSaleProduct() {
+		return getService().getAllSaleProduct();
 	}
 
 	public static
@@ -253,6 +245,10 @@ public class SaleProductLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static SaleProduct getSalePoductById(long id) {
+		return getService().getSalePoductById(id);
+	}
+
 	/**
 	 * Returns the sale product with the primary key.
 	 *
@@ -264,6 +260,10 @@ public class SaleProductLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getSaleProduct(productId);
+	}
+
+	public static SaleProduct getSaleProductByName(String name) {
+		return getService().getSaleProductByName(name);
 	}
 
 	/**

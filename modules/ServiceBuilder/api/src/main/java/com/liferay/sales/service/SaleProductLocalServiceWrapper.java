@@ -82,11 +82,6 @@ public class SaleProductLocalServiceWrapper
 			name, price, categoryId, typeId);
 	}
 
-	@Override
-	public com.liferay.sales.model.SaleProduct deleteById(long id) {
-		return _saleProductLocalService.deleteById(id);
-	}
-
 	/**
 	 * @throws PortalException
 	 */
@@ -131,6 +126,11 @@ public class SaleProductLocalServiceWrapper
 		com.liferay.sales.model.SaleProduct saleProduct) {
 
 		return _saleProductLocalService.deleteSaleProduct(saleProduct);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleProduct deleteSaleProductById(long id) {
+		return _saleProductLocalService.deleteSaleProductById(id);
 	}
 
 	@Override
@@ -238,18 +238,10 @@ public class SaleProductLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.List<com.liferay.sales.model.SaleProduct> getAll() {
-		return _saleProductLocalService.getAll();
-	}
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		getAllSaleProduct() {
 
-	@Override
-	public com.liferay.sales.model.SaleProduct getById(long id) {
-		return _saleProductLocalService.getById(id);
-	}
-
-	@Override
-	public com.liferay.sales.model.SaleProduct getByName(String name) {
-		return _saleProductLocalService.getByName(name);
+		return _saleProductLocalService.getAllSaleProduct();
 	}
 
 	@Override
@@ -280,6 +272,11 @@ public class SaleProductLocalServiceWrapper
 		return _saleProductLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleProduct getSalePoductById(long id) {
+		return _saleProductLocalService.getSalePoductById(id);
+	}
+
 	/**
 	 * Returns the sale product with the primary key.
 	 *
@@ -292,6 +289,13 @@ public class SaleProductLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _saleProductLocalService.getSaleProduct(productId);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleProduct getSaleProductByName(
+		String name) {
+
+		return _saleProductLocalService.getSaleProductByName(name);
 	}
 
 	/**

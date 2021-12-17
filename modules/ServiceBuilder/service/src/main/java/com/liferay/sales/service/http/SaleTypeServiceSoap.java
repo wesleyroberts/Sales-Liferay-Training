@@ -110,12 +110,12 @@ public class SaleTypeServiceSoap {
 		}
 	}
 
-	public static com.liferay.sales.model.SaleTypeSoap[] getAll()
+	public static com.liferay.sales.model.SaleTypeSoap[] getAllSaleType()
 		throws RemoteException {
 
 		try {
 			java.util.List<com.liferay.sales.model.SaleType> returnValue =
-				SaleTypeServiceUtil.getAll();
+				SaleTypeServiceUtil.getAllSaleType();
 
 			return com.liferay.sales.model.SaleTypeSoap.toSoapModels(
 				returnValue);

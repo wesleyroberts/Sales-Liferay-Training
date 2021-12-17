@@ -62,8 +62,8 @@ public class SaleTypeServiceImpl extends SaleTypeServiceBaseImpl {
 		saleTypeLocalService.deleteTypeById(id);
 	}
 
-	public List<SaleType> getAll(){
-		return saleTypeLocalService.getAll();
+	public List<SaleType> getAllSaleType(){
+		return saleTypeLocalService.getAllSaleType();
 	}
 
 	public SaleType getSaleTypeByID(long id){

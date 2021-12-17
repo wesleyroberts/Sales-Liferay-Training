@@ -90,7 +90,7 @@ public class SaleProductLocalServiceImpl
 		}
 	}
 
-	public List<SaleProduct> getAll(){
+	public List<SaleProduct> getAllSaleProduct(){
 		try {
 			return saleProductPersistence.findAll();
 		} catch (IllegalArgumentException e) {
@@ -99,7 +99,7 @@ public class SaleProductLocalServiceImpl
 		}
 	}
 
-	public SaleProduct getById(long id){
+	public SaleProduct getSalePoductById(long id){
 		try {
 			return saleProductPersistence.findByPrimaryKey(id);
 		} catch ( NoSuchSaleProductException e) {
@@ -108,7 +108,7 @@ public class SaleProductLocalServiceImpl
 		}
 	}
 
-	public SaleProduct getByName(String name){
+	public SaleProduct getSaleProductByName(String name){
 		try {
 			return saleProductPersistence.findByName(name);
 		} catch (NoSuchSaleProductException e) {
@@ -117,7 +117,7 @@ public class SaleProductLocalServiceImpl
 		}
 	}
 
-	public SaleProduct deleteById(long id){
+	public SaleProduct deleteSaleProductById(long id){
 		try {
 			return saleProductPersistence.remove(id);
 		} catch ( NoSuchSaleProductException e) {

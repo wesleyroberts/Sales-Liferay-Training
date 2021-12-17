@@ -212,8 +212,8 @@ public class SaleTypeLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	public static List<SaleType> getAll() {
-		return getService().getAll();
+	public static List<SaleType> getAllSaleType() {
+		return getService().getAllSaleType();
 	}
 
 	public static

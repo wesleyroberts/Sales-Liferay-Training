@@ -45,8 +45,8 @@ public class SaleCategoryServiceUtil {
 		getService().deleteCategoryById(id);
 	}
 
-	public static List<SaleCategory> getAll() {
-		return getService().getAll();
+	public static List<SaleCategory> getAllSaleCategory() {
+		return getService().getAllSaleCategory();
 	}
 
 	public static SaleCategory getCategoryByName(String name) {

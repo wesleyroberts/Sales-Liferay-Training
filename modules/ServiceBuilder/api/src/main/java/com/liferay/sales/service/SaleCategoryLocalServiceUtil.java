@@ -214,12 +214,8 @@ public class SaleCategoryLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	public static List<SaleCategory> getAll() {
-		return getService().getAll();
-	}
-
-	public static SaleCategory getByCategoryName(String name) {
-		return getService().getByCategoryName(name);
+	public static List<SaleCategory> getAllSaleCategory() {
+		return getService().getAllSaleCategory();
 	}
 
 	public static
@@ -286,6 +282,10 @@ public class SaleCategoryLocalServiceUtil {
 
 	public static SaleCategory getSaleCategoryById(long id) {
 		return getService().getSaleCategoryById(id);
+	}
+
+	public static SaleCategory getSaleCategoryByName(String name) {
+		return getService().getSaleCategoryByName(name);
 	}
 
 	public static SaleCategory updateSaleCategory(
