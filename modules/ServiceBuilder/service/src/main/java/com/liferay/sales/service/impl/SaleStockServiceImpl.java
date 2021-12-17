@@ -15,9 +15,12 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.sales.model.SaleStock;
 import com.liferay.sales.service.base.SaleStockServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+
+import java.util.List;
 
 /**
  * The implementation of the sale stock remote service.
@@ -46,4 +49,19 @@ public class SaleStockServiceImpl extends SaleStockServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use <code>com.liferay.sales.service.SaleStockServiceUtil</code> to access the sale stock remote service.
 	 */
+	public List<SaleStock> getAllSaleStock () {
+		return saleStockLocalService.getAllSaleStock();
+	}
+	public SaleStock updateStock(long stockId, int quantity){
+		return saleStockLocalService.updateStock(stockId, quantity);
+	}
+	public SaleStock createSaleStock (){
+	 return saleStockLocalService.createSaleStock();
+	}
+	public SaleStock getSaleStockById(long id){
+		return saleStockLocalService.getSaleStockById(id);
+	}
+	public void deletesaleCartById(long id){
+		saleStockLocalService.deletesaleCartById(id);
+	}
 }

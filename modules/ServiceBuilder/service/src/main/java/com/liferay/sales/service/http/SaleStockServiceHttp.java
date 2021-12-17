@@ -14,13 +14,21 @@
 
 package com.liferay.sales.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.HttpPrincipal;
+import com.liferay.portal.kernel.service.http.TunnelUtil;
+import com.liferay.portal.kernel.util.MethodHandler;
+import com.liferay.portal.kernel.util.MethodKey;
+import com.liferay.sales.service.SaleStockServiceUtil;
+
 /**
  * Provides the HTTP utility for the
- * <code>com.liferay.sales.service.SaleStockServiceUtil</code> service
+ * <code>SaleStockServiceUtil</code> service
  * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * <code>com.liferay.portal.kernel.security.auth.HttpPrincipal</code> parameter.
+ * <code>HttpPrincipal</code> parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -42,4 +50,171 @@ package com.liferay.sales.service.http;
  * @generated
  */
 public class SaleStockServiceHttp {
+
+	public static java.util.List<com.liferay.sales.model.SaleStock>
+		getAllSaleStock(HttpPrincipal httpPrincipal) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleStockServiceUtil.class, "getAllSaleStock",
+				_getAllSaleStockParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<com.liferay.sales.model.SaleStock>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.sales.model.SaleStock updateStock(
+		HttpPrincipal httpPrincipal, long stockId, int quantity) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleStockServiceUtil.class, "updateStock",
+				_updateStockParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, stockId, quantity);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleStock)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.sales.model.SaleStock createSaleStock(
+		HttpPrincipal httpPrincipal) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleStockServiceUtil.class, "createSaleStock",
+				_createSaleStockParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleStock)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.sales.model.SaleStock getSaleStockById(
+		HttpPrincipal httpPrincipal, long id) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleStockServiceUtil.class, "getSaleStockById",
+				_getSaleStockByIdParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, id);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleStock)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static void deletesaleCartById(
+		HttpPrincipal httpPrincipal, long id) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleStockServiceUtil.class, "deletesaleCartById",
+				_deletesaleCartByIdParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, id);
+
+			try {
+				TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(SaleStockServiceHttp.class);
+
+	private static final Class<?>[] _getAllSaleStockParameterTypes0 =
+		new Class[] {};
+	private static final Class<?>[] _updateStockParameterTypes1 = new Class[] {
+		long.class, int.class
+	};
+	private static final Class<?>[] _createSaleStockParameterTypes2 =
+		new Class[] {};
+	private static final Class<?>[] _getSaleStockByIdParameterTypes3 =
+		new Class[] {long.class};
+	private static final Class<?>[] _deletesaleCartByIdParameterTypes4 =
+		new Class[] {long.class};
+
 }

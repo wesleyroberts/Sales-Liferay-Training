@@ -30,6 +30,21 @@ public class SaleStockServiceWrapper
 		_saleStockService = saleStockService;
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleStock createSaleStock() {
+		return _saleStockService.createSaleStock();
+	}
+
+	@Override
+	public void deletesaleCartById(long id) {
+		_saleStockService.deletesaleCartById(id);
+	}
+
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleStock> getAllSaleStock() {
+		return _saleStockService.getAllSaleStock();
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -38,6 +53,18 @@ public class SaleStockServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _saleStockService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleStock getSaleStockById(long id) {
+		return _saleStockService.getSaleStockById(id);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleStock updateStock(
+		long stockId, int quantity) {
+
+		return _saleStockService.updateStock(stockId, quantity);
 	}
 
 	@Override
