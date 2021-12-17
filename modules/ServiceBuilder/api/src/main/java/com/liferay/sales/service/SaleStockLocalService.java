@@ -80,6 +80,8 @@ public interface SaleStockLocalService
 	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	public SaleStock createSaleStock();
+
 	/**
 	 * Creates a new sale stock with the primary key. Does not add the sale stock to the database.
 	 *
@@ -95,6 +97,8 @@ public interface SaleStockLocalService
 	@Override
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException;
+
+	public void deletesaleCartById(long id);
 
 	/**
 	 * Deletes the sale stock with the primary key from the database. Also notifies the appropriate model listeners.
@@ -196,6 +200,9 @@ public interface SaleStockLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleStock> getAllSaleStock();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
@@ -222,6 +229,9 @@ public interface SaleStockLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleStock getSaleStock(long StockId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleStock getSaleStockById(long id);
 
 	/**
 	 * Returns a range of all the sale stocks.
@@ -257,5 +267,7 @@ public interface SaleStockLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public SaleStock updateSaleStock(SaleStock saleStock);
+
+	public SaleStock updateStock(long stockId, int quantity);
 
 }

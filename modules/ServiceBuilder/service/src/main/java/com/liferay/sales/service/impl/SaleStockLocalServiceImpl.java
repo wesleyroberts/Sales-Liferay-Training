@@ -15,9 +15,14 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.sales.exception.DuplicateCartIdException;
+import com.liferay.sales.exception.NoSuchSaleStockException;
+import com.liferay.sales.model.SaleStock;
+import com.liferay.sales.model.SaleType;
 import com.liferay.sales.service.base.SaleStockLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
+
+import java.util.List;
 
 /**
  * The implementation of the sale stock local service.
@@ -43,4 +48,45 @@ public class SaleStockLocalServiceImpl extends SaleStockLocalServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.SaleStockLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleStockLocalServiceUtil</code>.
 	 */
+	public List<SaleStock> getAllSaleStock () {
+		return saleStockPersistence.findAll();
+	}
+
+	public SaleStock updateStock(long stockId, int quantity){
+		try {
+			SaleStock saleStock = saleStockPersistence.findByPrimaryKey(stockId);
+			saleStock.setQuantity(quantity);
+			return saleStockPersistence.update(saleStock);
+		} catch (NoSuchSaleStockException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	public SaleStock createSaleStock (){
+		try{
+		return saleStockPersistence.create(counterLocalService.increment());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public SaleStock getSaleStockById(long id){
+		try{
+			return saleStockPersistence.findByPrimaryKey(id);
+		} catch (NoSuchSaleStockException e) {
+			e.printStackTrace();
+			return null ;
+		}
+	}
+
+	public void deletesaleCartById(long id){
+		try {
+			saleStockPersistence.remove(id);
+		} catch (NoSuchSaleStockException e) {
+			e.printStackTrace();
+		}
+	}
 }

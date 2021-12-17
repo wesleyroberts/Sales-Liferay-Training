@@ -60,6 +60,11 @@ public class SaleStockLocalServiceWrapper
 		return _saleStockLocalService.createPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleStock createSaleStock() {
+		return _saleStockLocalService.createSaleStock();
+	}
+
 	/**
 	 * Creates a new sale stock with the primary key. Does not add the sale stock to the database.
 	 *
@@ -80,6 +85,11 @@ public class SaleStockLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _saleStockLocalService.deletePersistedModel(persistedModel);
+	}
+
+	@Override
+	public void deletesaleCartById(long id) {
+		_saleStockLocalService.deletesaleCartById(id);
 	}
 
 	/**
@@ -220,6 +230,11 @@ public class SaleStockLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.sales.model.SaleStock> getAllSaleStock() {
+		return _saleStockLocalService.getAllSaleStock();
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 
@@ -259,6 +274,11 @@ public class SaleStockLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _saleStockLocalService.getSaleStock(StockId);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleStock getSaleStockById(long id) {
+		return _saleStockLocalService.getSaleStockById(id);
 	}
 
 	/**
@@ -304,6 +324,13 @@ public class SaleStockLocalServiceWrapper
 		com.liferay.sales.model.SaleStock saleStock) {
 
 		return _saleStockLocalService.updateSaleStock(saleStock);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleStock updateStock(
+		long stockId, int quantity) {
+
+		return _saleStockLocalService.updateStock(stockId, quantity);
 	}
 
 	@Override

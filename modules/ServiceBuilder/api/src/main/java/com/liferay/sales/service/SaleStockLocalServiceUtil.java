@@ -68,6 +68,10 @@ public class SaleStockLocalServiceUtil {
 		return getService().createPersistedModel(primaryKeyObj);
 	}
 
+	public static SaleStock createSaleStock() {
+		return getService().createSaleStock();
+	}
+
 	/**
 	 * Creates a new sale stock with the primary key. Does not add the sale stock to the database.
 	 *
@@ -86,6 +90,10 @@ public class SaleStockLocalServiceUtil {
 		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
+	}
+
+	public static void deletesaleCartById(long id) {
+		getService().deletesaleCartById(id);
 	}
 
 	/**
@@ -206,6 +214,10 @@ public class SaleStockLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static List<SaleStock> getAllSaleStock() {
+		return getService().getAllSaleStock();
+	}
+
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {
@@ -240,6 +252,10 @@ public class SaleStockLocalServiceUtil {
 	 */
 	public static SaleStock getSaleStock(long StockId) throws PortalException {
 		return getService().getSaleStock(StockId);
+	}
+
+	public static SaleStock getSaleStockById(long id) {
+		return getService().getSaleStockById(id);
 	}
 
 	/**
@@ -278,6 +294,10 @@ public class SaleStockLocalServiceUtil {
 	 */
 	public static SaleStock updateSaleStock(SaleStock saleStock) {
 		return getService().updateSaleStock(saleStock);
+	}
+
+	public static SaleStock updateStock(long stockId, int quantity) {
+		return getService().updateStock(stockId, quantity);
 	}
 
 	public static SaleStockLocalService getService() {
