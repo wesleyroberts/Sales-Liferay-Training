@@ -6,7 +6,9 @@
 	<import class="com.liferay.sales.model.SaleCart" />
 	<import class="com.liferay.sales.model.SaleCategory" />
 	<import class="com.liferay.sales.model.SaleProduct" />
+	<import class="com.liferay.sales.model.SaleStock" />
 	<import class="com.liferay.sales.model.SaleType" />
+	<import class="com.liferay.sales.model.StockProductsList" />
 	<class name="com.liferay.sales.model.impl.CartProductsListImpl" table="SalesTaxe_CartProductsList">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productId" type="long">
 			<generator class="assigned" />
@@ -35,11 +37,23 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="categoryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="typeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
+	<class name="com.liferay.sales.model.impl.SaleStockImpl" table="SalesTaxe_SaleStock">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="StockId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="quantity" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+	</class>
 	<class name="com.liferay.sales.model.impl.SaleTypeImpl" table="SalesTaxe_SaleType">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="typeId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="tax" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+	</class>
+	<class name="com.liferay.sales.model.impl.StockProductsListImpl" table="SalesTaxe_StockProductsList">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="StockId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 </hibernate-mapping>

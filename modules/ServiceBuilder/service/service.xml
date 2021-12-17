@@ -65,9 +65,26 @@
 		<column name="productId" primary="true" type="long"/>
 		<column name="cartId" type="long" />
 
+	</entity><entity name="SaleStock" local-service="true" remote-service="true">
+
+	<!-- PK fields -->
+	<column name="StockId" primary="true" type="long" />
+	<column name="quantity" type="int"/>
+
 	</entity>
+	<entity name="StockProductsList" local-service="true" remote-service="true">
+		<!-- Other fields -->
+		<column name="productId" primary="true" type="long"/>
+		<column name="StockId" type="long" />
+
+	</entity>
+
 	<exceptions>
 		<exception>DuplicateProductId</exception>
+		<exception>DuplicateCategoryId</exception>
+		<exception>DuplicateTypeId</exception>
+		<exception>DuplicateCartId</exception>
+		<exception>DuplicateStockId</exception>
 		<exception>CategoryName</exception>
 		<exception>TypeName</exception>
 	</exceptions>

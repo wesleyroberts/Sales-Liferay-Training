@@ -22,8 +22,18 @@ create table SalesTaxe_SaleProduct (
 	typeId LONG
 );
 
+create table SalesTaxe_SaleStock (
+	StockId LONG not null primary key,
+	quantity INTEGER
+);
+
 create table SalesTaxe_SaleType (
 	typeId LONG not null primary key,
 	name VARCHAR(75) null,
 	tax DOUBLE
+);
+
+create table SalesTaxe_StockProductsList (
+	productId LONG not null primary key,
+	StockId LONG
 );
