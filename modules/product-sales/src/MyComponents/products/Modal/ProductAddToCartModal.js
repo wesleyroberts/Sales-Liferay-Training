@@ -4,6 +4,8 @@ import ClayButton from "@clayui/button";
 import ClayModal, { useModal } from "@clayui/modal";
 import { AddProductToCart } from "../../../resourceRequests/ProductFunctionsREST";
 
+import { Alert } from "../../alert/CustomAlert"
+
 export default function ProductAddToCartModal({
   cartList,
   productAddToCartModal,
@@ -15,6 +17,17 @@ export default function ProductAddToCartModal({
     onClose: () => setProductAddToCartModal(false),
   });
   const [enableButton, setEnableButton] = useState(true)
+  const [alertAddtoCartSuccess, setAlertToCartSuccess] = useState(false)
+
+  const handleAddtoCart = (cartId, productId) => {
+    AddProductToCart(cartId, productId).then(
+      (data) => {
+        console.log(data);
+        setAlertToCartSuccess(true)
+      }
+    ).catch(error => console.log(error));
+  }
+
   return (
     <div>
       {productAddToCartModal && (
@@ -54,11 +67,7 @@ export default function ProductAddToCartModal({
                 displayType="primary"
                 disabled={enableButton}
                 onClick={() => {
-                  AddProductToCart(parseInt(cartId), parseInt(productId)).then(
-                    (data) => {
-                      console.log(data);
-                    }
-                  );
+                  handleAddtoCart(parseInt(cartId), parseInt(productId))
                 }}
               >
                 Adicionar
@@ -69,6 +78,11 @@ export default function ProductAddToCartModal({
             first={<ClayButton.Group spaced></ClayButton.Group>}
             last={<ClayButton onClick={onClose}>{"Fechar"}</ClayButton>}
           />
+          {alertAddtoCartSuccess && (
+            <Alert displayType={"success"} title={"Success: "} message={"The product were successfully added to your cart"}>
+              {setTimeout(() => setAlertToCartSuccess(false), 5000)}
+            </Alert>
+          )}
         </ClayModal>
       )}
     </div>
