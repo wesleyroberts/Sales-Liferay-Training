@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.sales.model.SaleStock;
 import com.liferay.sales.model.SaleStockModel;
@@ -68,7 +69,8 @@ public class SaleStockModelImpl
 	public static final String TABLE_NAME = "SalesTaxe_SaleStock";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"StockId", Types.BIGINT}, {"quantity", Types.INTEGER}
+		{"StockId", Types.BIGINT}, {"name", Types.VARCHAR},
+		{"quantity", Types.INTEGER}, {"typeId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -76,11 +78,13 @@ public class SaleStockModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("StockId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("quantity", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("typeId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SalesTaxe_SaleStock (StockId LONG not null primary key,quantity INTEGER)";
+		"create table SalesTaxe_SaleStock (StockId LONG not null primary key,name VARCHAR(75) null,quantity INTEGER,typeId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table SalesTaxe_SaleStock";
@@ -98,11 +102,23 @@ public class SaleStockModelImpl
 	public static final String TX_MANAGER = "liferayTransactionManager";
 
 	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long NAME_COLUMN_BITMASK = 1L;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long TYPEID_COLUMN_BITMASK = 2L;
+
+	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long STOCKID_COLUMN_BITMASK = 1L;
+	public static final long STOCKID_COLUMN_BITMASK = 4L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -134,7 +150,9 @@ public class SaleStockModelImpl
 		SaleStock model = new SaleStockImpl();
 
 		model.setStockId(soapModel.getStockId());
+		model.setName(soapModel.getName());
 		model.setQuantity(soapModel.getQuantity());
+		model.setTypeId(soapModel.getTypeId());
 
 		return model;
 	}
@@ -287,9 +305,15 @@ public class SaleStockModelImpl
 		attributeGetterFunctions.put("StockId", SaleStock::getStockId);
 		attributeSetterBiConsumers.put(
 			"StockId", (BiConsumer<SaleStock, Long>)SaleStock::setStockId);
+		attributeGetterFunctions.put("name", SaleStock::getName);
+		attributeSetterBiConsumers.put(
+			"name", (BiConsumer<SaleStock, String>)SaleStock::setName);
 		attributeGetterFunctions.put("quantity", SaleStock::getQuantity);
 		attributeSetterBiConsumers.put(
 			"quantity", (BiConsumer<SaleStock, Integer>)SaleStock::setQuantity);
+		attributeGetterFunctions.put("typeId", SaleStock::getTypeId);
+		attributeSetterBiConsumers.put(
+			"typeId", (BiConsumer<SaleStock, Long>)SaleStock::setTypeId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -314,6 +338,35 @@ public class SaleStockModelImpl
 
 	@JSON
 	@Override
+	public String getName() {
+		if (_name == null) {
+			return "";
+		}
+		else {
+			return _name;
+		}
+	}
+
+	@Override
+	public void setName(String name) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_name = name;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public String getOriginalName() {
+		return getColumnOriginalValue("name");
+	}
+
+	@JSON
+	@Override
 	public int getQuantity() {
 		return _quantity;
 	}
@@ -325,6 +378,30 @@ public class SaleStockModelImpl
 		}
 
 		_quantity = quantity;
+	}
+
+	@JSON
+	@Override
+	public long getTypeId() {
+		return _typeId;
+	}
+
+	@Override
+	public void setTypeId(long typeId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_typeId = typeId;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public long getOriginalTypeId() {
+		return GetterUtil.getLong(this.<Long>getColumnOriginalValue("typeId"));
 	}
 
 	public long getColumnBitmask() {
@@ -384,7 +461,9 @@ public class SaleStockModelImpl
 		SaleStockImpl saleStockImpl = new SaleStockImpl();
 
 		saleStockImpl.setStockId(getStockId());
+		saleStockImpl.setName(getName());
 		saleStockImpl.setQuantity(getQuantity());
+		saleStockImpl.setTypeId(getTypeId());
 
 		saleStockImpl.resetOriginalValues();
 
@@ -464,7 +543,17 @@ public class SaleStockModelImpl
 
 		saleStockCacheModel.StockId = getStockId();
 
+		saleStockCacheModel.name = getName();
+
+		String name = saleStockCacheModel.name;
+
+		if ((name != null) && (name.length() == 0)) {
+			saleStockCacheModel.name = null;
+		}
+
 		saleStockCacheModel.quantity = getQuantity();
+
+		saleStockCacheModel.typeId = getTypeId();
 
 		return saleStockCacheModel;
 	}
@@ -540,7 +629,9 @@ public class SaleStockModelImpl
 	}
 
 	private long _StockId;
+	private String _name;
 	private int _quantity;
+	private long _typeId;
 
 	public <T> T getColumnValue(String columnName) {
 		Function<SaleStock, Object> function = _attributeGetterFunctions.get(
@@ -570,7 +661,9 @@ public class SaleStockModelImpl
 		_columnOriginalValues = new HashMap<String, Object>();
 
 		_columnOriginalValues.put("StockId", _StockId);
+		_columnOriginalValues.put("name", _name);
 		_columnOriginalValues.put("quantity", _quantity);
+		_columnOriginalValues.put("typeId", _typeId);
 	}
 
 	private transient Map<String, Object> _columnOriginalValues;
@@ -586,7 +679,11 @@ public class SaleStockModelImpl
 
 		columnBitmasks.put("StockId", 1L);
 
-		columnBitmasks.put("quantity", 2L);
+		columnBitmasks.put("name", 2L);
+
+		columnBitmasks.put("quantity", 4L);
+
+		columnBitmasks.put("typeId", 8L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

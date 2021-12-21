@@ -43,6 +43,11 @@ public class StockProductsListLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.StockProductsListLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.sales.model.SaleStock addProductToStock(
+		com.liferay.sales.model.SaleProduct product) {
+
+		return getService().addProductToStock(product);
+	}
 
 	/**
 	 * Adds the stock products list to the database. Also notifies the appropriate model listeners.
@@ -58,6 +63,12 @@ public class StockProductsListLocalServiceUtil {
 		StockProductsList stockProductsList) {
 
 		return getService().addStockProductsList(stockProductsList);
+	}
+
+	public static Boolean checkIfExistStock(
+		com.liferay.sales.model.SaleProduct product) {
+
+		return getService().checkIfExistStock(product);
 	}
 
 	/**
@@ -88,6 +99,10 @@ public class StockProductsListLocalServiceUtil {
 		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
+	}
+
+	public static void deleteStockProductListByID(long id) {
+		getService().deleteStockProductListByID(id);
 	}
 
 	/**
@@ -210,6 +225,18 @@ public class StockProductsListLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static List<com.liferay.sales.model.SaleProduct>
+		getAllProductInStock() {
+
+		return getService().getAllProductInStock();
+	}
+
+	public static List<com.liferay.sales.model.SaleProduct>
+		getAllProductInStockByProductName(String name) {
+
+		return getService().getAllProductInStockByProductName(name);
+	}
+
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {
@@ -272,6 +299,12 @@ public class StockProductsListLocalServiceUtil {
 	 */
 	public static int getStockProductsListsCount() {
 		return getService().getStockProductsListsCount();
+	}
+
+	public static void removeProductFromStock(
+		com.liferay.sales.model.SaleProduct product) {
+
+		getService().removeProductFromStock(product);
 	}
 
 	/**

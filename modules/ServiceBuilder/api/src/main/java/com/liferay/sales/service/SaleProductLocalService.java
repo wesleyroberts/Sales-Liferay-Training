@@ -92,6 +92,9 @@ public interface SaleProductLocalService
 	public SaleProduct createSaleProduct(
 		String name, double price, long categoryId, long typeId);
 
+	public List<SaleProduct> createSaleProductInScale(
+		String name, double price, long categoryId, long typeId, int quantity);
+
 	/**
 	 * @throws PortalException
 	 */
@@ -126,7 +129,7 @@ public interface SaleProductLocalService
 	@Indexable(type = IndexableType.DELETE)
 	public SaleProduct deleteSaleProduct(SaleProduct saleProduct);
 
-	public SaleProduct deleteSaleProductById(long id);
+	public void deleteSaleProductById(long id);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();

@@ -15,13 +15,15 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.NoSuchModelException;
 import com.liferay.sales.exception.NoSuchCartProductsListException;
 import com.liferay.sales.model.CartProductsList;
 import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.service.SaleCartService;
 import com.liferay.sales.service.SaleProductService;
+import com.liferay.sales.service.StockProductsListLocalServiceUtil;
+import com.liferay.sales.service.StockProductsListServiceUtil;
 import com.liferay.sales.service.base.CartProductsListLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -65,26 +67,31 @@ public class CartProductsListLocalServiceImpl
 
 	}
 
-	public CartProductsList addProductToCartList(long productId, long cartId){
-		CartProductsList cartProductsList = cartProductsListPersistence.create(productId);
-		cartProductsList.setCartId(cartId);
-		saleCartService.
-				addProductPriceToCartTotalValue(saleProductService.
-								getSaleProductById(productId).
-								getPrice(),
-						cartId);
-		return cartProductsListPersistence.update(cartProductsList);
+	public List<CartProductsList> addProductToCartList(List<Long> productsIdList, long cartId){
+		List<CartProductsList> list = new ArrayList<CartProductsList>();
+
+		for (long productId: productsIdList ) {
+			CartProductsList cartProductsList = cartProductsListPersistence.create(productId);
+			cartProductsList.setCartId(cartId);
+			SaleProduct product = saleProductService.getSaleProductById(productId);
+			saleCartService.addProductPriceToCartTotalValue(product.getPrice(),cartId);
+			StockProductsListServiceUtil.removeProductFromStock(product);
+			list.add(cartProductsListPersistence.update(cartProductsList));
+
+		}
+
+		return list;
 	}
 
-	public void removeProductToCartList(long productId,long cartId){
+	public void removeProductToCartList(List<Long> productsIdList,long cartId){
 
 		try {
-			saleCartService.removeProductPriceToCartTotalValue(saleProductService.
-							getSaleProductById(productId).
-							getPrice(),
-					cartId);
-			cartProductsListPersistence.remove(productId);
-		} catch (NoSuchCartProductsListException e) {
+			for (Long productId: productsIdList ) {
+				saleCartService.removeProductPriceToCartTotalValue(saleProductService.getSaleProductById(productId).getPrice(), cartId);
+				cartProductsListPersistence.remove(productId);
+				StockProductsListLocalServiceUtil.addProductToStock(saleProductService.getSaleProductById(productId));
+			}
+		} catch (NoSuchModelException e) {
 			e.printStackTrace();
 		}
 	}

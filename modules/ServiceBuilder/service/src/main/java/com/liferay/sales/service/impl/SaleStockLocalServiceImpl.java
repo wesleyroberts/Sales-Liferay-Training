@@ -15,10 +15,9 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.sales.exception.DuplicateCartIdException;
 import com.liferay.sales.exception.NoSuchSaleStockException;
+import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.model.SaleStock;
-import com.liferay.sales.model.SaleType;
 import com.liferay.sales.service.base.SaleStockLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
 
@@ -52,10 +51,12 @@ public class SaleStockLocalServiceImpl extends SaleStockLocalServiceBaseImpl {
 		return saleStockPersistence.findAll();
 	}
 
-	public SaleStock updateStock(long stockId, int quantity){
+	public SaleStock updateStock(long stockId, int quantity,String name,long typeId){
 		try {
 			SaleStock saleStock = saleStockPersistence.findByPrimaryKey(stockId);
 			saleStock.setQuantity(quantity);
+			saleStock.setName(name);
+			saleStock.setTypeId(typeId);
 			return saleStockPersistence.update(saleStock);
 		} catch (NoSuchSaleStockException e) {
 			e.printStackTrace();
@@ -66,7 +67,8 @@ public class SaleStockLocalServiceImpl extends SaleStockLocalServiceBaseImpl {
 
 	public SaleStock createSaleStock (){
 		try{
-		return saleStockPersistence.create(counterLocalService.increment());
+		SaleStock saleStock = saleStockPersistence.create(counterLocalService.increment());
+		return saleStockPersistence.update(saleStock);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -82,11 +84,22 @@ public class SaleStockLocalServiceImpl extends SaleStockLocalServiceBaseImpl {
 		}
 	}
 
-	public void deletesaleCartById(long id){
+	public SaleStock getSaleStockByProduct(SaleProduct product) {
+		try {
+			return saleStockPersistence.findByName_And_Type(product.getName(), product.getTypeId());
+		} catch (NoSuchSaleStockException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+		public void deletesaleCartById(long id){
 		try {
 			saleStockPersistence.remove(id);
 		} catch (NoSuchSaleStockException e) {
 			e.printStackTrace();
 		}
 	}
+
 }

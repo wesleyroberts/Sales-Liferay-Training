@@ -60,10 +60,10 @@ public class CartProductsListLocalServiceUtil {
 		return getService().addCartProductsList(cartProductsList);
 	}
 
-	public static CartProductsList addProductToCartList(
-		long productId, long cartId) {
+	public static List<CartProductsList> addProductToCartList(
+		List<Long> productsIdList, long cartId) {
 
-		return getService().addProductToCartList(productId, cartId);
+		return getService().addProductToCartList(productsIdList, cartId);
 	}
 
 	/**
@@ -286,8 +286,10 @@ public class CartProductsListLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static void removeProductToCartList(long productId, long cartId) {
-		getService().removeProductToCartList(productId, cartId);
+	public static void removeProductToCartList(
+		List<Long> productsIdList, long cartId) {
+
+		getService().removeProductToCartList(productsIdList, cartId);
 	}
 
 	/**

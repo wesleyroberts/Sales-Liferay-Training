@@ -18,7 +18,6 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.sales.model.CartProductsList;
 import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.service.base.CartProductsListServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 import java.util.List;
@@ -54,10 +53,10 @@ public class CartProductsListServiceImpl
 	public List<SaleProduct> getAllProductsByCarID(long id){
 		return cartProductsListLocalService.getAllProductsByCartID(id);
 	}
-	public CartProductsList addProductToCartList(long productId, long cartId){
-		return cartProductsListLocalService.addProductToCartList(productId,cartId);
+	public List<CartProductsList> addProductToCartList(List<Long> productIdList, long cartId){
+		return cartProductsListLocalService.addProductToCartList(productIdList,cartId);
 	}
-	public void removeProductToCartList(long productId, long cartId){
-		cartProductsListLocalService.removeProductToCartList(productId, cartId);
+	public void removeProductToCartList(List<Long> productIdList, long cartId){
+		cartProductsListLocalService.removeProductToCartList(productIdList, cartId);
 	}
 }

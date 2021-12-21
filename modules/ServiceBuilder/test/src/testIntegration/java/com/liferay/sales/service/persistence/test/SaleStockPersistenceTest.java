@@ -21,6 +21,8 @@ import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Session;
+import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.transaction.Propagation;
@@ -121,7 +123,11 @@ public class SaleStockPersistenceTest {
 
 		SaleStock newSaleStock = _persistence.create(pk);
 
+		newSaleStock.setName(RandomTestUtil.randomString());
+
 		newSaleStock.setQuantity(RandomTestUtil.nextInt());
+
+		newSaleStock.setTypeId(RandomTestUtil.nextLong());
 
 		_saleStocks.add(_persistence.update(newSaleStock));
 
@@ -131,7 +137,20 @@ public class SaleStockPersistenceTest {
 		Assert.assertEquals(
 			existingSaleStock.getStockId(), newSaleStock.getStockId());
 		Assert.assertEquals(
+			existingSaleStock.getName(), newSaleStock.getName());
+		Assert.assertEquals(
 			existingSaleStock.getQuantity(), newSaleStock.getQuantity());
+		Assert.assertEquals(
+			existingSaleStock.getTypeId(), newSaleStock.getTypeId());
+	}
+
+	@Test
+	public void testCountByName_And_Type() throws Exception {
+		_persistence.countByName_And_Type("", RandomTestUtil.nextLong());
+
+		_persistence.countByName_And_Type("null", 0L);
+
+		_persistence.countByName_And_Type((String)null, 0L);
 	}
 
 	@Test
@@ -159,7 +178,8 @@ public class SaleStockPersistenceTest {
 
 	protected OrderByComparator<SaleStock> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create(
-			"SalesTaxe_SaleStock", "StockId", true, "quantity", true);
+			"SalesTaxe_SaleStock", "StockId", true, "name", true, "quantity",
+			true, "typeId", true);
 	}
 
 	@Test
@@ -366,12 +386,78 @@ public class SaleStockPersistenceTest {
 		Assert.assertEquals(0, result.size());
 	}
 
+	@Test
+	public void testResetOriginalValues() throws Exception {
+		SaleStock newSaleStock = addSaleStock();
+
+		_persistence.clearCache();
+
+		_assertOriginalValues(
+			_persistence.findByPrimaryKey(newSaleStock.getPrimaryKey()));
+	}
+
+	@Test
+	public void testResetOriginalValuesWithDynamicQueryLoadFromDatabase()
+		throws Exception {
+
+		_testResetOriginalValuesWithDynamicQuery(true);
+	}
+
+	@Test
+	public void testResetOriginalValuesWithDynamicQueryLoadFromSession()
+		throws Exception {
+
+		_testResetOriginalValuesWithDynamicQuery(false);
+	}
+
+	private void _testResetOriginalValuesWithDynamicQuery(boolean clearSession)
+		throws Exception {
+
+		SaleStock newSaleStock = addSaleStock();
+
+		if (clearSession) {
+			Session session = _persistence.openSession();
+
+			session.flush();
+
+			session.clear();
+		}
+
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			SaleStock.class, _dynamicQueryClassLoader);
+
+		dynamicQuery.add(
+			RestrictionsFactoryUtil.eq("StockId", newSaleStock.getStockId()));
+
+		List<SaleStock> result = _persistence.findWithDynamicQuery(
+			dynamicQuery);
+
+		_assertOriginalValues(result.get(0));
+	}
+
+	private void _assertOriginalValues(SaleStock saleStock) {
+		Assert.assertEquals(
+			saleStock.getName(),
+			ReflectionTestUtil.invoke(
+				saleStock, "getColumnOriginalValue",
+				new Class<?>[] {String.class}, "name"));
+		Assert.assertEquals(
+			Long.valueOf(saleStock.getTypeId()),
+			ReflectionTestUtil.<Long>invoke(
+				saleStock, "getColumnOriginalValue",
+				new Class<?>[] {String.class}, "typeId"));
+	}
+
 	protected SaleStock addSaleStock() throws Exception {
 		long pk = RandomTestUtil.nextLong();
 
 		SaleStock saleStock = _persistence.create(pk);
 
+		saleStock.setName(RandomTestUtil.randomString());
+
 		saleStock.setQuantity(RandomTestUtil.nextInt());
+
+		saleStock.setTypeId(RandomTestUtil.nextLong());
 
 		_saleStocks.add(_persistence.update(saleStock));
 

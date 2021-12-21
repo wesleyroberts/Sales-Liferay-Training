@@ -61,10 +61,17 @@ public class SaleStockServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.SaleStock updateStock(
-		long stockId, int quantity) {
+	public com.liferay.sales.model.SaleStock getSaleStockByProduct(
+		com.liferay.sales.model.SaleProduct product) {
 
-		return _saleStockService.updateStock(stockId, quantity);
+		return _saleStockService.getSaleStockByProduct(product);
+	}
+
+	@Override
+	public com.liferay.sales.model.SaleStock updateStock(
+		long stockId, int quantity, String name, long typeId) {
+
+		return _saleStockService.updateStock(stockId, quantity, name, typeId);
 	}
 
 	@Override

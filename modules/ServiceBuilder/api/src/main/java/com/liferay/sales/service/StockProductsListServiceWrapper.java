@@ -33,6 +33,33 @@ public class StockProductsListServiceWrapper
 		_stockProductsListService = stockProductsListService;
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleStock addProductToStock(
+		com.liferay.sales.model.SaleProduct product) {
+
+		return _stockProductsListService.addProductToStock(product);
+	}
+
+	@Override
+	public void deleteStockProductListByID(long id) {
+		_stockProductsListService.deleteStockProductListByID(id);
+	}
+
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		getAllProductInStock() {
+
+		return _stockProductsListService.getAllProductInStock();
+	}
+
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		getAllProductInStockByProductName(String name) {
+
+		return _stockProductsListService.getAllProductInStockByProductName(
+			name);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -41,6 +68,13 @@ public class StockProductsListServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _stockProductsListService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public void removeProductFromStock(
+		com.liferay.sales.model.SaleProduct product) {
+
+		_stockProductsListService.removeProductFromStock(product);
 	}
 
 	@Override

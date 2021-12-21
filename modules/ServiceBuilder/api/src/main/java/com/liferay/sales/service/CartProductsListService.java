@@ -52,7 +52,8 @@ public interface CartProductsListService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.sales.service.impl.CartProductsListServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cart products list remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CartProductsListServiceUtil} if injection and service tracking are not available.
 	 */
-	public CartProductsList addProductToCartList(long productId, long cartId);
+	public List<CartProductsList> addProductToCartList(
+		List<Long> productIdList, long cartId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<SaleProduct> getAllProductsByCarID(long id);
@@ -64,6 +65,6 @@ public interface CartProductsListService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
-	public void removeProductToCartList(long productId, long cartId);
+	public void removeProductToCartList(List<Long> productIdList, long cartId);
 
 }

@@ -15,9 +15,9 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.model.SaleStock;
 import com.liferay.sales.service.base.SaleStockServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 import java.util.List;
@@ -52,8 +52,8 @@ public class SaleStockServiceImpl extends SaleStockServiceBaseImpl {
 	public List<SaleStock> getAllSaleStock () {
 		return saleStockLocalService.getAllSaleStock();
 	}
-	public SaleStock updateStock(long stockId, int quantity){
-		return saleStockLocalService.updateStock(stockId, quantity);
+	public SaleStock updateStock(long stockId, int quantity,String name,long typeId){
+		return saleStockLocalService.updateStock(stockId, quantity,name,typeId);
 	}
 	public SaleStock createSaleStock (){
 	 return saleStockLocalService.createSaleStock();
@@ -63,5 +63,9 @@ public class SaleStockServiceImpl extends SaleStockServiceBaseImpl {
 	}
 	public void deletesaleCartById(long id){
 		saleStockLocalService.deletesaleCartById(id);
+	}
+
+	public SaleStock getSaleStockByProduct(SaleProduct product){
+		return saleStockLocalService.getSaleStockByProduct(product);
 	}
 }

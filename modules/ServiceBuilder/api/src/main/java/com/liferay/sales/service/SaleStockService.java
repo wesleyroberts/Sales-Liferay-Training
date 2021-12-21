@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.model.SaleStock;
 
 import java.util.List;
@@ -68,6 +69,10 @@ public interface SaleStockService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleStock getSaleStockById(long id);
 
-	public SaleStock updateStock(long stockId, int quantity);
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleStock getSaleStockByProduct(SaleProduct product);
+
+	public SaleStock updateStock(
+		long stockId, int quantity, String name, long typeId);
 
 }

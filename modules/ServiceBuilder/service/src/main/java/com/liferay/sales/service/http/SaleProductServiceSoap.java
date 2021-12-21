@@ -82,6 +82,27 @@ public class SaleProductServiceSoap {
 		}
 	}
 
+	public static com.liferay.sales.model.SaleProductSoap[]
+			createSaleProductInScale(
+				String name, double price, long categoryId, long typeId,
+				int quantity)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.sales.model.SaleProduct> returnValue =
+				SaleProductServiceUtil.createSaleProductInScale(
+					name, price, categoryId, typeId, quantity);
+
+			return com.liferay.sales.model.SaleProductSoap.toSoapModels(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.sales.model.SaleProductSoap[] getAllSaleProducts()
 		throws RemoteException {
 
@@ -155,15 +176,9 @@ public class SaleProductServiceSoap {
 		}
 	}
 
-	public static com.liferay.sales.model.SaleProductSoap deleteById(long id)
-		throws RemoteException {
-
+	public static void deleteById(long id) throws RemoteException {
 		try {
-			com.liferay.sales.model.SaleProduct returnValue =
-				SaleProductServiceUtil.deleteById(id);
-
-			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
-				returnValue);
+			SaleProductServiceUtil.deleteById(id);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

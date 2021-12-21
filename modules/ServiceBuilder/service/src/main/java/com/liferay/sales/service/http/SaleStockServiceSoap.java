@@ -81,12 +81,13 @@ public class SaleStockServiceSoap {
 	}
 
 	public static com.liferay.sales.model.SaleStockSoap updateStock(
-			long stockId, int quantity)
+			long stockId, int quantity, String name, long typeId)
 		throws RemoteException {
 
 		try {
 			com.liferay.sales.model.SaleStock returnValue =
-				SaleStockServiceUtil.updateStock(stockId, quantity);
+				SaleStockServiceUtil.updateStock(
+					stockId, quantity, name, typeId);
 
 			return com.liferay.sales.model.SaleStockSoap.toSoapModel(
 				returnValue);
@@ -136,6 +137,26 @@ public class SaleStockServiceSoap {
 	public static void deletesaleCartById(long id) throws RemoteException {
 		try {
 			SaleStockServiceUtil.deletesaleCartById(id);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleStockSoap getSaleStockByProduct(
+			com.liferay.sales.model.SaleProductSoap product)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleStock returnValue =
+				SaleStockServiceUtil.getSaleStockByProduct(
+					com.liferay.sales.model.impl.SaleProductModelImpl.toModel(
+						product));
+
+			return com.liferay.sales.model.SaleStockSoap.toSoapModel(
+				returnValue);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

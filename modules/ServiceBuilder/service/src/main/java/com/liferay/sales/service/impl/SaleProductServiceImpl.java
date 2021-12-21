@@ -17,7 +17,6 @@ package com.liferay.sales.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.service.base.SaleProductServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 import java.util.List;
@@ -54,6 +53,10 @@ public class SaleProductServiceImpl extends SaleProductServiceBaseImpl {
 		return saleProductLocalService.createSaleProduct(name, price, categoryId, typeId);
 	}
 
+	public List<SaleProduct> createSaleProductInScale(String name, double price,long categoryId, long typeId,int quantity){
+		return saleProductLocalService.createSaleProductInScale(name, price, categoryId, typeId,quantity);
+	}
+
 	public List<SaleProduct> getAllSaleProducts(){
 		return saleProductLocalService.getAllSaleProduct();
 	}
@@ -70,8 +73,8 @@ public class SaleProductServiceImpl extends SaleProductServiceBaseImpl {
 		return saleProductLocalService.getSaleProductByName(name);
 	}
 
-	public SaleProduct deleteById(long id){
-		return saleProductLocalService.deleteSaleProductById(id);
+	public void deleteById(long id){
+		 saleProductLocalService.deleteSaleProductById(id);
 	}
 
 }

@@ -82,6 +82,16 @@ public class SaleProductLocalServiceWrapper
 			name, price, categoryId, typeId);
 	}
 
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		createSaleProductInScale(
+			String name, double price, long categoryId, long typeId,
+			int quantity) {
+
+		return _saleProductLocalService.createSaleProductInScale(
+			name, price, categoryId, typeId, quantity);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -129,8 +139,8 @@ public class SaleProductLocalServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.SaleProduct deleteSaleProductById(long id) {
-		return _saleProductLocalService.deleteSaleProductById(id);
+	public void deleteSaleProductById(long id) {
+		_saleProductLocalService.deleteSaleProductById(id);
 	}
 
 	@Override

@@ -16,6 +16,7 @@ package com.liferay.sales.service.http;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.sales.service.CartProductsListServiceUtil;
 
 import java.rmi.RemoteException;
@@ -81,16 +82,16 @@ public class CartProductsListServiceSoap {
 		}
 	}
 
-	public static com.liferay.sales.model.CartProductsListSoap
-			addProductToCartList(long productId, long cartId)
+	public static com.liferay.sales.model.CartProductsListSoap[]
+			addProductToCartList(Long[] productIdList, long cartId)
 		throws RemoteException {
 
 		try {
-			com.liferay.sales.model.CartProductsList returnValue =
-				CartProductsListServiceUtil.addProductToCartList(
-					productId, cartId);
+			java.util.List<com.liferay.sales.model.CartProductsList>
+				returnValue = CartProductsListServiceUtil.addProductToCartList(
+					ListUtil.toList(productIdList), cartId);
 
-			return com.liferay.sales.model.CartProductsListSoap.toSoapModel(
+			return com.liferay.sales.model.CartProductsListSoap.toSoapModels(
 				returnValue);
 		}
 		catch (Exception exception) {
@@ -100,12 +101,13 @@ public class CartProductsListServiceSoap {
 		}
 	}
 
-	public static void removeProductToCartList(long productId, long cartId)
+	public static void removeProductToCartList(
+			Long[] productIdList, long cartId)
 		throws RemoteException {
 
 		try {
 			CartProductsListServiceUtil.removeProductToCartList(
-				productId, cartId);
+				ListUtil.toList(productIdList), cartId);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

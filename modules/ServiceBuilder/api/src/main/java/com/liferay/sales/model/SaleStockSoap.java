@@ -33,7 +33,9 @@ public class SaleStockSoap implements Serializable {
 		SaleStockSoap soapModel = new SaleStockSoap();
 
 		soapModel.setStockId(model.getStockId());
+		soapModel.setName(model.getName());
 		soapModel.setQuantity(model.getQuantity());
+		soapModel.setTypeId(model.getTypeId());
 
 		return soapModel;
 	}
@@ -95,6 +97,14 @@ public class SaleStockSoap implements Serializable {
 		_StockId = StockId;
 	}
 
+	public String getName() {
+		return _name;
+	}
+
+	public void setName(String name) {
+		_name = name;
+	}
+
 	public int getQuantity() {
 		return _quantity;
 	}
@@ -103,7 +113,17 @@ public class SaleStockSoap implements Serializable {
 		_quantity = quantity;
 	}
 
+	public long getTypeId() {
+		return _typeId;
+	}
+
+	public void setTypeId(long typeId) {
+		_typeId = typeId;
+	}
+
 	private long _StockId;
+	private String _name;
 	private int _quantity;
+	private long _typeId;
 
 }

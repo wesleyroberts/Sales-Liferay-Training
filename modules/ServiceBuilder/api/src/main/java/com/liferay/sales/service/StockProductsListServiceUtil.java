@@ -14,6 +14,8 @@
 
 package com.liferay.sales.service;
 
+import java.util.List;
+
 /**
  * Provides the remote service utility for StockProductsList. This utility wraps
  * <code>com.liferay.sales.service.impl.StockProductsListServiceImpl</code> and is an
@@ -33,14 +35,41 @@ public class StockProductsListServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.StockProductsListServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.sales.model.SaleStock addProductToStock(
+		com.liferay.sales.model.SaleProduct product) {
+
+		return getService().addProductToStock(product);
+	}
+
+	public static void deleteStockProductListByID(long id) {
+		getService().deleteStockProductListByID(id);
+	}
+
+	public static List<com.liferay.sales.model.SaleProduct>
+		getAllProductInStock() {
+
+		return getService().getAllProductInStock();
+	}
+
+	public static List<com.liferay.sales.model.SaleProduct>
+		getAllProductInStockByProductName(String name) {
+
+		return getService().getAllProductInStockByProductName(name);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static void removeProductFromStock(
+		com.liferay.sales.model.SaleProduct product) {
+
+		getService().removeProductFromStock(product);
 	}
 
 	public static StockProductsListService getService() {

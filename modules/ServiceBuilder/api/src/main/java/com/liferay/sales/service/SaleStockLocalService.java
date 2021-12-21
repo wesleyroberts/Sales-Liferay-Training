@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.model.SaleStock;
 
 import java.io.Serializable;
@@ -233,6 +234,9 @@ public interface SaleStockLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleStock getSaleStockById(long id);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleStock getSaleStockByProduct(SaleProduct product);
+
 	/**
 	 * Returns a range of all the sale stocks.
 	 *
@@ -268,6 +272,7 @@ public interface SaleStockLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public SaleStock updateSaleStock(SaleStock saleStock);
 
-	public SaleStock updateStock(long stockId, int quantity);
+	public SaleStock updateStock(
+		long stockId, int quantity, String name, long typeId);
 
 }

@@ -83,8 +83,10 @@ public class CartProductsListServiceHttp {
 		}
 	}
 
-	public static com.liferay.sales.model.CartProductsList addProductToCartList(
-		HttpPrincipal httpPrincipal, long productId, long cartId) {
+	public static java.util.List<com.liferay.sales.model.CartProductsList>
+		addProductToCartList(
+			HttpPrincipal httpPrincipal, java.util.List<Long> productIdList,
+			long cartId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -92,7 +94,7 @@ public class CartProductsListServiceHttp {
 				_addProductToCartListParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, productId, cartId);
+				methodKey, productIdList, cartId);
 
 			Object returnObj = null;
 
@@ -104,7 +106,8 @@ public class CartProductsListServiceHttp {
 					exception);
 			}
 
-			return (com.liferay.sales.model.CartProductsList)returnObj;
+			return (java.util.List<com.liferay.sales.model.CartProductsList>)
+				returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -116,7 +119,8 @@ public class CartProductsListServiceHttp {
 	}
 
 	public static void removeProductToCartList(
-		HttpPrincipal httpPrincipal, long productId, long cartId) {
+		HttpPrincipal httpPrincipal, java.util.List<Long> productIdList,
+		long cartId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -124,7 +128,7 @@ public class CartProductsListServiceHttp {
 				_removeProductToCartListParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, productId, cartId);
+				methodKey, productIdList, cartId);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
@@ -149,8 +153,8 @@ public class CartProductsListServiceHttp {
 	private static final Class<?>[] _getAllProductsByCarIDParameterTypes0 =
 		new Class[] {long.class};
 	private static final Class<?>[] _addProductToCartListParameterTypes1 =
-		new Class[] {long.class, long.class};
+		new Class[] {java.util.List.class, long.class};
 	private static final Class<?>[] _removeProductToCartListParameterTypes2 =
-		new Class[] {long.class, long.class};
+		new Class[] {java.util.List.class, long.class};
 
 }

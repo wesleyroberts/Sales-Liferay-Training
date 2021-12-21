@@ -24,7 +24,9 @@ create table SalesTaxe_SaleProduct (
 
 create table SalesTaxe_SaleStock (
 	StockId LONG not null primary key,
-	quantity INTEGER
+	name VARCHAR(75) null,
+	quantity INTEGER,
+	typeId LONG
 );
 
 create table SalesTaxe_SaleType (

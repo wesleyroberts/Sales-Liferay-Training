@@ -124,6 +124,70 @@ public class SaleStockUtil {
 	}
 
 	/**
+	 * Returns the sale stock where name = &#63; and typeId = &#63; or throws a <code>NoSuchSaleStockException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @param typeId the type ID
+	 * @return the matching sale stock
+	 * @throws NoSuchSaleStockException if a matching sale stock could not be found
+	 */
+	public static SaleStock findByName_And_Type(String name, long typeId)
+		throws com.liferay.sales.exception.NoSuchSaleStockException {
+
+		return getPersistence().findByName_And_Type(name, typeId);
+	}
+
+	/**
+	 * Returns the sale stock where name = &#63; and typeId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @param typeId the type ID
+	 * @return the matching sale stock, or <code>null</code> if a matching sale stock could not be found
+	 */
+	public static SaleStock fetchByName_And_Type(String name, long typeId) {
+		return getPersistence().fetchByName_And_Type(name, typeId);
+	}
+
+	/**
+	 * Returns the sale stock where name = &#63; and typeId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param typeId the type ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching sale stock, or <code>null</code> if a matching sale stock could not be found
+	 */
+	public static SaleStock fetchByName_And_Type(
+		String name, long typeId, boolean useFinderCache) {
+
+		return getPersistence().fetchByName_And_Type(
+			name, typeId, useFinderCache);
+	}
+
+	/**
+	 * Removes the sale stock where name = &#63; and typeId = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @param typeId the type ID
+	 * @return the sale stock that was removed
+	 */
+	public static SaleStock removeByName_And_Type(String name, long typeId)
+		throws com.liferay.sales.exception.NoSuchSaleStockException {
+
+		return getPersistence().removeByName_And_Type(name, typeId);
+	}
+
+	/**
+	 * Returns the number of sale stocks where name = &#63; and typeId = &#63;.
+	 *
+	 * @param name the name
+	 * @param typeId the type ID
+	 * @return the number of matching sale stocks
+	 */
+	public static int countByName_And_Type(String name, long typeId) {
+		return getPersistence().countByName_And_Type(name, typeId);
+	}
+
+	/**
 	 * Caches the sale stock in the entity cache if it is enabled.
 	 *
 	 * @param saleStock the sale stock

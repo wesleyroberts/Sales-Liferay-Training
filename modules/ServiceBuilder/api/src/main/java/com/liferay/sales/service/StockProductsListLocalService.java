@@ -29,6 +29,8 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.sales.model.SaleProduct;
+import com.liferay.sales.model.SaleStock;
 import com.liferay.sales.model.StockProductsList;
 
 import java.io.Serializable;
@@ -60,6 +62,7 @@ public interface StockProductsListLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.sales.service.impl.StockProductsListLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the stock products list local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link StockProductsListLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public SaleStock addProductToStock(SaleProduct product);
 
 	/**
 	 * Adds the stock products list to the database. Also notifies the appropriate model listeners.
@@ -74,6 +77,8 @@ public interface StockProductsListLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public StockProductsList addStockProductsList(
 		StockProductsList stockProductsList);
+
+	public Boolean checkIfExistStock(SaleProduct product);
 
 	/**
 	 * @throws PortalException
@@ -96,6 +101,8 @@ public interface StockProductsListLocalService
 	@Override
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException;
+
+	public void deleteStockProductListByID(long id);
 
 	/**
 	 * Deletes the stock products list with the primary key from the database. Also notifies the appropriate model listeners.
@@ -199,6 +206,12 @@ public interface StockProductsListLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleProduct> getAllProductInStock();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleProduct> getAllProductInStockByProductName(String name);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
@@ -248,6 +261,8 @@ public interface StockProductsListLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getStockProductsListsCount();
+
+	public void removeProductFromStock(SaleProduct product);
 
 	/**
 	 * Updates the stock products list in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

@@ -17,7 +17,6 @@ package com.liferay.sales.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.service.base.SaleCartServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 import java.util.List;

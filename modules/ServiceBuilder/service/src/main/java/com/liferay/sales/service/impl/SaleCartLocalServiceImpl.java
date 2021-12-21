@@ -18,7 +18,6 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.sales.exception.NoSuchSaleCartException;
 import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.service.base.SaleCartLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 import java.util.List;

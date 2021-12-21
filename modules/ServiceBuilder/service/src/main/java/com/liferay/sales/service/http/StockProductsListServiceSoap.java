@@ -14,9 +14,15 @@
 
 package com.liferay.sales.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.sales.service.StockProductsListServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * <code>com.liferay.sales.service.StockProductsListServiceUtil</code> service
+ * <code>StockProductsListServiceUtil</code> service
  * utility. The static methods of this class call the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
@@ -56,4 +62,94 @@ package com.liferay.sales.service.http;
  */
 @Deprecated
 public class StockProductsListServiceSoap {
+
+	public static com.liferay.sales.model.SaleStockSoap addProductToStock(
+			com.liferay.sales.model.SaleProductSoap product)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleStock returnValue =
+				StockProductsListServiceUtil.addProductToStock(
+					com.liferay.sales.model.impl.SaleProductModelImpl.toModel(
+						product));
+
+			return com.liferay.sales.model.SaleStockSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleProductSoap[]
+			getAllProductInStock()
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.sales.model.SaleProduct> returnValue =
+				StockProductsListServiceUtil.getAllProductInStock();
+
+			return com.liferay.sales.model.SaleProductSoap.toSoapModels(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.SaleProductSoap[]
+			getAllProductInStockByProductName(String name)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.sales.model.SaleProduct> returnValue =
+				StockProductsListServiceUtil.getAllProductInStockByProductName(
+					name);
+
+			return com.liferay.sales.model.SaleProductSoap.toSoapModels(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static void deleteStockProductListByID(long id)
+		throws RemoteException {
+
+		try {
+			StockProductsListServiceUtil.deleteStockProductListByID(id);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static void removeProductFromStock(
+			com.liferay.sales.model.SaleProductSoap product)
+		throws RemoteException {
+
+		try {
+			StockProductsListServiceUtil.removeProductFromStock(
+				com.liferay.sales.model.impl.SaleProductModelImpl.toModel(
+					product));
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		StockProductsListServiceSoap.class);
+
 }

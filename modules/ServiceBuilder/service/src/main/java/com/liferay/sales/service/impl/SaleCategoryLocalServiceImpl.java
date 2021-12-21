@@ -15,11 +15,9 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.sales.exception.NoSuchSaleCategoryException;
 import com.liferay.sales.model.SaleCategory;
 import com.liferay.sales.service.base.SaleCategoryLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 import java.util.List;

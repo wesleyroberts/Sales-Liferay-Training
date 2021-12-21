@@ -33,6 +33,13 @@ public class StockProductsListLocalServiceWrapper
 		_stockProductsListLocalService = stockProductsListLocalService;
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleStock addProductToStock(
+		com.liferay.sales.model.SaleProduct product) {
+
+		return _stockProductsListLocalService.addProductToStock(product);
+	}
+
 	/**
 	 * Adds the stock products list to the database. Also notifies the appropriate model listeners.
 	 *
@@ -49,6 +56,13 @@ public class StockProductsListLocalServiceWrapper
 
 		return _stockProductsListLocalService.addStockProductsList(
 			stockProductsList);
+	}
+
+	@Override
+	public Boolean checkIfExistStock(
+		com.liferay.sales.model.SaleProduct product) {
+
+		return _stockProductsListLocalService.checkIfExistStock(product);
 	}
 
 	/**
@@ -87,6 +101,11 @@ public class StockProductsListLocalServiceWrapper
 
 		return _stockProductsListLocalService.deletePersistedModel(
 			persistedModel);
+	}
+
+	@Override
+	public void deleteStockProductListByID(long id) {
+		_stockProductsListLocalService.deleteStockProductListByID(id);
 	}
 
 	/**
@@ -233,6 +252,21 @@ public class StockProductsListLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		getAllProductInStock() {
+
+		return _stockProductsListLocalService.getAllProductInStock();
+	}
+
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		getAllProductInStockByProductName(String name) {
+
+		return _stockProductsListLocalService.getAllProductInStockByProductName(
+			name);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 
@@ -302,6 +336,13 @@ public class StockProductsListLocalServiceWrapper
 	@Override
 	public int getStockProductsListsCount() {
 		return _stockProductsListLocalService.getStockProductsListsCount();
+	}
+
+	@Override
+	public void removeProductFromStock(
+		com.liferay.sales.model.SaleProduct product) {
+
+		_stockProductsListLocalService.removeProductFromStock(product);
 	}
 
 	/**

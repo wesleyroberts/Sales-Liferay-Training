@@ -83,7 +83,8 @@ public class SaleStockServiceHttp {
 	}
 
 	public static com.liferay.sales.model.SaleStock updateStock(
-		HttpPrincipal httpPrincipal, long stockId, int quantity) {
+		HttpPrincipal httpPrincipal, long stockId, int quantity, String name,
+		long typeId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -91,7 +92,7 @@ public class SaleStockServiceHttp {
 				_updateStockParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, stockId, quantity);
+				methodKey, stockId, quantity, name, typeId);
 
 			Object returnObj = null;
 
@@ -203,12 +204,44 @@ public class SaleStockServiceHttp {
 		}
 	}
 
+	public static com.liferay.sales.model.SaleStock getSaleStockByProduct(
+		HttpPrincipal httpPrincipal,
+		com.liferay.sales.model.SaleProduct product) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleStockServiceUtil.class, "getSaleStockByProduct",
+				_getSaleStockByProductParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, product);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleStock)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(SaleStockServiceHttp.class);
 
 	private static final Class<?>[] _getAllSaleStockParameterTypes0 =
 		new Class[] {};
 	private static final Class<?>[] _updateStockParameterTypes1 = new Class[] {
-		long.class, int.class
+		long.class, int.class, String.class, long.class
 	};
 	private static final Class<?>[] _createSaleStockParameterTypes2 =
 		new Class[] {};
@@ -216,5 +249,7 @@ public class SaleStockServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _deletesaleCartByIdParameterTypes4 =
 		new Class[] {long.class};
+	private static final Class<?>[] _getSaleStockByProductParameterTypes5 =
+		new Class[] {com.liferay.sales.model.SaleProduct.class};
 
 }

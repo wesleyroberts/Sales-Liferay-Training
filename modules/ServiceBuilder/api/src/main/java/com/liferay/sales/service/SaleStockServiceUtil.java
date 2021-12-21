@@ -62,8 +62,16 @@ public class SaleStockServiceUtil {
 		return getService().getSaleStockById(id);
 	}
 
-	public static SaleStock updateStock(long stockId, int quantity) {
-		return getService().updateStock(stockId, quantity);
+	public static SaleStock getSaleStockByProduct(
+		com.liferay.sales.model.SaleProduct product) {
+
+		return getService().getSaleStockByProduct(product);
+	}
+
+	public static SaleStock updateStock(
+		long stockId, int quantity, String name, long typeId) {
+
+		return getService().updateStock(stockId, quantity, name, typeId);
 	}
 
 	public static SaleStockService getService() {

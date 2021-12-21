@@ -76,7 +76,8 @@ public interface CartProductsListLocalService
 	public CartProductsList addCartProductsList(
 		CartProductsList cartProductsList);
 
-	public CartProductsList addProductToCartList(long productId, long cartId);
+	public List<CartProductsList> addProductToCartList(
+		List<Long> productsIdList, long cartId);
 
 	/**
 	 * Creates a new cart products list with the primary key. Does not add the cart products list to the database.
@@ -255,7 +256,7 @@ public interface CartProductsListLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public void removeProductToCartList(long productId, long cartId);
+	public void removeProductToCartList(List<Long> productsIdList, long cartId);
 
 	/**
 	 * Updates the cart products list in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

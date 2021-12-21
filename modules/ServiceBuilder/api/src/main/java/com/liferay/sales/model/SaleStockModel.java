@@ -14,6 +14,7 @@
 
 package com.liferay.sales.model;
 
+import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -67,6 +68,21 @@ public interface SaleStockModel extends BaseModel<SaleStock> {
 	public void setStockId(long StockId);
 
 	/**
+	 * Returns the name of this sale stock.
+	 *
+	 * @return the name of this sale stock
+	 */
+	@AutoEscape
+	public String getName();
+
+	/**
+	 * Sets the name of this sale stock.
+	 *
+	 * @param name the name of this sale stock
+	 */
+	public void setName(String name);
+
+	/**
 	 * Returns the quantity of this sale stock.
 	 *
 	 * @return the quantity of this sale stock
@@ -79,5 +95,19 @@ public interface SaleStockModel extends BaseModel<SaleStock> {
 	 * @param quantity the quantity of this sale stock
 	 */
 	public void setQuantity(int quantity);
+
+	/**
+	 * Returns the type ID of this sale stock.
+	 *
+	 * @return the type ID of this sale stock
+	 */
+	public long getTypeId();
+
+	/**
+	 * Sets the type ID of this sale stock.
+	 *
+	 * @param typeId the type ID of this sale stock
+	 */
+	public void setTypeId(long typeId);
 
 }

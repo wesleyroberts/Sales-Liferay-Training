@@ -20,7 +20,12 @@ import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.sales.model.SaleProduct;
+import com.liferay.sales.model.SaleStock;
+
+import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -47,6 +52,15 @@ public interface StockProductsListService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.sales.service.impl.StockProductsListServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the stock products list remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link StockProductsListServiceUtil} if injection and service tracking are not available.
 	 */
+	public SaleStock addProductToStock(SaleProduct product);
+
+	public void deleteStockProductListByID(long id);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleProduct> getAllProductInStock();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleProduct> getAllProductInStockByProductName(String name);
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -54,5 +68,7 @@ public interface StockProductsListService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	public void removeProductFromStock(SaleProduct product);
 
 }

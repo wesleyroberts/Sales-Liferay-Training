@@ -258,6 +258,12 @@ public class SaleStockLocalServiceUtil {
 		return getService().getSaleStockById(id);
 	}
 
+	public static SaleStock getSaleStockByProduct(
+		com.liferay.sales.model.SaleProduct product) {
+
+		return getService().getSaleStockByProduct(product);
+	}
+
 	/**
 	 * Returns a range of all the sale stocks.
 	 *
@@ -296,8 +302,10 @@ public class SaleStockLocalServiceUtil {
 		return getService().updateSaleStock(saleStock);
 	}
 
-	public static SaleStock updateStock(long stockId, int quantity) {
-		return getService().updateStock(stockId, quantity);
+	public static SaleStock updateStock(
+		long stockId, int quantity, String name, long typeId) {
+
+		return getService().updateStock(stockId, quantity, name, typeId);
 	}
 
 	public static SaleStockLocalService getService() {

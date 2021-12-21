@@ -42,7 +42,9 @@ public class SaleStockWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("StockId", getStockId());
+		attributes.put("name", getName());
 		attributes.put("quantity", getQuantity());
+		attributes.put("typeId", getTypeId());
 
 		return attributes;
 	}
@@ -55,11 +57,33 @@ public class SaleStockWrapper
 			setStockId(StockId);
 		}
 
+		String name = (String)attributes.get("name");
+
+		if (name != null) {
+			setName(name);
+		}
+
 		Integer quantity = (Integer)attributes.get("quantity");
 
 		if (quantity != null) {
 			setQuantity(quantity);
 		}
+
+		Long typeId = (Long)attributes.get("typeId");
+
+		if (typeId != null) {
+			setTypeId(typeId);
+		}
+	}
+
+	/**
+	 * Returns the name of this sale stock.
+	 *
+	 * @return the name of this sale stock
+	 */
+	@Override
+	public String getName() {
+		return model.getName();
 	}
 
 	/**
@@ -92,9 +116,29 @@ public class SaleStockWrapper
 		return model.getStockId();
 	}
 
+	/**
+	 * Returns the type ID of this sale stock.
+	 *
+	 * @return the type ID of this sale stock
+	 */
+	@Override
+	public long getTypeId() {
+		return model.getTypeId();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the name of this sale stock.
+	 *
+	 * @param name the name of this sale stock
+	 */
+	@Override
+	public void setName(String name) {
+		model.setName(name);
 	}
 
 	/**
@@ -125,6 +169,16 @@ public class SaleStockWrapper
 	@Override
 	public void setStockId(long StockId) {
 		model.setStockId(StockId);
+	}
+
+	/**
+	 * Sets the type ID of this sale stock.
+	 *
+	 * @param typeId the type ID of this sale stock
+	 */
+	@Override
+	public void setTypeId(long typeId) {
+		model.setTypeId(typeId);
 	}
 
 	@Override

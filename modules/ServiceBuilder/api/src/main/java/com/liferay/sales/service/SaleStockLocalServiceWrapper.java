@@ -281,6 +281,13 @@ public class SaleStockLocalServiceWrapper
 		return _saleStockLocalService.getSaleStockById(id);
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleStock getSaleStockByProduct(
+		com.liferay.sales.model.SaleProduct product) {
+
+		return _saleStockLocalService.getSaleStockByProduct(product);
+	}
+
 	/**
 	 * Returns a range of all the sale stocks.
 	 *
@@ -328,9 +335,10 @@ public class SaleStockLocalServiceWrapper
 
 	@Override
 	public com.liferay.sales.model.SaleStock updateStock(
-		long stockId, int quantity) {
+		long stockId, int quantity, String name, long typeId) {
 
-		return _saleStockLocalService.updateStock(stockId, quantity);
+		return _saleStockLocalService.updateStock(
+			stockId, quantity, name, typeId);
 	}
 
 	@Override

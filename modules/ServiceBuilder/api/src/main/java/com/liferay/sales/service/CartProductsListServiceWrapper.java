@@ -34,10 +34,11 @@ public class CartProductsListServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.CartProductsList addProductToCartList(
-		long productId, long cartId) {
+	public java.util.List<com.liferay.sales.model.CartProductsList>
+		addProductToCartList(java.util.List<Long> productIdList, long cartId) {
 
-		return _cartProductsListService.addProductToCartList(productId, cartId);
+		return _cartProductsListService.addProductToCartList(
+			productIdList, cartId);
 	}
 
 	@Override
@@ -58,8 +59,10 @@ public class CartProductsListServiceWrapper
 	}
 
 	@Override
-	public void removeProductToCartList(long productId, long cartId) {
-		_cartProductsListService.removeProductToCartList(productId, cartId);
+	public void removeProductToCartList(
+		java.util.List<Long> productIdList, long cartId) {
+
+		_cartProductsListService.removeProductToCartList(productIdList, cartId);
 	}
 
 	@Override

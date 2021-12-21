@@ -41,6 +41,56 @@ public interface SaleStockPersistence extends BasePersistence<SaleStock> {
 	 */
 
 	/**
+	 * Returns the sale stock where name = &#63; and typeId = &#63; or throws a <code>NoSuchSaleStockException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @param typeId the type ID
+	 * @return the matching sale stock
+	 * @throws NoSuchSaleStockException if a matching sale stock could not be found
+	 */
+	public SaleStock findByName_And_Type(String name, long typeId)
+		throws NoSuchSaleStockException;
+
+	/**
+	 * Returns the sale stock where name = &#63; and typeId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @param typeId the type ID
+	 * @return the matching sale stock, or <code>null</code> if a matching sale stock could not be found
+	 */
+	public SaleStock fetchByName_And_Type(String name, long typeId);
+
+	/**
+	 * Returns the sale stock where name = &#63; and typeId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param typeId the type ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching sale stock, or <code>null</code> if a matching sale stock could not be found
+	 */
+	public SaleStock fetchByName_And_Type(
+		String name, long typeId, boolean useFinderCache);
+
+	/**
+	 * Removes the sale stock where name = &#63; and typeId = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @param typeId the type ID
+	 * @return the sale stock that was removed
+	 */
+	public SaleStock removeByName_And_Type(String name, long typeId)
+		throws NoSuchSaleStockException;
+
+	/**
+	 * Returns the number of sale stocks where name = &#63; and typeId = &#63;.
+	 *
+	 * @param name the name
+	 * @param typeId the type ID
+	 * @return the number of matching sale stocks
+	 */
+	public int countByName_And_Type(String name, long typeId);
+
+	/**
 	 * Caches the sale stock in the entity cache if it is enabled.
 	 *
 	 * @param saleStock the sale stock

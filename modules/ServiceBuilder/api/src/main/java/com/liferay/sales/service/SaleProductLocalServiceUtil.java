@@ -84,6 +84,13 @@ public class SaleProductLocalServiceUtil {
 		return getService().createSaleProduct(name, price, categoryId, typeId);
 	}
 
+	public static List<SaleProduct> createSaleProductInScale(
+		String name, double price, long categoryId, long typeId, int quantity) {
+
+		return getService().createSaleProductInScale(
+			name, price, categoryId, typeId, quantity);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -125,8 +132,8 @@ public class SaleProductLocalServiceUtil {
 		return getService().deleteSaleProduct(saleProduct);
 	}
 
-	public static SaleProduct deleteSaleProductById(long id) {
-		return getService().deleteSaleProductById(id);
+	public static void deleteSaleProductById(long id) {
+		getService().deleteSaleProductById(id);
 	}
 
 	public static DynamicQuery dynamicQuery() {
