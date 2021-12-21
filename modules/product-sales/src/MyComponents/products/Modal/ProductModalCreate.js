@@ -41,6 +41,13 @@ export default function ProductModalCreate({
     .catch((error) => {console.log("error:", error); setAlertError(true)});
   }
 
+  const handleCartCreateDisabled = () => {
+    if(!name){
+      return true
+    }
+    return false
+  }
+
   return (
     <div>
       {showCreateModal && (
@@ -98,6 +105,7 @@ export default function ProductModalCreate({
               </ClayForm.Group>
               <ClayButton
                 displayType="primary"
+                disabled={handleCartCreateDisabled()}
                 onClick={handleProductCreate}
               >
                 Criar
