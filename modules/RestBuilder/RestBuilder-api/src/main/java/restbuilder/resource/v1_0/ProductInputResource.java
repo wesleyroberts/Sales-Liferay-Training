@@ -3,6 +3,7 @@ package restbuilder.resource.v1_0;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.pagination.Page;
 
 import java.util.Locale;
 
@@ -17,6 +18,7 @@ import org.osgi.annotation.versioning.ProviderType;
 
 import restbuilder.dto.v1_0.ProductInput;
 import restbuilder.dto.v1_0.ProductOutput;
+import restbuilder.dto.v1_0.Stock;
 
 /**
  * To access this resource, run:
@@ -34,11 +36,16 @@ public interface ProductInputResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public ProductOutput createProduct(ProductInput productInput)
+	public Page<ProductOutput> createProduct(ProductInput productInput)
 		throws Exception;
 
 	public ProductOutput updateProductById(
 			Integer productId, ProductInput productInput)
+		throws Exception;
+
+	public Stock addProductInStock(Integer[] productIdList) throws Exception;
+
+	public void removeProductFromStock(Integer[] productIdList)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

@@ -21,6 +21,8 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -28,30 +30,28 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName(description = "Product", value = "ProductInput")
+@GraphQLName(description = "Stock", value = "Stock")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "ProductInput")
-public class ProductInput implements Serializable {
+@XmlRootElement(name = "Stock")
+public class Stock implements Serializable {
 
-	public static ProductInput toDTO(String json) {
-		return ObjectMapperUtil.readValue(ProductInput.class, json);
+	public static Stock toDTO(String json) {
+		return ObjectMapperUtil.readValue(Stock.class, json);
 	}
 
-	@Schema(description = "The category ID.")
-	public Integer getCategoryId() {
-		return categoryId;
+	@Schema(description = "The category name.")
+	public Integer getId() {
+		return id;
 	}
 
-	public void setCategoryId(Integer categoryId) {
-		this.categoryId = categoryId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@JsonIgnore
-	public void setCategoryId(
-		UnsafeSupplier<Integer, Exception> categoryIdUnsafeSupplier) {
-
+	public void setId(UnsafeSupplier<Integer, Exception> idUnsafeSupplier) {
 		try {
-			categoryId = categoryIdUnsafeSupplier.get();
+			id = idUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -61,23 +61,25 @@ public class ProductInput implements Serializable {
 		}
 	}
 
-	@GraphQLField(description = "The category ID.")
+	@GraphQLField(description = "The category name.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Integer categoryId;
+	protected Integer id;
 
-	@Schema(description = "The entity name.")
-	public String getName() {
-		return name;
+	@Schema(description = "name of the product")
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 	@JsonIgnore
-	public void setName(UnsafeSupplier<String, Exception> nameUnsafeSupplier) {
+	public void setProductName(
+		UnsafeSupplier<String, Exception> productNameUnsafeSupplier) {
+
 		try {
-			name = nameUnsafeSupplier.get();
+			productName = productNameUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -87,39 +89,11 @@ public class ProductInput implements Serializable {
 		}
 	}
 
-	@GraphQLField(description = "The entity name.")
+	@GraphQLField(description = "name of the product")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String name;
+	protected String productName;
 
-	@Schema(description = "The price product.")
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	@JsonIgnore
-	public void setPrice(
-		UnsafeSupplier<Double, Exception> priceUnsafeSupplier) {
-
-		try {
-			price = priceUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField(description = "The price product.")
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Double price;
-
-	@Schema(description = "number products that will be create")
+	@Schema(description = "The tax category.")
 	public Integer getQuantity() {
 		return quantity;
 	}
@@ -143,25 +117,24 @@ public class ProductInput implements Serializable {
 		}
 	}
 
-	@GraphQLField(description = "number products that will be create")
+	@GraphQLField(description = "The tax category.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer quantity;
 
-	@Schema(description = "The type ID.")
-	public Integer getTypeId() {
-		return typeId;
+	@Schema(description = "type of the product")
+	@Valid
+	public Type getType() {
+		return type;
 	}
 
-	public void setTypeId(Integer typeId) {
-		this.typeId = typeId;
+	public void setType(Type type) {
+		this.type = type;
 	}
 
 	@JsonIgnore
-	public void setTypeId(
-		UnsafeSupplier<Integer, Exception> typeIdUnsafeSupplier) {
-
+	public void setType(UnsafeSupplier<Type, Exception> typeUnsafeSupplier) {
 		try {
-			typeId = typeIdUnsafeSupplier.get();
+			type = typeUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -171,9 +144,9 @@ public class ProductInput implements Serializable {
 		}
 	}
 
-	@GraphQLField(description = "The type ID.")
+	@GraphQLField(description = "type of the product")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Integer typeId;
+	protected Type type;
 
 	@Override
 	public boolean equals(Object object) {
@@ -181,13 +154,13 @@ public class ProductInput implements Serializable {
 			return true;
 		}
 
-		if (!(object instanceof ProductInput)) {
+		if (!(object instanceof Stock)) {
 			return false;
 		}
 
-		ProductInput productInput = (ProductInput)object;
+		Stock stock = (Stock)object;
 
-		return Objects.equals(toString(), productInput.toString());
+		return Objects.equals(toString(), stock.toString());
 	}
 
 	@Override
@@ -202,38 +175,28 @@ public class ProductInput implements Serializable {
 
 		sb.append("{");
 
-		if (categoryId != null) {
+		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"categoryId\": ");
+			sb.append("\"id\": ");
 
-			sb.append(categoryId);
+			sb.append(id);
 		}
 
-		if (name != null) {
+		if (productName != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"name\": ");
+			sb.append("\"productName\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(name));
+			sb.append(_escape(productName));
 
 			sb.append("\"");
-		}
-
-		if (price != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"price\": ");
-
-			sb.append(price);
 		}
 
 		if (quantity != null) {
@@ -246,14 +209,14 @@ public class ProductInput implements Serializable {
 			sb.append(quantity);
 		}
 
-		if (typeId != null) {
+		if (type != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"typeId\": ");
+			sb.append("\"type\": ");
 
-			sb.append(typeId);
+			sb.append(String.valueOf(type));
 		}
 
 		sb.append("}");
@@ -263,8 +226,7 @@ public class ProductInput implements Serializable {
 
 	@Schema(
 		accessMode = Schema.AccessMode.READ_ONLY,
-		defaultValue = "restbuilder.dto.v1_0.ProductInput",
-		name = "x-class-name"
+		defaultValue = "restbuilder.dto.v1_0.Stock", name = "x-class-name"
 	)
 	public String xClassName;
 

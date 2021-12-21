@@ -1,6 +1,23 @@
 
 components:
   schemas:
+    Stock:
+      description: Stock
+      properties:
+        id:
+          description: The category name.
+          type: integer
+        quantity:
+          description: The tax category.
+          type: integer
+        productName:
+          description: name of the product
+          type: string
+        type:
+          description: type of the product
+          allOf:
+            - $ref: "#/components/schemas/Type"
+      type: object
     Category:
       description: Category
       properties:
@@ -67,6 +84,9 @@ components:
           description: The price product.
           format: double
           type: number
+        quantity:
+          description: number products that will be create
+          type: integer
       type: object
     ProductOutput:
       description: Product
@@ -184,10 +204,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ProductOutput"
+                items:
+                  $ref: "#/components/schemas/ProductOutput"
+                type: array
             application/xml:
               schema:
-                $ref: "#/components/schemas/ProductOutput"
+                items:
+                  $ref: "#/components/schemas/ProductOutput"
+                type: array
           description: ""
       tags: ["ProductInput"]
   "/product/update/{productId}":
@@ -216,6 +240,55 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/ProductOutput"
+          description: ""
+      tags: ["ProductInput"]
+  "/addProductInStock/{productIdList}":
+    patch:
+      operationId: addProductInStock
+      parameters:
+        - in: path
+          name: productIdList
+          required: true
+          description: A comma-separated list of user IDs.
+          schema:
+            type: array
+            items:
+              type: integer
+            minItems: 1
+          explode: false
+          style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Stock"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Stock"
+          description: ""
+      tags: ["ProductInput"]
+
+  "/removeProductFromStock/{productIdList}":
+    patch:
+      operationId: removeProductFromStock
+      parameters:
+        - in: path
+          name: productIdList
+          required: true
+          description: A comma-separated list of user IDs.
+          schema:
+            type: array
+            items:
+              type: integer
+            minItems: 1
+          explode: false
+          style: simple
+      responses:
+        204:
+          content:
+            application/json: {}
+            application/xml: {}
           description: ""
       tags: ["ProductInput"]
   "/product/delete/{productId}":
@@ -543,8 +616,8 @@ paths:
           description: ""
       tags: ["CartOutput"]
 
-  "/addProduct/carts/{cartId}/products/{productId}":
-    post:
+  "/addProduct/carts/{cartId}/products/{productId}/quantity/{quantity}":
+    patch:
       operationId: addProductToCart
       parameters:
         - in: path
@@ -554,6 +627,11 @@ paths:
             type: integer
         - in: path
           name: productId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: quantity
           required: true
           schema:
             type: integer
@@ -569,8 +647,8 @@ paths:
           description: ""
       tags: ["CartOutput"]
 
-  "/removeProduct/carts/{cartId}/products/{productId}":
-    post:
+  "/removeProduct/carts/{cartId}/products/{productId}/quantity/{quantity}":
+    patch:
       operationId: removeProductToCart
       parameters:
         - in: path
@@ -580,6 +658,11 @@ paths:
             type: integer
         - in: path
           name: productId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: quantity
           required: true
           schema:
             type: integer

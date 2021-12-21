@@ -281,21 +281,7 @@ public abstract class BaseCartOutputResourceTestCase {
 
 	@Test
 	public void testAddProductToCart() throws Exception {
-		CartOutput randomCartOutput = randomCartOutput();
-
-		CartOutput postCartOutput = testAddProductToCart_addCartOutput(
-			randomCartOutput);
-
-		assertEquals(randomCartOutput, postCartOutput);
-		assertValid(postCartOutput);
-	}
-
-	protected CartOutput testAddProductToCart_addCartOutput(
-			CartOutput cartOutput)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		Assert.assertTrue(false);
 	}
 
 	@Test
@@ -305,11 +291,13 @@ public abstract class BaseCartOutputResourceTestCase {
 
 		assertHttpResponseStatusCode(
 			204,
-			cartOutputResource.removeProductToCartHttpResponse(null, null));
+			cartOutputResource.removeProductToCartHttpResponse(
+				null, null, null));
 
 		assertHttpResponseStatusCode(
 			404,
-			cartOutputResource.removeProductToCartHttpResponse(null, null));
+			cartOutputResource.removeProductToCartHttpResponse(
+				null, null, null));
 	}
 
 	protected CartOutput testRemoveProductToCart_addCartOutput()
