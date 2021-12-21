@@ -41,7 +41,7 @@ public class TypeResourceImpl extends BaseTypeResourceImpl {
 	@Tags(value = {@Tag(name = "Type")})
 	public Page<Type> getAllTypes() throws Exception {
 		List<Type> listTypeDTO = new ArrayList<Type>();
-		for(SaleType e: _saleTypeService.getAll()){
+		for(SaleType e: _saleTypeService.getAllSaleType()){
 			listTypeDTO.add(_toTypeDTO(e));
 		}
 		return Page.of(listTypeDTO);

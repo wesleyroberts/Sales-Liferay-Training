@@ -41,7 +41,7 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 	@Tags(value = {@Tag(name = "Category")})
 	public Page<Category> getAllCategories() throws Exception {
 		List<Category> listCategory = new ArrayList<Category>();
-		for (SaleCategory e: _saleCategoryService.getAll()){
+		for (SaleCategory e: _saleCategoryService.getAllSaleCategory()){
 			listCategory.add(_toCategoryDTO(e));
 		}
 		return Page.of(listCategory);
