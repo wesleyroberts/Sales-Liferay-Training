@@ -41,7 +41,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -53,7 +52,6 @@ import javax.ws.rs.core.UriInfo;
 
 import restbuilder.dto.v1_0.ProductInput;
 import restbuilder.dto.v1_0.ProductOutput;
-import restbuilder.dto.v1_0.Stock;
 
 import restbuilder.resource.v1_0.ProductInputResource;
 
@@ -103,42 +101,6 @@ public abstract class BaseProductInputResourceImpl
 		throws Exception {
 
 		return new ProductOutput();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/addProductToStock/{productID}'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "productID")})
-	@PATCH
-	@Path("/addProductToStock/{productID}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ProductInput")})
-	public Stock addProductToStock(
-			@NotNull @Parameter(hidden = true) @PathParam("productID") Integer
-				productID)
-		throws Exception {
-
-		return new Stock();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/removeProductFromStock/{productID}'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "productID")})
-	@PATCH
-	@Path("/removeProductFromStock/{productID}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ProductInput")})
-	public void removeProductFromStock(
-			@NotNull @Parameter(hidden = true) @PathParam("productID") Integer
-				productID)
-		throws Exception {
 	}
 
 	@Override

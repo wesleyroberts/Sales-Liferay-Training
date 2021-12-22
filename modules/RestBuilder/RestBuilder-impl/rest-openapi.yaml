@@ -242,45 +242,7 @@ paths:
                 $ref: "#/components/schemas/ProductOutput"
           description: ""
       tags: ["ProductInput"]
-  "/addProductToStock/{productID}":
-    patch:
-      operationId: addProductToStock
-      parameters:
-        - in: path
-          name: productID
-          required: true
-          description: A comma-separated list of user IDs.
-          schema:
-            type: integer
-      responses:
-        200:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Stock"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/Stock"
-          description: ""
-      tags: ["ProductInput"]
 
-  "/removeProductFromStock/{productID}":
-    patch:
-      operationId: removeProductFromStock
-      parameters:
-        - in: path
-          name: productID
-          required: true
-          description: A comma-separated list of user IDs.
-          schema:
-            type: integer
-      responses:
-        204:
-          content:
-            application/json: {}
-            application/xml: {}
-          description: ""
-      tags: ["ProductInput"]
   "/product/delete/{productId}":
     delete:
       operationId: deleteProductById
