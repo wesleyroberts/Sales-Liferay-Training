@@ -5,6 +5,8 @@ import ClayButton from "@clayui/button";
 import ClayModal, { useModal } from "@clayui/modal";
 import { ClaySelect } from "@clayui/form";
 
+import { Alert } from "../../alert/CustomAlert"
+
 export default function ProductModalCreate({
   typesList,
   categoryList,
@@ -16,10 +18,35 @@ export default function ProductModalCreate({
   const [category, setCategory] = useState("1");
   const [type, setType] = useState("1");
   const [price, setPrice] = useState(0);
+  const [alertSuccess, setAlertSuccess] = useState(false)
+  const [alertError, setAlertError] = useState(false)
 
   const { observer, onClose } = useModal({
     onClose: () => setShowCreateModal(false),
   });
+
+  const handleProductCreate = () => {
+    CreateProduct(
+      name,
+      price,
+      parseInt(category),
+      parseInt(type)
+    ).then((response) => {
+      if(response.status) throw new Error(JSON.stringify(response.status))
+      else {
+        addProduct(response)
+        setAlertSuccess(true)
+      }
+    })
+    .catch((error) => {console.log("error:", error); setAlertError(true)});
+  }
+
+  const handleCartCreateDisabled = () => {
+    if(!name){
+      return true
+    }
+    return false
+  }
 
   return (
     <div>
@@ -78,14 +105,8 @@ export default function ProductModalCreate({
               </ClayForm.Group>
               <ClayButton
                 displayType="primary"
-                onClick={() => {
-                  CreateProduct(
-                    name,
-                    price,
-                    parseInt(category),
-                    parseInt(type)
-                  ).then((data) => addProduct(data));
-                }}
+                disabled={handleCartCreateDisabled()}
+                onClick={handleProductCreate}
               >
                 Criar
               </ClayButton>
@@ -96,6 +117,16 @@ export default function ProductModalCreate({
             last={<ClayButton onClick={onClose}>{"Fechar"}</ClayButton>}
           />
         </ClayModal>
+      )}
+      {alertSuccess && (
+        <Alert displayType={"success"} title={"Success: "} message={"The product were successfully created"}>
+          {setTimeout(() => setAlertSuccess(false), 5000)}
+        </Alert>
+      )}
+      {alertError && (
+        <Alert displayType={"danger"} title={"Error: "} message={"The product couldn't be created"}>
+          {setTimeout(() => setAlertError(false), 5000)}
+        </Alert>
       )}
     </div>
   );

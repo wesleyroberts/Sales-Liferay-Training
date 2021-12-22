@@ -7,6 +7,7 @@ import ClayCard, { ClayCardWithInfo } from "@clayui/card";
 import ClayButton from "@clayui/button";
 
 import ProductAddToCartModal from "./Modal/ProductAddToCartModal";
+import { Alert } from "../alert/CustomAlert"
 
 export default function Products({
   productList,
@@ -27,6 +28,7 @@ export default function Products({
     price: "",
   });
   const [productId, setproductId] = useState(0);
+  const [alertDeleteSuccess, setAlertDeleteSuccess] = useState(false)
 
   function handleModalEdit(name, category, type, price) {
     setShowEditModal(true);
@@ -44,6 +46,20 @@ export default function Products({
     setproductId(id);
     setProductAddToCartModal(true);
   }
+
+  const handleProductDelete = (id) => {
+    DeleteProductByID(id).then((response) => {
+      if(!response.ok) {
+        console.log(response)
+        throw new Error(response.status)}
+      else {
+        deleteProduct(id)
+        setAlertDeleteSuccess(true)
+      }
+    })
+    .catch((error) => console.log("error:", error));
+  }
+
   return (
     <div>
       <ProductAddToCartModal
@@ -88,11 +104,8 @@ export default function Products({
                     },
                     { type: "divider" },
                     {
-                      href: "#",
                       label: "Delete",
-                      onClick: () => {
-                        DeleteProductByID(item.id), deleteProduct(item.id);
-                      },
+                      onClick: () => handleProductDelete(item.id),
                     },
                     { type: "divider" },
                     {
@@ -116,6 +129,11 @@ export default function Products({
           <ClayButton displayType="primary" onClick={() => handleModalCreate()}>
             Create Product
           </ClayButton>
+          {alertDeleteSuccess && (
+            <Alert displayType={"success"} title={"Success: "} message={"The product were successfully deleted"}>
+              {setTimeout(() => setAlertDeleteSuccess(false), 5000)}
+            </Alert>
+          )}
         </ClayCard.Body>
       </ClayCard>
     </div>
