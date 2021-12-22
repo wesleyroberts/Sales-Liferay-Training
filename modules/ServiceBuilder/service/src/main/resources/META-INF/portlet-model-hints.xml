@@ -21,9 +21,19 @@
 		<field name="categoryId" type="long" />
 		<field name="typeId" type="long" />
 	</model>
+	<model name="com.liferay.sales.model.SaleStock">
+		<field name="StockId" type="long" />
+		<field name="name" type="String" />
+		<field name="quantity" type="int" />
+		<field name="typeId" type="long" />
+	</model>
 	<model name="com.liferay.sales.model.SaleType">
 		<field name="typeId" type="long" />
 		<field name="name" type="String" />
 		<field name="tax" type="double" />
+	</model>
+	<model name="com.liferay.sales.model.StockProductsList">
+		<field name="productId" type="long" />
+		<field name="StockId" type="long" />
 	</model>
 </model-hints>

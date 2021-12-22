@@ -81,16 +81,16 @@ public class CartProductsListServiceSoap {
 		}
 	}
 
-	public static com.liferay.sales.model.CartProductsListSoap
-			addProductToCartList(long productId, long cartId)
+	public static com.liferay.sales.model.SaleCartSoap addProductToCartList(
+			long productId, long cartId)
 		throws RemoteException {
 
 		try {
-			com.liferay.sales.model.CartProductsList returnValue =
+			com.liferay.sales.model.SaleCart returnValue =
 				CartProductsListServiceUtil.addProductToCartList(
 					productId, cartId);
 
-			return com.liferay.sales.model.CartProductsListSoap.toSoapModel(
+			return com.liferay.sales.model.SaleCartSoap.toSoapModel(
 				returnValue);
 		}
 		catch (Exception exception) {
@@ -106,6 +106,24 @@ public class CartProductsListServiceSoap {
 		try {
 			CartProductsListServiceUtil.removeProductToCartList(
 				productId, cartId);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.CartProductsListSoap
+			deleteCartProductsList(long productId)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.CartProductsList returnValue =
+				CartProductsListServiceUtil.deleteCartProductsList(productId);
+
+			return com.liferay.sales.model.CartProductsListSoap.toSoapModel(
+				returnValue);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

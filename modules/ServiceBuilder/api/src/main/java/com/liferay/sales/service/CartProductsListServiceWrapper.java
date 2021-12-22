@@ -34,10 +34,18 @@ public class CartProductsListServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.CartProductsList addProductToCartList(
+	public com.liferay.sales.model.SaleCart addProductToCartList(
 		long productId, long cartId) {
 
 		return _cartProductsListService.addProductToCartList(productId, cartId);
+	}
+
+	@Override
+	public com.liferay.sales.model.CartProductsList deleteCartProductsList(
+			long productId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cartProductsListService.deleteCartProductsList(productId);
 	}
 
 	@Override

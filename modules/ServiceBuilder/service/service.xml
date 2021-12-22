@@ -39,7 +39,6 @@
 
 	</entity>
 	<entity name="SaleType" local-service="true" remote-service="true">
-
 		<!-- PK fields -->
 		<column name="typeId" primary="true" type="long" />
 
@@ -66,8 +65,33 @@
 		<column name="cartId" type="long" />
 
 	</entity>
+	<entity name="SaleStock" local-service="true" remote-service="true">
+
+	<!-- PK fields -->
+	<column name="StockId" primary="true" type="long" />
+	<column name="name" type="String" />
+	<column name="quantity" type="int"/>
+	<column name="typeId" type="long" />
+
+	<!-- Creating finder -->
+	<finder name="Name_And_Type" return-type="SaleStock">
+		<finder-column name="name"/>
+		<finder-column name="typeId"/>
+	</finder>
+
+	</entity>
+	<entity name="StockProductsList" local-service="true" remote-service="true">
+		<!-- Other fields -->
+		<column name="productId" primary="true" type="long"/>
+		<column name="StockId" type="long" />
+	</entity>
+
 	<exceptions>
 		<exception>DuplicateProductId</exception>
+		<exception>DuplicateCategoryId</exception>
+		<exception>DuplicateTypeId</exception>
+		<exception>DuplicateCartId</exception>
+		<exception>DuplicateStockId</exception>
 		<exception>CategoryName</exception>
 		<exception>TypeName</exception>
 	</exceptions>

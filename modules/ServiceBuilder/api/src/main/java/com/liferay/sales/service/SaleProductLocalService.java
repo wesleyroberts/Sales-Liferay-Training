@@ -92,7 +92,8 @@ public interface SaleProductLocalService
 	public SaleProduct createSaleProduct(
 		String name, double price, long categoryId, long typeId);
 
-	public SaleProduct deleteById(long id);
+	public List<SaleProduct> createSaleProductInScale(
+		String name, double price, long categoryId, long typeId, int quantity);
 
 	/**
 	 * @throws PortalException
@@ -127,6 +128,8 @@ public interface SaleProductLocalService
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public SaleProduct deleteSaleProduct(SaleProduct saleProduct);
+
+	public void deleteSaleProductById(long id);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();
@@ -201,13 +204,7 @@ public interface SaleProductLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<SaleProduct> getAll();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public SaleProduct getById(long id);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public SaleProduct getByName(String name);
+	public List<SaleProduct> getAllSaleProduct();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
@@ -227,6 +224,9 @@ public interface SaleProductLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleProduct getSalePoductById(long id);
+
 	/**
 	 * Returns the sale product with the primary key.
 	 *
@@ -236,6 +236,9 @@ public interface SaleProductLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleProduct getSaleProduct(long productId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SaleProduct getSaleProductByName(String name);
 
 	/**
 	 * Returns a range of all the sale products.

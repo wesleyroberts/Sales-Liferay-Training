@@ -54,7 +54,10 @@ public interface SaleProductService extends BaseService {
 	public SaleProduct createSaleProduct(
 		String name, double price, long categoryId, long typeId);
 
-	public SaleProduct deleteById(long id);
+	public List<SaleProduct> createSaleProductInScale(
+		String name, double price, long categoryId, long typeId, int quantity);
+
+	public void deleteById(long id);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<SaleProduct> getAllSaleProducts();

@@ -81,7 +81,7 @@ public class SaleTypeLocalServiceImpl extends SaleTypeLocalServiceBaseImpl {
 		}
 	}
 
-	public List<SaleType> getAll(){
+	public List<SaleType> getAllSaleType(){
 		try {
 			return saleTypePersistence.findAll();
 		} catch (Exception e) {

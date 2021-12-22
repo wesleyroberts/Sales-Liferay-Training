@@ -11,7 +11,9 @@ import javax.annotation.Generated;
 import restbuilder.client.dto.v1_0.ProductInput;
 import restbuilder.client.dto.v1_0.ProductOutput;
 import restbuilder.client.http.HttpInvoker;
+import restbuilder.client.pagination.Page;
 import restbuilder.client.problem.Problem;
+import restbuilder.client.serdes.v1_0.ProductOutputSerDes;
 
 /**
  * @author Wesley Roberts
@@ -24,7 +26,7 @@ public interface ProductInputResource {
 		return new Builder();
 	}
 
-	public ProductOutput createProduct(ProductInput productInput)
+	public Page<ProductOutput> createProduct(ProductInput productInput)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse createProductHttpResponse(
@@ -111,7 +113,7 @@ public interface ProductInputResource {
 	public static class ProductInputResourceImpl
 		implements ProductInputResource {
 
-		public ProductOutput createProduct(ProductInput productInput)
+		public Page<ProductOutput> createProduct(ProductInput productInput)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = createProductHttpResponse(
@@ -143,8 +145,7 @@ public interface ProductInputResource {
 			}
 
 			try {
-				return restbuilder.client.serdes.v1_0.ProductOutputSerDes.toDTO(
-					content);
+				return Page.of(content, ProductOutputSerDes::toDTO);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -225,8 +226,7 @@ public interface ProductInputResource {
 			}
 
 			try {
-				return restbuilder.client.serdes.v1_0.ProductOutputSerDes.toDTO(
-					content);
+				return ProductOutputSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(

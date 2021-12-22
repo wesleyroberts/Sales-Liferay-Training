@@ -181,7 +181,7 @@ public abstract class BaseProductInputResourceTestCase {
 
 	@Test
 	public void testCreateProduct() throws Exception {
-		Assert.assertTrue(true);
+		Assert.assertTrue(false);
 	}
 
 	@Test
@@ -291,6 +291,14 @@ public abstract class BaseProductInputResourceTestCase {
 
 			if (Objects.equals("price", additionalAssertFieldName)) {
 				if (productInput.getPrice() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("quantity", additionalAssertFieldName)) {
+				if (productInput.getQuantity() == null) {
 					valid = false;
 				}
 
@@ -473,6 +481,17 @@ public abstract class BaseProductInputResourceTestCase {
 			if (Objects.equals("price", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						productInput1.getPrice(), productInput2.getPrice())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("quantity", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						productInput1.getQuantity(),
+						productInput2.getQuantity())) {
 
 					return false;
 				}
@@ -672,6 +691,11 @@ public abstract class BaseProductInputResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("quantity")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("typeId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -724,6 +748,7 @@ public abstract class BaseProductInputResourceTestCase {
 				categoryId = RandomTestUtil.randomInt();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				price = RandomTestUtil.randomDouble();
+				quantity = RandomTestUtil.randomInt();
 				typeId = RandomTestUtil.randomInt();
 			}
 		};

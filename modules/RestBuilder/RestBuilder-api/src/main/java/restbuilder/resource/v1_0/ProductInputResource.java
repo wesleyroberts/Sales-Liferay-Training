@@ -3,6 +3,7 @@ package restbuilder.resource.v1_0;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.pagination.Page;
 
 import java.util.Locale;
 
@@ -34,7 +35,7 @@ public interface ProductInputResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public ProductOutput createProduct(ProductInput productInput)
+	public Page<ProductOutput> createProduct(ProductInput productInput)
 		throws Exception;
 
 	public ProductOutput updateProductById(

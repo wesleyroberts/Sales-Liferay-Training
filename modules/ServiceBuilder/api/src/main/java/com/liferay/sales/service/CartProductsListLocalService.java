@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.sales.model.CartProductsList;
+import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.model.SaleProduct;
 
 import java.io.Serializable;
@@ -76,7 +77,9 @@ public interface CartProductsListLocalService
 	public CartProductsList addCartProductsList(
 		CartProductsList cartProductsList);
 
-	public CartProductsList addProductToCartList(long productId, long cartId);
+	public SaleCart addProductToCartList(long productId, long cartId);
+
+	public CartProductsList createCartProductList(long porductId, long cartId);
 
 	/**
 	 * Creates a new cart products list with the primary key. Does not add the cart products list to the database.

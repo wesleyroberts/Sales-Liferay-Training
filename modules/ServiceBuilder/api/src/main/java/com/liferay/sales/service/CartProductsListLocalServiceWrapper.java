@@ -52,11 +52,19 @@ public class CartProductsListLocalServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.CartProductsList addProductToCartList(
+	public com.liferay.sales.model.SaleCart addProductToCartList(
 		long productId, long cartId) {
 
 		return _cartProductsListLocalService.addProductToCartList(
 			productId, cartId);
+	}
+
+	@Override
+	public com.liferay.sales.model.CartProductsList createCartProductList(
+		long porductId, long cartId) {
+
+		return _cartProductsListLocalService.createCartProductList(
+			porductId, cartId);
 	}
 
 	/**

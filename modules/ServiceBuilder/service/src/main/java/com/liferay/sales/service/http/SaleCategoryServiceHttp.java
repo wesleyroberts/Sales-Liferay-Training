@@ -83,13 +83,13 @@ public class SaleCategoryServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.sales.model.SaleCategory> getAll(
-		HttpPrincipal httpPrincipal) {
+	public static java.util.List<com.liferay.sales.model.SaleCategory>
+		getAllSaleCategory(HttpPrincipal httpPrincipal) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				SaleCategoryServiceUtil.class, "getAll",
-				_getAllParameterTypes1);
+				SaleCategoryServiceUtil.class, "getAllSaleCategory",
+				_getAllSaleCategoryParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -241,7 +241,8 @@ public class SaleCategoryServiceHttp {
 
 	private static final Class<?>[] _createSaleCategoryParameterTypes0 =
 		new Class[] {String.class, double.class};
-	private static final Class<?>[] _getAllParameterTypes1 = new Class[] {};
+	private static final Class<?>[] _getAllSaleCategoryParameterTypes1 =
+		new Class[] {};
 	private static final Class<?>[] _getSaleCategoryByIdParameterTypes2 =
 		new Class[] {long.class};
 	private static final Class<?>[] _deleteCategoryByIdParameterTypes3 =

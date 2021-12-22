@@ -8,6 +8,7 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.pagination.Page;
 
 import java.util.function.BiFunction;
 
@@ -101,30 +102,28 @@ public class Mutation {
 
 	@GraphQLField
 	public CartOutput addProductToCart(
-			@GraphQLName("cartId") Integer cartId,
-			@GraphQLName("productId") Integer productId)
+			@GraphQLName("cartID") Integer cartID,
+			@GraphQLName("productID") Integer productID)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_cartOutputResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			cartOutputResource -> cartOutputResource.addProductToCart(
-				cartId, productId));
+				cartID, productID));
 	}
 
 	@GraphQLField
-	public boolean removeProductToCart(
-			@GraphQLName("cartId") Integer cartId,
-			@GraphQLName("productId") Integer productId)
+	public CartOutput removeProductFromCart(
+			@GraphQLName("cartID") Integer cartID,
+			@GraphQLName("productID") Integer productID)
 		throws Exception {
 
-		_applyVoidComponentServiceObjects(
+		return _applyComponentServiceObjects(
 			_cartOutputResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartOutputResource -> cartOutputResource.removeProductToCart(
-				cartId, productId));
-
-		return true;
+			cartOutputResource -> cartOutputResource.removeProductFromCart(
+				cartID, productID));
 	}
 
 	@GraphQLField
@@ -179,15 +178,19 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public ProductOutput createProduct(
+	public java.util.Collection<ProductOutput> createProduct(
 			@GraphQLName("productInput") ProductInput productInput)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_productInputResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			productInputResource -> productInputResource.createProduct(
-				productInput));
+			productInputResource -> {
+				Page paginationPage = productInputResource.createProduct(
+					productInput);
+
+				return paginationPage.getItems();
+			});
 	}
 
 	@GraphQLField

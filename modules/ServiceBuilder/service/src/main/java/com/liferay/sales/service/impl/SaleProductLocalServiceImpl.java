@@ -21,10 +21,13 @@ import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.model.SaleType;
 import com.liferay.sales.service.SaleCategoryService;
 import com.liferay.sales.service.SaleTypeService;
+import com.liferay.sales.service.StockProductsListLocalServiceUtil;
+import com.liferay.sales.service.StockProductsListServiceUtil;
 import com.liferay.sales.service.base.SaleProductLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -66,6 +69,31 @@ public class SaleProductLocalServiceImpl
 			return null;
 		}
 	}
+	public List<SaleProduct> createSaleProductInScale(String name, double price,long categoryId, long typeId,int quantity){
+		List<SaleProduct> saleProductList = new ArrayList<SaleProduct>();
+		try {
+			for (int i = 0; i < quantity; i++) {
+				SaleProduct product = saleProductPersistence.create(counterLocalService.increment());
+				product.setName(name);
+				product.setPrice(price);
+				product.setCategoryId(categoryId);
+				product.setTypeId(typeId);
+				saleProductList.add(saleProductPersistence.update(applyTax(product)));
+				System.out.println(product.getProductId());
+				try{
+					StockProductsListServiceUtil.addProductToStock(product);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+			return saleProductList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 
 	public SaleProduct updateSaleProduct(long productId, String name, double price, long categoryId, long typeId){
 
@@ -90,7 +118,7 @@ public class SaleProductLocalServiceImpl
 		}
 	}
 
-	public List<SaleProduct> getAll(){
+	public List<SaleProduct> getAllSaleProduct(){
 		try {
 			return saleProductPersistence.findAll();
 		} catch (IllegalArgumentException e) {
@@ -99,7 +127,7 @@ public class SaleProductLocalServiceImpl
 		}
 	}
 
-	public SaleProduct getById(long id){
+	public SaleProduct getSalePoductById(long id){
 		try {
 			return saleProductPersistence.findByPrimaryKey(id);
 		} catch ( NoSuchSaleProductException e) {
@@ -108,7 +136,7 @@ public class SaleProductLocalServiceImpl
 		}
 	}
 
-	public SaleProduct getByName(String name){
+	public SaleProduct getSaleProductByName(String name){
 		try {
 			return saleProductPersistence.findByName(name);
 		} catch (NoSuchSaleProductException e) {
@@ -117,14 +145,16 @@ public class SaleProductLocalServiceImpl
 		}
 	}
 
-	public SaleProduct deleteById(long id){
+	public void deleteSaleProductById(long id){
 		try {
-			return saleProductPersistence.remove(id);
-		} catch ( NoSuchSaleProductException e) {
+			StockProductsListLocalServiceUtil.removeProductFromStock(id);
+			saleProductPersistence.remove(id);
+		} catch (NoSuchSaleProductException e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
+
+
 
 	private SaleProduct applyTax(SaleProduct product)
 	{

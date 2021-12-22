@@ -55,8 +55,8 @@ public class SaleCartServiceUtil {
 		return getService().getAllSaleCart();
 	}
 
-	public static Double getFinalValue(long cartId) {
-		return getService().getFinalValue(cartId);
+	public static Double getFinalValueByCartId(long cartId) {
+		return getService().getFinalValueByCartId(cartId);
 	}
 
 	/**

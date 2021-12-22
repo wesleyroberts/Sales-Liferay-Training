@@ -28,6 +28,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 
 import java.io.Serializable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -67,7 +68,7 @@ public abstract class BaseProductInputResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/create' -d $'{"categoryId": ___, "name": ___, "price": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/create' -d $'{"categoryId": ___, "name": ___, "price": ___, "quantity": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Consumes({"application/json", "application/xml"})
 	@Override
@@ -75,16 +76,16 @@ public abstract class BaseProductInputResourceImpl
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductInput")})
-	public ProductOutput createProduct(ProductInput productInput)
+	public Page<ProductOutput> createProduct(ProductInput productInput)
 		throws Exception {
 
-		return new ProductOutput();
+		return Page.of(Collections.emptyList());
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/RestBuilder/v1.0/product/update/{productId}' -d $'{"categoryId": ___, "name": ___, "price": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/RestBuilder/v1.0/product/update/{productId}' -d $'{"categoryId": ___, "name": ___, "price": ___, "quantity": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Consumes({"application/json", "application/xml"})
 	@Override

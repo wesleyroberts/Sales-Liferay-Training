@@ -43,8 +43,15 @@ public class SaleProductServiceUtil {
 		return getService().createSaleProduct(name, price, categoryId, typeId);
 	}
 
-	public static SaleProduct deleteById(long id) {
-		return getService().deleteById(id);
+	public static List<SaleProduct> createSaleProductInScale(
+		String name, double price, long categoryId, long typeId, int quantity) {
+
+		return getService().createSaleProductInScale(
+			name, price, categoryId, typeId, quantity);
+	}
+
+	public static void deleteById(long id) {
+		getService().deleteById(id);
 	}
 
 	public static List<SaleProduct> getAllSaleProducts() {

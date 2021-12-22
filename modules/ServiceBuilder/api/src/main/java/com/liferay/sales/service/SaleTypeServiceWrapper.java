@@ -43,8 +43,8 @@ public class SaleTypeServiceWrapper
 	}
 
 	@Override
-	public java.util.List<com.liferay.sales.model.SaleType> getAll() {
-		return _saleTypeService.getAll();
+	public java.util.List<com.liferay.sales.model.SaleType> getAllSaleType() {
+		return _saleTypeService.getAllSaleType();
 	}
 
 	/**

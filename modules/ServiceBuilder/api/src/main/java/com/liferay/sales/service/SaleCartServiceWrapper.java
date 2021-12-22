@@ -53,8 +53,8 @@ public class SaleCartServiceWrapper
 	}
 
 	@Override
-	public Double getFinalValue(long cartId) {
-		return _saleCartService.getFinalValue(cartId);
+	public Double getFinalValueByCartId(long cartId) {
+		return _saleCartService.getFinalValueByCartId(cartId);
 	}
 
 	/**

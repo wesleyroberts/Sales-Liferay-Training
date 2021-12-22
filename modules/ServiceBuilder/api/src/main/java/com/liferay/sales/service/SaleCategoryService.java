@@ -56,7 +56,7 @@ public interface SaleCategoryService extends BaseService {
 	public void deleteCategoryById(long id);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<SaleCategory> getAll();
+	public List<SaleCategory> getAllSaleCategory();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleCategory getCategoryByName(String name);

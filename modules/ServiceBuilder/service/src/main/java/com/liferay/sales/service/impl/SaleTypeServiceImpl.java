@@ -17,7 +17,6 @@ package com.liferay.sales.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.sales.model.SaleType;
 import com.liferay.sales.service.base.SaleTypeServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 import java.util.List;
@@ -62,8 +61,8 @@ public class SaleTypeServiceImpl extends SaleTypeServiceBaseImpl {
 		saleTypeLocalService.deleteTypeById(id);
 	}
 
-	public List<SaleType> getAll(){
-		return saleTypeLocalService.getAll();
+	public List<SaleType> getAllSaleType(){
+		return saleTypeLocalService.getAllSaleType();
 	}
 
 	public SaleType getSaleTypeByID(long id){

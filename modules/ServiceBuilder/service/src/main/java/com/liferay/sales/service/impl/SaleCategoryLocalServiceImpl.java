@@ -15,11 +15,9 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.sales.exception.NoSuchSaleCategoryException;
 import com.liferay.sales.model.SaleCategory;
 import com.liferay.sales.service.base.SaleCategoryLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 import java.util.List;
@@ -82,7 +80,7 @@ public class SaleCategoryLocalServiceImpl
 		}
 	}
 
-	public List<SaleCategory> getAll(){
+	public List<SaleCategory> getAllSaleCategory(){
 		try{
 		return saleCategoryPersistence.findAll();
 		} catch (Exception e) {
@@ -91,7 +89,7 @@ public class SaleCategoryLocalServiceImpl
 		}
 	}
 
-	public SaleCategory getByCategoryName(String name){
+	public SaleCategory getSaleCategoryByName(String name){
 		try {
 			return saleCategoryPersistence.findByName(name);
 		} catch (NoSuchSaleCategoryException | IllegalArgumentException e) {

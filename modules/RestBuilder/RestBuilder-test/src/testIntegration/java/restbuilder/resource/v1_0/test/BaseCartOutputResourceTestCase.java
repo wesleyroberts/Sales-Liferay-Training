@@ -281,42 +281,12 @@ public abstract class BaseCartOutputResourceTestCase {
 
 	@Test
 	public void testAddProductToCart() throws Exception {
-		CartOutput randomCartOutput = randomCartOutput();
-
-		CartOutput postCartOutput = testAddProductToCart_addCartOutput(
-			randomCartOutput);
-
-		assertEquals(randomCartOutput, postCartOutput);
-		assertValid(postCartOutput);
-	}
-
-	protected CartOutput testAddProductToCart_addCartOutput(
-			CartOutput cartOutput)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		Assert.assertTrue(false);
 	}
 
 	@Test
-	public void testRemoveProductToCart() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		CartOutput cartOutput = testRemoveProductToCart_addCartOutput();
-
-		assertHttpResponseStatusCode(
-			204,
-			cartOutputResource.removeProductToCartHttpResponse(null, null));
-
-		assertHttpResponseStatusCode(
-			404,
-			cartOutputResource.removeProductToCartHttpResponse(null, null));
-	}
-
-	protected CartOutput testRemoveProductToCart_addCartOutput()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+	public void testRemoveProductFromCart() throws Exception {
+		Assert.assertTrue(false);
 	}
 
 	@Test

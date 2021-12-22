@@ -18,7 +18,6 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.sales.exception.NoSuchSaleCartException;
 import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.service.base.SaleCartLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 import java.util.List;
@@ -70,7 +69,7 @@ public class SaleCartLocalServiceImpl extends SaleCartLocalServiceBaseImpl {
 		return saleCartPersistence.update(cart);
 	}
 
-	public Double getFinalValue(long cartId){
+	public Double getFinalValueByCartId(long cartId){
 		try {
 			return saleCartPersistence.findByPrimaryKey(cartId).getTotalPrice();
 		} catch (NoSuchSaleCartException e) {

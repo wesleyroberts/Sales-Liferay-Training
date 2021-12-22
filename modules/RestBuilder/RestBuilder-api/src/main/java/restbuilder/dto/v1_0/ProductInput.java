@@ -119,6 +119,34 @@ public class ProductInput implements Serializable {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double price;
 
+	@Schema(description = "number products that will be create")
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	@JsonIgnore
+	public void setQuantity(
+		UnsafeSupplier<Integer, Exception> quantityUnsafeSupplier) {
+
+		try {
+			quantity = quantityUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField(description = "number products that will be create")
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Integer quantity;
+
 	@Schema(description = "The type ID.")
 	public Integer getTypeId() {
 		return typeId;
@@ -206,6 +234,16 @@ public class ProductInput implements Serializable {
 			sb.append("\"price\": ");
 
 			sb.append(price);
+		}
+
+		if (quantity != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"quantity\": ");
+
+			sb.append(quantity);
 		}
 
 		if (typeId != null) {

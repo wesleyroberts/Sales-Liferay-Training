@@ -204,7 +204,7 @@ public interface SaleCartLocalService
 	public List<SaleCart> getAllSaleCart();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Double getFinalValue(long cartId);
+	public Double getFinalValueByCartId(long cartId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();

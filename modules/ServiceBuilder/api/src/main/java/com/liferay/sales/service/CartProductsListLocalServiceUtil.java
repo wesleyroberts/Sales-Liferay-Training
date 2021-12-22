@@ -60,10 +60,16 @@ public class CartProductsListLocalServiceUtil {
 		return getService().addCartProductsList(cartProductsList);
 	}
 
-	public static CartProductsList addProductToCartList(
+	public static com.liferay.sales.model.SaleCart addProductToCartList(
 		long productId, long cartId) {
 
 		return getService().addProductToCartList(productId, cartId);
+	}
+
+	public static CartProductsList createCartProductList(
+		long porductId, long cartId) {
+
+		return getService().createCartProductList(porductId, cartId);
 	}
 
 	/**

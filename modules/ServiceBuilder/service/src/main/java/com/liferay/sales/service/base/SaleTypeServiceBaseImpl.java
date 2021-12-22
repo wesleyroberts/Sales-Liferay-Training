@@ -30,7 +30,9 @@ import com.liferay.sales.service.persistence.CartProductsListPersistence;
 import com.liferay.sales.service.persistence.SaleCartPersistence;
 import com.liferay.sales.service.persistence.SaleCategoryPersistence;
 import com.liferay.sales.service.persistence.SaleProductPersistence;
+import com.liferay.sales.service.persistence.SaleStockPersistence;
 import com.liferay.sales.service.persistence.SaleTypePersistence;
+import com.liferay.sales.service.persistence.StockProductsListPersistence;
 
 import java.lang.reflect.Field;
 
@@ -147,6 +149,9 @@ public abstract class SaleTypeServiceBaseImpl
 	protected SaleProductPersistence saleProductPersistence;
 
 	@Reference
+	protected SaleStockPersistence saleStockPersistence;
+
+	@Reference
 	protected com.liferay.sales.service.SaleTypeLocalService
 		saleTypeLocalService;
 
@@ -154,6 +159,9 @@ public abstract class SaleTypeServiceBaseImpl
 
 	@Reference
 	protected SaleTypePersistence saleTypePersistence;
+
+	@Reference
+	protected StockProductsListPersistence stockProductsListPersistence;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService

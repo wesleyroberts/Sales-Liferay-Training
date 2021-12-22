@@ -1,6 +1,23 @@
 
 components:
   schemas:
+    Stock:
+      description: Stock
+      properties:
+        id:
+          description: The category name.
+          type: integer
+        quantity:
+          description: The tax category.
+          type: integer
+        productName:
+          description: name of the product
+          type: string
+        type:
+          description: type of the product
+          allOf:
+            - $ref: "#/components/schemas/Type"
+      type: object
     Category:
       description: Category
       properties:
@@ -67,6 +84,9 @@ components:
           description: The price product.
           format: double
           type: number
+        quantity:
+          description: number products that will be create
+          type: integer
       type: object
     ProductOutput:
       description: Product
@@ -184,10 +204,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ProductOutput"
+                items:
+                  $ref: "#/components/schemas/ProductOutput"
+                type: array
             application/xml:
               schema:
-                $ref: "#/components/schemas/ProductOutput"
+                items:
+                  $ref: "#/components/schemas/ProductOutput"
+                type: array
           description: ""
       tags: ["ProductInput"]
   "/product/update/{productId}":
@@ -218,6 +242,7 @@ paths:
                 $ref: "#/components/schemas/ProductOutput"
           description: ""
       tags: ["ProductInput"]
+
   "/product/delete/{productId}":
     delete:
       operationId: deleteProductById
@@ -543,18 +568,19 @@ paths:
           description: ""
       tags: ["CartOutput"]
 
-  "/addProduct/carts/{cartId}/products/{productId}":
-    post:
+  "/addProductoCart/{cartID}/productID/{productID}":
+    patch:
       operationId: addProductToCart
       parameters:
         - in: path
-          name: cartId
+          name: cartID
           required: true
           schema:
             type: integer
         - in: path
-          name: productId
+          name: productID
           required: true
+          description: A comma-separated list of user IDs.
           schema:
             type: integer
       responses:
@@ -569,25 +595,30 @@ paths:
           description: ""
       tags: ["CartOutput"]
 
-  "/removeProduct/carts/{cartId}/products/{productId}":
-    post:
-      operationId: removeProductToCart
+  "/removeProductFromCart/{cartID}/ProductID/{productID}":
+    patch:
+      operationId: removeProductFromCart
       parameters:
         - in: path
-          name: cartId
+          name: cartID
           required: true
           schema:
             type: integer
         - in: path
-          name: productId
+          name: productID
           required: true
+          description: A comma-separated list of user IDs.
           schema:
             type: integer
       responses:
-        204:
+        200:
           content:
-            application/json: {}
-            application/xml: {}
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CartOutput"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/CartOutput"
           description: ""
       tags: ["CartOutput"]
 

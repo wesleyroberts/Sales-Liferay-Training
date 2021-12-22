@@ -14,6 +14,7 @@
 
 package com.liferay.sales.service;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.sales.model.CartProductsList;
 
 import java.util.List;
@@ -37,10 +38,16 @@ public class CartProductsListServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.CartProductsListServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static CartProductsList addProductToCartList(
+	public static com.liferay.sales.model.SaleCart addProductToCartList(
 		long productId, long cartId) {
 
 		return getService().addProductToCartList(productId, cartId);
+	}
+
+	public static CartProductsList deleteCartProductsList(long productId)
+		throws PortalException {
+
+		return getService().deleteCartProductsList(productId);
 	}
 
 	public static List<com.liferay.sales.model.SaleProduct>

@@ -45,8 +45,8 @@ public class SaleTypeServiceUtil {
 		getService().deleteTypeById(id);
 	}
 
-	public static List<SaleType> getAll() {
-		return getService().getAll();
+	public static List<SaleType> getAllSaleType() {
+		return getService().getAllSaleType();
 	}
 
 	/**

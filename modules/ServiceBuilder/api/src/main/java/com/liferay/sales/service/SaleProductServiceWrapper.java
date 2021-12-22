@@ -39,8 +39,18 @@ public class SaleProductServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.SaleProduct deleteById(long id) {
-		return _saleProductService.deleteById(id);
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		createSaleProductInScale(
+			String name, double price, long categoryId, long typeId,
+			int quantity) {
+
+		return _saleProductService.createSaleProductInScale(
+			name, price, categoryId, typeId, quantity);
+	}
+
+	@Override
+	public void deleteById(long id) {
+		_saleProductService.deleteById(id);
 	}
 
 	@Override
