@@ -44,20 +44,18 @@ public interface CartOutputResource {
 
 	public HttpInvoker.HttpResponse createCartHttpResponse() throws Exception;
 
-	public CartOutput addProductToCart(
-			Integer cartId, Integer productId, Integer quantity)
+	public CartOutput addProductToCart(Integer cartID, Integer productID)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse addProductToCartHttpResponse(
-			Integer cartId, Integer productId, Integer quantity)
+			Integer cartID, Integer productID)
 		throws Exception;
 
-	public void removeProductToCart(
-			Integer cartId, Integer productId, Integer quantity)
+	public CartOutput removeProductFromCart(Integer cartID, Integer productID)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse removeProductToCartHttpResponse(
-			Integer cartId, Integer productId, Integer quantity)
+	public HttpInvoker.HttpResponse removeProductFromCartHttpResponse(
+			Integer cartID, Integer productID)
 		throws Exception;
 
 	public void deleteCartById(Integer cartId) throws Exception;
@@ -440,12 +438,11 @@ public interface CartOutputResource {
 			return httpInvoker.invoke();
 		}
 
-		public CartOutput addProductToCart(
-				Integer cartId, Integer productId, Integer quantity)
+		public CartOutput addProductToCart(Integer cartID, Integer productID)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				addProductToCartHttpResponse(cartId, productId, quantity);
+				addProductToCartHttpResponse(cartID, productID);
 
 			String content = httpResponse.getContent();
 
@@ -485,12 +482,12 @@ public interface CartOutputResource {
 		}
 
 		public HttpInvoker.HttpResponse addProductToCartHttpResponse(
-				Integer cartId, Integer productId, Integer quantity)
+				Integer cartID, Integer productID)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(quantity.toString(), "application/json");
+			httpInvoker.body(productID.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -514,11 +511,10 @@ public interface CartOutputResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/RestBuilder/v1.0/addProduct/carts/{cartId}/products/{productId}/quantity/{quantity}");
+						"/o/RestBuilder/v1.0/addProductoCart/{cartID}/productID/{productID}");
 
-			httpInvoker.path("cartId", cartId);
-			httpInvoker.path("productId", productId);
-			httpInvoker.path("quantity", quantity);
+			httpInvoker.path("cartID", cartID);
+			httpInvoker.path("productID", productID);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -526,12 +522,12 @@ public interface CartOutputResource {
 			return httpInvoker.invoke();
 		}
 
-		public void removeProductToCart(
-				Integer cartId, Integer productId, Integer quantity)
+		public CartOutput removeProductFromCart(
+				Integer cartID, Integer productID)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				removeProductToCartHttpResponse(cartId, productId, quantity);
+				removeProductFromCartHttpResponse(cartID, productID);
 
 			String content = httpResponse.getContent();
 
@@ -559,7 +555,7 @@ public interface CartOutputResource {
 			}
 
 			try {
-				return;
+				return CartOutputSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -570,13 +566,13 @@ public interface CartOutputResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse removeProductToCartHttpResponse(
-				Integer cartId, Integer productId, Integer quantity)
+		public HttpInvoker.HttpResponse removeProductFromCartHttpResponse(
+				Integer cartID, Integer productID)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(quantity.toString(), "application/json");
+			httpInvoker.body(productID.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -600,11 +596,10 @@ public interface CartOutputResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/RestBuilder/v1.0/removeProduct/carts/{cartId}/products/{productId}/quantity/{quantity}");
+						"/o/RestBuilder/v1.0/removeProductFromCart/{cartID}/ProductID/{productID}");
 
-			httpInvoker.path("cartId", cartId);
-			httpInvoker.path("productId", productId);
-			httpInvoker.path("quantity", quantity);
+			httpInvoker.path("cartID", cartID);
+			httpInvoker.path("productID", productID);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

@@ -18,7 +18,6 @@ import org.osgi.annotation.versioning.ProviderType;
 
 import restbuilder.dto.v1_0.ProductInput;
 import restbuilder.dto.v1_0.ProductOutput;
-import restbuilder.dto.v1_0.Stock;
 
 /**
  * To access this resource, run:
@@ -41,11 +40,6 @@ public interface ProductInputResource {
 
 	public ProductOutput updateProductById(
 			Integer productId, ProductInput productInput)
-		throws Exception;
-
-	public Stock addProductInStock(Integer[] productIdList) throws Exception;
-
-	public void removeProductFromStock(Integer[] productIdList)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

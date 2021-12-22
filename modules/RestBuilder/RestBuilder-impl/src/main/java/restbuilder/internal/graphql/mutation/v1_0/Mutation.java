@@ -26,7 +26,6 @@ import restbuilder.dto.v1_0.Category;
 import restbuilder.dto.v1_0.CategoryInput;
 import restbuilder.dto.v1_0.ProductInput;
 import restbuilder.dto.v1_0.ProductOutput;
-import restbuilder.dto.v1_0.Stock;
 import restbuilder.dto.v1_0.Type;
 import restbuilder.dto.v1_0.TypeInput;
 
@@ -103,32 +102,28 @@ public class Mutation {
 
 	@GraphQLField
 	public CartOutput addProductToCart(
-			@GraphQLName("cartId") Integer cartId,
-			@GraphQLName("productId") Integer productId,
-			@GraphQLName("quantity") Integer quantity)
+			@GraphQLName("cartID") Integer cartID,
+			@GraphQLName("productID") Integer productID)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_cartOutputResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			cartOutputResource -> cartOutputResource.addProductToCart(
-				cartId, productId, quantity));
+				cartID, productID));
 	}
 
 	@GraphQLField
-	public boolean removeProductToCart(
-			@GraphQLName("cartId") Integer cartId,
-			@GraphQLName("productId") Integer productId,
-			@GraphQLName("quantity") Integer quantity)
+	public CartOutput removeProductFromCart(
+			@GraphQLName("cartID") Integer cartID,
+			@GraphQLName("productID") Integer productID)
 		throws Exception {
 
-		_applyVoidComponentServiceObjects(
+		return _applyComponentServiceObjects(
 			_cartOutputResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartOutputResource -> cartOutputResource.removeProductToCart(
-				cartId, productId, quantity));
-
-		return true;
+			cartOutputResource -> cartOutputResource.removeProductFromCart(
+				cartID, productID));
 	}
 
 	@GraphQLField
@@ -209,32 +204,6 @@ public class Mutation {
 			this::_populateResourceContext,
 			productInputResource -> productInputResource.updateProductById(
 				productId, productInput));
-	}
-
-	@GraphQLField
-	public Stock addProductInStock(
-			@GraphQLName("productIdList") Integer[] productIdList)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_productInputResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			productInputResource -> productInputResource.addProductInStock(
-				productIdList));
-	}
-
-	@GraphQLField
-	public boolean removeProductFromStock(
-			@GraphQLName("productIdList") Integer[] productIdList)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_productInputResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			productInputResource -> productInputResource.removeProductFromStock(
-				productIdList));
-
-		return true;
 	}
 
 	@GraphQLField

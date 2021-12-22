@@ -42,12 +42,10 @@ public interface CartOutputResource {
 
 	public CartOutput createCart() throws Exception;
 
-	public CartOutput addProductToCart(
-			Integer cartId, Integer productId, Integer quantity)
+	public CartOutput addProductToCart(Integer cartID, Integer productID)
 		throws Exception;
 
-	public void removeProductToCart(
-			Integer cartId, Integer productId, Integer quantity)
+	public CartOutput removeProductFromCart(Integer cartID, Integer productID)
 		throws Exception;
 
 	public void deleteCartById(Integer cartId) throws Exception;

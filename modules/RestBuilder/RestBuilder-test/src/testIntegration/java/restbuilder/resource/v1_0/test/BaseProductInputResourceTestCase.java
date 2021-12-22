@@ -60,7 +60,6 @@ import org.junit.Test;
 
 import restbuilder.client.dto.v1_0.ProductInput;
 import restbuilder.client.dto.v1_0.ProductOutput;
-import restbuilder.client.dto.v1_0.Stock;
 import restbuilder.client.dto.v1_0.Type;
 import restbuilder.client.http.HttpInvoker;
 import restbuilder.client.pagination.Page;
@@ -186,11 +185,6 @@ public abstract class BaseProductInputResourceTestCase {
 	}
 
 	@Test
-	public void testRemoveProductFromStock() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
 	public void testUpdateProductById() throws Exception {
 		ProductInput postProductInput = testPutProductInput_addProductInput();
 
@@ -212,27 +206,6 @@ public abstract class BaseProductInputResourceTestCase {
 
 		return productInputResource.updateProductById(
 			productInputId, productOutput);
-	}
-
-	@Test
-	public void testAddProductInStock() throws Exception {
-		ProductInput postProductInput = testPatchProductInput_addProductInput();
-
-		testAddProductInStock_addStock(postProductInput.getId(), randomStock());
-
-		Stock randomStock = randomStock();
-
-		Stock patchStock = productInputResource.addProductInStock(null);
-
-		assertEquals(randomStock, patchStock);
-		assertValid(patchStock);
-	}
-
-	protected Stock testAddProductInStock_addStock(
-			long productInputId, Stock stock)
-		throws Exception {
-
-		return productInputResource.addProductInStock(productInputId, stock);
 	}
 
 	protected void assertHttpResponseStatusCode(
@@ -270,11 +243,6 @@ public abstract class BaseProductInputResourceTestCase {
 		Assert.assertTrue(
 			productOutput1 + " does not equal " + productOutput2,
 			equals(productOutput1, productOutput2));
-	}
-
-	protected void assertEquals(Stock stock1, Stock stock2) {
-		Assert.assertTrue(
-			stock1 + " does not equal " + stock2, equals(stock1, stock2));
 	}
 
 	protected void assertEqualsIgnoringOrder(
@@ -420,57 +388,11 @@ public abstract class BaseProductInputResourceTestCase {
 		Assert.assertTrue(valid);
 	}
 
-	protected void assertValid(Stock stock) {
-		boolean valid = true;
-
-		if (stock.getId() == null) {
-			valid = false;
-		}
-
-		for (String additionalAssertFieldName :
-				getAdditionalStockAssertFieldNames()) {
-
-			if (Objects.equals("productName", additionalAssertFieldName)) {
-				if (stock.getProductName() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("quantity", additionalAssertFieldName)) {
-				if (stock.getQuantity() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("type", additionalAssertFieldName)) {
-				if (stock.getType() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid additional assert field name " +
-					additionalAssertFieldName);
-		}
-
-		Assert.assertTrue(valid);
-	}
-
 	protected String[] getAdditionalAssertFieldNames() {
 		return new String[0];
 	}
 
 	protected String[] getAdditionalProductOutputAssertFieldNames() {
-		return new String[0];
-	}
-
-	protected String[] getAdditionalStockAssertFieldNames() {
 		return new String[0];
 	}
 
@@ -690,58 +612,6 @@ public abstract class BaseProductInputResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(Stock stock1, Stock stock2) {
-		if (stock1 == stock2) {
-			return true;
-		}
-
-		for (String additionalAssertFieldName :
-				getAdditionalStockAssertFieldNames()) {
-
-			if (Objects.equals("id", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(stock1.getId(), stock2.getId())) {
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("productName", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						stock1.getProductName(), stock2.getProductName())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("quantity", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						stock1.getQuantity(), stock2.getQuantity())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("type", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(stock1.getType(), stock2.getType())) {
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid additional assert field name " +
-					additionalAssertFieldName);
-		}
-
-		return true;
-	}
-
 	protected Field[] getDeclaredFields(Class clazz) throws Exception {
 		Stream<Field> stream = Stream.of(
 			ReflectionUtil.getDeclaredFields(clazz));
@@ -900,16 +770,6 @@ public abstract class BaseProductInputResourceTestCase {
 				id = RandomTestUtil.randomInteger();
 				name = RandomTestUtil.randomString();
 				price = RandomTestUtil.randomDouble();
-			}
-		};
-	}
-
-	protected Stock randomStock() throws Exception {
-		return new Stock() {
-			{
-				id = RandomTestUtil.randomInteger();
-				productName = RandomTestUtil.randomString();
-				quantity = RandomTestUtil.randomInteger();
 			}
 		};
 	}
