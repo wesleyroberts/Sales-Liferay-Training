@@ -242,21 +242,16 @@ paths:
                 $ref: "#/components/schemas/ProductOutput"
           description: ""
       tags: ["ProductInput"]
-  "/addProductInStock/{productIdList}":
+  "/addProductToStock/{productID}":
     patch:
-      operationId: addProductInStock
+      operationId: addProductToStock
       parameters:
         - in: path
-          name: productIdList
+          name: productID
           required: true
           description: A comma-separated list of user IDs.
           schema:
-            type: array
-            items:
-              type: integer
-            minItems: 1
-          explode: false
-          style: simple
+            type: integer
       responses:
         200:
           content:
@@ -269,21 +264,16 @@ paths:
           description: ""
       tags: ["ProductInput"]
 
-  "/removeProductFromStock/{productIdList}":
+  "/removeProductFromStock/{productID}":
     patch:
       operationId: removeProductFromStock
       parameters:
         - in: path
-          name: productIdList
+          name: productID
           required: true
           description: A comma-separated list of user IDs.
           schema:
-            type: array
-            items:
-              type: integer
-            minItems: 1
-          explode: false
-          style: simple
+            type: integer
       responses:
         204:
           content:
@@ -616,23 +606,19 @@ paths:
           description: ""
       tags: ["CartOutput"]
 
-  "/addProduct/carts/{cartId}/products/{productId}/quantity/{quantity}":
+  "/addProductoCart/{cartID}/productID/{productID}":
     patch:
       operationId: addProductToCart
       parameters:
         - in: path
-          name: cartId
+          name: cartID
           required: true
           schema:
             type: integer
         - in: path
-          name: productId
+          name: productID
           required: true
-          schema:
-            type: integer
-        - in: path
-          name: quantity
-          required: true
+          description: A comma-separated list of user IDs.
           schema:
             type: integer
       responses:
@@ -647,30 +633,30 @@ paths:
           description: ""
       tags: ["CartOutput"]
 
-  "/removeProduct/carts/{cartId}/products/{productId}/quantity/{quantity}":
+  "/removeProductFromCart/{cartID}/ProductID/{productID}":
     patch:
-      operationId: removeProductToCart
+      operationId: removeProductFromCart
       parameters:
         - in: path
-          name: cartId
+          name: cartID
           required: true
           schema:
             type: integer
         - in: path
-          name: productId
+          name: productID
           required: true
-          schema:
-            type: integer
-        - in: path
-          name: quantity
-          required: true
+          description: A comma-separated list of user IDs.
           schema:
             type: integer
       responses:
-        204:
+        200:
           content:
-            application/json: {}
-            application/xml: {}
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CartOutput"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/CartOutput"
           description: ""
       tags: ["CartOutput"]
 
