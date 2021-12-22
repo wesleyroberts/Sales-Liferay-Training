@@ -36,8 +36,8 @@ public class SaleStockServiceWrapper
 	}
 
 	@Override
-	public void deletesaleCartById(long id) {
-		_saleStockService.deletesaleCartById(id);
+	public void deletesaleStockById(long id) {
+		_saleStockService.deletesaleStockById(id);
 	}
 
 	@Override

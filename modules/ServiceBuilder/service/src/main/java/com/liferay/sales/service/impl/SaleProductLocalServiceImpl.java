@@ -21,6 +21,7 @@ import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.model.SaleType;
 import com.liferay.sales.service.SaleCategoryService;
 import com.liferay.sales.service.SaleTypeService;
+import com.liferay.sales.service.StockProductsListLocalServiceUtil;
 import com.liferay.sales.service.StockProductsListServiceUtil;
 import com.liferay.sales.service.base.SaleProductLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
@@ -146,6 +147,7 @@ public class SaleProductLocalServiceImpl
 
 	public void deleteSaleProductById(long id){
 		try {
+			StockProductsListLocalServiceUtil.removeProductFromStock(id);
 			saleProductPersistence.remove(id);
 		} catch (NoSuchSaleProductException e) {
 			e.printStackTrace();

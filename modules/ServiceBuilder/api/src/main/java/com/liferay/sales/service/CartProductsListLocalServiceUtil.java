@@ -60,10 +60,16 @@ public class CartProductsListLocalServiceUtil {
 		return getService().addCartProductsList(cartProductsList);
 	}
 
-	public static List<CartProductsList> addProductToCartList(
-		List<Long> productsIdList, long cartId) {
+	public static com.liferay.sales.model.SaleCart addProductToCartList(
+		long productId, long cartId) {
 
-		return getService().addProductToCartList(productsIdList, cartId);
+		return getService().addProductToCartList(productId, cartId);
+	}
+
+	public static CartProductsList createCartProductList(
+		long porductId, long cartId) {
+
+		return getService().createCartProductList(porductId, cartId);
 	}
 
 	/**
@@ -286,10 +292,8 @@ public class CartProductsListLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static void removeProductToCartList(
-		List<Long> productsIdList, long cartId) {
-
-		getService().removeProductToCartList(productsIdList, cartId);
+	public static void removeProductToCartList(long productId, long cartId) {
+		getService().removeProductToCartList(productId, cartId);
 	}
 
 	/**

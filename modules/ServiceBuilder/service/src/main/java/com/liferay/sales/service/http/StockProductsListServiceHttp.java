@@ -178,15 +178,15 @@ public class StockProductsListServiceHttp {
 	}
 
 	public static void removeProductFromStock(
-		HttpPrincipal httpPrincipal,
-		com.liferay.sales.model.SaleProduct product) {
+		HttpPrincipal httpPrincipal, long productID) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				StockProductsListServiceUtil.class, "removeProductFromStock",
 				_removeProductFromStockParameterTypes4);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey, product);
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, productID);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
@@ -219,6 +219,6 @@ public class StockProductsListServiceHttp {
 	private static final Class<?>[] _deleteStockProductListByIDParameterTypes3 =
 		new Class[] {long.class};
 	private static final Class<?>[] _removeProductFromStockParameterTypes4 =
-		new Class[] {com.liferay.sales.model.SaleProduct.class};
+		new Class[] {long.class};
 
 }

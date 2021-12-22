@@ -99,8 +99,6 @@ public interface SaleStockLocalService
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException;
 
-	public void deletesaleCartById(long id);
-
 	/**
 	 * Deletes the sale stock with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
@@ -127,6 +125,8 @@ public interface SaleStockLocalService
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public SaleStock deleteSaleStock(SaleStock saleStock);
+
+	public void deletesaleStockById(long id);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();

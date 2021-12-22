@@ -16,7 +16,6 @@ package com.liferay.sales.service.http;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.sales.service.CartProductsListServiceUtil;
 
 import java.rmi.RemoteException;
@@ -82,16 +81,16 @@ public class CartProductsListServiceSoap {
 		}
 	}
 
-	public static com.liferay.sales.model.CartProductsListSoap[]
-			addProductToCartList(Long[] productIdList, long cartId)
+	public static com.liferay.sales.model.SaleCartSoap addProductToCartList(
+			long productId, long cartId)
 		throws RemoteException {
 
 		try {
-			java.util.List<com.liferay.sales.model.CartProductsList>
-				returnValue = CartProductsListServiceUtil.addProductToCartList(
-					ListUtil.toList(productIdList), cartId);
+			com.liferay.sales.model.SaleCart returnValue =
+				CartProductsListServiceUtil.addProductToCartList(
+					productId, cartId);
 
-			return com.liferay.sales.model.CartProductsListSoap.toSoapModels(
+			return com.liferay.sales.model.SaleCartSoap.toSoapModel(
 				returnValue);
 		}
 		catch (Exception exception) {
@@ -101,13 +100,30 @@ public class CartProductsListServiceSoap {
 		}
 	}
 
-	public static void removeProductToCartList(
-			Long[] productIdList, long cartId)
+	public static void removeProductToCartList(long productId, long cartId)
 		throws RemoteException {
 
 		try {
 			CartProductsListServiceUtil.removeProductToCartList(
-				ListUtil.toList(productIdList), cartId);
+				productId, cartId);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.sales.model.CartProductsListSoap
+			deleteCartProductsList(long productId)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.CartProductsList returnValue =
+				CartProductsListServiceUtil.deleteCartProductsList(productId);
+
+			return com.liferay.sales.model.CartProductsListSoap.toSoapModel(
+				returnValue);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

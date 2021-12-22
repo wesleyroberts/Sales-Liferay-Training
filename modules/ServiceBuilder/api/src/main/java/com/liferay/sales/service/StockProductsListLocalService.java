@@ -262,7 +262,7 @@ public interface StockProductsListLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getStockProductsListsCount();
 
-	public void removeProductFromStock(SaleProduct product);
+	public void removeProductFromStock(long productID);
 
 	/**
 	 * Updates the stock products list in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

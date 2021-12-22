@@ -41,8 +41,8 @@ public class SaleStockServiceUtil {
 		return getService().createSaleStock();
 	}
 
-	public static void deletesaleCartById(long id) {
-		getService().deletesaleCartById(id);
+	public static void deletesaleStockById(long id) {
+		getService().deletesaleStockById(id);
 	}
 
 	public static List<SaleStock> getAllSaleStock() {

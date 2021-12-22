@@ -92,10 +92,6 @@ public class SaleStockLocalServiceUtil {
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static void deletesaleCartById(long id) {
-		getService().deletesaleCartById(id);
-	}
-
 	/**
 	 * Deletes the sale stock with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
@@ -125,6 +121,10 @@ public class SaleStockLocalServiceUtil {
 	 */
 	public static SaleStock deleteSaleStock(SaleStock saleStock) {
 		return getService().deleteSaleStock(saleStock);
+	}
+
+	public static void deletesaleStockById(long id) {
+		getService().deletesaleStockById(id);
 	}
 
 	public static DynamicQuery dynamicQuery() {

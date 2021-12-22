@@ -65,7 +65,7 @@ public class StockProductsListServiceImpl
 	public void deleteStockProductListByID(long id){
 		 stockProductsListLocalService.deleteStockProductListByID(id);
 	}
-	public void removeProductFromStock(SaleProduct product){
-		stockProductsListLocalService.removeProductFromStock(product);
+	public void removeProductFromStock(long productID){
+		stockProductsListLocalService.removeProductFromStock(productID);
 	}
 }

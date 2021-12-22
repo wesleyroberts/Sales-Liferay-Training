@@ -54,7 +54,7 @@ public interface SaleStockService extends BaseService {
 	 */
 	public SaleStock createSaleStock();
 
-	public void deletesaleCartById(long id);
+	public void deletesaleStockById(long id);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<SaleStock> getAllSaleStock();

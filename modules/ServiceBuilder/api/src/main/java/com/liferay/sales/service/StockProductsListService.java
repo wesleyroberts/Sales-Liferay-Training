@@ -69,6 +69,6 @@ public interface StockProductsListService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
-	public void removeProductFromStock(SaleProduct product);
+	public void removeProductFromStock(long productID);
 
 }

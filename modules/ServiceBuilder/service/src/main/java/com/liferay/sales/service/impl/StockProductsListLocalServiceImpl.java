@@ -116,8 +116,8 @@ public class StockProductsListLocalServiceImpl
 			}
 		}
 	}
-	public void removeProductFromStock(SaleProduct product){
-
+	public void removeProductFromStock(long productID){
+		SaleProduct product = saleProductService.getSaleProductById(productID);
 		if(checkIfExistStock(product)){
 			try{
 				SaleStock stock = saleStockService.getSaleStockByProduct(product);

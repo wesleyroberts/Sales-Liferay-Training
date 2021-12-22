@@ -94,7 +94,7 @@ public class SaleStockLocalServiceImpl extends SaleStockLocalServiceBaseImpl {
 	}
 
 
-		public void deletesaleCartById(long id){
+		public void deletesaleStockById(long id){
 		try {
 			saleStockPersistence.remove(id);
 		} catch (NoSuchSaleStockException e) {

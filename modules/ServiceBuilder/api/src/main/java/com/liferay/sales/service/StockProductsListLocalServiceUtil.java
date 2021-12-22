@@ -301,10 +301,8 @@ public class StockProductsListLocalServiceUtil {
 		return getService().getStockProductsListsCount();
 	}
 
-	public static void removeProductFromStock(
-		com.liferay.sales.model.SaleProduct product) {
-
-		getService().removeProductFromStock(product);
+	public static void removeProductFromStock(long productID) {
+		getService().removeProductFromStock(productID);
 	}
 
 	/**

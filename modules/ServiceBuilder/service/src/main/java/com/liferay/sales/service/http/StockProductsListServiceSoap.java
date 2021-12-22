@@ -133,14 +133,11 @@ public class StockProductsListServiceSoap {
 		}
 	}
 
-	public static void removeProductFromStock(
-			com.liferay.sales.model.SaleProductSoap product)
+	public static void removeProductFromStock(long productID)
 		throws RemoteException {
 
 		try {
-			StockProductsListServiceUtil.removeProductFromStock(
-				com.liferay.sales.model.impl.SaleProductModelImpl.toModel(
-					product));
+			StockProductsListServiceUtil.removeProductFromStock(productID);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

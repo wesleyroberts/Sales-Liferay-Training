@@ -15,7 +15,9 @@
 package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.sales.model.CartProductsList;
+import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.service.base.CartProductsListServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
@@ -53,10 +55,14 @@ public class CartProductsListServiceImpl
 	public List<SaleProduct> getAllProductsByCarID(long id){
 		return cartProductsListLocalService.getAllProductsByCartID(id);
 	}
-	public List<CartProductsList> addProductToCartList(List<Long> productIdList, long cartId){
-		return cartProductsListLocalService.addProductToCartList(productIdList,cartId);
+	public SaleCart addProductToCartList( long productId, long cartId){
+		return cartProductsListLocalService.addProductToCartList(productId,cartId);
 	}
-	public void removeProductToCartList(List<Long> productIdList, long cartId){
-		cartProductsListLocalService.removeProductToCartList(productIdList, cartId);
+	public void removeProductToCartList(long productId, long cartId){
+		cartProductsListLocalService.removeProductToCartList(productId, cartId);
+	}
+
+	public CartProductsList deleteCartProductsList(long productId) throws PortalException {
+		return  cartProductsListLocalService.fetchCartProductsList(productId);
 	}
 }

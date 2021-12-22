@@ -66,10 +66,8 @@ public class StockProductsListServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static void removeProductFromStock(
-		com.liferay.sales.model.SaleProduct product) {
-
-		getService().removeProductFromStock(product);
+	public static void removeProductFromStock(long productID) {
+		getService().removeProductFromStock(productID);
 	}
 
 	public static StockProductsListService getService() {

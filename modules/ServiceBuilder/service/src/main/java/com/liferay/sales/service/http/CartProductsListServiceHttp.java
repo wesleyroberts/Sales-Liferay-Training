@@ -83,10 +83,8 @@ public class CartProductsListServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.sales.model.CartProductsList>
-		addProductToCartList(
-			HttpPrincipal httpPrincipal, java.util.List<Long> productIdList,
-			long cartId) {
+	public static com.liferay.sales.model.SaleCart addProductToCartList(
+		HttpPrincipal httpPrincipal, long productId, long cartId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -94,7 +92,7 @@ public class CartProductsListServiceHttp {
 				_addProductToCartListParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, productIdList, cartId);
+				methodKey, productId, cartId);
 
 			Object returnObj = null;
 
@@ -106,8 +104,7 @@ public class CartProductsListServiceHttp {
 					exception);
 			}
 
-			return (java.util.List<com.liferay.sales.model.CartProductsList>)
-				returnObj;
+			return (com.liferay.sales.model.SaleCart)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -119,8 +116,7 @@ public class CartProductsListServiceHttp {
 	}
 
 	public static void removeProductToCartList(
-		HttpPrincipal httpPrincipal, java.util.List<Long> productIdList,
-		long cartId) {
+		HttpPrincipal httpPrincipal, long productId, long cartId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -128,7 +124,7 @@ public class CartProductsListServiceHttp {
 				_removeProductToCartListParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, productIdList, cartId);
+				methodKey, productId, cartId);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
@@ -147,14 +143,56 @@ public class CartProductsListServiceHttp {
 		}
 	}
 
+	public static com.liferay.sales.model.CartProductsList
+			deleteCartProductsList(HttpPrincipal httpPrincipal, long productId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CartProductsListServiceUtil.class, "deleteCartProductsList",
+				_deleteCartProductsListParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, productId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.CartProductsList)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		CartProductsListServiceHttp.class);
 
 	private static final Class<?>[] _getAllProductsByCarIDParameterTypes0 =
 		new Class[] {long.class};
 	private static final Class<?>[] _addProductToCartListParameterTypes1 =
-		new Class[] {java.util.List.class, long.class};
+		new Class[] {long.class, long.class};
 	private static final Class<?>[] _removeProductToCartListParameterTypes2 =
-		new Class[] {java.util.List.class, long.class};
+		new Class[] {long.class, long.class};
+	private static final Class<?>[] _deleteCartProductsListParameterTypes3 =
+		new Class[] {long.class};
 
 }

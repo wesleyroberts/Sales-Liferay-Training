@@ -87,11 +87,6 @@ public class SaleStockLocalServiceWrapper
 		return _saleStockLocalService.deletePersistedModel(persistedModel);
 	}
 
-	@Override
-	public void deletesaleCartById(long id) {
-		_saleStockLocalService.deletesaleCartById(id);
-	}
-
 	/**
 	 * Deletes the sale stock with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
@@ -125,6 +120,11 @@ public class SaleStockLocalServiceWrapper
 		com.liferay.sales.model.SaleStock saleStock) {
 
 		return _saleStockLocalService.deleteSaleStock(saleStock);
+	}
+
+	@Override
+	public void deletesaleStockById(long id) {
+		_saleStockLocalService.deletesaleStockById(id);
 	}
 
 	@Override

@@ -16,8 +16,10 @@ package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.NoSuchModelException;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.sales.exception.NoSuchCartProductsListException;
 import com.liferay.sales.model.CartProductsList;
+import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.service.SaleCartService;
 import com.liferay.sales.service.SaleProductService;
@@ -67,35 +69,45 @@ public class CartProductsListLocalServiceImpl
 
 	}
 
-	public List<CartProductsList> addProductToCartList(List<Long> productsIdList, long cartId){
-		List<CartProductsList> list = new ArrayList<CartProductsList>();
-
-		for (long productId: productsIdList ) {
-			CartProductsList cartProductsList = cartProductsListPersistence.create(productId);
-			cartProductsList.setCartId(cartId);
+	public SaleCart addProductToCartList( long productId, long cartId){
+		try{
 			SaleProduct product = saleProductService.getSaleProductById(productId);
+			StockProductsListServiceUtil.removeProductFromStock(product.getProductId());
+			createCartProductList(productId,cartId);
 			saleCartService.addProductPriceToCartTotalValue(product.getPrice(),cartId);
-			StockProductsListServiceUtil.removeProductFromStock(product);
-			list.add(cartProductsListPersistence.update(cartProductsList));
-
+			return saleCartService.getSaleCartById(cartId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return  null;
 		}
-
-		return list;
 	}
 
-	public void removeProductToCartList(List<Long> productsIdList,long cartId){
-
+	public void removeProductToCartList(long productId,long cartId){
 		try {
-			for (Long productId: productsIdList ) {
-				saleCartService.removeProductPriceToCartTotalValue(saleProductService.getSaleProductById(productId).getPrice(), cartId);
-				cartProductsListPersistence.remove(productId);
-				StockProductsListLocalServiceUtil.addProductToStock(saleProductService.getSaleProductById(productId));
-			}
+			SaleProduct product = saleProductService.getSaleProductById(productId);
+			saleCartService.removeProductPriceToCartTotalValue(product.getPrice(), cartId);
+			StockProductsListLocalServiceUtil.addProductToStock(product);
+			cartProductsListPersistence.remove(productId);
 		} catch (NoSuchModelException e) {
 			e.printStackTrace();
 		}
 	}
 
+	@Override
+	public CartProductsList deleteCartProductsList(long productId) throws PortalException {
+		return cartProductsListPersistence.remove(productId);
+	}
+
+	public CartProductsList createCartProductList(long porductId, long cartId){
+		try{
+			CartProductsList cartProductList = cartProductsListPersistence.create(porductId);
+			cartProductList.setCartId(cartId);
+			return cartProductsListPersistence.update(cartProductList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	@Reference
 	SaleProductService saleProductService;
 	@Reference

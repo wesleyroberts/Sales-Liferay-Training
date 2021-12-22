@@ -339,10 +339,8 @@ public class StockProductsListLocalServiceWrapper
 	}
 
 	@Override
-	public void removeProductFromStock(
-		com.liferay.sales.model.SaleProduct product) {
-
-		_stockProductsListLocalService.removeProductFromStock(product);
+	public void removeProductFromStock(long productID) {
+		_stockProductsListLocalService.removeProductFromStock(productID);
 	}
 
 	/**

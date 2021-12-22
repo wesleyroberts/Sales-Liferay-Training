@@ -177,13 +177,13 @@ public class SaleStockServiceHttp {
 		}
 	}
 
-	public static void deletesaleCartById(
+	public static void deletesaleStockById(
 		HttpPrincipal httpPrincipal, long id) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				SaleStockServiceUtil.class, "deletesaleCartById",
-				_deletesaleCartByIdParameterTypes4);
+				SaleStockServiceUtil.class, "deletesaleStockById",
+				_deletesaleStockByIdParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, id);
 
@@ -247,7 +247,7 @@ public class SaleStockServiceHttp {
 		new Class[] {};
 	private static final Class<?>[] _getSaleStockByIdParameterTypes3 =
 		new Class[] {long.class};
-	private static final Class<?>[] _deletesaleCartByIdParameterTypes4 =
+	private static final Class<?>[] _deletesaleStockByIdParameterTypes4 =
 		new Class[] {long.class};
 	private static final Class<?>[] _getSaleStockByProductParameterTypes5 =
 		new Class[] {com.liferay.sales.model.SaleProduct.class};

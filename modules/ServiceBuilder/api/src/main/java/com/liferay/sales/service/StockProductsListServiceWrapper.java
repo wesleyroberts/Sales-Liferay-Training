@@ -71,10 +71,8 @@ public class StockProductsListServiceWrapper
 	}
 
 	@Override
-	public void removeProductFromStock(
-		com.liferay.sales.model.SaleProduct product) {
-
-		_stockProductsListService.removeProductFromStock(product);
+	public void removeProductFromStock(long productID) {
+		_stockProductsListService.removeProductFromStock(productID);
 	}
 
 	@Override
