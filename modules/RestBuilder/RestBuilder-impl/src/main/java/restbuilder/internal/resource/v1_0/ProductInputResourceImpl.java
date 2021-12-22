@@ -1,5 +1,6 @@
 package restbuilder.internal.resource.v1_0;
 
+import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.service.SaleProductService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -19,6 +20,8 @@ import restbuilder.resource.v1_0.TypeResource;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Wesley Roberts
@@ -32,7 +35,7 @@ public class ProductInputResourceImpl extends BaseProductInputResourceImpl {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/create' -d $'{"categoryId": ___, "name": ___, "price": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/product/create' -d $'{"categoryId": ___, "name": ___, "price": ___, "quantity": ___, "typeId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Consumes({"application/json", "application/xml"})
 	@Override
@@ -40,14 +43,13 @@ public class ProductInputResourceImpl extends BaseProductInputResourceImpl {
 	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductInput")})
-	public ProductOutput createProduct(ProductInput productInput)
+	public Page<ProductOutput> createProduct(ProductInput productInput)
 			throws Exception {
-		return _toProductOutput(_saleProductService.createSaleProduct(
-				productInput.getName(),
-				productInput.getPrice(),
-				productInput.getCategoryId(),
-				productInput.getTypeId()
-		));
+		List<ProductOutput> productOutputList = new ArrayList<ProductOutput>();
+		for (SaleProduct p: _saleProductService.createSaleProductInScale(productInput.getName(), productInput.getPrice(), productInput.getCategoryId(), productInput.getTypeId(), productInput.getQuantity())){
+			productOutputList.add(_toProductOutput(p));
+		}
+		return Page.of(productOutputList);
 	}
 
 	/**
@@ -74,6 +76,7 @@ public class ProductInputResourceImpl extends BaseProductInputResourceImpl {
 						productInput.getPrice(),
 						productInput.getCategoryId(),
 						productInput.getTypeId());
+
 
 		return _toProductOutput(saleProduct);
 	}

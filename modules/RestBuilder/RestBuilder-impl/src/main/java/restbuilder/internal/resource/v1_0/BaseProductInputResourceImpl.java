@@ -108,19 +108,17 @@ public abstract class BaseProductInputResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/addProductInStock/{productIdList}'  -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/addProductToStock/{productID}'  -u 'test@liferay.com:test'
 	 */
 	@Override
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "productIdList")}
-	)
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "productID")})
 	@PATCH
-	@Path("/addProductInStock/{productIdList}")
+	@Path("/addProductToStock/{productID}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductInput")})
-	public Stock addProductInStock(
-			@NotNull @Parameter(hidden = true) @PathParam("productIdList")
-				Integer[] productIdList)
+	public Stock addProductToStock(
+			@NotNull @Parameter(hidden = true) @PathParam("productID") Integer
+				productID)
 		throws Exception {
 
 		return new Stock();
@@ -129,19 +127,17 @@ public abstract class BaseProductInputResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/removeProductFromStock/{productIdList}'  -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/removeProductFromStock/{productID}'  -u 'test@liferay.com:test'
 	 */
 	@Override
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "productIdList")}
-	)
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "productID")})
 	@PATCH
-	@Path("/removeProductFromStock/{productIdList}")
+	@Path("/removeProductFromStock/{productID}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductInput")})
 	public void removeProductFromStock(
-			@NotNull @Parameter(hidden = true) @PathParam("productIdList")
-				Integer[] productIdList)
+			@NotNull @Parameter(hidden = true) @PathParam("productID") Integer
+				productID)
 		throws Exception {
 	}
 
