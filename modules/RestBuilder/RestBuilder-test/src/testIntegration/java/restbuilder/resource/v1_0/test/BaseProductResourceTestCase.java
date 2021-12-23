@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
@@ -57,19 +58,19 @@ import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 
-import restbuilder.client.dto.v1_0.CartOutput;
+import restbuilder.client.dto.v1_0.Product;
 import restbuilder.client.dto.v1_0.Type;
 import restbuilder.client.http.HttpInvoker;
 import restbuilder.client.pagination.Page;
-import restbuilder.client.resource.v1_0.CartOutputResource;
-import restbuilder.client.serdes.v1_0.CartOutputSerDes;
+import restbuilder.client.resource.v1_0.ProductResource;
+import restbuilder.client.serdes.v1_0.ProductSerDes;
 
 /**
  * @author Wesley Roberts
  * @generated
  */
 @Generated("")
-public abstract class BaseCartOutputResourceTestCase {
+public abstract class BaseProductResourceTestCase {
 
 	@ClassRule
 	@Rule
@@ -90,11 +91,11 @@ public abstract class BaseCartOutputResourceTestCase {
 		testCompany = CompanyLocalServiceUtil.getCompany(
 			testGroup.getCompanyId());
 
-		_cartOutputResource.setContextCompany(testCompany);
+		_productResource.setContextCompany(testCompany);
 
-		CartOutputResource.Builder builder = CartOutputResource.builder();
+		ProductResource.Builder builder = ProductResource.builder();
 
-		cartOutputResource = builder.authentication(
+		productResource = builder.authentication(
 			"test@liferay.com", "test"
 		).locale(
 			LocaleUtil.getDefault()
@@ -125,13 +126,13 @@ public abstract class BaseCartOutputResourceTestCase {
 			}
 		};
 
-		CartOutput cartOutput1 = randomCartOutput();
+		Product product1 = randomProduct();
 
-		String json = objectMapper.writeValueAsString(cartOutput1);
+		String json = objectMapper.writeValueAsString(product1);
 
-		CartOutput cartOutput2 = CartOutputSerDes.toDTO(json);
+		Product product2 = ProductSerDes.toDTO(json);
 
-		Assert.assertTrue(equals(cartOutput1, cartOutput2));
+		Assert.assertTrue(equals(product1, product2));
 	}
 
 	@Test
@@ -151,10 +152,10 @@ public abstract class BaseCartOutputResourceTestCase {
 			}
 		};
 
-		CartOutput cartOutput = randomCartOutput();
+		Product product = randomProduct();
 
-		String json1 = objectMapper.writeValueAsString(cartOutput);
-		String json2 = CartOutputSerDes.toJSON(cartOutput);
+		String json1 = objectMapper.writeValueAsString(product);
+		String json2 = ProductSerDes.toJSON(product);
 
 		Assert.assertEquals(
 			objectMapper.readTree(json1), objectMapper.readTree(json2));
@@ -164,69 +165,74 @@ public abstract class BaseCartOutputResourceTestCase {
 	public void testEscapeRegexInStringFields() throws Exception {
 		String regex = "^[0-9]+(\\.[0-9]{1,2})\"?";
 
-		CartOutput cartOutput = randomCartOutput();
+		Product product = randomProduct();
 
-		String json = CartOutputSerDes.toJSON(cartOutput);
+		product.setName(regex);
+
+		String json = ProductSerDes.toJSON(product);
 
 		Assert.assertFalse(json.contains(regex));
 
-		cartOutput = CartOutputSerDes.toDTO(json);
+		product = ProductSerDes.toDTO(json);
+
+		Assert.assertEquals(regex, product.getName());
 	}
 
 	@Test
-	public void testGetAllCarts() throws Exception {
+	public void testGetAllProducts() throws Exception {
 		Assert.assertTrue(false);
 	}
 
 	@Test
-	public void testGetCartById() throws Exception {
-		CartOutput postCartOutput = testGetCartById_addCartOutput();
+	public void testGetProductById() throws Exception {
+		Product postProduct = testGetProductById_addProduct();
 
-		CartOutput getCartOutput = cartOutputResource.getCartById(null);
+		Product getProduct = productResource.getProductById(
+			postProduct.getId());
 
-		assertEquals(postCartOutput, getCartOutput);
-		assertValid(getCartOutput);
+		assertEquals(postProduct, getProduct);
+		assertValid(getProduct);
 	}
 
-	protected CartOutput testGetCartById_addCartOutput() throws Exception {
+	protected Product testGetProductById_addProduct() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGraphQLGetCartById() throws Exception {
-		CartOutput cartOutput = testGraphQLCartOutput_addCartOutput();
+	public void testGraphQLGetProductById() throws Exception {
+		Product product = testGraphQLProduct_addProduct();
 
 		Assert.assertTrue(
 			equals(
-				cartOutput,
-				CartOutputSerDes.toDTO(
+				product,
+				ProductSerDes.toDTO(
 					JSONUtil.getValueAsString(
 						invokeGraphQLQuery(
 							new GraphQLField(
-								"cartById",
+								"productById",
 								new HashMap<String, Object>() {
 									{
-										put("cartId", null);
+										put("productId", product.getId());
 									}
 								},
 								getGraphQLFields())),
-						"JSONObject/data", "Object/cartById"))));
+						"JSONObject/data", "Object/productById"))));
 	}
 
 	@Test
-	public void testGraphQLGetCartByIdNotFound() throws Exception {
-		Integer irrelevantCartId = RandomTestUtil.randomInt();
+	public void testGraphQLGetProductByIdNotFound() throws Exception {
+		Integer irrelevantProductId = RandomTestUtil.randomInt();
 
 		Assert.assertEquals(
 			"Not Found",
 			JSONUtil.getValueAsString(
 				invokeGraphQLQuery(
 					new GraphQLField(
-						"cartById",
+						"productById",
 						new HashMap<String, Object>() {
 							{
-								put("cartId", irrelevantCartId);
+								put("productId", irrelevantProductId);
 							}
 						},
 						getGraphQLFields())),
@@ -235,83 +241,56 @@ public abstract class BaseCartOutputResourceTestCase {
 	}
 
 	@Test
-	public void testGetTotalValueByCartId() throws Exception {
+	public void testCreateProduct() throws Exception {
 		Assert.assertTrue(false);
 	}
 
 	@Test
-	public void testCreateCart() throws Exception {
-		CartOutput postCartOutput = testCreateCart_addCartOutput();
+	public void testUpdateProductById() throws Exception {
+		Product postProduct = testUpdateProductById_addProduct();
 
-		CartOutput getCartOutput = cartOutputResource.createCart();
+		Product randomProduct = randomProduct();
 
-		assertEquals(postCartOutput, getCartOutput);
-		assertValid(getCartOutput);
+		Product putProduct = productResource.updateProductById(
+			postProduct.getId(), null);
+
+		assertEquals(randomProduct, putProduct);
+		assertValid(putProduct);
+
+		Product getProduct = productResource.updateProductById(
+			putProduct.getId());
+
+		assertEquals(randomProduct, getProduct);
+		assertValid(getProduct);
 	}
 
-	protected CartOutput testCreateCart_addCartOutput() throws Exception {
+	protected Product testUpdateProductById_addProduct() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGraphQLCreateCart() throws Exception {
-		CartOutput cartOutput = testGraphQLCartOutput_addCartOutput();
-
-		Assert.assertTrue(
-			equals(
-				cartOutput,
-				CartOutputSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"createCart",
-								new HashMap<String, Object>() {
-									{
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data", "Object/createCart"))));
-	}
-
-	@Test
-	public void testGraphQLCreateCartNotFound() throws Exception {
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testAddProductToCart() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testRemoveProductFromCart() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testDeleteCartById() throws Exception {
+	public void testDeleteProductById() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
-		CartOutput cartOutput = testDeleteCartById_addCartOutput();
+		Product product = testDeleteProductById_addProduct();
 
 		assertHttpResponseStatusCode(
-			204, cartOutputResource.deleteCartByIdHttpResponse(null));
+			204,
+			productResource.deleteProductByIdHttpResponse(product.getId()));
 
 		assertHttpResponseStatusCode(
-			404, cartOutputResource.getCartByIdHttpResponse(null));
+			404, productResource.getProductByIdHttpResponse(product.getId()));
 
 		assertHttpResponseStatusCode(
-			404, cartOutputResource.getCartByIdHttpResponse(null));
+			404, productResource.getProductByIdHttpResponse(0));
 	}
 
-	protected CartOutput testDeleteCartById_addCartOutput() throws Exception {
+	protected Product testDeleteProductById_addProduct() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected CartOutput testGraphQLCartOutput_addCartOutput()
-		throws Exception {
-
+	protected Product testGraphQLProduct_addProduct() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
@@ -324,37 +303,35 @@ public abstract class BaseCartOutputResourceTestCase {
 			expectedHttpResponseStatusCode, actualHttpResponse.getStatusCode());
 	}
 
-	protected void assertEquals(
-		CartOutput cartOutput1, CartOutput cartOutput2) {
-
+	protected void assertEquals(Product product1, Product product2) {
 		Assert.assertTrue(
-			cartOutput1 + " does not equal " + cartOutput2,
-			equals(cartOutput1, cartOutput2));
+			product1 + " does not equal " + product2,
+			equals(product1, product2));
 	}
 
 	protected void assertEquals(
-		List<CartOutput> cartOutputs1, List<CartOutput> cartOutputs2) {
+		List<Product> products1, List<Product> products2) {
 
-		Assert.assertEquals(cartOutputs1.size(), cartOutputs2.size());
+		Assert.assertEquals(products1.size(), products2.size());
 
-		for (int i = 0; i < cartOutputs1.size(); i++) {
-			CartOutput cartOutput1 = cartOutputs1.get(i);
-			CartOutput cartOutput2 = cartOutputs2.get(i);
+		for (int i = 0; i < products1.size(); i++) {
+			Product product1 = products1.get(i);
+			Product product2 = products2.get(i);
 
-			assertEquals(cartOutput1, cartOutput2);
+			assertEquals(product1, product2);
 		}
 	}
 
 	protected void assertEqualsIgnoringOrder(
-		List<CartOutput> cartOutputs1, List<CartOutput> cartOutputs2) {
+		List<Product> products1, List<Product> products2) {
 
-		Assert.assertEquals(cartOutputs1.size(), cartOutputs2.size());
+		Assert.assertEquals(products1.size(), products2.size());
 
-		for (CartOutput cartOutput1 : cartOutputs1) {
+		for (Product product1 : products1) {
 			boolean contains = false;
 
-			for (CartOutput cartOutput2 : cartOutputs2) {
-				if (equals(cartOutput1, cartOutput2)) {
+			for (Product product2 : products2) {
+				if (equals(product1, product2)) {
 					contains = true;
 
 					break;
@@ -362,30 +339,46 @@ public abstract class BaseCartOutputResourceTestCase {
 			}
 
 			Assert.assertTrue(
-				cartOutputs2 + " does not contain " + cartOutput1, contains);
+				products2 + " does not contain " + product1, contains);
 		}
 	}
 
-	protected void assertValid(CartOutput cartOutput) throws Exception {
+	protected void assertValid(Product product) throws Exception {
 		boolean valid = true;
 
-		if (cartOutput.getId() == null) {
+		if (product.getId() == null) {
 			valid = false;
 		}
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
-			if (Objects.equals("productList", additionalAssertFieldName)) {
-				if (cartOutput.getProductList() == null) {
+			if (Objects.equals("category", additionalAssertFieldName)) {
+				if (product.getCategory() == null) {
 					valid = false;
 				}
 
 				continue;
 			}
 
-			if (Objects.equals("totalValue", additionalAssertFieldName)) {
-				if (cartOutput.getTotalValue() == null) {
+			if (Objects.equals("name", additionalAssertFieldName)) {
+				if (product.getName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("price", additionalAssertFieldName)) {
+				if (product.getPrice() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("type", additionalAssertFieldName)) {
+				if (product.getType() == null) {
 					valid = false;
 				}
 
@@ -400,12 +393,12 @@ public abstract class BaseCartOutputResourceTestCase {
 		Assert.assertTrue(valid);
 	}
 
-	protected void assertValid(Page<CartOutput> page) {
+	protected void assertValid(Page<Product> page) {
 		boolean valid = false;
 
-		java.util.Collection<CartOutput> cartOutputs = page.getItems();
+		java.util.Collection<Product> products = page.getItems();
 
-		int size = cartOutputs.size();
+		int size = products.size();
 
 		if ((page.getLastPage() > 0) && (page.getPage() > 0) &&
 			(page.getPageSize() > 0) && (page.getTotalCount() > 0) &&
@@ -425,7 +418,7 @@ public abstract class BaseCartOutputResourceTestCase {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
 		for (Field field :
-				getDeclaredFields(restbuilder.dto.v1_0.CartOutput.class)) {
+				getDeclaredFields(restbuilder.dto.v1_0.Product.class)) {
 
 			if (!ArrayUtil.contains(
 					getAdditionalAssertFieldNames(), field.getName())) {
@@ -472,17 +465,35 @@ public abstract class BaseCartOutputResourceTestCase {
 		return new String[0];
 	}
 
-	protected boolean equals(CartOutput cartOutput1, CartOutput cartOutput2) {
-		if (cartOutput1 == cartOutput2) {
+	protected boolean equals(Product product1, Product product2) {
+		if (product1 == product2) {
 			return true;
 		}
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("category", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						product1.getCategory(), product2.getCategory())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("id", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(product1.getId(), product2.getId())) {
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						cartOutput1.getId(), cartOutput2.getId())) {
+						product1.getName(), product2.getName())) {
 
 					return false;
 				}
@@ -490,10 +501,9 @@ public abstract class BaseCartOutputResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("productList", additionalAssertFieldName)) {
+			if (Objects.equals("price", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						cartOutput1.getProductList(),
-						cartOutput2.getProductList())) {
+						product1.getPrice(), product2.getPrice())) {
 
 					return false;
 				}
@@ -501,10 +511,9 @@ public abstract class BaseCartOutputResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("totalValue", additionalAssertFieldName)) {
+			if (Objects.equals("type", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						cartOutput1.getTotalValue(),
-						cartOutput2.getTotalValue())) {
+						product1.getType(), product2.getType())) {
 
 					return false;
 				}
@@ -560,13 +569,13 @@ public abstract class BaseCartOutputResourceTestCase {
 	protected java.util.Collection<EntityField> getEntityFields()
 		throws Exception {
 
-		if (!(_cartOutputResource instanceof EntityModelResource)) {
+		if (!(_productResource instanceof EntityModelResource)) {
 			throw new UnsupportedOperationException(
 				"Resource is not an instance of EntityModelResource");
 		}
 
 		EntityModelResource entityModelResource =
-			(EntityModelResource)_cartOutputResource;
+			(EntityModelResource)_productResource;
 
 		EntityModel entityModel = entityModelResource.getEntityModel(
 			new MultivaluedHashMap());
@@ -595,7 +604,7 @@ public abstract class BaseCartOutputResourceTestCase {
 	}
 
 	protected String getFilterString(
-		EntityField entityField, String operator, CartOutput cartOutput) {
+		EntityField entityField, String operator, Product product) {
 
 		StringBundler sb = new StringBundler();
 
@@ -607,17 +616,30 @@ public abstract class BaseCartOutputResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("category")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("id")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("productList")) {
+		if (entityFieldName.equals("name")) {
+			sb.append("'");
+			sb.append(String.valueOf(product.getName()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("price")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("totalValue")) {
+		if (entityFieldName.equals("type")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -663,26 +685,27 @@ public abstract class BaseCartOutputResourceTestCase {
 			invoke(queryGraphQLField.toString()));
 	}
 
-	protected CartOutput randomCartOutput() throws Exception {
-		return new CartOutput() {
+	protected Product randomProduct() throws Exception {
+		return new Product() {
 			{
 				id = RandomTestUtil.randomInt();
-				totalValue = RandomTestUtil.randomDouble();
+				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				price = RandomTestUtil.randomDouble();
 			}
 		};
 	}
 
-	protected CartOutput randomIrrelevantCartOutput() throws Exception {
-		CartOutput randomIrrelevantCartOutput = randomCartOutput();
+	protected Product randomIrrelevantProduct() throws Exception {
+		Product randomIrrelevantProduct = randomProduct();
 
-		return randomIrrelevantCartOutput;
+		return randomIrrelevantProduct;
 	}
 
-	protected CartOutput randomPatchCartOutput() throws Exception {
-		return randomCartOutput();
+	protected Product randomPatchProduct() throws Exception {
+		return randomProduct();
 	}
 
-	protected CartOutputResource cartOutputResource;
+	protected ProductResource productResource;
 	protected Group irrelevantGroup;
 	protected Company testCompany;
 	protected Group testGroup;
@@ -759,7 +782,7 @@ public abstract class BaseCartOutputResourceTestCase {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		BaseCartOutputResourceTestCase.class);
+		BaseProductResourceTestCase.class);
 
 	private static BeanUtilsBean _beanUtilsBean = new BeanUtilsBean() {
 
@@ -776,6 +799,6 @@ public abstract class BaseCartOutputResourceTestCase {
 	private static DateFormat _dateFormat;
 
 	@Inject
-	private restbuilder.resource.v1_0.CartOutputResource _cartOutputResource;
+	private restbuilder.resource.v1_0.ProductResource _productResource;
 
 }

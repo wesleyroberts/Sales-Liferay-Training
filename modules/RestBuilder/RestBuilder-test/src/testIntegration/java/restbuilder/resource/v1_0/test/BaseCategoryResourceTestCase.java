@@ -298,6 +298,47 @@ public abstract class BaseCategoryResourceTestCase {
 	}
 
 	@Test
+	public void testCreateCategory() throws Exception {
+		Category randomCategory = randomCategory();
+
+		Category postCategory = testCreateCategory_addCategory(randomCategory);
+
+		assertEquals(randomCategory, postCategory);
+		assertValid(postCategory);
+	}
+
+	protected Category testCreateCategory_addCategory(Category category)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testUpdateCategoryById() throws Exception {
+		Category postCategory = testUpdateCategoryById_addCategory();
+
+		Category randomCategory = randomCategory();
+
+		Category putCategory = categoryResource.updateCategoryById(
+			postCategory.getId(), null);
+
+		assertEquals(randomCategory, putCategory);
+		assertValid(putCategory);
+
+		Category getCategory = categoryResource.updateCategoryById(
+			putCategory.getId());
+
+		assertEquals(randomCategory, getCategory);
+		assertValid(getCategory);
+	}
+
+	protected Category testUpdateCategoryById_addCategory() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
 	public void testDeleteCategoryById() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
 		Category category = testDeleteCategoryById_addCategory();

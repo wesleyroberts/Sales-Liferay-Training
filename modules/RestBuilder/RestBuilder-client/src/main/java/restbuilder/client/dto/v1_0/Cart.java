@@ -8,17 +8,17 @@ import javax.annotation.Generated;
 
 import restbuilder.client.dto.v1_0.ProductList;
 import restbuilder.client.function.UnsafeSupplier;
-import restbuilder.client.serdes.v1_0.CartOutputSerDes;
+import restbuilder.client.serdes.v1_0.CartSerDes;
 
 /**
  * @author Wesley Roberts
  * @generated
  */
 @Generated("")
-public class CartOutput implements Cloneable, Serializable {
+public class Cart implements Cloneable, Serializable {
 
-	public static CartOutput toDTO(String json) {
-		return CartOutputSerDes.toDTO(json);
+	public static Cart toDTO(String json) {
+		return CartSerDes.toDTO(json);
 	}
 
 	public Integer getId() {
@@ -83,8 +83,8 @@ public class CartOutput implements Cloneable, Serializable {
 	protected Double totalValue;
 
 	@Override
-	public CartOutput clone() throws CloneNotSupportedException {
-		return (CartOutput)super.clone();
+	public Cart clone() throws CloneNotSupportedException {
+		return (Cart)super.clone();
 	}
 
 	@Override
@@ -93,13 +93,13 @@ public class CartOutput implements Cloneable, Serializable {
 			return true;
 		}
 
-		if (!(object instanceof CartOutput)) {
+		if (!(object instanceof Cart)) {
 			return false;
 		}
 
-		CartOutput cartOutput = (CartOutput)object;
+		Cart cart = (Cart)object;
 
-		return Objects.equals(toString(), cartOutput.toString());
+		return Objects.equals(toString(), cart.toString());
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class CartOutput implements Cloneable, Serializable {
 	}
 
 	public String toString() {
-		return CartOutputSerDes.toJSON(this);
+		return CartSerDes.toJSON(this);
 	}
 
 }

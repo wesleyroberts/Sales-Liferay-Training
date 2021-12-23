@@ -8,60 +8,59 @@ import java.util.logging.Logger;
 
 import javax.annotation.Generated;
 
-import restbuilder.client.dto.v1_0.Category;
-import restbuilder.client.dto.v1_0.CategoryInput;
+import restbuilder.client.dto.v1_0.Cart;
 import restbuilder.client.http.HttpInvoker;
 import restbuilder.client.pagination.Page;
 import restbuilder.client.problem.Problem;
-import restbuilder.client.serdes.v1_0.CategorySerDes;
+import restbuilder.client.serdes.v1_0.CartSerDes;
 
 /**
  * @author Wesley Roberts
  * @generated
  */
 @Generated("")
-public interface CategoryResource {
+public interface CartResource {
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	public Page<Category> getAllCategories() throws Exception;
+	public Page<Cart> getAllCarts() throws Exception;
 
-	public HttpInvoker.HttpResponse getAllCategoriesHttpResponse()
+	public HttpInvoker.HttpResponse getAllCartsHttpResponse() throws Exception;
+
+	public Cart getCartById(Integer cartId) throws Exception;
+
+	public HttpInvoker.HttpResponse getCartByIdHttpResponse(Integer cartId)
 		throws Exception;
 
-	public Category getCategoryByName(String categoryName) throws Exception;
+	public Integer getTotalValueByCartId(Integer cartId) throws Exception;
 
-	public HttpInvoker.HttpResponse getCategoryByNameHttpResponse(
-			String categoryName)
+	public HttpInvoker.HttpResponse getTotalValueByCartIdHttpResponse(
+			Integer cartId)
 		throws Exception;
 
-	public Category getCategoryById(Integer categoryId) throws Exception;
+	public Cart createCart() throws Exception;
 
-	public HttpInvoker.HttpResponse getCategoryByIdHttpResponse(
-			Integer categoryId)
+	public HttpInvoker.HttpResponse createCartHttpResponse() throws Exception;
+
+	public Cart addProductToCart(Integer cartID, Integer productID)
 		throws Exception;
 
-	public Category createCategory(CategoryInput categoryInput)
+	public HttpInvoker.HttpResponse addProductToCartHttpResponse(
+			Integer cartID, Integer productID)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse createCategoryHttpResponse(
-			CategoryInput categoryInput)
+	public Cart removeProductFromCart(Integer cartID, Integer productID)
 		throws Exception;
 
-	public Category updateCategoryById(
-			Integer categoryId, CategoryInput categoryInput)
+	public HttpInvoker.HttpResponse removeProductFromCartHttpResponse(
+			Integer cartID, Integer productID)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse updateCategoryByIdHttpResponse(
-			Integer categoryId, CategoryInput categoryInput)
-		throws Exception;
+	public void deleteCartById(Integer cartId) throws Exception;
 
-	public void deleteCategoryById(Integer categoryId) throws Exception;
-
-	public HttpInvoker.HttpResponse deleteCategoryByIdHttpResponse(
-			Integer categoryId)
+	public HttpInvoker.HttpResponse deleteCartByIdHttpResponse(Integer cartId)
 		throws Exception;
 
 	public static class Builder {
@@ -73,8 +72,8 @@ public interface CategoryResource {
 			return this;
 		}
 
-		public CategoryResource build() {
-			return new CategoryResourceImpl(this);
+		public CartResource build() {
+			return new CartResourceImpl(this);
 		}
 
 		public Builder endpoint(String host, int port, String scheme) {
@@ -133,11 +132,10 @@ public interface CategoryResource {
 
 	}
 
-	public static class CategoryResourceImpl implements CategoryResource {
+	public static class CartResourceImpl implements CartResource {
 
-		public Page<Category> getAllCategories() throws Exception {
-			HttpInvoker.HttpResponse httpResponse =
-				getAllCategoriesHttpResponse();
+		public Page<Cart> getAllCarts() throws Exception {
+			HttpInvoker.HttpResponse httpResponse = getAllCartsHttpResponse();
 
 			String content = httpResponse.getContent();
 
@@ -165,7 +163,7 @@ public interface CategoryResource {
 			}
 
 			try {
-				return Page.of(content, CategorySerDes::toDTO);
+				return Page.of(content, CartSerDes::toDTO);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -176,7 +174,7 @@ public interface CategoryResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getAllCategoriesHttpResponse()
+		public HttpInvoker.HttpResponse getAllCartsHttpResponse()
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -202,7 +200,7 @@ public interface CategoryResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/RestBuilder/v1.0/category/all");
+					_builder._port + "/o/RestBuilder/v1.0/cart/getAll");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -210,11 +208,9 @@ public interface CategoryResource {
 			return httpInvoker.invoke();
 		}
 
-		public Category getCategoryByName(String categoryName)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getCategoryByNameHttpResponse(categoryName);
+		public Cart getCartById(Integer cartId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = getCartByIdHttpResponse(
+				cartId);
 
 			String content = httpResponse.getContent();
 
@@ -242,7 +238,7 @@ public interface CategoryResource {
 			}
 
 			try {
-				return CategorySerDes.toDTO(content);
+				return CartSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -253,8 +249,7 @@ public interface CategoryResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getCategoryByNameHttpResponse(
-				String categoryName)
+		public HttpInvoker.HttpResponse getCartByIdHttpResponse(Integer cartId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -280,10 +275,9 @@ public interface CategoryResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/RestBuilder/v1.0/category/{categoryName}");
+					_builder._port + "/o/RestBuilder/v1.0/cart/{cartId}");
 
-			httpInvoker.path("categoryName", categoryName);
+			httpInvoker.path("cartId", cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -291,9 +285,9 @@ public interface CategoryResource {
 			return httpInvoker.invoke();
 		}
 
-		public Category getCategoryById(Integer categoryId) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = getCategoryByIdHttpResponse(
-				categoryId);
+		public Integer getTotalValueByCartId(Integer cartId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse =
+				getTotalValueByCartIdHttpResponse(cartId);
 
 			String content = httpResponse.getContent();
 
@@ -321,7 +315,7 @@ public interface CategoryResource {
 			}
 
 			try {
-				return CategorySerDes.toDTO(content);
+				return Integer.valueOf(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -332,8 +326,8 @@ public interface CategoryResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getCategoryByIdHttpResponse(
-				Integer categoryId)
+		public HttpInvoker.HttpResponse getTotalValueByCartIdHttpResponse(
+				Integer cartId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -360,9 +354,9 @@ public interface CategoryResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/RestBuilder/v1.0/category/{categoryId}");
+						"/o/RestBuilder/v1.0/cart/getTotalValue/{cartId}");
 
-			httpInvoker.path("categoryId", categoryId);
+			httpInvoker.path("cartId", cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -370,11 +364,8 @@ public interface CategoryResource {
 			return httpInvoker.invoke();
 		}
 
-		public Category createCategory(CategoryInput categoryInput)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse = createCategoryHttpResponse(
-				categoryInput);
+		public Cart createCart() throws Exception {
+			HttpInvoker.HttpResponse httpResponse = createCartHttpResponse();
 
 			String content = httpResponse.getContent();
 
@@ -402,7 +393,7 @@ public interface CategoryResource {
 			}
 
 			try {
-				return CategorySerDes.toDTO(content);
+				return CartSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -413,13 +404,10 @@ public interface CategoryResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse createCategoryHttpResponse(
-				CategoryInput categoryInput)
+		public HttpInvoker.HttpResponse createCartHttpResponse()
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(categoryInput.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -438,11 +426,11 @@ public interface CategoryResource {
 				httpInvoker.parameter(entry.getKey(), entry.getValue());
 			}
 
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/RestBuilder/v1.0/category/create");
+					_builder._port + "/o/RestBuilder/v1.0/cart/create");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -450,12 +438,11 @@ public interface CategoryResource {
 			return httpInvoker.invoke();
 		}
 
-		public Category updateCategoryById(
-				Integer categoryId, CategoryInput categoryInput)
+		public Cart addProductToCart(Integer cartID, Integer productID)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				updateCategoryByIdHttpResponse(categoryId, categoryInput);
+				addProductToCartHttpResponse(cartID, productID);
 
 			String content = httpResponse.getContent();
 
@@ -483,7 +470,7 @@ public interface CategoryResource {
 			}
 
 			try {
-				return CategorySerDes.toDTO(content);
+				return CartSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -494,13 +481,13 @@ public interface CategoryResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse updateCategoryByIdHttpResponse(
-				Integer categoryId, CategoryInput categoryInput)
+		public HttpInvoker.HttpResponse addProductToCartHttpResponse(
+				Integer cartID, Integer productID)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(categoryInput.toString(), "application/json");
+			httpInvoker.body(productID.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -519,14 +506,15 @@ public interface CategoryResource {
 				httpInvoker.parameter(entry.getKey(), entry.getValue());
 			}
 
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PATCH);
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/RestBuilder/v1.0/category/update/{categoryId}");
+						"/o/RestBuilder/v1.0/addProductoCart/{cartID}/productID/{productID}");
 
-			httpInvoker.path("categoryId", categoryId);
+			httpInvoker.path("cartID", cartID);
+			httpInvoker.path("productID", productID);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -534,9 +522,93 @@ public interface CategoryResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteCategoryById(Integer categoryId) throws Exception {
+		public Cart removeProductFromCart(Integer cartID, Integer productID)
+			throws Exception {
+
 			HttpInvoker.HttpResponse httpResponse =
-				deleteCategoryByIdHttpResponse(categoryId);
+				removeProductFromCartHttpResponse(cartID, productID);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return CartSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse removeProductFromCartHttpResponse(
+				Integer cartID, Integer productID)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(productID.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PATCH);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/RestBuilder/v1.0/removeProductFromCart/{cartID}/ProductID/{productID}");
+
+			httpInvoker.path("cartID", cartID);
+			httpInvoker.path("productID", productID);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteCartById(Integer cartId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = deleteCartByIdHttpResponse(
+				cartId);
 
 			String content = httpResponse.getContent();
 
@@ -575,8 +647,8 @@ public interface CategoryResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse deleteCategoryByIdHttpResponse(
-				Integer categoryId)
+		public HttpInvoker.HttpResponse deleteCartByIdHttpResponse(
+				Integer cartId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -603,9 +675,9 @@ public interface CategoryResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/RestBuilder/v1.0/category/delete/{categoryId}");
+						"/o/RestBuilder/v1.0/cart/delete/{cartId}");
 
-			httpInvoker.path("categoryId", categoryId);
+			httpInvoker.path("cartId", cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -613,12 +685,12 @@ public interface CategoryResource {
 			return httpInvoker.invoke();
 		}
 
-		private CategoryResourceImpl(Builder builder) {
+		private CartResourceImpl(Builder builder) {
 			_builder = builder;
 		}
 
 		private static final Logger _logger = Logger.getLogger(
-			CategoryResource.class.getName());
+			CartResource.class.getName());
 
 		private Builder _builder;
 

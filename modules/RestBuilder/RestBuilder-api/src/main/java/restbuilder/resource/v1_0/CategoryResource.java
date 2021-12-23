@@ -17,6 +17,7 @@ import javax.ws.rs.core.UriInfo;
 import org.osgi.annotation.versioning.ProviderType;
 
 import restbuilder.dto.v1_0.Category;
+import restbuilder.dto.v1_0.CategoryInput;
 
 /**
  * To access this resource, run:
@@ -39,6 +40,13 @@ public interface CategoryResource {
 	public Category getCategoryByName(String categoryName) throws Exception;
 
 	public Category getCategoryById(Integer categoryId) throws Exception;
+
+	public Category createCategory(CategoryInput categoryInput)
+		throws Exception;
+
+	public Category updateCategoryById(
+			Integer categoryId, CategoryInput categoryInput)
+		throws Exception;
 
 	public void deleteCategoryById(Integer categoryId) throws Exception;
 

@@ -13,6 +13,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 import restbuilder.dto.v1_0.Type;
+import restbuilder.dto.v1_0.TypeInput;
 import restbuilder.resource.v1_0.TypeResource;
 
 import javax.validation.constraints.NotNull;
@@ -63,6 +64,43 @@ public class TypeResourceImpl extends BaseTypeResourceImpl {
 					typeId)
 			throws Exception {
 		SaleType saleType = _saleTypeService.getSaleTypeByID(typeId);
+		return _toTypeDTO(saleType);
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/type/create' -d $'{"name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Consumes({"application/json", "application/xml"})
+	@Override
+	@Path("/type/create")
+	@POST
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Type")})
+	public Type createType(TypeInput typeInput) throws Exception {
+		SaleType saleType =_saleTypeService.createSaleType(typeInput.getName(),typeInput.getTax());
+		return _toTypeDTO(saleType);
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/RestBuilder/v1.0/type/update/{typeId}' -d $'{"name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Consumes({"application/json", "application/xml"})
+	@Override
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "typeId")})
+	@Path("/type/update/{typeId}")
+	@Produces({"application/json", "application/xml"})
+	@PUT
+	@Tags(value = {@Tag(name = "Type")})
+	public Type updateTypeById(
+			@NotNull @Parameter(hidden = true) @PathParam("typeId") Integer
+					typeId,
+			TypeInput typeInput)
+			throws Exception {
+		SaleType saleType = _saleTypeService.updateSaleType(typeId.longValue(),typeInput.getName(),typeInput.getTax());
 		return _toTypeDTO(saleType);
 	}
 

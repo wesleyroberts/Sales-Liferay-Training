@@ -28,6 +28,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 
 import java.io.Serializable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -39,9 +40,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.validation.constraints.NotNull;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -49,10 +50,9 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
-import restbuilder.dto.v1_0.Category;
-import restbuilder.dto.v1_0.CategoryInput;
+import restbuilder.dto.v1_0.Cart;
 
-import restbuilder.resource.v1_0.CategoryInputResource;
+import restbuilder.resource.v1_0.CartResource;
 
 /**
  * @author Wesley Roberts
@@ -60,61 +60,156 @@ import restbuilder.resource.v1_0.CategoryInputResource;
  */
 @Generated("")
 @Path("/v1.0")
-public abstract class BaseCategoryInputResourceImpl
-	implements CategoryInputResource, EntityModelResource,
-			   VulcanBatchEngineTaskItemDelegate<CategoryInput> {
+public abstract class BaseCartResourceImpl
+	implements CartResource, EntityModelResource,
+			   VulcanBatchEngineTaskItemDelegate<Cart> {
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/category/create' -d $'{"name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/cart/getAll'  -u 'test@liferay.com:test'
 	 */
-	@Consumes({"application/json", "application/xml"})
+	@GET
 	@Override
-	@Path("/category/create")
-	@POST
+	@Path("/cart/getAll")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CategoryInput")})
-	public Category createCategory(CategoryInput categoryInput)
-		throws Exception {
-
-		return new Category();
+	@Tags(value = {@Tag(name = "Cart")})
+	public Page<Cart> getAllCarts() throws Exception {
+		return Page.of(Collections.emptyList());
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/RestBuilder/v1.0/category/update/{categoryId}' -d $'{"name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/cart/{cartId}'  -u 'test@liferay.com:test'
 	 */
-	@Consumes({"application/json", "application/xml"})
+	@GET
 	@Override
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "categoryId")}
-	)
-	@Path("/category/update/{categoryId}")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
+	@Path("/cart/{cartId}")
 	@Produces({"application/json", "application/xml"})
-	@PUT
-	@Tags(value = {@Tag(name = "CategoryInput")})
-	public Category updateCategoryById(
-			@NotNull @Parameter(hidden = true) @PathParam("categoryId") Integer
-				categoryId,
-			CategoryInput categoryInput)
+	@Tags(value = {@Tag(name = "Cart")})
+	public Cart getCartById(
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
+				cartId)
 		throws Exception {
 
-		return new Category();
+		return new Cart();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/cart/getTotalValue/{cartId}'  -u 'test@liferay.com:test'
+	 */
+	@GET
+	@Override
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
+	@Path("/cart/getTotalValue/{cartId}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Cart")})
+	public Integer getTotalValueByCartId(
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
+				cartId)
+		throws Exception {
+
+		return 0;
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/cart/create'  -u 'test@liferay.com:test'
+	 */
+	@GET
+	@Override
+	@Path("/cart/create")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Cart")})
+	public Cart createCart() throws Exception {
+		return new Cart();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/addProductoCart/{cartID}/productID/{productID}'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "cartID"),
+			@Parameter(in = ParameterIn.PATH, name = "productID")
+		}
+	)
+	@PATCH
+	@Path("/addProductoCart/{cartID}/productID/{productID}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Cart")})
+	public Cart addProductToCart(
+			@NotNull @Parameter(hidden = true) @PathParam("cartID") Integer
+				cartID,
+			@NotNull @Parameter(hidden = true) @PathParam("productID") Integer
+				productID)
+		throws Exception {
+
+		return new Cart();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/removeProductFromCart/{cartID}/ProductID/{productID}'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "cartID"),
+			@Parameter(in = ParameterIn.PATH, name = "productID")
+		}
+	)
+	@PATCH
+	@Path("/removeProductFromCart/{cartID}/ProductID/{productID}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Cart")})
+	public Cart removeProductFromCart(
+			@NotNull @Parameter(hidden = true) @PathParam("cartID") Integer
+				cartID,
+			@NotNull @Parameter(hidden = true) @PathParam("productID") Integer
+				productID)
+		throws Exception {
+
+		return new Cart();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/RestBuilder/v1.0/cart/delete/{cartId}'  -u 'test@liferay.com:test'
+	 */
+	@DELETE
+	@Override
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
+	@Path("/cart/delete/{cartId}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Cart")})
+	public void deleteCartById(
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
+				cartId)
+		throws Exception {
 	}
 
 	@Override
 	@SuppressWarnings("PMD.UnusedLocalVariable")
 	public void create(
-			java.util.Collection<CategoryInput> categoryInputs,
+			java.util.Collection<Cart> carts,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
 
 	@Override
 	public void delete(
-			java.util.Collection<CategoryInput> categoryInputs,
+			java.util.Collection<Cart> carts,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
@@ -135,7 +230,7 @@ public abstract class BaseCategoryInputResourceImpl
 	}
 
 	@Override
-	public Page<CategoryInput> read(
+	public Page<Cart> read(
 			Filter filter, Pagination pagination, Sort[] sorts,
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
@@ -167,7 +262,7 @@ public abstract class BaseCategoryInputResourceImpl
 
 	@Override
 	public void update(
-			java.util.Collection<CategoryInput> categoryInputs,
+			java.util.Collection<Cart> carts,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}

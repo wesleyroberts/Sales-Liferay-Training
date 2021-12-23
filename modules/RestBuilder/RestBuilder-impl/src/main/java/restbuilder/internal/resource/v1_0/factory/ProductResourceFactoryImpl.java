@@ -31,36 +31,36 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceScope;
 
-import restbuilder.resource.v1_0.TypeInputResource;
+import restbuilder.resource.v1_0.ProductResource;
 
 /**
  * @author Wesley Roberts
  * @generated
  */
-@Component(immediate = true, service = TypeInputResource.Factory.class)
+@Component(immediate = true, service = ProductResource.Factory.class)
 @Generated("")
-public class TypeInputResourceFactoryImpl implements TypeInputResource.Factory {
+public class ProductResourceFactoryImpl implements ProductResource.Factory {
 
 	@Override
-	public TypeInputResource.Builder create() {
-		return new TypeInputResource.Builder() {
+	public ProductResource.Builder create() {
+		return new ProductResource.Builder() {
 
 			@Override
-			public TypeInputResource build() {
+			public ProductResource build() {
 				if (_user == null) {
 					throw new IllegalArgumentException("User is not set");
 				}
 
-				return (TypeInputResource)ProxyUtil.newProxyInstance(
-					TypeInputResource.class.getClassLoader(),
-					new Class<?>[] {TypeInputResource.class},
+				return (ProductResource)ProxyUtil.newProxyInstance(
+					ProductResource.class.getClassLoader(),
+					new Class<?>[] {ProductResource.class},
 					(proxy, method, arguments) -> _invoke(
 						method, arguments, _checkPermissions,
 						_httpServletRequest, _preferredLocale, _user));
 			}
 
 			@Override
-			public TypeInputResource.Builder checkPermissions(
+			public ProductResource.Builder checkPermissions(
 				boolean checkPermissions) {
 
 				_checkPermissions = checkPermissions;
@@ -69,7 +69,7 @@ public class TypeInputResourceFactoryImpl implements TypeInputResource.Factory {
 			}
 
 			@Override
-			public TypeInputResource.Builder httpServletRequest(
+			public ProductResource.Builder httpServletRequest(
 				HttpServletRequest httpServletRequest) {
 
 				_httpServletRequest = httpServletRequest;
@@ -78,7 +78,7 @@ public class TypeInputResourceFactoryImpl implements TypeInputResource.Factory {
 			}
 
 			@Override
-			public TypeInputResource.Builder preferredLocale(
+			public ProductResource.Builder preferredLocale(
 				Locale preferredLocale) {
 
 				_preferredLocale = preferredLocale;
@@ -87,7 +87,7 @@ public class TypeInputResourceFactoryImpl implements TypeInputResource.Factory {
 			}
 
 			@Override
-			public TypeInputResource.Builder user(User user) {
+			public ProductResource.Builder user(User user) {
 				_user = user;
 
 				return this;
@@ -103,12 +103,12 @@ public class TypeInputResourceFactoryImpl implements TypeInputResource.Factory {
 
 	@Activate
 	protected void activate() {
-		TypeInputResource.FactoryHolder.factory = this;
+		ProductResource.FactoryHolder.factory = this;
 	}
 
 	@Deactivate
 	protected void deactivate() {
-		TypeInputResource.FactoryHolder.factory = null;
+		ProductResource.FactoryHolder.factory = null;
 	}
 
 	private Object _invoke(
@@ -133,27 +133,26 @@ public class TypeInputResourceFactoryImpl implements TypeInputResource.Factory {
 				_liberalPermissionCheckerFactory.create(user));
 		}
 
-		TypeInputResource typeInputResource =
-			_componentServiceObjects.getService();
+		ProductResource productResource = _componentServiceObjects.getService();
 
-		typeInputResource.setContextAcceptLanguage(
+		productResource.setContextAcceptLanguage(
 			new AcceptLanguageImpl(httpServletRequest, preferredLocale, user));
 
 		Company company = _companyLocalService.getCompany(user.getCompanyId());
 
-		typeInputResource.setContextCompany(company);
+		productResource.setContextCompany(company);
 
-		typeInputResource.setContextHttpServletRequest(httpServletRequest);
-		typeInputResource.setContextUser(user);
+		productResource.setContextHttpServletRequest(httpServletRequest);
+		productResource.setContextUser(user);
 
 		try {
-			return method.invoke(typeInputResource, arguments);
+			return method.invoke(productResource, arguments);
 		}
 		catch (InvocationTargetException invocationTargetException) {
 			throw invocationTargetException.getTargetException();
 		}
 		finally {
-			_componentServiceObjects.ungetService(typeInputResource);
+			_componentServiceObjects.ungetService(productResource);
 
 			PrincipalThreadLocal.setName(name);
 
@@ -165,7 +164,7 @@ public class TypeInputResourceFactoryImpl implements TypeInputResource.Factory {
 	private CompanyLocalService _companyLocalService;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<TypeInputResource> _componentServiceObjects;
+	private ComponentServiceObjects<ProductResource> _componentServiceObjects;
 
 	@Reference
 	private PermissionCheckerFactory _defaultPermissionCheckerFactory;
