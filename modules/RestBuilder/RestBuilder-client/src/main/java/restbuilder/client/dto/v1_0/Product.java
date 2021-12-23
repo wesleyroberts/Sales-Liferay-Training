@@ -9,17 +9,17 @@ import javax.annotation.Generated;
 import restbuilder.client.dto.v1_0.Category;
 import restbuilder.client.dto.v1_0.Type;
 import restbuilder.client.function.UnsafeSupplier;
-import restbuilder.client.serdes.v1_0.ProductOutputSerDes;
+import restbuilder.client.serdes.v1_0.ProductSerDes;
 
 /**
  * @author Wesley Roberts
  * @generated
  */
 @Generated("")
-public class ProductOutput implements Cloneable, Serializable {
+public class Product implements Cloneable, Serializable {
 
-	public static ProductOutput toDTO(String json) {
-		return ProductOutputSerDes.toDTO(json);
+	public static Product toDTO(String json) {
+		return ProductSerDes.toDTO(json);
 	}
 
 	public Category getCategory() {
@@ -122,8 +122,8 @@ public class ProductOutput implements Cloneable, Serializable {
 	protected Type type;
 
 	@Override
-	public ProductOutput clone() throws CloneNotSupportedException {
-		return (ProductOutput)super.clone();
+	public Product clone() throws CloneNotSupportedException {
+		return (Product)super.clone();
 	}
 
 	@Override
@@ -132,13 +132,13 @@ public class ProductOutput implements Cloneable, Serializable {
 			return true;
 		}
 
-		if (!(object instanceof ProductOutput)) {
+		if (!(object instanceof Product)) {
 			return false;
 		}
 
-		ProductOutput productOutput = (ProductOutput)object;
+		Product product = (Product)object;
 
-		return Objects.equals(toString(), productOutput.toString());
+		return Objects.equals(toString(), product.toString());
 	}
 
 	@Override
@@ -149,7 +149,7 @@ public class ProductOutput implements Cloneable, Serializable {
 	}
 
 	public String toString() {
-		return ProductOutputSerDes.toJSON(this);
+		return ProductSerDes.toJSON(this);
 	}
 
 }

@@ -62,6 +62,9 @@ public interface StockProductsListService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<SaleProduct> getAllProductInStockByProductName(String name);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleProduct> getAllProductInStockByStockId(long stockId);
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

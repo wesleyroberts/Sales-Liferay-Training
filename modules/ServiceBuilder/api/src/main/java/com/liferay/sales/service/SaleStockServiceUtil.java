@@ -69,9 +69,11 @@ public class SaleStockServiceUtil {
 	}
 
 	public static SaleStock updateStock(
-		long stockId, int quantity, String name, long typeId) {
+		long stockId, int quantity, String name, long typeId, long categoryId,
+		double price) {
 
-		return getService().updateStock(stockId, quantity, name, typeId);
+		return getService().updateStock(
+			stockId, quantity, name, typeId, categoryId, price);
 	}
 
 	public static SaleStockService getService() {

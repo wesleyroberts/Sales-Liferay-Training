@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javax.annotation.Generated;
 
+import restbuilder.client.dto.v1_0.Category;
 import restbuilder.client.dto.v1_0.Type;
 import restbuilder.client.function.UnsafeSupplier;
 import restbuilder.client.serdes.v1_0.StockSerDes;
@@ -20,6 +21,27 @@ public class Stock implements Cloneable, Serializable {
 	public static Stock toDTO(String json) {
 		return StockSerDes.toDTO(json);
 	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public void setCategory(
+		UnsafeSupplier<Category, Exception> categoryUnsafeSupplier) {
+
+		try {
+			category = categoryUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Category category;
 
 	public Integer getId() {
 		return id;
@@ -39,6 +61,27 @@ public class Stock implements Cloneable, Serializable {
 	}
 
 	protected Integer id;
+
+	public Number getPrice() {
+		return price;
+	}
+
+	public void setPrice(Number price) {
+		this.price = price;
+	}
+
+	public void setPrice(
+		UnsafeSupplier<Number, Exception> priceUnsafeSupplier) {
+
+		try {
+			price = priceUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Number price;
 
 	public String getProductName() {
 		return productName;

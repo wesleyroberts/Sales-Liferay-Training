@@ -17,6 +17,7 @@ import javax.ws.rs.core.UriInfo;
 import org.osgi.annotation.versioning.ProviderType;
 
 import restbuilder.dto.v1_0.Type;
+import restbuilder.dto.v1_0.TypeInput;
 
 /**
  * To access this resource, run:
@@ -37,6 +38,11 @@ public interface TypeResource {
 	public Page<Type> getAllTypes() throws Exception;
 
 	public Type getTypeById(Integer typeId) throws Exception;
+
+	public Type createType(TypeInput typeInput) throws Exception;
+
+	public Type updateTypeById(Integer typeId, TypeInput typeInput)
+		throws Exception;
 
 	public void deleteTypeById(Integer typeId) throws Exception;
 

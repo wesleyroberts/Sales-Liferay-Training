@@ -17,6 +17,12 @@ components:
           description: type of the product
           allOf:
             - $ref: "#/components/schemas/Type"
+        category:
+          allOf:
+            - $ref: "#/components/schemas/Category"
+        price:
+          description: the price of the product.
+          type: number
       type: object
     Category:
       description: Category
@@ -88,7 +94,7 @@ components:
           description: number products that will be create
           type: integer
       type: object
-    ProductOutput:
+    Product:
       description: Product
       properties:
         name:
@@ -108,7 +114,7 @@ components:
           format: double
           type: number
       type: object
-    CartOutput:
+    Cart:
       description: Cart
       properties:
         id:
@@ -160,13 +166,13 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: "#/components/schemas/ProductOutput"
+                  $ref: "#/components/schemas/Product"
                 type: array
             application/xml:
               schema:
-                $ref: "#/components/schemas/ProductOutput"
+                $ref: "#/components/schemas/Product"
           description: ""
-      tags: ["ProductOutput"]
+      tags: ["Product"]
 
   "/product/{productId}":
     get:
@@ -182,12 +188,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ProductOutput"
+                $ref: "#/components/schemas/Product"
             application/xml:
               schema:
-                $ref: "#/components/schemas/ProductOutput"
+                $ref: "#/components/schemas/Product"
           description: ""
-      tags: ["ProductOutput"]
+      tags: ["Product"]
   "/product/create":
     post:
       operationId: createProduct
@@ -205,15 +211,15 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: "#/components/schemas/ProductOutput"
+                  $ref: "#/components/schemas/Product"
                 type: array
             application/xml:
               schema:
                 items:
-                  $ref: "#/components/schemas/ProductOutput"
+                  $ref: "#/components/schemas/Product"
                 type: array
           description: ""
-      tags: ["ProductInput"]
+      tags: ["Product"]
   "/product/update/{productId}":
     put:
       operationId: updateProductById
@@ -236,12 +242,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ProductOutput"
+                $ref: "#/components/schemas/Product"
             application/xml:
               schema:
-                $ref: "#/components/schemas/ProductOutput"
+                $ref: "#/components/schemas/Product"
           description: ""
-      tags: ["ProductInput"]
+      tags: ["Product"]
 
   "/product/delete/{productId}":
     delete:
@@ -258,8 +264,47 @@ paths:
             application/json: {}
             application/xml: {}
           description: ""
-      tags: ["ProductOutput"]
-
+      tags: ["Product"]
+  "/stock/all":
+    get:
+      operationId: getAllStock
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Stock"
+                type: array
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Stock"
+          description: ""
+      tags: ["Stock"]
+  "/stock/getAllProductsBySotckId/{stockId}":
+    get:
+      operationId: getAllProductsBySotckId
+      parameters:
+        - in: path
+          name: stockId
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Product"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Product"
+                type: array
+          description: ""
+      tags: ["Stock"]
   "/category/all":
     get:
       operationId: getAllCategories
@@ -341,7 +386,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Category"
           description: ""
-      tags: ["CategoryInput"]
+      tags: ["Category"]
   "/category/update/{categoryId}":
     put:
       operationId: updateCategoryById
@@ -369,7 +414,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Category"
           description: ""
-      tags: ["CategoryInput"]
+      tags: ["Category"]
 
   "/category/delete/{categoryId}":
     delete:
@@ -448,7 +493,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Type"
           description: ""
-      tags: ["TypeInput"]
+      tags: ["Type"]
   "/type/update/{typeId}":
     put:
       operationId: updateTypeById
@@ -476,7 +521,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Type"
           description: ""
-      tags: ["TypeInput"]
+      tags: ["Type"]
 
   "/type/delete/{typeId}":
     delete:
@@ -504,12 +549,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/CartOutput"
+                  $ref: "#/components/schemas/Cart"
             application/xml:
               schema:
-                $ref: "#/components/schemas/CartOutput"
+                $ref: "#/components/schemas/Cart"
           description: ""
-      tags: ["CartOutput"]
+      tags: ["Cart"]
 
   "/cart/{cartId}":
     get:
@@ -525,12 +570,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CartOutput"
+                $ref: "#/components/schemas/Cart"
             application/xml:
               schema:
-                $ref: "#/components/schemas/CartOutput"
+                $ref: "#/components/schemas/Cart"
           description: ""
-      tags: ["CartOutput"]
+      tags: ["Cart"]
 
   "/cart/getTotalValue/{cartId}":
     get:
@@ -551,7 +596,7 @@ paths:
               schema:
                 type: integer
           description: ""
-      tags: ["CartOutput"]
+      tags: ["Cart"]
 
   "/cart/create":
     get:
@@ -561,12 +606,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CartOutput"
+                $ref: "#/components/schemas/Cart"
             application/xml:
               schema:
-                $ref: "#/components/schemas/CartOutput"
+                $ref: "#/components/schemas/Cart"
           description: ""
-      tags: ["CartOutput"]
+      tags: ["Cart"]
 
   "/addProductoCart/{cartID}/productID/{productID}":
     patch:
@@ -588,12 +633,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CartOutput"
+                $ref: "#/components/schemas/Cart"
             application/xml:
               schema:
-                $ref: "#/components/schemas/CartOutput"
+                $ref: "#/components/schemas/Cart"
           description: ""
-      tags: ["CartOutput"]
+      tags: ["Cart"]
 
   "/removeProductFromCart/{cartID}/ProductID/{productID}":
     patch:
@@ -615,12 +660,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CartOutput"
+                $ref: "#/components/schemas/Cart"
             application/xml:
               schema:
-                $ref: "#/components/schemas/CartOutput"
+                $ref: "#/components/schemas/Cart"
           description: ""
-      tags: ["CartOutput"]
+      tags: ["Cart"]
 
   "/cart/delete/{cartId}":
     delete:
@@ -637,4 +682,4 @@ paths:
             application/json: {}
             application/xml: {}
           description: ""
-      tags: ["CartOutput"]
+      tags: ["Cart"]

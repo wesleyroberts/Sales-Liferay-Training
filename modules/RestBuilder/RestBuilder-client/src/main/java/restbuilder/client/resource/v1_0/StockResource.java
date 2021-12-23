@@ -8,37 +8,34 @@ import java.util.logging.Logger;
 
 import javax.annotation.Generated;
 
-import restbuilder.client.dto.v1_0.ProductInput;
-import restbuilder.client.dto.v1_0.ProductOutput;
+import restbuilder.client.dto.v1_0.Product;
+import restbuilder.client.dto.v1_0.Stock;
 import restbuilder.client.http.HttpInvoker;
 import restbuilder.client.pagination.Page;
 import restbuilder.client.problem.Problem;
-import restbuilder.client.serdes.v1_0.ProductOutputSerDes;
+import restbuilder.client.serdes.v1_0.ProductSerDes;
+import restbuilder.client.serdes.v1_0.StockSerDes;
 
 /**
  * @author Wesley Roberts
  * @generated
  */
 @Generated("")
-public interface ProductInputResource {
+public interface StockResource {
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	public Page<ProductOutput> createProduct(ProductInput productInput)
+	public Page<Stock> getAllStock() throws Exception;
+
+	public HttpInvoker.HttpResponse getAllStockHttpResponse() throws Exception;
+
+	public Page<Product> getAllProductsBySotckId(Integer stockId)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse createProductHttpResponse(
-			ProductInput productInput)
-		throws Exception;
-
-	public ProductOutput updateProductById(
-			Integer productId, ProductInput productInput)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse updateProductByIdHttpResponse(
-			Integer productId, ProductInput productInput)
+	public HttpInvoker.HttpResponse getAllProductsBySotckIdHttpResponse(
+			Integer stockId)
 		throws Exception;
 
 	public static class Builder {
@@ -50,8 +47,8 @@ public interface ProductInputResource {
 			return this;
 		}
 
-		public ProductInputResource build() {
-			return new ProductInputResourceImpl(this);
+		public StockResource build() {
+			return new StockResourceImpl(this);
 		}
 
 		public Builder endpoint(String host, int port, String scheme) {
@@ -110,14 +107,10 @@ public interface ProductInputResource {
 
 	}
 
-	public static class ProductInputResourceImpl
-		implements ProductInputResource {
+	public static class StockResourceImpl implements StockResource {
 
-		public Page<ProductOutput> createProduct(ProductInput productInput)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse = createProductHttpResponse(
-				productInput);
+		public Page<Stock> getAllStock() throws Exception {
+			HttpInvoker.HttpResponse httpResponse = getAllStockHttpResponse();
 
 			String content = httpResponse.getContent();
 
@@ -145,7 +138,7 @@ public interface ProductInputResource {
 			}
 
 			try {
-				return Page.of(content, ProductOutputSerDes::toDTO);
+				return Page.of(content, StockSerDes::toDTO);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -156,13 +149,10 @@ public interface ProductInputResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse createProductHttpResponse(
-				ProductInput productInput)
+		public HttpInvoker.HttpResponse getAllStockHttpResponse()
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(productInput.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -181,11 +171,11 @@ public interface ProductInputResource {
 				httpInvoker.parameter(entry.getKey(), entry.getValue());
 			}
 
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/RestBuilder/v1.0/product/create");
+					_builder._port + "/o/RestBuilder/v1.0/stock/all");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -193,12 +183,11 @@ public interface ProductInputResource {
 			return httpInvoker.invoke();
 		}
 
-		public ProductOutput updateProductById(
-				Integer productId, ProductInput productInput)
+		public Page<Product> getAllProductsBySotckId(Integer stockId)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				updateProductByIdHttpResponse(productId, productInput);
+				getAllProductsBySotckIdHttpResponse(stockId);
 
 			String content = httpResponse.getContent();
 
@@ -226,7 +215,7 @@ public interface ProductInputResource {
 			}
 
 			try {
-				return ProductOutputSerDes.toDTO(content);
+				return Page.of(content, ProductSerDes::toDTO);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -237,13 +226,11 @@ public interface ProductInputResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse updateProductByIdHttpResponse(
-				Integer productId, ProductInput productInput)
+		public HttpInvoker.HttpResponse getAllProductsBySotckIdHttpResponse(
+				Integer stockId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(productInput.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -262,14 +249,14 @@ public interface ProductInputResource {
 				httpInvoker.parameter(entry.getKey(), entry.getValue());
 			}
 
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/RestBuilder/v1.0/product/update/{productId}");
+						"/o/RestBuilder/v1.0/stock/getAllProductsBySotckId/{stockId}");
 
-			httpInvoker.path("productId", productId);
+			httpInvoker.path("stockId", stockId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -277,12 +264,12 @@ public interface ProductInputResource {
 			return httpInvoker.invoke();
 		}
 
-		private ProductInputResourceImpl(Builder builder) {
+		private StockResourceImpl(Builder builder) {
 			_builder = builder;
 		}
 
 		private static final Logger _logger = Logger.getLogger(
-			ProductInputResource.class.getName());
+			StockResource.class.getName());
 
 		private Builder _builder;
 

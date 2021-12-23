@@ -39,6 +39,16 @@ public class StockSerDes {
 
 		sb.append("{");
 
+		if (stock.getCategory() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"category\": ");
+
+			sb.append(String.valueOf(stock.getCategory()));
+		}
+
 		if (stock.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -47,6 +57,16 @@ public class StockSerDes {
 			sb.append("\"id\": ");
 
 			sb.append(stock.getId());
+		}
+
+		if (stock.getPrice() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"price\": ");
+
+			sb.append(stock.getPrice());
 		}
 
 		if (stock.getProductName() != null) {
@@ -101,11 +121,25 @@ public class StockSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (stock.getCategory() == null) {
+			map.put("category", null);
+		}
+		else {
+			map.put("category", String.valueOf(stock.getCategory()));
+		}
+
 		if (stock.getId() == null) {
 			map.put("id", null);
 		}
 		else {
 			map.put("id", String.valueOf(stock.getId()));
+		}
+
+		if (stock.getPrice() == null) {
+			map.put("price", null);
+		}
+		else {
+			map.put("price", String.valueOf(stock.getPrice()));
 		}
 
 		if (stock.getProductName() == null) {
@@ -149,9 +183,21 @@ public class StockSerDes {
 			Stock stock, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "id")) {
+			if (Objects.equals(jsonParserFieldName, "category")) {
+				if (jsonParserFieldValue != null) {
+					stock.setCategory(
+						CategorySerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
 					stock.setId(Integer.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "price")) {
+				if (jsonParserFieldValue != null) {
+					stock.setPrice(
+						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "productName")) {

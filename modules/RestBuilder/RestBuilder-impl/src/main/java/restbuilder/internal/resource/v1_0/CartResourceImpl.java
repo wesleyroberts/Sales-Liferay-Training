@@ -13,65 +13,75 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
-import restbuilder.dto.v1_0.CartOutput;
+
+import restbuilder.dto.v1_0.Cart;
 import restbuilder.dto.v1_0.ProductList;
-import restbuilder.resource.v1_0.CartOutputResource;
+import restbuilder.resource.v1_0.CartResource;
 import restbuilder.resource.v1_0.CategoryResource;
 import restbuilder.resource.v1_0.TypeResource;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * @author Wesley Roberts
  */
 @Component(
-	properties = "OSGI-INF/liferay/rest/v1_0/cart-output.properties",
-	scope = ServiceScope.PROTOTYPE, service = CartOutputResource.class
+	properties = "OSGI-INF/liferay/rest/v1_0/cart.properties",
+	scope = ServiceScope.PROTOTYPE, service = CartResource.class
 )
-public class CartOutputResourceImpl extends BaseCartOutputResourceImpl {
-
+public class CartResourceImpl extends BaseCartResourceImpl {
 	/**
 	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/cart/create'  -u 'test@liferay.com:test'
-	 */
-	@GET
-	@Override
-	@Path("/cart/create")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartOutput")})
-	public CartOutput createCart() throws Exception {
-		SaleCart saleCart = _saleCartService.createSaleCartById();
-		return _toCartDTO(saleCart);
-	}
-	/**
-	 * Invoke this method with the command line:
-	 *
+	 * <p>
 	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/cart/getAll'  -u 'test@liferay.com:test'
 	 */
 	@GET
 	@Override
 	@Path("/cart/getAll")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartOutput")})
-	public Page<CartOutput> getAllCarts() throws Exception {
-		List<CartOutput> cartListDTO = new ArrayList<CartOutput>();
+	@Tags(value = {@Tag(name = "Cart")})
+	public Page<Cart> getAllCarts() throws Exception {
+		List<Cart> cartListDTO = new ArrayList<Cart>();
 		for (SaleCart e: _saleCartService.getAllSaleCart()){
 			cartListDTO.add(_toCartDTO(e));
 		}
 		return Page.of(cartListDTO);
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 * <p>
+	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/cart/{cartId}'  -u 'test@liferay.com:test'
+	 */
+	@GET
+	@Override
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
+	@Path("/cart/{cartId}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Cart")})
+	public Cart getCartById(
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
+					cartId)
+			throws Exception {
+
+		return  _toCartDTO(_saleCartService.getSaleCartById(cartId));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 * <p>
+	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/cart/getTotalValue/{cartId}'  -u 'test@liferay.com:test'
+	 */
 	@GET
 	@Override
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
 	@Path("/cart/getTotalValue/{cartId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartOutput")})
+	@Tags(value = {@Tag(name = "Cart")})
 	public Integer getTotalValueByCartId(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 					cartId)
@@ -80,30 +90,24 @@ public class CartOutputResourceImpl extends BaseCartOutputResourceImpl {
 		return (int)_saleCartService.getSaleCartById(cartId).getTotalPrice();
 	}
 
-
 	/**
 	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/cart/{cartId}'  -u 'test@liferay.com:test'
+	 * <p>
+	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/cart/create'  -u 'test@liferay.com:test'
 	 */
 	@GET
 	@Override
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
-	@Path("/cart/{cartId}")
+	@Path("/cart/create")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartOutput")})
-	public CartOutput getCartById(
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
-					cartId)
-			throws Exception {
-
-		return  _toCartDTO(_saleCartService.getSaleCartById(cartId));
+	@Tags(value = {@Tag(name = "Cart")})
+	public Cart createCart() throws Exception {
+		SaleCart saleCart = _saleCartService.createSaleCartById();
+		return _toCartDTO(saleCart);
 	}
-
 
 	/**
 	 * Invoke this method with the command line:
-	 *
+	 * <p>
 	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/addProductoCart/{cartID}/productID/{productID}'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -116,20 +120,19 @@ public class CartOutputResourceImpl extends BaseCartOutputResourceImpl {
 	@PATCH
 	@Path("/addProductoCart/{cartID}/productID/{productID}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartOutput")})
-	public CartOutput addProductToCart(
+	@Tags(value = {@Tag(name = "Cart")})
+	public Cart addProductToCart(
 			@NotNull @Parameter(hidden = true) @PathParam("cartID") Integer
 					cartID,
 			@NotNull @Parameter(hidden = true) @PathParam("productID") Integer
 					productID)
 			throws Exception {
-
 		return _toCartDTO(_cartProductsListService.addProductToCartList(productID,cartID));
 	}
 
 	/**
 	 * Invoke this method with the command line:
-	 *
+	 * <p>
 	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/removeProductFromCart/{cartID}/ProductID/{productID}'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -142,8 +145,8 @@ public class CartOutputResourceImpl extends BaseCartOutputResourceImpl {
 	@PATCH
 	@Path("/removeProductFromCart/{cartID}/ProductID/{productID}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartOutput")})
-	public CartOutput removeProductFromCart(
+	@Tags(value = {@Tag(name = "Cart")})
+	public Cart removeProductFromCart(
 			@NotNull @Parameter(hidden = true) @PathParam("cartID") Integer
 					cartID,
 			@NotNull @Parameter(hidden = true) @PathParam("productID") Integer
@@ -156,12 +159,11 @@ public class CartOutputResourceImpl extends BaseCartOutputResourceImpl {
 			e.printStackTrace();
 			return null;
 		}
-
 	}
 
 	/**
 	 * Invoke this method with the command line:
-	 *
+	 * <p>
 	 * curl -X 'DELETE' 'http://localhost:8080/o/RestBuilder/v1.0/cart/delete/{cartId}'  -u 'test@liferay.com:test'
 	 */
 	@DELETE
@@ -169,7 +171,7 @@ public class CartOutputResourceImpl extends BaseCartOutputResourceImpl {
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
 	@Path("/cart/delete/{cartId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CartOutput")})
+	@Tags(value = {@Tag(name = "Cart")})
 	public void deleteCartById(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Integer
 					cartId)
@@ -177,18 +179,18 @@ public class CartOutputResourceImpl extends BaseCartOutputResourceImpl {
 		_saleCartService.deleteSaleCartById(cartId);
 	}
 
-	private CartOutput _toCartDTO(SaleCart cart){
-		return new CartOutput(){
+	private Cart _toCartDTO(SaleCart cart) {
+		return new Cart() {
 			{
-				id = (int)cart.getCartId();
+				id = (int) cart.getCartId();
 				totalValue = cart.getTotalPrice();
 				productList = _ProductListDTO(cart.getCartId());
 			}
 		};
 	}
 
-	private ProductList _toProductDTO(SaleProduct saleProduct){
-		return new ProductList(){
+	private ProductList _toProductDTO(SaleProduct saleProduct) {
+		return new ProductList() {
 			{
 				try {
 					category = _categoryResource.getCategoryById((int) saleProduct.getCategoryId());
@@ -200,26 +202,27 @@ public class CartOutputResourceImpl extends BaseCartOutputResourceImpl {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				id = (int)saleProduct.getProductId();
+				id = (int) saleProduct.getProductId();
 				name = saleProduct.getName();
 				price = saleProduct.getPrice();
 			}
 		};
 	}
 
-	private ProductList[] _ProductListDTO(long cartId){
-		List<SaleProduct> list =  _cartProductsListService.getAllProductsByCarID(cartId);
+	private ProductList[] _ProductListDTO(long cartId) {
+		List<SaleProduct> list = _cartProductsListService.getAllProductsByCarID(cartId);
 		ProductList[] productListDTO = new ProductList[list.size()];
-		for (int i = 0; i <  list.size(); i++) {
+		for (int i = 0; i < list.size(); i++) {
 
 			try {
-				productListDTO[i]= _toProductDTO(list.get(i));
+				productListDTO[i] = _toProductDTO(list.get(i));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		return productListDTO;
 	}
+
 
 	@Reference
 	CategoryResource _categoryResource;
@@ -229,5 +232,4 @@ public class CartOutputResourceImpl extends BaseCartOutputResourceImpl {
 	CartProductsListService _cartProductsListService;
 	@Reference
 	SaleCartService _saleCartService;
-
 }

@@ -16,7 +16,8 @@ import javax.ws.rs.core.UriInfo;
 
 import org.osgi.annotation.versioning.ProviderType;
 
-import restbuilder.dto.v1_0.ProductOutput;
+import restbuilder.dto.v1_0.Product;
+import restbuilder.dto.v1_0.ProductInput;
 
 /**
  * To access this resource, run:
@@ -28,15 +29,22 @@ import restbuilder.dto.v1_0.ProductOutput;
  */
 @Generated("")
 @ProviderType
-public interface ProductOutputResource {
+public interface ProductResource {
 
 	public static Builder builder() {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<ProductOutput> getAllProducts() throws Exception;
+	public Page<Product> getAllProducts() throws Exception;
 
-	public ProductOutput getProductById(Integer productId) throws Exception;
+	public Product getProductById(Integer productId) throws Exception;
+
+	public Page<Product> createProduct(ProductInput productInput)
+		throws Exception;
+
+	public Product updateProductById(
+			Integer productId, ProductInput productInput)
+		throws Exception;
 
 	public void deleteProductById(Integer productId) throws Exception;
 
@@ -74,7 +82,7 @@ public interface ProductOutputResource {
 	@ProviderType
 	public interface Builder {
 
-		public ProductOutputResource build();
+		public ProductResource build();
 
 		public Builder checkPermissions(boolean checkPermissions);
 

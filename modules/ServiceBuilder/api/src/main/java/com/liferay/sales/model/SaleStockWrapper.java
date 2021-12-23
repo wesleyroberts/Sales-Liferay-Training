@@ -45,6 +45,8 @@ public class SaleStockWrapper
 		attributes.put("name", getName());
 		attributes.put("quantity", getQuantity());
 		attributes.put("typeId", getTypeId());
+		attributes.put("categoryId", getCategoryId());
+		attributes.put("price", getPrice());
 
 		return attributes;
 	}
@@ -74,6 +76,28 @@ public class SaleStockWrapper
 		if (typeId != null) {
 			setTypeId(typeId);
 		}
+
+		Long categoryId = (Long)attributes.get("categoryId");
+
+		if (categoryId != null) {
+			setCategoryId(categoryId);
+		}
+
+		Double price = (Double)attributes.get("price");
+
+		if (price != null) {
+			setPrice(price);
+		}
+	}
+
+	/**
+	 * Returns the category ID of this sale stock.
+	 *
+	 * @return the category ID of this sale stock
+	 */
+	@Override
+	public long getCategoryId() {
+		return model.getCategoryId();
 	}
 
 	/**
@@ -84,6 +108,16 @@ public class SaleStockWrapper
 	@Override
 	public String getName() {
 		return model.getName();
+	}
+
+	/**
+	 * Returns the price of this sale stock.
+	 *
+	 * @return the price of this sale stock
+	 */
+	@Override
+	public double getPrice() {
+		return model.getPrice();
 	}
 
 	/**
@@ -132,6 +166,16 @@ public class SaleStockWrapper
 	}
 
 	/**
+	 * Sets the category ID of this sale stock.
+	 *
+	 * @param categoryId the category ID of this sale stock
+	 */
+	@Override
+	public void setCategoryId(long categoryId) {
+		model.setCategoryId(categoryId);
+	}
+
+	/**
 	 * Sets the name of this sale stock.
 	 *
 	 * @param name the name of this sale stock
@@ -139,6 +183,16 @@ public class SaleStockWrapper
 	@Override
 	public void setName(String name) {
 		model.setName(name);
+	}
+
+	/**
+	 * Sets the price of this sale stock.
+	 *
+	 * @param price the price of this sale stock
+	 */
+	@Override
+	public void setPrice(double price) {
+		model.setPrice(price);
 	}
 
 	/**

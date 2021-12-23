@@ -30,45 +30,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName(description = "Product", value = "ProductOutput")
+@GraphQLName(description = "Cart", value = "Cart")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "ProductOutput")
-public class ProductOutput implements Serializable {
+@XmlRootElement(name = "Cart")
+public class Cart implements Serializable {
 
-	public static ProductOutput toDTO(String json) {
-		return ObjectMapperUtil.readValue(ProductOutput.class, json);
+	public static Cart toDTO(String json) {
+		return ObjectMapperUtil.readValue(Cart.class, json);
 	}
 
-	@Schema
-	@Valid
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	@JsonIgnore
-	public void setCategory(
-		UnsafeSupplier<Category, Exception> categoryUnsafeSupplier) {
-
-		try {
-			category = categoryUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Category category;
-
-	@Schema(description = "The entity ID.")
+	@Schema(description = "The Cart ID.")
 	public Integer getId() {
 		return id;
 	}
@@ -90,78 +61,26 @@ public class ProductOutput implements Serializable {
 		}
 	}
 
-	@GraphQLField(description = "The entity ID.")
+	@GraphQLField(description = "The Cart ID.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer id;
 
-	@Schema(description = "The entity name.")
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@JsonIgnore
-	public void setName(UnsafeSupplier<String, Exception> nameUnsafeSupplier) {
-		try {
-			name = nameUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField(description = "The entity name.")
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String name;
-
-	@Schema(description = "The price product.")
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	@JsonIgnore
-	public void setPrice(
-		UnsafeSupplier<Double, Exception> priceUnsafeSupplier) {
-
-		try {
-			price = priceUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField(description = "The price product.")
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Double price;
-
 	@Schema
 	@Valid
-	public Type getType() {
-		return type;
+	public ProductList[] getProductList() {
+		return productList;
 	}
 
-	public void setType(Type type) {
-		this.type = type;
+	public void setProductList(ProductList[] productList) {
+		this.productList = productList;
 	}
 
 	@JsonIgnore
-	public void setType(UnsafeSupplier<Type, Exception> typeUnsafeSupplier) {
+	public void setProductList(
+		UnsafeSupplier<ProductList[], Exception> productListUnsafeSupplier) {
+
 		try {
-			type = typeUnsafeSupplier.get();
+			productList = productListUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -173,7 +92,35 @@ public class ProductOutput implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Type type;
+	protected ProductList[] productList;
+
+	@Schema(description = "total payment amount.")
+	public Double getTotalValue() {
+		return totalValue;
+	}
+
+	public void setTotalValue(Double totalValue) {
+		this.totalValue = totalValue;
+	}
+
+	@JsonIgnore
+	public void setTotalValue(
+		UnsafeSupplier<Double, Exception> totalValueUnsafeSupplier) {
+
+		try {
+			totalValue = totalValueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField(description = "total payment amount.")
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double totalValue;
 
 	@Override
 	public boolean equals(Object object) {
@@ -181,13 +128,13 @@ public class ProductOutput implements Serializable {
 			return true;
 		}
 
-		if (!(object instanceof ProductOutput)) {
+		if (!(object instanceof Cart)) {
 			return false;
 		}
 
-		ProductOutput productOutput = (ProductOutput)object;
+		Cart cart = (Cart)object;
 
-		return Objects.equals(toString(), productOutput.toString());
+		return Objects.equals(toString(), cart.toString());
 	}
 
 	@Override
@@ -202,16 +149,6 @@ public class ProductOutput implements Serializable {
 
 		sb.append("{");
 
-		if (category != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"category\": ");
-
-			sb.append(String.valueOf(category));
-		}
-
 		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -222,38 +159,34 @@ public class ProductOutput implements Serializable {
 			sb.append(id);
 		}
 
-		if (name != null) {
+		if (productList != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"name\": ");
+			sb.append("\"productList\": ");
 
-			sb.append("\"");
+			sb.append("[");
 
-			sb.append(_escape(name));
+			for (int i = 0; i < productList.length; i++) {
+				sb.append(String.valueOf(productList[i]));
 
-			sb.append("\"");
+				if ((i + 1) < productList.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
-		if (price != null) {
+		if (totalValue != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"price\": ");
+			sb.append("\"totalValue\": ");
 
-			sb.append(price);
-		}
-
-		if (type != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"type\": ");
-
-			sb.append(String.valueOf(type));
+			sb.append(totalValue);
 		}
 
 		sb.append("}");
@@ -263,8 +196,7 @@ public class ProductOutput implements Serializable {
 
 	@Schema(
 		accessMode = Schema.AccessMode.READ_ONLY,
-		defaultValue = "restbuilder.dto.v1_0.ProductOutput",
-		name = "x-class-name"
+		defaultValue = "restbuilder.dto.v1_0.Cart", name = "x-class-name"
 	)
 	public String xClassName;
 

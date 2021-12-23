@@ -66,6 +66,22 @@ public class StockProductsListLocalServiceImpl
 		}
 
 	}
+	
+	public List<SaleProduct> getAllProductInStockByStockId(long stockId){
+		List<SaleProduct> saleProductList = new ArrayList<SaleProduct>();
+		try {
+			for (StockProductsList e: stockProductsListPersistence.findAll()) {
+				if(e.getStockId() == stockId){
+					saleProductList.add(saleProductService.getSaleProductById(e.getProductId()));
+				}
+			}
+			return saleProductList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public List<SaleProduct> getAllProductInStockByProductName(String name){
 		List<SaleProduct> saleProductList = new ArrayList<SaleProduct>();
 		try {
@@ -97,7 +113,7 @@ public class StockProductsListLocalServiceImpl
 				StockProductsList stockProductsList = stockProductsListPersistence.create(product.getProductId());
 				stockProductsList.setStockId(stock.getStockId());
 				stockProductsListPersistence.update(stockProductsList);
-				return saleStockService.updateStock(stock.getStockId(),1, product.getName(),product.getTypeId());
+				return saleStockService.updateStock(stock.getStockId(),stock.getQuantity() + 1,product.getName(),product.getTypeId(),product.getCategoryId(),product.getPrice());
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -109,7 +125,7 @@ public class StockProductsListLocalServiceImpl
 				StockProductsList stockProductsList = stockProductsListPersistence.create(product.getProductId());
 				stockProductsList.setStockId(stock.getStockId());
 				stockProductsListPersistence.update(stockProductsList);
-				return  saleStockService.updateStock(stock.getStockId(),stock.getQuantity() + 1,product.getName(),product.getTypeId());
+				return  saleStockService.updateStock(stock.getStockId(),stock.getQuantity() + 1,product.getName(),product.getTypeId(),product.getCategoryId(),product.getPrice());
 		} catch (Exception e) {
 				e.printStackTrace();
 				return null;
@@ -121,8 +137,13 @@ public class StockProductsListLocalServiceImpl
 		if(checkIfExistStock(product)){
 			try{
 				SaleStock stock = saleStockService.getSaleStockByProduct(product);
-				stockProductsListPersistence.remove(product.getProductId());
-				 saleStockService.updateStock(stock.getStockId(),stock.getQuantity() - 1, product.getName(),product.getTypeId());
+				if(stock.getQuantity()==1){
+					stockProductsListPersistence.remove(product.getProductId());
+					saleStockService.deletesaleStockById(stock.getStockId());
+				}else{
+					stockProductsListPersistence.remove(product.getProductId());
+					saleStockService.updateStock(stock.getStockId(),stock.getQuantity() - 1,product.getName(),product.getTypeId(),product.getCategoryId(),product.getPrice());
+				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -131,13 +152,13 @@ public class StockProductsListLocalServiceImpl
 		}
 	}
 	public Boolean checkIfExistStock(SaleProduct product){
-		boolean exist = false;
-		for (SaleStock stock : saleStockPersistence.findAll()) {
-			if (stock.getName().equals(product.getName()) && stock.getTypeId()==product.getTypeId()){
-				exist = true;
-			}
+		try{
+			saleStockService.getSaleStockByProduct(product);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
-		return exist;
 	}
 
 	@Reference

@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
+import com.liferay.portal.kernel.test.AssertUtils;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
@@ -129,6 +130,10 @@ public class SaleStockPersistenceTest {
 
 		newSaleStock.setTypeId(RandomTestUtil.nextLong());
 
+		newSaleStock.setCategoryId(RandomTestUtil.nextLong());
+
+		newSaleStock.setPrice(RandomTestUtil.nextDouble());
+
 		_saleStocks.add(_persistence.update(newSaleStock));
 
 		SaleStock existingSaleStock = _persistence.findByPrimaryKey(
@@ -142,15 +147,20 @@ public class SaleStockPersistenceTest {
 			existingSaleStock.getQuantity(), newSaleStock.getQuantity());
 		Assert.assertEquals(
 			existingSaleStock.getTypeId(), newSaleStock.getTypeId());
+		Assert.assertEquals(
+			existingSaleStock.getCategoryId(), newSaleStock.getCategoryId());
+		AssertUtils.assertEquals(
+			existingSaleStock.getPrice(), newSaleStock.getPrice());
 	}
 
 	@Test
-	public void testCountByName_And_Type() throws Exception {
-		_persistence.countByName_And_Type("", RandomTestUtil.nextLong());
+	public void testCountByName_Type_Category() throws Exception {
+		_persistence.countByName_Type_Category(
+			"", RandomTestUtil.nextLong(), RandomTestUtil.nextLong());
 
-		_persistence.countByName_And_Type("null", 0L);
+		_persistence.countByName_Type_Category("null", 0L, 0L);
 
-		_persistence.countByName_And_Type((String)null, 0L);
+		_persistence.countByName_Type_Category((String)null, 0L, 0L);
 	}
 
 	@Test
@@ -179,7 +189,7 @@ public class SaleStockPersistenceTest {
 	protected OrderByComparator<SaleStock> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create(
 			"SalesTaxe_SaleStock", "StockId", true, "name", true, "quantity",
-			true, "typeId", true);
+			true, "typeId", true, "categoryId", true, "price", true);
 	}
 
 	@Test
@@ -446,6 +456,11 @@ public class SaleStockPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				saleStock, "getColumnOriginalValue",
 				new Class<?>[] {String.class}, "typeId"));
+		Assert.assertEquals(
+			Long.valueOf(saleStock.getCategoryId()),
+			ReflectionTestUtil.<Long>invoke(
+				saleStock, "getColumnOriginalValue",
+				new Class<?>[] {String.class}, "categoryId"));
 	}
 
 	protected SaleStock addSaleStock() throws Exception {
@@ -458,6 +473,10 @@ public class SaleStockPersistenceTest {
 		saleStock.setQuantity(RandomTestUtil.nextInt());
 
 		saleStock.setTypeId(RandomTestUtil.nextLong());
+
+		saleStock.setCategoryId(RandomTestUtil.nextLong());
+
+		saleStock.setPrice(RandomTestUtil.nextDouble());
 
 		_saleStocks.add(_persistence.update(saleStock));
 

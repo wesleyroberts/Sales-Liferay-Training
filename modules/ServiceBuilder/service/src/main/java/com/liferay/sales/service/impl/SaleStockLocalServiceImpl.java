@@ -51,12 +51,14 @@ public class SaleStockLocalServiceImpl extends SaleStockLocalServiceBaseImpl {
 		return saleStockPersistence.findAll();
 	}
 
-	public SaleStock updateStock(long stockId, int quantity,String name,long typeId){
+	public SaleStock updateStock(long stockId, int quantity,String name,long typeId,long categoryId, double price){
 		try {
 			SaleStock saleStock = saleStockPersistence.findByPrimaryKey(stockId);
 			saleStock.setQuantity(quantity);
 			saleStock.setName(name);
 			saleStock.setTypeId(typeId);
+			saleStock.setCategoryId(categoryId);
+			saleStock.setPrice(price);
 			return saleStockPersistence.update(saleStock);
 		} catch (NoSuchSaleStockException e) {
 			e.printStackTrace();
@@ -86,7 +88,7 @@ public class SaleStockLocalServiceImpl extends SaleStockLocalServiceBaseImpl {
 
 	public SaleStock getSaleStockByProduct(SaleProduct product) {
 		try {
-			return saleStockPersistence.findByName_And_Type(product.getName(), product.getTypeId());
+			return saleStockPersistence.findByName_Type_Category(product.getName(), product.getTypeId(),product.getCategoryId());
 		} catch (NoSuchSaleStockException e) {
 			e.printStackTrace();
 			return null;

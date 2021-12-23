@@ -92,25 +92,28 @@ public class SaleStockPersistenceImpl
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
-	private FinderPath _finderPathFetchByName_And_Type;
-	private FinderPath _finderPathCountByName_And_Type;
+	private FinderPath _finderPathFetchByName_Type_Category;
+	private FinderPath _finderPathCountByName_Type_Category;
 
 	/**
-	 * Returns the sale stock where name = &#63; and typeId = &#63; or throws a <code>NoSuchSaleStockException</code> if it could not be found.
+	 * Returns the sale stock where name = &#63; and typeId = &#63; and categoryId = &#63; or throws a <code>NoSuchSaleStockException</code> if it could not be found.
 	 *
 	 * @param name the name
 	 * @param typeId the type ID
+	 * @param categoryId the category ID
 	 * @return the matching sale stock
 	 * @throws NoSuchSaleStockException if a matching sale stock could not be found
 	 */
 	@Override
-	public SaleStock findByName_And_Type(String name, long typeId)
+	public SaleStock findByName_Type_Category(
+			String name, long typeId, long categoryId)
 		throws NoSuchSaleStockException {
 
-		SaleStock saleStock = fetchByName_And_Type(name, typeId);
+		SaleStock saleStock = fetchByName_Type_Category(
+			name, typeId, categoryId);
 
 		if (saleStock == null) {
-			StringBundler sb = new StringBundler(6);
+			StringBundler sb = new StringBundler(8);
 
 			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
@@ -119,6 +122,9 @@ public class SaleStockPersistenceImpl
 
 			sb.append(", typeId=");
 			sb.append(typeId);
+
+			sb.append(", categoryId=");
+			sb.append(categoryId);
 
 			sb.append("}");
 
@@ -133,71 +139,78 @@ public class SaleStockPersistenceImpl
 	}
 
 	/**
-	 * Returns the sale stock where name = &#63; and typeId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the sale stock where name = &#63; and typeId = &#63; and categoryId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param name the name
 	 * @param typeId the type ID
+	 * @param categoryId the category ID
 	 * @return the matching sale stock, or <code>null</code> if a matching sale stock could not be found
 	 */
 	@Override
-	public SaleStock fetchByName_And_Type(String name, long typeId) {
-		return fetchByName_And_Type(name, typeId, true);
+	public SaleStock fetchByName_Type_Category(
+		String name, long typeId, long categoryId) {
+
+		return fetchByName_Type_Category(name, typeId, categoryId, true);
 	}
 
 	/**
-	 * Returns the sale stock where name = &#63; and typeId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the sale stock where name = &#63; and typeId = &#63; and categoryId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param name the name
 	 * @param typeId the type ID
+	 * @param categoryId the category ID
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching sale stock, or <code>null</code> if a matching sale stock could not be found
 	 */
 	@Override
-	public SaleStock fetchByName_And_Type(
-		String name, long typeId, boolean useFinderCache) {
+	public SaleStock fetchByName_Type_Category(
+		String name, long typeId, long categoryId, boolean useFinderCache) {
 
 		name = Objects.toString(name, "");
 
 		Object[] finderArgs = null;
 
 		if (useFinderCache) {
-			finderArgs = new Object[] {name, typeId};
+			finderArgs = new Object[] {name, typeId, categoryId};
 		}
 
 		Object result = null;
 
 		if (useFinderCache) {
 			result = finderCache.getResult(
-				_finderPathFetchByName_And_Type, finderArgs, this);
+				_finderPathFetchByName_Type_Category, finderArgs, this);
 		}
 
 		if (result instanceof SaleStock) {
 			SaleStock saleStock = (SaleStock)result;
 
 			if (!Objects.equals(name, saleStock.getName()) ||
-				(typeId != saleStock.getTypeId())) {
+				(typeId != saleStock.getTypeId()) ||
+				(categoryId != saleStock.getCategoryId())) {
 
 				result = null;
 			}
 		}
 
 		if (result == null) {
-			StringBundler sb = new StringBundler(4);
+			StringBundler sb = new StringBundler(5);
 
 			sb.append(_SQL_SELECT_SALESTOCK_WHERE);
 
 			boolean bindName = false;
 
 			if (name.isEmpty()) {
-				sb.append(_FINDER_COLUMN_NAME_AND_TYPE_NAME_3);
+				sb.append(_FINDER_COLUMN_NAME_TYPE_CATEGORY_NAME_3);
 			}
 			else {
 				bindName = true;
 
-				sb.append(_FINDER_COLUMN_NAME_AND_TYPE_NAME_2);
+				sb.append(_FINDER_COLUMN_NAME_TYPE_CATEGORY_NAME_2);
 			}
 
-			sb.append(_FINDER_COLUMN_NAME_AND_TYPE_TYPEID_2);
+			sb.append(_FINDER_COLUMN_NAME_TYPE_CATEGORY_TYPEID_2);
+
+			sb.append(_FINDER_COLUMN_NAME_TYPE_CATEGORY_CATEGORYID_2);
 
 			String sql = sb.toString();
 
@@ -216,12 +229,15 @@ public class SaleStockPersistenceImpl
 
 				queryPos.add(typeId);
 
+				queryPos.add(categoryId);
+
 				List<SaleStock> list = query.list();
 
 				if (list.isEmpty()) {
 					if (useFinderCache) {
 						finderCache.putResult(
-							_finderPathFetchByName_And_Type, finderArgs, list);
+							_finderPathFetchByName_Type_Category, finderArgs,
+							list);
 					}
 				}
 				else {
@@ -230,11 +246,13 @@ public class SaleStockPersistenceImpl
 
 						if (_log.isWarnEnabled()) {
 							if (!useFinderCache) {
-								finderArgs = new Object[] {name, typeId};
+								finderArgs = new Object[] {
+									name, typeId, categoryId
+								};
 							}
 
 							_log.warn(
-								"SaleStockPersistenceImpl.fetchByName_And_Type(String, long, boolean) with parameters (" +
+								"SaleStockPersistenceImpl.fetchByName_Type_Category(String, long, long, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
 										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
 						}
@@ -264,55 +282,63 @@ public class SaleStockPersistenceImpl
 	}
 
 	/**
-	 * Removes the sale stock where name = &#63; and typeId = &#63; from the database.
+	 * Removes the sale stock where name = &#63; and typeId = &#63; and categoryId = &#63; from the database.
 	 *
 	 * @param name the name
 	 * @param typeId the type ID
+	 * @param categoryId the category ID
 	 * @return the sale stock that was removed
 	 */
 	@Override
-	public SaleStock removeByName_And_Type(String name, long typeId)
+	public SaleStock removeByName_Type_Category(
+			String name, long typeId, long categoryId)
 		throws NoSuchSaleStockException {
 
-		SaleStock saleStock = findByName_And_Type(name, typeId);
+		SaleStock saleStock = findByName_Type_Category(
+			name, typeId, categoryId);
 
 		return remove(saleStock);
 	}
 
 	/**
-	 * Returns the number of sale stocks where name = &#63; and typeId = &#63;.
+	 * Returns the number of sale stocks where name = &#63; and typeId = &#63; and categoryId = &#63;.
 	 *
 	 * @param name the name
 	 * @param typeId the type ID
+	 * @param categoryId the category ID
 	 * @return the number of matching sale stocks
 	 */
 	@Override
-	public int countByName_And_Type(String name, long typeId) {
+	public int countByName_Type_Category(
+		String name, long typeId, long categoryId) {
+
 		name = Objects.toString(name, "");
 
-		FinderPath finderPath = _finderPathCountByName_And_Type;
+		FinderPath finderPath = _finderPathCountByName_Type_Category;
 
-		Object[] finderArgs = new Object[] {name, typeId};
+		Object[] finderArgs = new Object[] {name, typeId, categoryId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(3);
+			StringBundler sb = new StringBundler(4);
 
 			sb.append(_SQL_COUNT_SALESTOCK_WHERE);
 
 			boolean bindName = false;
 
 			if (name.isEmpty()) {
-				sb.append(_FINDER_COLUMN_NAME_AND_TYPE_NAME_3);
+				sb.append(_FINDER_COLUMN_NAME_TYPE_CATEGORY_NAME_3);
 			}
 			else {
 				bindName = true;
 
-				sb.append(_FINDER_COLUMN_NAME_AND_TYPE_NAME_2);
+				sb.append(_FINDER_COLUMN_NAME_TYPE_CATEGORY_NAME_2);
 			}
 
-			sb.append(_FINDER_COLUMN_NAME_AND_TYPE_TYPEID_2);
+			sb.append(_FINDER_COLUMN_NAME_TYPE_CATEGORY_TYPEID_2);
+
+			sb.append(_FINDER_COLUMN_NAME_TYPE_CATEGORY_CATEGORYID_2);
 
 			String sql = sb.toString();
 
@@ -331,6 +357,8 @@ public class SaleStockPersistenceImpl
 
 				queryPos.add(typeId);
 
+				queryPos.add(categoryId);
+
 				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(finderPath, finderArgs, count);
@@ -346,14 +374,17 @@ public class SaleStockPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_NAME_AND_TYPE_NAME_2 =
+	private static final String _FINDER_COLUMN_NAME_TYPE_CATEGORY_NAME_2 =
 		"saleStock.name = ? AND ";
 
-	private static final String _FINDER_COLUMN_NAME_AND_TYPE_NAME_3 =
+	private static final String _FINDER_COLUMN_NAME_TYPE_CATEGORY_NAME_3 =
 		"(saleStock.name IS NULL OR saleStock.name = '') AND ";
 
-	private static final String _FINDER_COLUMN_NAME_AND_TYPE_TYPEID_2 =
-		"saleStock.typeId = ?";
+	private static final String _FINDER_COLUMN_NAME_TYPE_CATEGORY_TYPEID_2 =
+		"saleStock.typeId = ? AND ";
+
+	private static final String _FINDER_COLUMN_NAME_TYPE_CATEGORY_CATEGORYID_2 =
+		"saleStock.categoryId = ?";
 
 	public SaleStockPersistenceImpl() {
 		setModelClass(SaleStock.class);
@@ -373,8 +404,11 @@ public class SaleStockPersistenceImpl
 			SaleStockImpl.class, saleStock.getPrimaryKey(), saleStock);
 
 		finderCache.putResult(
-			_finderPathFetchByName_And_Type,
-			new Object[] {saleStock.getName(), saleStock.getTypeId()},
+			_finderPathFetchByName_Type_Category,
+			new Object[] {
+				saleStock.getName(), saleStock.getTypeId(),
+				saleStock.getCategoryId()
+			},
 			saleStock);
 	}
 
@@ -444,13 +478,15 @@ public class SaleStockPersistenceImpl
 		SaleStockModelImpl saleStockModelImpl) {
 
 		Object[] args = new Object[] {
-			saleStockModelImpl.getName(), saleStockModelImpl.getTypeId()
+			saleStockModelImpl.getName(), saleStockModelImpl.getTypeId(),
+			saleStockModelImpl.getCategoryId()
 		};
 
 		finderCache.putResult(
-			_finderPathCountByName_And_Type, args, Long.valueOf(1), false);
+			_finderPathCountByName_Type_Category, args, Long.valueOf(1), false);
 		finderCache.putResult(
-			_finderPathFetchByName_And_Type, args, saleStockModelImpl, false);
+			_finderPathFetchByName_Type_Category, args, saleStockModelImpl,
+			false);
 	}
 
 	/**
@@ -880,15 +916,22 @@ public class SaleStockPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0], new String[0], false);
 
-		_finderPathFetchByName_And_Type = _createFinderPath(
-			FINDER_CLASS_NAME_ENTITY, "fetchByName_And_Type",
-			new String[] {String.class.getName(), Long.class.getName()},
-			new String[] {"name", "typeId"}, true);
+		_finderPathFetchByName_Type_Category = _createFinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByName_Type_Category",
+			new String[] {
+				String.class.getName(), Long.class.getName(),
+				Long.class.getName()
+			},
+			new String[] {"name", "typeId", "categoryId"}, true);
 
-		_finderPathCountByName_And_Type = _createFinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByName_And_Type",
-			new String[] {String.class.getName(), Long.class.getName()},
-			new String[] {"name", "typeId"}, false);
+		_finderPathCountByName_Type_Category = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByName_Type_Category",
+			new String[] {
+				String.class.getName(), Long.class.getName(),
+				Long.class.getName()
+			},
+			new String[] {"name", "typeId", "categoryId"}, false);
 	}
 
 	@Deactivate

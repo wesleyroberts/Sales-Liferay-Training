@@ -28,6 +28,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 
 import java.io.Serializable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -39,9 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.validation.constraints.NotNull;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -49,10 +48,10 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
-import restbuilder.dto.v1_0.Category;
-import restbuilder.dto.v1_0.CategoryInput;
+import restbuilder.dto.v1_0.Product;
+import restbuilder.dto.v1_0.Stock;
 
-import restbuilder.resource.v1_0.CategoryInputResource;
+import restbuilder.resource.v1_0.StockResource;
 
 /**
  * @author Wesley Roberts
@@ -60,61 +59,54 @@ import restbuilder.resource.v1_0.CategoryInputResource;
  */
 @Generated("")
 @Path("/v1.0")
-public abstract class BaseCategoryInputResourceImpl
-	implements CategoryInputResource, EntityModelResource,
-			   VulcanBatchEngineTaskItemDelegate<CategoryInput> {
+public abstract class BaseStockResourceImpl
+	implements EntityModelResource, StockResource,
+			   VulcanBatchEngineTaskItemDelegate<Stock> {
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/RestBuilder/v1.0/category/create' -d $'{"name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/stock/all'  -u 'test@liferay.com:test'
 	 */
-	@Consumes({"application/json", "application/xml"})
+	@GET
 	@Override
-	@Path("/category/create")
-	@POST
+	@Path("/stock/all")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "CategoryInput")})
-	public Category createCategory(CategoryInput categoryInput)
-		throws Exception {
-
-		return new Category();
+	@Tags(value = {@Tag(name = "Stock")})
+	public Page<Stock> getAllStock() throws Exception {
+		return Page.of(Collections.emptyList());
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/RestBuilder/v1.0/category/update/{categoryId}' -d $'{"name": ___, "tax": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/RestBuilder/v1.0/stock/getAllProductsBySotckId/{stockId}'  -u 'test@liferay.com:test'
 	 */
-	@Consumes({"application/json", "application/xml"})
+	@GET
 	@Override
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "categoryId")}
-	)
-	@Path("/category/update/{categoryId}")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "stockId")})
+	@Path("/stock/getAllProductsBySotckId/{stockId}")
 	@Produces({"application/json", "application/xml"})
-	@PUT
-	@Tags(value = {@Tag(name = "CategoryInput")})
-	public Category updateCategoryById(
-			@NotNull @Parameter(hidden = true) @PathParam("categoryId") Integer
-				categoryId,
-			CategoryInput categoryInput)
+	@Tags(value = {@Tag(name = "Stock")})
+	public Page<Product> getAllProductsBySotckId(
+			@NotNull @Parameter(hidden = true) @PathParam("stockId") Integer
+				stockId)
 		throws Exception {
 
-		return new Category();
+		return Page.of(Collections.emptyList());
 	}
 
 	@Override
 	@SuppressWarnings("PMD.UnusedLocalVariable")
 	public void create(
-			java.util.Collection<CategoryInput> categoryInputs,
+			java.util.Collection<Stock> stocks,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
 
 	@Override
 	public void delete(
-			java.util.Collection<CategoryInput> categoryInputs,
+			java.util.Collection<Stock> stocks,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
@@ -135,7 +127,7 @@ public abstract class BaseCategoryInputResourceImpl
 	}
 
 	@Override
-	public Page<CategoryInput> read(
+	public Page<Stock> read(
 			Filter filter, Pagination pagination, Sort[] sorts,
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
@@ -167,7 +159,7 @@ public abstract class BaseCategoryInputResourceImpl
 
 	@Override
 	public void update(
-			java.util.Collection<CategoryInput> categoryInputs,
+			java.util.Collection<Stock> stocks,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}

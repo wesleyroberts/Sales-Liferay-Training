@@ -237,6 +237,12 @@ public class StockProductsListLocalServiceUtil {
 		return getService().getAllProductInStockByProductName(name);
 	}
 
+	public static List<com.liferay.sales.model.SaleProduct>
+		getAllProductInStockByStockId(long stockId) {
+
+		return getService().getAllProductInStockByStockId(stockId);
+	}
+
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {

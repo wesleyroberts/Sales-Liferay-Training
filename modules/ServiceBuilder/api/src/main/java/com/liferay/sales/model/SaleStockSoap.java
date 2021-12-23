@@ -36,6 +36,8 @@ public class SaleStockSoap implements Serializable {
 		soapModel.setName(model.getName());
 		soapModel.setQuantity(model.getQuantity());
 		soapModel.setTypeId(model.getTypeId());
+		soapModel.setCategoryId(model.getCategoryId());
+		soapModel.setPrice(model.getPrice());
 
 		return soapModel;
 	}
@@ -121,9 +123,27 @@ public class SaleStockSoap implements Serializable {
 		_typeId = typeId;
 	}
 
+	public long getCategoryId() {
+		return _categoryId;
+	}
+
+	public void setCategoryId(long categoryId) {
+		_categoryId = categoryId;
+	}
+
+	public double getPrice() {
+		return _price;
+	}
+
+	public void setPrice(double price) {
+		_price = price;
+	}
+
 	private long _StockId;
 	private String _name;
 	private int _quantity;
 	private long _typeId;
+	private long _categoryId;
+	private double _price;
 
 }

@@ -53,8 +53,8 @@ public class SaleStockServiceImpl extends SaleStockServiceBaseImpl {
 		return saleStockLocalService.getAllSaleStock();
 	}
 
-	public SaleStock updateStock(long stockId, int quantity,String name,long typeId){
-		return saleStockLocalService.updateStock(stockId, quantity,name,typeId);
+	public SaleStock updateStock(long stockId, int quantity,String name,long typeId,long categoryId, double price){
+		return saleStockLocalService.updateStock(stockId, quantity,name,typeId,categoryId,price);
 	}
 	public SaleStock createSaleStock (){
 	 return saleStockLocalService.createSaleStock();

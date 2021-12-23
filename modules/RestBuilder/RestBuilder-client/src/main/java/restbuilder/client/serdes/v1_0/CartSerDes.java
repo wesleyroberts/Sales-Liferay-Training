@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Generated;
 
-import restbuilder.client.dto.v1_0.CartOutput;
+import restbuilder.client.dto.v1_0.Cart;
 import restbuilder.client.dto.v1_0.ProductList;
 import restbuilder.client.json.BaseJSONParser;
 
@@ -18,22 +18,22 @@ import restbuilder.client.json.BaseJSONParser;
  * @generated
  */
 @Generated("")
-public class CartOutputSerDes {
+public class CartSerDes {
 
-	public static CartOutput toDTO(String json) {
-		CartOutputJSONParser cartOutputJSONParser = new CartOutputJSONParser();
+	public static Cart toDTO(String json) {
+		CartJSONParser cartJSONParser = new CartJSONParser();
 
-		return cartOutputJSONParser.parseToDTO(json);
+		return cartJSONParser.parseToDTO(json);
 	}
 
-	public static CartOutput[] toDTOs(String json) {
-		CartOutputJSONParser cartOutputJSONParser = new CartOutputJSONParser();
+	public static Cart[] toDTOs(String json) {
+		CartJSONParser cartJSONParser = new CartJSONParser();
 
-		return cartOutputJSONParser.parseToDTOs(json);
+		return cartJSONParser.parseToDTOs(json);
 	}
 
-	public static String toJSON(CartOutput cartOutput) {
-		if (cartOutput == null) {
+	public static String toJSON(Cart cart) {
+		if (cart == null) {
 			return "null";
 		}
 
@@ -41,17 +41,17 @@ public class CartOutputSerDes {
 
 		sb.append("{");
 
-		if (cartOutput.getId() != null) {
+		if (cart.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"id\": ");
 
-			sb.append(cartOutput.getId());
+			sb.append(cart.getId());
 		}
 
-		if (cartOutput.getProductList() != null) {
+		if (cart.getProductList() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -60,10 +60,10 @@ public class CartOutputSerDes {
 
 			sb.append("[");
 
-			for (int i = 0; i < cartOutput.getProductList().length; i++) {
-				sb.append(String.valueOf(cartOutput.getProductList()[i]));
+			for (int i = 0; i < cart.getProductList().length; i++) {
+				sb.append(String.valueOf(cart.getProductList()[i]));
 
-				if ((i + 1) < cartOutput.getProductList().length) {
+				if ((i + 1) < cart.getProductList().length) {
 					sb.append(", ");
 				}
 			}
@@ -71,14 +71,14 @@ public class CartOutputSerDes {
 			sb.append("]");
 		}
 
-		if (cartOutput.getTotalValue() != null) {
+		if (cart.getTotalValue() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"totalValue\": ");
 
-			sb.append(cartOutput.getTotalValue());
+			sb.append(cart.getTotalValue());
 		}
 
 		sb.append("}");
@@ -87,69 +87,67 @@ public class CartOutputSerDes {
 	}
 
 	public static Map<String, Object> toMap(String json) {
-		CartOutputJSONParser cartOutputJSONParser = new CartOutputJSONParser();
+		CartJSONParser cartJSONParser = new CartJSONParser();
 
-		return cartOutputJSONParser.parseToMap(json);
+		return cartJSONParser.parseToMap(json);
 	}
 
-	public static Map<String, String> toMap(CartOutput cartOutput) {
-		if (cartOutput == null) {
+	public static Map<String, String> toMap(Cart cart) {
+		if (cart == null) {
 			return null;
 		}
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (cartOutput.getId() == null) {
+		if (cart.getId() == null) {
 			map.put("id", null);
 		}
 		else {
-			map.put("id", String.valueOf(cartOutput.getId()));
+			map.put("id", String.valueOf(cart.getId()));
 		}
 
-		if (cartOutput.getProductList() == null) {
+		if (cart.getProductList() == null) {
 			map.put("productList", null);
 		}
 		else {
-			map.put("productList", String.valueOf(cartOutput.getProductList()));
+			map.put("productList", String.valueOf(cart.getProductList()));
 		}
 
-		if (cartOutput.getTotalValue() == null) {
+		if (cart.getTotalValue() == null) {
 			map.put("totalValue", null);
 		}
 		else {
-			map.put("totalValue", String.valueOf(cartOutput.getTotalValue()));
+			map.put("totalValue", String.valueOf(cart.getTotalValue()));
 		}
 
 		return map;
 	}
 
-	public static class CartOutputJSONParser
-		extends BaseJSONParser<CartOutput> {
+	public static class CartJSONParser extends BaseJSONParser<Cart> {
 
 		@Override
-		protected CartOutput createDTO() {
-			return new CartOutput();
+		protected Cart createDTO() {
+			return new Cart();
 		}
 
 		@Override
-		protected CartOutput[] createDTOArray(int size) {
-			return new CartOutput[size];
+		protected Cart[] createDTOArray(int size) {
+			return new Cart[size];
 		}
 
 		@Override
 		protected void setField(
-			CartOutput cartOutput, String jsonParserFieldName,
+			Cart cart, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
 			if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
-					cartOutput.setId(
-						Integer.valueOf((String)jsonParserFieldValue));
+					cart.setId(Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "productList")) {
 				if (jsonParserFieldValue != null) {
-					cartOutput.setProductList(
+					cart.setProductList(
 						Stream.of(
 							toStrings((Object[])jsonParserFieldValue)
 						).map(
@@ -161,7 +159,7 @@ public class CartOutputSerDes {
 			}
 			else if (Objects.equals(jsonParserFieldName, "totalValue")) {
 				if (jsonParserFieldValue != null) {
-					cartOutput.setTotalValue(
+					cart.setTotalValue(
 						Double.valueOf((String)jsonParserFieldValue));
 				}
 			}

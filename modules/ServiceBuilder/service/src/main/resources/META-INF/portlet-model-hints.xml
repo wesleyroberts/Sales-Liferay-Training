@@ -26,6 +26,8 @@
 		<field name="name" type="String" />
 		<field name="quantity" type="int" />
 		<field name="typeId" type="long" />
+		<field name="categoryId" type="long" />
+		<field name="price" type="double" />
 	</model>
 	<model name="com.liferay.sales.model.SaleType">
 		<field name="typeId" type="long" />

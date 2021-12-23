@@ -59,7 +59,7 @@ public class SaleStockCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{StockId=");
 		sb.append(StockId);
@@ -69,6 +69,10 @@ public class SaleStockCacheModel
 		sb.append(quantity);
 		sb.append(", typeId=");
 		sb.append(typeId);
+		sb.append(", categoryId=");
+		sb.append(categoryId);
+		sb.append(", price=");
+		sb.append(price);
 		sb.append("}");
 
 		return sb.toString();
@@ -89,6 +93,8 @@ public class SaleStockCacheModel
 
 		saleStockImpl.setQuantity(quantity);
 		saleStockImpl.setTypeId(typeId);
+		saleStockImpl.setCategoryId(categoryId);
+		saleStockImpl.setPrice(price);
 
 		saleStockImpl.resetOriginalValues();
 
@@ -103,6 +109,10 @@ public class SaleStockCacheModel
 		quantity = objectInput.readInt();
 
 		typeId = objectInput.readLong();
+
+		categoryId = objectInput.readLong();
+
+		price = objectInput.readDouble();
 	}
 
 	@Override
@@ -119,11 +129,17 @@ public class SaleStockCacheModel
 		objectOutput.writeInt(quantity);
 
 		objectOutput.writeLong(typeId);
+
+		objectOutput.writeLong(categoryId);
+
+		objectOutput.writeDouble(price);
 	}
 
 	public long StockId;
 	public String name;
 	public int quantity;
 	public long typeId;
+	public long categoryId;
+	public double price;
 
 }
