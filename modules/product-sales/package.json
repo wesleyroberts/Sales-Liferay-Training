@@ -18,6 +18,7 @@
 		"@clayui/alert": "^3.40.0",
 		"@clayui/button": "^3.40.0",
 		"@clayui/card": "^3.40.0",
+		"@clayui/css": "^3.42.0",
 		"@clayui/form": "^3.40.0",
 		"@clayui/icon": "^3.40.0",
 		"@clayui/link": "^3.40.0",

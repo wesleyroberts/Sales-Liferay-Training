@@ -8,6 +8,7 @@ import TypeEditModal from "./modalType/TypeEditModal";
 import CategoryCreateModal from "./modalCategory/CategoryCreateModal";
 import CategoryEditModal from "./modalCategory/CategoryEditModal";
 import { DeleteCategoryByID } from "../../resourceRequests/CategoryFunctions";
+
 export default function Config({
   typesList,
   categoryList,
@@ -114,7 +115,7 @@ export default function Config({
           </div>
           <ClayButton
             displayType="primary"
-            onClick={() => handleModalCreateType()}
+            onClick={handleModalCreateType}
           >
             Create Type
           </ClayButton>
@@ -137,7 +138,6 @@ export default function Config({
                     },
                     { type: "divider" },
                     {
-                      href: "#",
                       label: "Delete",
                       onClick: () => {
                         DeleteCategoryByID(item.id), deleteCategory(item.id);
@@ -155,7 +155,7 @@ export default function Config({
           </div>
           <ClayButton
             displayType="primary"
-            onClick={() => handleModalCreateCategory()}
+            onClick={handleModalCreateCategory}
           >
             Create Category
           </ClayButton>
