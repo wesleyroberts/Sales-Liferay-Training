@@ -28,11 +28,13 @@ import restbuilder.dto.v1_0.Cart;
 import restbuilder.dto.v1_0.Category;
 import restbuilder.dto.v1_0.Product;
 import restbuilder.dto.v1_0.ProductInput;
+import restbuilder.dto.v1_0.Stock;
 import restbuilder.dto.v1_0.Type;
 
 import restbuilder.resource.v1_0.CartResource;
 import restbuilder.resource.v1_0.CategoryResource;
 import restbuilder.resource.v1_0.ProductResource;
+import restbuilder.resource.v1_0.StockResource;
 import restbuilder.resource.v1_0.TypeResource;
 
 /**
@@ -64,6 +66,14 @@ public class Query {
 
 		_productResourceComponentServiceObjects =
 			productResourceComponentServiceObjects;
+	}
+
+	public static void setStockResourceComponentServiceObjects(
+		ComponentServiceObjects<StockResource>
+			stockResourceComponentServiceObjects) {
+
+		_stockResourceComponentServiceObjects =
+			stockResourceComponentServiceObjects;
 	}
 
 	public static void setTypeResourceComponentServiceObjects(
@@ -203,6 +213,36 @@ public class Query {
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			productResource -> productResource.getProductById(productId));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {allStock{items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public StockPage allStock() throws Exception {
+		return _applyComponentServiceObjects(
+			_stockResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			stockResource -> new StockPage(stockResource.getAllStock()));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {allProductsBySotckId(stockId: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public StockPage allProductsBySotckId(
+			@GraphQLName("stockId") Integer stockId)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_stockResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			stockResource -> new StockPage(
+				stockResource.getAllProductsBySotckId(stockId)));
 	}
 
 	/**
@@ -392,6 +432,39 @@ public class Query {
 
 	}
 
+	@GraphQLName("StockPage")
+	public class StockPage {
+
+		public StockPage(Page stockPage) {
+			actions = stockPage.getActions();
+
+			items = stockPage.getItems();
+			lastPage = stockPage.getLastPage();
+			page = stockPage.getPage();
+			pageSize = stockPage.getPageSize();
+			totalCount = stockPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<Stock> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
 	@GraphQLName("TypePage")
 	public class TypePage {
 
@@ -483,6 +556,19 @@ public class Query {
 		productResource.setRoleLocalService(_roleLocalService);
 	}
 
+	private void _populateResourceContext(StockResource stockResource)
+		throws Exception {
+
+		stockResource.setContextAcceptLanguage(_acceptLanguage);
+		stockResource.setContextCompany(_company);
+		stockResource.setContextHttpServletRequest(_httpServletRequest);
+		stockResource.setContextHttpServletResponse(_httpServletResponse);
+		stockResource.setContextUriInfo(_uriInfo);
+		stockResource.setContextUser(_user);
+		stockResource.setGroupLocalService(_groupLocalService);
+		stockResource.setRoleLocalService(_roleLocalService);
+	}
+
 	private void _populateResourceContext(TypeResource typeResource)
 		throws Exception {
 
@@ -502,6 +588,8 @@ public class Query {
 		_categoryResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductResource>
 		_productResourceComponentServiceObjects;
+	private static ComponentServiceObjects<StockResource>
+		_stockResourceComponentServiceObjects;
 	private static ComponentServiceObjects<TypeResource>
 		_typeResourceComponentServiceObjects;
 

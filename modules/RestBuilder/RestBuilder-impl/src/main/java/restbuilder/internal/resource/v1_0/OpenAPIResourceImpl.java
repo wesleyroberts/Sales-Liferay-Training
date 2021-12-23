@@ -72,6 +72,8 @@ public class OpenAPIResourceImpl {
 
 			add(ProductResourceImpl.class);
 
+			add(StockResourceImpl.class);
+
 			add(TypeResourceImpl.class);
 
 			add(OpenAPIResourceImpl.class);

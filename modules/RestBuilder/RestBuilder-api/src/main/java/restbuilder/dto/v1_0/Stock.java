@@ -39,6 +39,35 @@ public class Stock implements Serializable {
 		return ObjectMapperUtil.readValue(Stock.class, json);
 	}
 
+	@Schema
+	@Valid
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	@JsonIgnore
+	public void setCategory(
+		UnsafeSupplier<Category, Exception> categoryUnsafeSupplier) {
+
+		try {
+			category = categoryUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Category category;
+
 	@Schema(description = "The category name.")
 	public Integer getId() {
 		return id;
@@ -64,6 +93,35 @@ public class Stock implements Serializable {
 	@GraphQLField(description = "The category name.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer id;
+
+	@Schema(description = "the price of the product.")
+	@Valid
+	public Number getPrice() {
+		return price;
+	}
+
+	public void setPrice(Number price) {
+		this.price = price;
+	}
+
+	@JsonIgnore
+	public void setPrice(
+		UnsafeSupplier<Number, Exception> priceUnsafeSupplier) {
+
+		try {
+			price = priceUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField(description = "the price of the product.")
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Number price;
 
 	@Schema(description = "name of the product")
 	public String getProductName() {
@@ -175,6 +233,16 @@ public class Stock implements Serializable {
 
 		sb.append("{");
 
+		if (category != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"category\": ");
+
+			sb.append(String.valueOf(category));
+		}
+
 		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -183,6 +251,16 @@ public class Stock implements Serializable {
 			sb.append("\"id\": ");
 
 			sb.append(id);
+		}
+
+		if (price != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"price\": ");
+
+			sb.append(price);
 		}
 
 		if (productName != null) {

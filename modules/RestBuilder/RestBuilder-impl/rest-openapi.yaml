@@ -17,6 +17,12 @@ components:
           description: type of the product
           allOf:
             - $ref: "#/components/schemas/Type"
+        category:
+          allOf:
+            - $ref: "#/components/schemas/Category"
+        price:
+          description: the price of the product.
+          type: number
       type: object
     Category:
       description: Category
@@ -259,7 +265,46 @@ paths:
             application/xml: {}
           description: ""
       tags: ["Product"]
-
+  "/stock/all":
+    get:
+      operationId: getAllStock
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Stock"
+                type: array
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Stock"
+          description: ""
+      tags: ["Stock"]
+  "/stock/getAllProductsBySotckId/{stockId}":
+    get:
+      operationId: getAllProductsBySotckId
+      parameters:
+        - in: path
+          name: stockId
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Product"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Product"
+                type: array
+          description: ""
+      tags: ["Stock"]
   "/category/all":
     get:
       operationId: getAllCategories

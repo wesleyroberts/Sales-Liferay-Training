@@ -17,6 +17,7 @@ import restbuilder.internal.graphql.query.v1_0.Query;
 import restbuilder.resource.v1_0.CartResource;
 import restbuilder.resource.v1_0.CategoryResource;
 import restbuilder.resource.v1_0.ProductResource;
+import restbuilder.resource.v1_0.StockResource;
 import restbuilder.resource.v1_0.TypeResource;
 
 /**
@@ -44,6 +45,8 @@ public class ServletDataImpl implements ServletData {
 			_categoryResourceComponentServiceObjects);
 		Query.setProductResourceComponentServiceObjects(
 			_productResourceComponentServiceObjects);
+		Query.setStockResourceComponentServiceObjects(
+			_stockResourceComponentServiceObjects);
 		Query.setTypeResourceComponentServiceObjects(
 			_typeResourceComponentServiceObjects);
 	}
@@ -78,5 +81,9 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<TypeResource>
 		_typeResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<StockResource>
+		_stockResourceComponentServiceObjects;
 
 }
