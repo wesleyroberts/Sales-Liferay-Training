@@ -977,7 +977,7 @@
     "@clayui/sticker" "^3.40.0"
     "classnames" "^2.2.6"
 
-"@clayui/css@3.x":
+"@clayui/css@^3.42.0", "@clayui/css@3.x":
   "integrity" "sha512-XzLH29THYGNtvHdVMZolASFXgiRDyyuRMdxp2+OFXQcwVUnfRGCvFPAgTKEGKQBHI4bZZQVRNBu8xc+Gvf+ggw=="
   "resolved" "https://registry.npmjs.org/@clayui/css/-/css-3.42.0.tgz"
   "version" "3.42.0"
