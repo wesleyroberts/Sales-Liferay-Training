@@ -335,10 +335,11 @@ public class SaleStockLocalServiceWrapper
 
 	@Override
 	public com.liferay.sales.model.SaleStock updateStock(
-		long stockId, int quantity, String name, long typeId) {
+		long stockId, int quantity, String name, long typeId, long categoryId,
+		double price) {
 
 		return _saleStockLocalService.updateStock(
-			stockId, quantity, name, typeId);
+			stockId, quantity, name, typeId, categoryId, price);
 	}
 
 	@Override

@@ -212,6 +212,9 @@ public interface StockProductsListLocalService
 	public List<SaleProduct> getAllProductInStockByProductName(String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SaleProduct> getAllProductInStockByStockId(long stockId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**

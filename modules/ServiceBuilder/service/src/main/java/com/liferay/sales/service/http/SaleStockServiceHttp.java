@@ -84,7 +84,7 @@ public class SaleStockServiceHttp {
 
 	public static com.liferay.sales.model.SaleStock updateStock(
 		HttpPrincipal httpPrincipal, long stockId, int quantity, String name,
-		long typeId) {
+		long typeId, long categoryId, double price) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -92,7 +92,7 @@ public class SaleStockServiceHttp {
 				_updateStockParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, stockId, quantity, name, typeId);
+				methodKey, stockId, quantity, name, typeId, categoryId, price);
 
 			Object returnObj = null;
 
@@ -241,7 +241,8 @@ public class SaleStockServiceHttp {
 	private static final Class<?>[] _getAllSaleStockParameterTypes0 =
 		new Class[] {};
 	private static final Class<?>[] _updateStockParameterTypes1 = new Class[] {
-		long.class, int.class, String.class, long.class
+		long.class, int.class, String.class, long.class, long.class,
+		double.class
 	};
 	private static final Class<?>[] _createSaleStockParameterTypes2 =
 		new Class[] {};

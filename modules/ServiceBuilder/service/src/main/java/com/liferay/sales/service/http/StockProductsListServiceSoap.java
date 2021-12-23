@@ -120,6 +120,25 @@ public class StockProductsListServiceSoap {
 		}
 	}
 
+	public static com.liferay.sales.model.SaleProductSoap[]
+			getAllProductInStockByStockId(long stockId)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.sales.model.SaleProduct> returnValue =
+				StockProductsListServiceUtil.getAllProductInStockByStockId(
+					stockId);
+
+			return com.liferay.sales.model.SaleProductSoap.toSoapModels(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static void deleteStockProductListByID(long id)
 		throws RemoteException {
 

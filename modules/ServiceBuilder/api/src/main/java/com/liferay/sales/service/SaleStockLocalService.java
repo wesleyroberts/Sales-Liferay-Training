@@ -273,6 +273,7 @@ public interface SaleStockLocalService
 	public SaleStock updateSaleStock(SaleStock saleStock);
 
 	public SaleStock updateStock(
-		long stockId, int quantity, String name, long typeId);
+		long stockId, int quantity, String name, long typeId, long categoryId,
+		double price);
 
 }

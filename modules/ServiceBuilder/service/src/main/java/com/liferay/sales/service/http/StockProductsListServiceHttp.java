@@ -149,6 +149,40 @@ public class StockProductsListServiceHttp {
 		}
 	}
 
+	public static java.util.List<com.liferay.sales.model.SaleProduct>
+		getAllProductInStockByStockId(
+			HttpPrincipal httpPrincipal, long stockId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StockProductsListServiceUtil.class,
+				"getAllProductInStockByStockId",
+				_getAllProductInStockByStockIdParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, stockId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<com.liferay.sales.model.SaleProduct>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static void deleteStockProductListByID(
 		HttpPrincipal httpPrincipal, long id) {
 
@@ -156,7 +190,7 @@ public class StockProductsListServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				StockProductsListServiceUtil.class,
 				"deleteStockProductListByID",
-				_deleteStockProductListByIDParameterTypes3);
+				_deleteStockProductListByIDParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, id);
 
@@ -183,7 +217,7 @@ public class StockProductsListServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				StockProductsListServiceUtil.class, "removeProductFromStock",
-				_removeProductFromStockParameterTypes4);
+				_removeProductFromStockParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productID);
@@ -216,9 +250,13 @@ public class StockProductsListServiceHttp {
 		_getAllProductInStockByProductNameParameterTypes2 = new Class[] {
 			String.class
 		};
-	private static final Class<?>[] _deleteStockProductListByIDParameterTypes3 =
+	private static final Class<?>[]
+		_getAllProductInStockByStockIdParameterTypes3 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[] _deleteStockProductListByIDParameterTypes4 =
 		new Class[] {long.class};
-	private static final Class<?>[] _removeProductFromStockParameterTypes4 =
+	private static final Class<?>[] _removeProductFromStockParameterTypes5 =
 		new Class[] {long.class};
 
 }

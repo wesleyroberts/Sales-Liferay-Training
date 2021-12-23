@@ -81,13 +81,14 @@ public class SaleStockServiceSoap {
 	}
 
 	public static com.liferay.sales.model.SaleStockSoap updateStock(
-			long stockId, int quantity, String name, long typeId)
+			long stockId, int quantity, String name, long typeId,
+			long categoryId, double price)
 		throws RemoteException {
 
 		try {
 			com.liferay.sales.model.SaleStock returnValue =
 				SaleStockServiceUtil.updateStock(
-					stockId, quantity, name, typeId);
+					stockId, quantity, name, typeId, categoryId, price);
 
 			return com.liferay.sales.model.SaleStockSoap.toSoapModel(
 				returnValue);

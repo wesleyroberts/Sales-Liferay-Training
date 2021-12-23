@@ -68,15 +68,17 @@
 	<entity name="SaleStock" local-service="true" remote-service="true">
 
 	<!-- PK fields -->
-	<column name="StockId" primary="true" type="long" />
-	<column name="name" type="String" />
-	<column name="quantity" type="int"/>
-	<column name="typeId" type="long" />
-
+		<column name="StockId" primary="true" type="long" />
+		<column name="name" type="String" />
+		<column name="quantity" type="int"/>
+		<column name="typeId" type="long" />
+		<column name="categoryId" type="long" />
+		<column name="price" type="double" />
 	<!-- Creating finder -->
-	<finder name="Name_And_Type" return-type="SaleStock">
+	<finder name="Name_Type_Category" return-type="SaleStock">
 		<finder-column name="name"/>
 		<finder-column name="typeId"/>
+		<finder-column name="categoryId"/>
 	</finder>
 
 	</entity>

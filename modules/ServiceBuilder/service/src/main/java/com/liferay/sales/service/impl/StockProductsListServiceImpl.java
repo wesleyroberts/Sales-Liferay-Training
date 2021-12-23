@@ -62,6 +62,9 @@ public class StockProductsListServiceImpl
 	public List<SaleProduct> getAllProductInStockByProductName(String name){
 		return stockProductsListLocalService.getAllProductInStockByProductName(name);
 	}
+	public List<SaleProduct> getAllProductInStockByStockId(long stockId){
+		return stockProductsListLocalService.getAllProductInStockByStockId(stockId);
+	}
 	public void deleteStockProductListByID(long id){
 		 stockProductsListLocalService.deleteStockProductListByID(id);
 	}

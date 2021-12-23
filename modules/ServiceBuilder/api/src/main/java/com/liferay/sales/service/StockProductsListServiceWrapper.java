@@ -60,6 +60,13 @@ public class StockProductsListServiceWrapper
 			name);
 	}
 
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		getAllProductInStockByStockId(long stockId) {
+
+		return _stockProductsListService.getAllProductInStockByStockId(stockId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

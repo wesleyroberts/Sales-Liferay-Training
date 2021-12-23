@@ -73,6 +73,7 @@ public interface SaleStockService extends BaseService {
 	public SaleStock getSaleStockByProduct(SaleProduct product);
 
 	public SaleStock updateStock(
-		long stockId, int quantity, String name, long typeId);
+		long stockId, int quantity, String name, long typeId, long categoryId,
+		double price);
 
 }

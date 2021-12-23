@@ -57,6 +57,12 @@ public class StockProductsListServiceUtil {
 		return getService().getAllProductInStockByProductName(name);
 	}
 
+	public static List<com.liferay.sales.model.SaleProduct>
+		getAllProductInStockByStockId(long stockId) {
+
+		return getService().getAllProductInStockByStockId(stockId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

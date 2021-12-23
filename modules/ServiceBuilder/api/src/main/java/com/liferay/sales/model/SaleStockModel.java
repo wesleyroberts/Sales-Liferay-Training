@@ -110,4 +110,32 @@ public interface SaleStockModel extends BaseModel<SaleStock> {
 	 */
 	public void setTypeId(long typeId);
 
+	/**
+	 * Returns the category ID of this sale stock.
+	 *
+	 * @return the category ID of this sale stock
+	 */
+	public long getCategoryId();
+
+	/**
+	 * Sets the category ID of this sale stock.
+	 *
+	 * @param categoryId the category ID of this sale stock
+	 */
+	public void setCategoryId(long categoryId);
+
+	/**
+	 * Returns the price of this sale stock.
+	 *
+	 * @return the price of this sale stock
+	 */
+	public double getPrice();
+
+	/**
+	 * Sets the price of this sale stock.
+	 *
+	 * @param price the price of this sale stock
+	 */
+	public void setPrice(double price);
+
 }

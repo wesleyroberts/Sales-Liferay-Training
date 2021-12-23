@@ -267,6 +267,14 @@ public class StockProductsListLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		getAllProductInStockByStockId(long stockId) {
+
+		return _stockProductsListLocalService.getAllProductInStockByStockId(
+			stockId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 
