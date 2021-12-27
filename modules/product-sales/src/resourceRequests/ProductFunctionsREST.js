@@ -10,12 +10,13 @@ export function GetAllProducts() {
   ).then((res) => res.json());
 }
 
-export function CreateProduct(name, price, category, type) {
+export function CreateProduct(name, price, category, type, quantity) {
   let product = {
     categoryId: category,
     name: name,
     price: price,
     typeId: type,
+    quantity: quantity
   };
   console.log(product);
   return Liferay.Util.fetch(

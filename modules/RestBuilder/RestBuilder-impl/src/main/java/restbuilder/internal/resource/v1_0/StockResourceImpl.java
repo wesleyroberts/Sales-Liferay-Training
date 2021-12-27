@@ -115,6 +115,7 @@ public class StockResourceImpl extends BaseStockResourceImpl {
 				id = (int) stock.getStockId();
 				productName = stock.getName();
 				price = stock.getPrice();
+				quantity = stock.getQuantity();
 			}
 		};
 
