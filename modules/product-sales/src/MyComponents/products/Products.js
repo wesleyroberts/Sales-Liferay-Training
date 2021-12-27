@@ -7,11 +7,11 @@ import ClayCard, { ClayCardWithInfo } from "@clayui/card";
 import ClayButton from "@clayui/button";
 
 import ProductAddToCartModal from "./Modal/ProductAddToCartModal";
-import { Alert } from "../alert/CustomAlert"
+import { Alert } from "../alert/CustomAlert";
 
 export default function Products({
-  productList,
-  setProductList,
+  stocklist,
+  setStockList,
   typesList,
   categoryList,
   cartList,
@@ -28,7 +28,7 @@ export default function Products({
     price: "",
   });
   const [productId, setproductId] = useState(0);
-  const [alertDeleteSuccess, setAlertDeleteSuccess] = useState(false)
+  const [alertDeleteSuccess, setAlertDeleteSuccess] = useState(false);
 
   function handleModalEdit(name, category, type, price) {
     setShowEditModal(true);
@@ -47,18 +47,20 @@ export default function Products({
     setProductAddToCartModal(true);
   }
 
+  console.log(stocklist);
   const handleProductDelete = (id) => {
-    DeleteProductByID(id).then((response) => {
-      if(!response.ok) {
-        console.log(response)
-        throw new Error(response.status)}
-      else {
-        deleteProduct(id)
-        setAlertDeleteSuccess(true)
-      }
-    })
-    .catch((error) => console.log("error:", error));
-  }
+    DeleteProductByID(id)
+      .then((response) => {
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(response.status);
+        } else {
+          deleteProduct(id);
+          setAlertDeleteSuccess(true);
+        }
+      })
+      .catch((error) => console.log("error:", error));
+  };
 
   return (
     <div>
@@ -76,8 +78,6 @@ export default function Products({
       <ProductModalCreate
         typesList={typesList}
         categoryList={categoryList}
-        productList={productList}
-        setProductList={setProductList}
         showCreateModal={showCreateModal}
         setShowCreateModal={setShowCreateModal}
         addProduct={addProduct}
@@ -85,7 +85,7 @@ export default function Products({
       <ClayCard>
         <ClayCard.Body>
           <div className="row">
-            {productList.map((item, index) => (
+            {stocklist.map((item, index) => (
               <div className="col-md-3" key={index}>
                 <ClayCardWithInfo
                   key={index}
@@ -95,7 +95,7 @@ export default function Products({
                       label: "edit",
                       onClick: () => {
                         handleModalEdit(
-                          item.name,
+                          item.productName,
                           item.category.name,
                           item.type.name,
                           item.price
@@ -120,7 +120,7 @@ export default function Products({
                     content: "IMG",
                     displayType: "danger",
                   }}
-                  title={item.name}
+                  title={item.productName}
                   description={"Price: " + item.price}
                 />
               </div>
@@ -130,7 +130,11 @@ export default function Products({
             Create Product
           </ClayButton>
           {alertDeleteSuccess && (
-            <Alert displayType={"success"} title={"Success: "} message={"The product were successfully deleted"}>
+            <Alert
+              displayType={"success"}
+              title={"Success: "}
+              message={"The product were successfully deleted"}
+            >
               {setTimeout(() => setAlertDeleteSuccess(false), 5000)}
             </Alert>
           )}

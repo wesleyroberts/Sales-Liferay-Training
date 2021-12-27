@@ -152,13 +152,17 @@ public class StockProductsListLocalServiceImpl
 		}
 	}
 	public Boolean checkIfExistStock(SaleProduct product){
-		try{
-			saleStockService.getSaleStockByProduct(product);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+		boolean exist = false;
+		for (SaleStock stock: saleStockService.getAllSaleStock()) {
+			if(stock.getCategoryId()==product.getCategoryId() && stock.getName().equals(product.getName())){
+				if(stock.getTypeId()==product.getTypeId()){
+					exist = true;
+				}
+			}else{
+				exist = false;
+			}
 		}
+		return  exist;
 	}
 
 	@Reference

@@ -7,8 +7,7 @@ import Config from "../config/Config";
 import { GetAllTypes } from "../../resourceRequests/TypeFunctions";
 import { GetAllCategories } from "../../resourceRequests/CategoryFunctions";
 import { GetAllCarts } from "../../resourceRequests/CartFunctions";
-import { GetAllProducts } from "../../resourceRequests/ProductFunctionsREST";
-import { getTotalValueByCartId } from "../../resourceRequests/ProductFunctionsREST";
+import { GetAllStock } from "../../resourceRequests/StockFunctions";
 
 export default function Menu() {
   const btnStyle = {
@@ -20,7 +19,7 @@ export default function Menu() {
   const [showCartWindows, setShowCartWindows] = useState(false);
   const [showConfigWindows, setShowConfigWindows] = useState(false);
   const [typesList, setTypeList] = useState([]);
-  const [productList, setProductList] = useState([]);
+  const [stocklist, setStockList] = useState([]);
   const [cartList, setCartList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
 
@@ -44,7 +43,7 @@ export default function Menu() {
     GetAllTypes().then((data) => setTypeList(data.items));
     GetAllCategories().then((data) => setCategoryList(data.items));
     GetAllCarts().then((data) => setCartList(data.items));
-    GetAllProducts().then((data) => setProductList(data.items));
+    GetAllStock().then((data) => setStockList(data.items));
   }, []);
 
   const addCart = (obj) => {
@@ -84,15 +83,15 @@ export default function Menu() {
   };
 
   const addProduct = (obj) => {
-    setProductList([...productList, obj]);
+    setStockList([...stocklist, obj]);
   };
 
   const deleteProduct = (id) => {
     var res = [];
-    productList.forEach((item) => {
+    stocklist.forEach((item) => {
       if (item.id !== id) res.push(item);
     });
-    setProductList(res);
+    setStockList(res);
   };
 
   return (
@@ -133,8 +132,8 @@ export default function Menu() {
 
       {showProductWindows && (
         <Products
-          productList={productList}
-          setProductList={setProductList}
+          stocklist={stocklist}
+          setStockList={setStockList}
           typesList={typesList}
           categoryList={categoryList}
           cartList={cartList}
