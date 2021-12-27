@@ -155,7 +155,7 @@ public class StockProductsListLocalServiceImpl
 		boolean exist = false;
 		for (SaleStock stock: saleStockService.getAllSaleStock()) {
 			if(stock.getCategoryId()==product.getCategoryId() && stock.getName().equals(product.getName())){
-				if(stock.getTypeId()==product.getTypeId()){
+				if(stock.getTypeId()==product.getTypeId() && stock.getPrice()==product.getPrice()){
 					exist = true;
 				}
 			}else{
