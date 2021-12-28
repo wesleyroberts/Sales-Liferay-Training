@@ -140,14 +140,9 @@ export default function Carts({ cartList, addCart, deleteCart, updateCart }) {
                       onClick: () => {
                         handlePurchaseDetails(item.id)
                       },
-                    },
-                    { type: "divider" },
-                    {
-                      label: "Delete",
-                      onClick: () => handleCartDelete(item.id),
-                    },
+                    }
                   ]}
-                  title={`Lista de desejos ${index+1} ${item.able}`}
+                  title={`Lista de desejos ${item.id}`}
                   symbol={item.able ? "folder" : "check"}
                 />
               </div>

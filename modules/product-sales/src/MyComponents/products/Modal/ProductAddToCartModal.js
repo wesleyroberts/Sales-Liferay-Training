@@ -52,10 +52,10 @@ export default function ProductAddToCartModal({
                   }}
                 >
                   <ClaySelect.Option label={"Selecionar carrinho"} value={0} />
-                  {cartList.map((item, index) => (
+                  {cartList.filter((item) => item.able).map((item, index) => (
                     <ClaySelect.Option
                       key={index}
-                      label={"Lista de desejos " + (index + 1)}
+                      label={"Lista de desejos " + item.id}
                       value={item.id}
                     />
                   ))}
