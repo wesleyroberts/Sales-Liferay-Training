@@ -34,6 +34,7 @@ public class SaleCartSoap implements Serializable {
 
 		soapModel.setCartId(model.getCartId());
 		soapModel.setTotalPrice(model.getTotalPrice());
+		soapModel.setAble(model.isAble());
 
 		return soapModel;
 	}
@@ -103,7 +104,20 @@ public class SaleCartSoap implements Serializable {
 		_totalPrice = totalPrice;
 	}
 
+	public boolean getAble() {
+		return _able;
+	}
+
+	public boolean isAble() {
+		return _able;
+	}
+
+	public void setAble(boolean able) {
+		_able = able;
+	}
+
 	private long _cartId;
 	private double _totalPrice;
+	private boolean _able;
 
 }

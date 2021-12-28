@@ -76,4 +76,6 @@ public interface SaleCartService extends BaseService {
 	public SaleCart removeProductPriceToCartTotalValue(
 		double price, long cartId);
 
+	public SaleCart updateSaleCartById(SaleCart saleCart);
+
 }

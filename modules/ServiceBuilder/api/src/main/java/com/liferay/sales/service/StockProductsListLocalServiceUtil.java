@@ -71,6 +71,10 @@ public class StockProductsListLocalServiceUtil {
 		return getService().checkIfExistStock(product);
 	}
 
+	public static int checkQuantityInStockByStockId(long stcokId) {
+		return getService().checkQuantityInStockByStockId(stcokId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

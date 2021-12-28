@@ -52,11 +52,11 @@ public class CartProductsListLocalServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.SaleCart addProductToCartList(
-		long productId, long cartId) {
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		addProductToCartList(int quantity, long cartId, long stockId) {
 
 		return _cartProductsListLocalService.addProductToCartList(
-			productId, cartId);
+			quantity, cartId, stockId);
 	}
 
 	@Override
@@ -90,6 +90,11 @@ public class CartProductsListLocalServiceWrapper
 
 		return _cartProductsListLocalService.createPersistedModel(
 			primaryKeyObj);
+	}
+
+	@Override
+	public void deleteCartList(long productId) {
+		_cartProductsListLocalService.deleteCartList(productId);
 	}
 
 	/**
@@ -240,10 +245,22 @@ public class CartProductsListLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.sales.model.SaleCart FinishCart(long cartId) {
+		return _cartProductsListLocalService.FinishCart(cartId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
 		return _cartProductsListLocalService.getActionableDynamicQuery();
+	}
+
+	@Override
+	public java.util.List<com.liferay.sales.model.CartProductsList>
+		getAllCartProductsList() {
+
+		return _cartProductsListLocalService.getAllCartProductsList();
 	}
 
 	@Override
@@ -326,9 +343,11 @@ public class CartProductsListLocalServiceWrapper
 	}
 
 	@Override
-	public void removeProductToCartList(long productId, long cartId) {
+	public void removeProductToCartList(
+		int quantity, long cartId, long stockId) {
+
 		_cartProductsListLocalService.removeProductToCartList(
-			productId, cartId);
+			quantity, cartId, stockId);
 	}
 
 	/**

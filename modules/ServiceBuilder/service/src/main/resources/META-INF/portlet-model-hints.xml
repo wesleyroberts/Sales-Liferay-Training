@@ -8,6 +8,7 @@
 	<model name="com.liferay.sales.model.SaleCart">
 		<field name="cartId" type="long" />
 		<field name="totalPrice" type="double" />
+		<field name="able" type="boolean" />
 	</model>
 	<model name="com.liferay.sales.model.SaleCategory">
 		<field name="categoryId" type="long" />

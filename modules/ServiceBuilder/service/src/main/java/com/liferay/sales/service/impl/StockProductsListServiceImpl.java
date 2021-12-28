@@ -71,4 +71,7 @@ public class StockProductsListServiceImpl
 	public void removeProductFromStock(long productID){
 		stockProductsListLocalService.removeProductFromStock(productID);
 	}
+	public int checkQuantityInStockByStockId(long stockId){
+		return stockProductsListLocalService.checkQuantityInStockByStockId(stockId);
+	}
 }

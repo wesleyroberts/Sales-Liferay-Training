@@ -78,6 +78,10 @@ public class SaleCartServiceUtil {
 		return getService().removeProductPriceToCartTotalValue(price, cartId);
 	}
 
+	public static SaleCart updateSaleCartById(SaleCart saleCart) {
+		return getService().updateSaleCartById(saleCart);
+	}
+
 	public static SaleCartService getService() {
 		return _service;
 	}

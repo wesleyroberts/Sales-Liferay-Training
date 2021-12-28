@@ -81,6 +81,13 @@ public class SaleCartServiceWrapper
 	}
 
 	@Override
+	public com.liferay.sales.model.SaleCart updateSaleCartById(
+		com.liferay.sales.model.SaleCart saleCart) {
+
+		return _saleCartService.updateSaleCartById(saleCart);
+	}
+
+	@Override
 	public SaleCartService getWrappedService() {
 		return _saleCartService;
 	}

@@ -31,6 +31,14 @@ export default function Products({
     type: "",
     price: "",
   });
+  const [stock, setStock] = useState({
+    productName: "",
+    category: "",
+    type: "",
+    price: "",
+    id: "",
+    quantity: "",
+  });
   const [productId, setproductId] = useState(0);
   const [alertDeleteSuccess, setAlertDeleteSuccess] = useState(false);
 
@@ -46,8 +54,15 @@ export default function Products({
   function handleModalCreate() {
     setShowCreateModal(true);
   }
-  function handleModalAddToCart(id) {
-    setproductId(id);
+  function handleModalAddToCart(item) {
+    setStock({
+      productName: item.productName,
+      category: item.category,
+      type: item.type,
+      price: item.price,
+      quantity: item.quantity,
+      id: item.id,
+    });
     setProductAddToCartModal(true);
   }
 
@@ -68,6 +83,7 @@ export default function Products({
     <div>
       <ProductAddToCartModal
         cartList={cartList}
+        stock={stock}
         productAddToCartModal={productAddToCartModal}
         setProductAddToCartModal={setProductAddToCartModal}
         productId={productId}
@@ -115,7 +131,7 @@ export default function Products({
                       href: "#",
                       label: "Add to Cart",
                       onClick: () => {
-                        handleModalAddToCart(item.id);
+                        handleModalAddToCart(item);
                       },
                     },
                   ]}

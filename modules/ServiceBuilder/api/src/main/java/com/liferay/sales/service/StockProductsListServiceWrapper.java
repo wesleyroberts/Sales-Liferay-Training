@@ -41,6 +41,11 @@ public class StockProductsListServiceWrapper
 	}
 
 	@Override
+	public int checkQuantityInStockByStockId(long stcokId) {
+		return _stockProductsListService.checkQuantityInStockByStockId(stcokId);
+	}
+
+	@Override
 	public void deleteStockProductListByID(long id) {
 		_stockProductsListService.deleteStockProductListByID(id);
 	}

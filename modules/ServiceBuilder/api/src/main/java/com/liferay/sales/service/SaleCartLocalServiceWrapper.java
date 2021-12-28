@@ -348,6 +348,13 @@ public class SaleCartLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.sales.model.SaleCart updateSaleCartById(
+		com.liferay.sales.model.SaleCart saleCart) {
+
+		return _saleCartLocalService.updateSaleCartById(saleCart);
+	}
+
+	@Override
 	public SaleCartLocalService getWrappedService() {
 		return _saleCartLocalService;
 	}

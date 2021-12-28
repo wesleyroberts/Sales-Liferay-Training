@@ -268,6 +268,39 @@ public class SaleCartServiceHttp {
 		}
 	}
 
+	public static com.liferay.sales.model.SaleCart updateSaleCartById(
+		HttpPrincipal httpPrincipal,
+		com.liferay.sales.model.SaleCart saleCart) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SaleCartServiceUtil.class, "updateSaleCartById",
+				_updateSaleCartByIdParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, saleCart);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleCart)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(SaleCartServiceHttp.class);
 
 	private static final Class<?>[] _getAllSaleCartParameterTypes0 =
@@ -288,5 +321,7 @@ public class SaleCartServiceHttp {
 		new Class[] {};
 	private static final Class<?>[] _deleteSaleCartByIdParameterTypes6 =
 		new Class[] {long.class};
+	private static final Class<?>[] _updateSaleCartByIdParameterTypes7 =
+		new Class[] {com.liferay.sales.model.SaleCart.class};
 
 }

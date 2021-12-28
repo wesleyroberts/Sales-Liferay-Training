@@ -81,16 +81,16 @@ public class CartProductsListServiceSoap {
 		}
 	}
 
-	public static com.liferay.sales.model.SaleCartSoap addProductToCartList(
-			long productId, long cartId)
+	public static com.liferay.sales.model.SaleProductSoap[]
+			addProductToCartList(int quantity, long cartId, long stockId)
 		throws RemoteException {
 
 		try {
-			com.liferay.sales.model.SaleCart returnValue =
+			java.util.List<com.liferay.sales.model.SaleProduct> returnValue =
 				CartProductsListServiceUtil.addProductToCartList(
-					productId, cartId);
+					quantity, cartId, stockId);
 
-			return com.liferay.sales.model.SaleCartSoap.toSoapModel(
+			return com.liferay.sales.model.SaleProductSoap.toSoapModels(
 				returnValue);
 		}
 		catch (Exception exception) {
@@ -100,12 +100,13 @@ public class CartProductsListServiceSoap {
 		}
 	}
 
-	public static void removeProductToCartList(long productId, long cartId)
+	public static void removeProductToCartList(
+			int quantity, long cartId, long stockId)
 		throws RemoteException {
 
 		try {
 			CartProductsListServiceUtil.removeProductToCartList(
-				productId, cartId);
+				quantity, cartId, stockId);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -114,16 +115,30 @@ public class CartProductsListServiceSoap {
 		}
 	}
 
-	public static com.liferay.sales.model.CartProductsListSoap
-			deleteCartProductsList(long productId)
+	public static com.liferay.sales.model.CartProductsListSoap[]
+			getAllCartProductsList()
 		throws RemoteException {
 
 		try {
-			com.liferay.sales.model.CartProductsList returnValue =
-				CartProductsListServiceUtil.deleteCartProductsList(productId);
+			java.util.List<com.liferay.sales.model.CartProductsList>
+				returnValue =
+					CartProductsListServiceUtil.getAllCartProductsList();
 
-			return com.liferay.sales.model.CartProductsListSoap.toSoapModel(
+			return com.liferay.sales.model.CartProductsListSoap.toSoapModels(
 				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static void deleteCartProductsList(long productId)
+		throws RemoteException {
+
+		try {
+			CartProductsListServiceUtil.deleteCartProductsList(productId);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

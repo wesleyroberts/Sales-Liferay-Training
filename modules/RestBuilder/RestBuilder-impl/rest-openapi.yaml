@@ -613,7 +613,7 @@ paths:
           description: ""
       tags: ["Cart"]
 
-  "/addProductoCart/{cartID}/productID/{productID}":
+  "/addProductoCart/{cartID}/sotckId/{stockId}/quantity/{quantity}":
     patch:
       operationId: addProductToCart
       parameters:
@@ -623,7 +623,13 @@ paths:
           schema:
             type: integer
         - in: path
-          name: productID
+          name: stockId
+          required: true
+          description: A comma-separated list of user IDs.
+          schema:
+            type: integer
+        - in: path
+          name: quantity
           required: true
           description: A comma-separated list of user IDs.
           schema:
@@ -633,14 +639,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Cart"
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
             application/xml:
               schema:
-                $ref: "#/components/schemas/Cart"
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
           description: ""
       tags: ["Cart"]
 
-  "/removeProductFromCart/{cartID}/ProductID/{productID}":
+  "/removeProductFromCart/{cartID}/sotckId/{stockId}/quantity/{quantity}":
     patch:
       operationId: removeProductFromCart
       parameters:
@@ -650,7 +660,13 @@ paths:
           schema:
             type: integer
         - in: path
-          name: productID
+          name: stockId
+          required: true
+          description: A comma-separated list of user IDs.
+          schema:
+            type: integer
+        - in: path
+          name: quantity
           required: true
           description: A comma-separated list of user IDs.
           schema:

@@ -15,6 +15,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 import restbuilder.dto.v1_0.Cart;
+import restbuilder.dto.v1_0.Product;
 import restbuilder.dto.v1_0.ProductList;
 import restbuilder.resource.v1_0.CartResource;
 import restbuilder.resource.v1_0.CategoryResource;
@@ -107,53 +108,65 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 
 	/**
 	 * Invoke this method with the command line:
-	 * <p>
-	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/addProductoCart/{cartID}/productID/{productID}'  -u 'test@liferay.com:test'
+	 *
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/addProductoCart/{cartID}/sotckId/{stockId}/quantity/{quantity}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Parameters(
 			value = {
 					@Parameter(in = ParameterIn.PATH, name = "cartID"),
-					@Parameter(in = ParameterIn.PATH, name = "productID")
+					@Parameter(in = ParameterIn.PATH, name = "stockId"),
+					@Parameter(in = ParameterIn.PATH, name = "quantity")
 			}
 	)
 	@PATCH
-	@Path("/addProductoCart/{cartID}/productID/{productID}")
+	@Path("/addProductoCart/{cartID}/sotckId/{stockId}/quantity/{quantity}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public Cart addProductToCart(
+	public Page<Product> addProductToCart(
 			@NotNull @Parameter(hidden = true) @PathParam("cartID") Integer
 					cartID,
-			@NotNull @Parameter(hidden = true) @PathParam("productID") Integer
-					productID)
+			@NotNull @Parameter(hidden = true) @PathParam("stockId") Integer
+					stockId,
+			@NotNull @Parameter(hidden = true) @PathParam("quantity") Integer
+					quantity)
 			throws Exception {
-		return _toCartDTO(_cartProductsListService.addProductToCartList(productID,cartID));
+		List<Product> productList = new ArrayList<Product>();
+		for (SaleProduct product:_cartProductsListService.addProductToCartList(quantity,cartID,stockId)) {
+			productList.add(_toProduct(product));
+		}
+		return Page.of(productList);
 	}
 
 	/**
 	 * Invoke this method with the command line:
-	 * <p>
-	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/removeProductFromCart/{cartID}/ProductID/{productID}'  -u 'test@liferay.com:test'
+	 *
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/removeProductFromCart/{cartID}/sotckId/{stockId}/quantity/{quantity}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Parameters(
 			value = {
 					@Parameter(in = ParameterIn.PATH, name = "cartID"),
-					@Parameter(in = ParameterIn.PATH, name = "productID")
+					@Parameter(in = ParameterIn.PATH, name = "stockId"),
+					@Parameter(in = ParameterIn.PATH, name = "quantity")
 			}
 	)
 	@PATCH
-	@Path("/removeProductFromCart/{cartID}/ProductID/{productID}")
+	@Path(
+			"/removeProductFromCart/{cartID}/sotckId/{stockId}/quantity/{quantity}"
+	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
 	public Cart removeProductFromCart(
 			@NotNull @Parameter(hidden = true) @PathParam("cartID") Integer
 					cartID,
-			@NotNull @Parameter(hidden = true) @PathParam("productID") Integer
-					productID)
+			@NotNull @Parameter(hidden = true) @PathParam("stockId") Integer
+					stockId,
+			@NotNull @Parameter(hidden = true) @PathParam("quantity") Integer
+					quantity)
 			throws Exception {
 		try{
-			_cartProductsListService.removeProductToCartList(productID,cartID);
+			_cartProductsListService.removeProductToCartList(quantity,cartID,stockId);
 			return _toCartDTO(_saleCartService.getSaleCartById(cartID));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -185,6 +198,26 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 				id = (int) cart.getCartId();
 				totalValue = cart.getTotalPrice();
 				productList = _ProductListDTO(cart.getCartId());
+			}
+		};
+	}
+
+	private Product _toProduct(SaleProduct saleProduct) {
+		return new Product() {
+			{
+				try {
+					category = _categoryResource.getCategoryById((int) saleProduct.getCategoryId());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				try {
+					type = _typeResource.getTypeById((int) saleProduct.getTypeId());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				id = (int) saleProduct.getProductId();
+				name = saleProduct.getName();
+				price = saleProduct.getPrice();
 			}
 		};
 	}

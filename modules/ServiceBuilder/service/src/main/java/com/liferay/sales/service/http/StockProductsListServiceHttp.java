@@ -239,6 +239,38 @@ public class StockProductsListServiceHttp {
 		}
 	}
 
+	public static int checkQuantityInStockByStockId(
+		HttpPrincipal httpPrincipal, long stcokId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				StockProductsListServiceUtil.class,
+				"checkQuantityInStockByStockId",
+				_checkQuantityInStockByStockIdParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, stcokId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		StockProductsListServiceHttp.class);
 
@@ -258,5 +290,9 @@ public class StockProductsListServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _removeProductFromStockParameterTypes5 =
 		new Class[] {long.class};
+	private static final Class<?>[]
+		_checkQuantityInStockByStockIdParameterTypes6 = new Class[] {
+			long.class
+		};
 
 }

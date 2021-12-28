@@ -60,10 +60,10 @@ public class CartProductsListLocalServiceUtil {
 		return getService().addCartProductsList(cartProductsList);
 	}
 
-	public static com.liferay.sales.model.SaleCart addProductToCartList(
-		long productId, long cartId) {
+	public static List<com.liferay.sales.model.SaleProduct>
+		addProductToCartList(int quantity, long cartId, long stockId) {
 
-		return getService().addProductToCartList(productId, cartId);
+		return getService().addProductToCartList(quantity, cartId, stockId);
 	}
 
 	public static CartProductsList createCartProductList(
@@ -90,6 +90,10 @@ public class CartProductsListLocalServiceUtil {
 		throws PortalException {
 
 		return getService().createPersistedModel(primaryKeyObj);
+	}
+
+	public static void deleteCartList(long productId) {
+		getService().deleteCartList(productId);
 	}
 
 	/**
@@ -216,10 +220,18 @@ public class CartProductsListLocalServiceUtil {
 		return getService().fetchCartProductsList(productId);
 	}
 
+	public static com.liferay.sales.model.SaleCart FinishCart(long cartId) {
+		return getService().FinishCart(cartId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
 		return getService().getActionableDynamicQuery();
+	}
+
+	public static List<CartProductsList> getAllCartProductsList() {
+		return getService().getAllCartProductsList();
 	}
 
 	public static List<com.liferay.sales.model.SaleProduct>
@@ -292,8 +304,10 @@ public class CartProductsListLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static void removeProductToCartList(long productId, long cartId) {
-		getService().removeProductToCartList(productId, cartId);
+	public static void removeProductToCartList(
+		int quantity, long cartId, long stockId) {
+
+		getService().removeProductToCartList(quantity, cartId, stockId);
 	}
 
 	/**

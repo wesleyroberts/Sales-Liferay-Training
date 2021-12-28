@@ -74,28 +74,35 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Cart addProductToCart(
+	public java.util.Collection<Product> addProductToCart(
 			@GraphQLName("cartID") Integer cartID,
-			@GraphQLName("productID") Integer productID)
+			@GraphQLName("stockId") Integer stockId,
+			@GraphQLName("quantity") Integer quantity)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> cartResource.addProductToCart(cartID, productID));
+			cartResource -> {
+				Page paginationPage = cartResource.addProductToCart(
+					cartID, stockId, quantity);
+
+				return paginationPage.getItems();
+			});
 	}
 
 	@GraphQLField
 	public Cart removeProductFromCart(
 			@GraphQLName("cartID") Integer cartID,
-			@GraphQLName("productID") Integer productID)
+			@GraphQLName("stockId") Integer stockId,
+			@GraphQLName("quantity") Integer quantity)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			cartResource -> cartResource.removeProductFromCart(
-				cartID, productID));
+				cartID, stockId, quantity));
 	}
 
 	@GraphQLField
