@@ -93,14 +93,17 @@ public class SaleCartLocalServiceImpl extends SaleCartLocalServiceBaseImpl {
 	}
 
 	public void deleteSaleCartById(long cartId){
-		try {
-			for (SaleProduct product: CartProductsListServiceUtil.getAllProductsByCarID(cartId)) {
-				CartProductsListServiceUtil.removeProductToCartList(cartId, product.getProductId());
-			}
-			saleCartPersistence.remove(cartId);
-		} catch (NoSuchSaleCartException e) {
-			e.printStackTrace();
+		SaleCart saleCart = getSaleCartById(cartId);
+		if(saleCart.getAble()){
+			try {
+				for (SaleProduct product: CartProductsListServiceUtil.getAllProductsByCarID(cartId)) {
+					CartProductsListServiceUtil.removeProductToCartList(cartId, product.getProductId());
+				}
+				saleCartPersistence.remove(cartId);
+			} catch (NoSuchSaleCartException e) {
+				e.printStackTrace();
 
+			}
 		}
 	}
 }
