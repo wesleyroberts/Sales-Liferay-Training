@@ -106,9 +106,9 @@ public class CartProductsListLocalServiceImpl
 
 	public SaleCart finishCart(long cartId){
 		try{
-		for (SaleProduct product:getAllProductsByCartID(cartId)) {
-			StockProductsListServiceUtil.removeProductFromStock(product.getProductId());
-		}
+			for (SaleProduct product:getAllProductsByCartID(cartId)) {
+				StockProductsListServiceUtil.removeProductFromStock(product.getProductId());
+			}
 		SaleCart saleCart = saleCartService.getSaleCartById(cartId);
 		saleCart.setAble(false);
 		return  saleCartService.updateSaleCartById(saleCart);
