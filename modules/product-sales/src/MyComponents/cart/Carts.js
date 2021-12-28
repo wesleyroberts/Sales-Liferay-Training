@@ -11,7 +11,7 @@ import RemoveProductsModal from "./modal/RemoveProductsModal";
 import FinishedBuyModal from "./modal/FinishedBuyModal";
 import { Alert } from "../alert/CustomAlert"
 
-export default function Carts({ cartList, addCart, deleteCart }) {
+export default function Carts({ cartList, addCart, deleteCart, updateCart }) {
   const [showRemoveproductsModal, setShowRemoveproductsModal] = useState(false);
   const [cartIdSelected, setCartIdSelected] = useState([]);
   const [showFinishedBuyModal, setShowFinishedBuyModal] = useState(false);
@@ -19,6 +19,7 @@ export default function Carts({ cartList, addCart, deleteCart }) {
   const [totalValue, setTotalValue] = useState(0)
   const [alertAddtoCartSuccess, setAlertToCartSuccess] = useState(false)
   const [alertDeleteSuccess, setAlertDeleteSuccess] = useState(false)
+  const [cartId, setCartId] = useState(0)
 
   const removeProductOfList = (id) => {
     var res = [];
@@ -43,6 +44,7 @@ export default function Carts({ cartList, addCart, deleteCart }) {
     getTotalValueByCartId(cartId).then((data) => {
       setTotalValue(data)
     })
+    setCartId(cartId);
     setShowFinishedBuyModal(true);
   }
 
@@ -75,10 +77,12 @@ export default function Carts({ cartList, addCart, deleteCart }) {
   return (
     <div>
       <FinishedBuyModal
+        cartId={cartId}
         showFinishedBuyModal={showFinishedBuyModal}
         setShowFinishedBuyModal={setShowFinishedBuyModal}
         productsInCartList={productsInCartList}
         totalValue={totalValue}
+        updateCart={updateCart}
       />
       <RemoveProductsModal
         showRemoveproductsModal={showRemoveproductsModal}
@@ -113,7 +117,8 @@ export default function Carts({ cartList, addCart, deleteCart }) {
                       onClick: () => handleCartDelete(item.id),
                     },
                   ]}
-                  title={`Lista de desejos ${index+1}`}
+                  title={`Lista de desejos ${index+1} ${item.able}`}
+                  symbol={item.able ? "folder" : "check"}
                 />
               </div>
             ))}

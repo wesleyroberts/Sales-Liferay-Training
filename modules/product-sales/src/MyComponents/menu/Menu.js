@@ -1,5 +1,6 @@
 import React from "react";
 import ClayNavigationBar from "@clayui/navigation-bar";
+import ClayIcon from '@clayui/icon';
 import { useState, useEffect } from "react";
 import Products from "../products/Products";
 import Carts from "../cart/Carts";
@@ -61,6 +62,14 @@ export default function Menu() {
     setCartList(res);
   };
 
+  const updateCart = (obj) => {
+    cartList.forEach((item) => {
+      if (item.id === obj.id){
+        item.able = obj.able
+      };
+    });
+  }
+
   const addCategory = (obj) => {
     setCategoryList([...categoryList, obj]);
   };
@@ -119,6 +128,8 @@ export default function Menu() {
             type="button"
             onClick={showProducts}
           >
+            <ClayIcon symbol="suitcase" />
+            {" "}
             Produtos
           </button>
         </ClayNavigationBar.Item>
@@ -129,6 +140,8 @@ export default function Menu() {
             type="button"
             onClick={showCart}
           >
+            <ClayIcon symbol="shopping-cart" />
+            {" "}
             Carrinho
           </button>
         </ClayNavigationBar.Item>
@@ -139,6 +152,7 @@ export default function Menu() {
             type="button"
             onClick={showConfig}
           >
+            <ClayIcon symbol="cog" />
             {" "}
             Configuração
           </button>
@@ -161,7 +175,7 @@ export default function Menu() {
         />
       )}
       {showCartWindows && (
-        <Carts cartList={cartList} addCart={addCart} deleteCart={deleteCart} />
+        <Carts cartList={cartList} addCart={addCart} deleteCart={deleteCart} updateCart={updateCart}/>
       )}
       {showConfigWindows && (
         <Config

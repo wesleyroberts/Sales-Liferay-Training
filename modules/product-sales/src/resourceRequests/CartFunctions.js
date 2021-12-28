@@ -64,3 +64,15 @@ export function RemoveProduct(cartID, productId) {
     }
   ).then((res) => res.json());
 }
+
+export function FinishBuy(cartID) {
+  return Liferay.Util.fetch(
+    `http://localhost:8080/o/RestBuilder/v1.0/finishBuy/CartId/${cartID}`,
+    {
+      method: "PATCH",
+      headers: {
+        Authorization: "Basic " + test,
+      },
+    }
+  ).then((res) => res.json());
+}
