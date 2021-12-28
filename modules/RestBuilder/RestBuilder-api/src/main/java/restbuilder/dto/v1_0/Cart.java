@@ -39,6 +39,32 @@ public class Cart implements Serializable {
 		return ObjectMapperUtil.readValue(Cart.class, json);
 	}
 
+	@Schema(description = "Show if the cart is able or not")
+	public Boolean getAble() {
+		return able;
+	}
+
+	public void setAble(Boolean able) {
+		this.able = able;
+	}
+
+	@JsonIgnore
+	public void setAble(UnsafeSupplier<Boolean, Exception> ableUnsafeSupplier) {
+		try {
+			able = ableUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField(description = "Show if the cart is able or not")
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean able;
+
 	@Schema(description = "The Cart ID.")
 	public Integer getId() {
 		return id;
@@ -148,6 +174,16 @@ public class Cart implements Serializable {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		if (able != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"able\": ");
+
+			sb.append(able);
+		}
 
 		if (id != null) {
 			if (sb.length() > 1) {

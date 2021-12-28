@@ -206,6 +206,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 				id = (int) cart.getCartId();
 				totalValue = cart.getTotalPrice();
 				productList = _ProductListDTO(cart.getCartId());
+				able = cart.getAble();
 			}
 		};
 	}

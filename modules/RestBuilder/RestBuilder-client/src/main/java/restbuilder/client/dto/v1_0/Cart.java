@@ -21,6 +21,25 @@ public class Cart implements Cloneable, Serializable {
 		return CartSerDes.toDTO(json);
 	}
 
+	public Boolean getAble() {
+		return able;
+	}
+
+	public void setAble(Boolean able) {
+		this.able = able;
+	}
+
+	public void setAble(UnsafeSupplier<Boolean, Exception> ableUnsafeSupplier) {
+		try {
+			able = ableUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean able;
+
 	public Integer getId() {
 		return id;
 	}

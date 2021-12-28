@@ -100,7 +100,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {cartById(cartId: ___){id, totalValue, productList}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {cartById(cartId: ___){id, able, totalValue, productList}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public Cart cartById(@GraphQLName("cartId") Integer cartId)
@@ -130,7 +130,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {createCart{id, totalValue, productList}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {createCart{id, able, totalValue, productList}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public Cart createCart() throws Exception {

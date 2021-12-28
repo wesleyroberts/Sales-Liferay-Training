@@ -373,6 +373,14 @@ public abstract class BaseCartResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("able", additionalAssertFieldName)) {
+				if (cart.getAble() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("productList", additionalAssertFieldName)) {
 				if (cart.getProductList() == null) {
 					valid = false;
@@ -474,6 +482,14 @@ public abstract class BaseCartResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			if (Objects.equals("able", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(cart1.getAble(), cart2.getAble())) {
+					return false;
+				}
+
+				continue;
+			}
 
 			if (Objects.equals("id", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(cart1.getId(), cart2.getId())) {
@@ -598,6 +614,11 @@ public abstract class BaseCartResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("able")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("id")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -657,6 +678,7 @@ public abstract class BaseCartResourceTestCase {
 	protected Cart randomCart() throws Exception {
 		return new Cart() {
 			{
+				able = RandomTestUtil.randomBoolean();
 				id = RandomTestUtil.randomInt();
 				totalValue = RandomTestUtil.randomDouble();
 			}

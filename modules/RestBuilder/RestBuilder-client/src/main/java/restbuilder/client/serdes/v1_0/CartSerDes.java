@@ -41,6 +41,16 @@ public class CartSerDes {
 
 		sb.append("{");
 
+		if (cart.getAble() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"able\": ");
+
+			sb.append(cart.getAble());
+		}
+
 		if (cart.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -99,6 +109,13 @@ public class CartSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (cart.getAble() == null) {
+			map.put("able", null);
+		}
+		else {
+			map.put("able", String.valueOf(cart.getAble()));
+		}
+
 		if (cart.getId() == null) {
 			map.put("id", null);
 		}
@@ -140,7 +157,12 @@ public class CartSerDes {
 			Cart cart, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "id")) {
+			if (Objects.equals(jsonParserFieldName, "able")) {
+				if (jsonParserFieldValue != null) {
+					cart.setAble((Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
 					cart.setId(Integer.valueOf((String)jsonParserFieldValue));
 				}
