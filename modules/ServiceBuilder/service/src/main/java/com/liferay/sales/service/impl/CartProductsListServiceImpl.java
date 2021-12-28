@@ -58,8 +58,8 @@ public class CartProductsListServiceImpl
 	public List<SaleProduct> addProductToCartList( int quantity,long cartId, long stockId){
 		return cartProductsListLocalService.addProductToCartList(quantity,cartId,stockId);
 	}
-	public void removeProductToCartList(int quantity,long cartId, long stockId){
-		cartProductsListLocalService.removeProductToCartList(quantity, cartId,stockId);
+	public void removeProductToCartList(long cartId, long productId){
+		cartProductsListLocalService.removeProductToCartList(cartId,productId);
 	}
 	public List<CartProductsList> getAllCartProductsList(){
 		return cartProductsListLocalService.getAllCartProductsList();

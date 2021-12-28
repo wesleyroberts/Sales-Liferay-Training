@@ -54,7 +54,7 @@ public interface StockProductsListService extends BaseService {
 	 */
 	public SaleStock addProductToStock(SaleProduct product);
 
-	public int checkQuantityInStockByStockId(long stcokId);
+	public int checkQuantityInStockByStockId(long stockId);
 
 	public void deleteStockProductListByID(long id);
 

@@ -165,13 +165,13 @@ public class StockProductsListServiceSoap {
 		}
 	}
 
-	public static int checkQuantityInStockByStockId(long stcokId)
+	public static int checkQuantityInStockByStockId(long stockId)
 		throws RemoteException {
 
 		try {
 			int returnValue =
 				StockProductsListServiceUtil.checkQuantityInStockByStockId(
-					stcokId);
+					stockId);
 
 			return returnValue;
 		}

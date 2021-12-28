@@ -343,11 +343,9 @@ public class CartProductsListLocalServiceWrapper
 	}
 
 	@Override
-	public void removeProductToCartList(
-		int quantity, long cartId, long stockId) {
-
+	public void removeProductToCartList(long cartId, long productId) {
 		_cartProductsListLocalService.removeProductToCartList(
-			quantity, cartId, stockId);
+			cartId, productId);
 	}
 
 	/**

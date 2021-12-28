@@ -70,7 +70,6 @@ public interface CartProductsListService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
-	public void removeProductToCartList(
-		int quantity, long cartId, long stockId);
+	public void removeProductToCartList(long cartId, long productId);
 
 }

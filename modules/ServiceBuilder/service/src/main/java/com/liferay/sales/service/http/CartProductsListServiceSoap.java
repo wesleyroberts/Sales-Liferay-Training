@@ -100,13 +100,12 @@ public class CartProductsListServiceSoap {
 		}
 	}
 
-	public static void removeProductToCartList(
-			int quantity, long cartId, long stockId)
+	public static void removeProductToCartList(long cartId, long productId)
 		throws RemoteException {
 
 		try {
 			CartProductsListServiceUtil.removeProductToCartList(
-				quantity, cartId, stockId);
+				cartId, productId);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

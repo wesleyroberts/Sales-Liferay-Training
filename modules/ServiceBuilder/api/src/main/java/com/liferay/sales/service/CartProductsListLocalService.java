@@ -266,8 +266,7 @@ public interface CartProductsListLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public void removeProductToCartList(
-		int quantity, long cartId, long stockId);
+	public void removeProductToCartList(long cartId, long productId);
 
 	/**
 	 * Updates the cart products list in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
