@@ -55,14 +55,17 @@ public class CartProductsListServiceImpl
 	public List<SaleProduct> getAllProductsByCarID(long id){
 		return cartProductsListLocalService.getAllProductsByCartID(id);
 	}
-	public SaleCart addProductToCartList( long productId, long cartId){
-		return cartProductsListLocalService.addProductToCartList(productId,cartId);
+	public List<SaleProduct> addProductToCartList( int quantity,long cartId, long stockId){
+		return cartProductsListLocalService.addProductToCartList(quantity,cartId,stockId);
 	}
-	public void removeProductToCartList(long productId, long cartId){
-		cartProductsListLocalService.removeProductToCartList(productId, cartId);
+	public void removeProductToCartList(int quantity,long cartId, long stockId){
+		cartProductsListLocalService.removeProductToCartList(quantity, cartId,stockId);
+	}
+	public List<CartProductsList> getAllCartProductsList(){
+		return cartProductsListLocalService.getAllCartProductsList();
 	}
 
-	public CartProductsList deleteCartProductsList(long productId) throws PortalException {
-		return  cartProductsListLocalService.fetchCartProductsList(productId);
+	public void deleteCartProductsList(long productId) throws PortalException {
+		  cartProductsListLocalService.deleteCartList(productId);
 	}
 }

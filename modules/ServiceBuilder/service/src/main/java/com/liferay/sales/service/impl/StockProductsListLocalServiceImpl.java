@@ -16,6 +16,7 @@ package com.liferay.sales.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.sales.exception.NoSuchStockProductsListException;
+import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.model.SaleStock;
 import com.liferay.sales.model.StockProductsList;
@@ -151,6 +152,11 @@ public class StockProductsListLocalServiceImpl
 			}
 		}
 	}
+	public int checkQuantityInStockByStockId(long stcokId){
+		return stockProductsListLocalService.getAllProductInStockByStockId(stcokId).toArray().length;
+	}
+
+
 	public Boolean checkIfExistStock(SaleProduct product){
 		boolean exist = false;
 		for (SaleStock stock: saleStockService.getAllSaleStock()) {

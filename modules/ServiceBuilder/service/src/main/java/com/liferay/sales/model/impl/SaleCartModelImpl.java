@@ -68,7 +68,8 @@ public class SaleCartModelImpl
 	public static final String TABLE_NAME = "SalesTaxe_SaleCart";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"cartId", Types.BIGINT}, {"totalPrice", Types.DOUBLE}
+		{"cartId", Types.BIGINT}, {"totalPrice", Types.DOUBLE},
+		{"able", Types.BOOLEAN}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -77,10 +78,11 @@ public class SaleCartModelImpl
 	static {
 		TABLE_COLUMNS_MAP.put("cartId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("totalPrice", Types.DOUBLE);
+		TABLE_COLUMNS_MAP.put("able", Types.BOOLEAN);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SalesTaxe_SaleCart (cartId LONG not null primary key,totalPrice DOUBLE)";
+		"create table SalesTaxe_SaleCart (cartId LONG not null primary key,totalPrice DOUBLE,able BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP = "drop table SalesTaxe_SaleCart";
 
@@ -133,6 +135,7 @@ public class SaleCartModelImpl
 
 		model.setCartId(soapModel.getCartId());
 		model.setTotalPrice(soapModel.getTotalPrice());
+		model.setAble(soapModel.isAble());
 
 		return model;
 	}
@@ -289,6 +292,9 @@ public class SaleCartModelImpl
 		attributeSetterBiConsumers.put(
 			"totalPrice",
 			(BiConsumer<SaleCart, Double>)SaleCart::setTotalPrice);
+		attributeGetterFunctions.put("able", SaleCart::getAble);
+		attributeSetterBiConsumers.put(
+			"able", (BiConsumer<SaleCart, Boolean>)SaleCart::setAble);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -324,6 +330,27 @@ public class SaleCartModelImpl
 		}
 
 		_totalPrice = totalPrice;
+	}
+
+	@JSON
+	@Override
+	public boolean getAble() {
+		return _able;
+	}
+
+	@JSON
+	@Override
+	public boolean isAble() {
+		return _able;
+	}
+
+	@Override
+	public void setAble(boolean able) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_able = able;
 	}
 
 	public long getColumnBitmask() {
@@ -384,6 +411,7 @@ public class SaleCartModelImpl
 
 		saleCartImpl.setCartId(getCartId());
 		saleCartImpl.setTotalPrice(getTotalPrice());
+		saleCartImpl.setAble(isAble());
 
 		saleCartImpl.resetOriginalValues();
 
@@ -465,6 +493,8 @@ public class SaleCartModelImpl
 
 		saleCartCacheModel.totalPrice = getTotalPrice();
 
+		saleCartCacheModel.able = isAble();
+
 		return saleCartCacheModel;
 	}
 
@@ -540,6 +570,7 @@ public class SaleCartModelImpl
 
 	private long _cartId;
 	private double _totalPrice;
+	private boolean _able;
 
 	public <T> T getColumnValue(String columnName) {
 		Function<SaleCart, Object> function = _attributeGetterFunctions.get(
@@ -570,6 +601,7 @@ public class SaleCartModelImpl
 
 		_columnOriginalValues.put("cartId", _cartId);
 		_columnOriginalValues.put("totalPrice", _totalPrice);
+		_columnOriginalValues.put("able", _able);
 	}
 
 	private transient Map<String, Object> _columnOriginalValues;
@@ -586,6 +618,8 @@ public class SaleCartModelImpl
 		columnBitmasks.put("cartId", 1L);
 
 		columnBitmasks.put("totalPrice", 2L);
+
+		columnBitmasks.put("able", 4L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

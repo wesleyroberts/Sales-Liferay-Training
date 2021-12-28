@@ -65,6 +65,12 @@ public class StockProductsListLocalServiceWrapper
 		return _stockProductsListLocalService.checkIfExistStock(product);
 	}
 
+	@Override
+	public int checkQuantityInStockByStockId(long stcokId) {
+		return _stockProductsListLocalService.checkQuantityInStockByStockId(
+			stcokId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

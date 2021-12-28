@@ -54,6 +54,8 @@ public interface StockProductsListService extends BaseService {
 	 */
 	public SaleStock addProductToStock(SaleProduct product);
 
+	public int checkQuantityInStockByStockId(long stcokId);
+
 	public void deleteStockProductListByID(long id);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

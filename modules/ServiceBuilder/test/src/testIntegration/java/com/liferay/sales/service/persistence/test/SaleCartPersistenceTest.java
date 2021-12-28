@@ -124,6 +124,8 @@ public class SaleCartPersistenceTest {
 
 		newSaleCart.setTotalPrice(RandomTestUtil.nextDouble());
 
+		newSaleCart.setAble(RandomTestUtil.randomBoolean());
+
 		_saleCarts.add(_persistence.update(newSaleCart));
 
 		SaleCart existingSaleCart = _persistence.findByPrimaryKey(
@@ -133,6 +135,7 @@ public class SaleCartPersistenceTest {
 			existingSaleCart.getCartId(), newSaleCart.getCartId());
 		AssertUtils.assertEquals(
 			existingSaleCart.getTotalPrice(), newSaleCart.getTotalPrice());
+		Assert.assertEquals(existingSaleCart.isAble(), newSaleCart.isAble());
 	}
 
 	@Test
@@ -160,7 +163,8 @@ public class SaleCartPersistenceTest {
 
 	protected OrderByComparator<SaleCart> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create(
-			"SalesTaxe_SaleCart", "cartId", true, "totalPrice", true);
+			"SalesTaxe_SaleCart", "cartId", true, "totalPrice", true, "able",
+			true);
 	}
 
 	@Test
@@ -371,6 +375,8 @@ public class SaleCartPersistenceTest {
 		SaleCart saleCart = _persistence.create(pk);
 
 		saleCart.setTotalPrice(RandomTestUtil.nextDouble());
+
+		saleCart.setAble(RandomTestUtil.randomBoolean());
 
 		_saleCarts.add(_persistence.update(saleCart));
 

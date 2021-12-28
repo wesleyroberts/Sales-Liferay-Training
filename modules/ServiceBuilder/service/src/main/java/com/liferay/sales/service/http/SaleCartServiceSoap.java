@@ -179,6 +179,26 @@ public class SaleCartServiceSoap {
 		}
 	}
 
+	public static com.liferay.sales.model.SaleCartSoap updateSaleCartById(
+			com.liferay.sales.model.SaleCartSoap saleCart)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleCart returnValue =
+				SaleCartServiceUtil.updateSaleCartById(
+					com.liferay.sales.model.impl.SaleCartModelImpl.toModel(
+						saleCart));
+
+			return com.liferay.sales.model.SaleCartSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(SaleCartServiceSoap.class);
 
 }

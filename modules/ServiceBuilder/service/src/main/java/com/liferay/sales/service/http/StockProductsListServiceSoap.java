@@ -165,6 +165,23 @@ public class StockProductsListServiceSoap {
 		}
 	}
 
+	public static int checkQuantityInStockByStockId(long stcokId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				StockProductsListServiceUtil.checkQuantityInStockByStockId(
+					stcokId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		StockProductsListServiceSoap.class);
 

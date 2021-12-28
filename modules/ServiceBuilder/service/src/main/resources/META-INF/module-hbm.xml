@@ -20,6 +20,7 @@
 			<generator class="assigned" />
 		</id>
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="totalPrice" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="able" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 	</class>
 	<class name="com.liferay.sales.model.impl.SaleCategoryImpl" table="SalesTaxe_SaleCategory">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="categoryId" type="long">

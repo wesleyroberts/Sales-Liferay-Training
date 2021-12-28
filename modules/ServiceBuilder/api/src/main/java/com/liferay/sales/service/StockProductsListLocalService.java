@@ -80,6 +80,8 @@ public interface StockProductsListLocalService
 
 	public Boolean checkIfExistStock(SaleProduct product);
 
+	public int checkQuantityInStockByStockId(long stcokId);
+
 	/**
 	 * @throws PortalException
 	 */

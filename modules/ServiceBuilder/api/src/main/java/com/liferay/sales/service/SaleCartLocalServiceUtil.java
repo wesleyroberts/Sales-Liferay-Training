@@ -309,6 +309,10 @@ public class SaleCartLocalServiceUtil {
 		return getService().updateSaleCart(saleCart);
 	}
 
+	public static SaleCart updateSaleCartById(SaleCart saleCart) {
+		return getService().updateSaleCartById(saleCart);
+	}
+
 	public static SaleCartLocalService getService() {
 		return _service;
 	}

@@ -80,4 +80,25 @@ public interface SaleCartModel extends BaseModel<SaleCart> {
 	 */
 	public void setTotalPrice(double totalPrice);
 
+	/**
+	 * Returns the able of this sale cart.
+	 *
+	 * @return the able of this sale cart
+	 */
+	public boolean getAble();
+
+	/**
+	 * Returns <code>true</code> if this sale cart is able.
+	 *
+	 * @return <code>true</code> if this sale cart is able; <code>false</code> otherwise
+	 */
+	public boolean isAble();
+
+	/**
+	 * Sets whether this sale cart is able.
+	 *
+	 * @param able the able of this sale cart
+	 */
+	public void setAble(boolean able);
+
 }

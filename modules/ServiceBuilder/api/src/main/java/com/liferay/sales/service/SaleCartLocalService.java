@@ -275,4 +275,6 @@ public interface SaleCartLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public SaleCart updateSaleCart(SaleCart saleCart);
 
+	public SaleCart updateSaleCartById(SaleCart saleCart);
+
 }

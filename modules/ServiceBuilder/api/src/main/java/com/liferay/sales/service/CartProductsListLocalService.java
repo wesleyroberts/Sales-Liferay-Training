@@ -77,7 +77,8 @@ public interface CartProductsListLocalService
 	public CartProductsList addCartProductsList(
 		CartProductsList cartProductsList);
 
-	public SaleCart addProductToCartList(long productId, long cartId);
+	public List<SaleProduct> addProductToCartList(
+		int quantity, long cartId, long stockId);
 
 	public CartProductsList createCartProductList(long porductId, long cartId);
 
@@ -95,6 +96,8 @@ public interface CartProductsListLocalService
 	 */
 	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	public void deleteCartList(long productId);
 
 	/**
 	 * Deletes the cart products list from the database. Also notifies the appropriate model listeners.
@@ -201,8 +204,13 @@ public interface CartProductsListLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CartProductsList fetchCartProductsList(long productId);
 
+	public SaleCart FinishCart(long cartId);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CartProductsList> getAllCartProductsList();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<SaleProduct> getAllProductsByCartID(long id);
@@ -258,7 +266,8 @@ public interface CartProductsListLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public void removeProductToCartList(long productId, long cartId);
+	public void removeProductToCartList(
+		int quantity, long cartId, long stockId);
 
 	/**
 	 * Updates the cart products list in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

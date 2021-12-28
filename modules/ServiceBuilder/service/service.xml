@@ -56,6 +56,7 @@
 		<!-- PK fields -->
 		<column name="cartId" primary="true" type="long" />
 		<column name="totalPrice" type="double"/>
+		<column name="able" type="boolean"/>
 
 	</entity>
 	<entity name="CartProductsList" local-service="true" remote-service="true">

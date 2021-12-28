@@ -34,18 +34,25 @@ public class CartProductsListServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.SaleCart addProductToCartList(
-		long productId, long cartId) {
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		addProductToCartList(int quantity, long cartId, long stockId) {
 
-		return _cartProductsListService.addProductToCartList(productId, cartId);
+		return _cartProductsListService.addProductToCartList(
+			quantity, cartId, stockId);
 	}
 
 	@Override
-	public com.liferay.sales.model.CartProductsList deleteCartProductsList(
-			long productId)
+	public void deleteCartProductsList(long productId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _cartProductsListService.deleteCartProductsList(productId);
+		_cartProductsListService.deleteCartProductsList(productId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.sales.model.CartProductsList>
+		getAllCartProductsList() {
+
+		return _cartProductsListService.getAllCartProductsList();
 	}
 
 	@Override
@@ -66,8 +73,11 @@ public class CartProductsListServiceWrapper
 	}
 
 	@Override
-	public void removeProductToCartList(long productId, long cartId) {
-		_cartProductsListService.removeProductToCartList(productId, cartId);
+	public void removeProductToCartList(
+		int quantity, long cartId, long stockId) {
+
+		_cartProductsListService.removeProductToCartList(
+			quantity, cartId, stockId);
 	}
 
 	@Override

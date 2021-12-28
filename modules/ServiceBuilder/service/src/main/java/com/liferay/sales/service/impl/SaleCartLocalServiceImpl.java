@@ -79,7 +79,13 @@ public class SaleCartLocalServiceImpl extends SaleCartLocalServiceBaseImpl {
 	}
 
 	public SaleCart createSaleCartById(){
-		return saleCartPersistence.update(saleCartPersistence.create(counterLocalService.increment()));
+		SaleCart saleCart = saleCartPersistence.create(counterLocalService.increment());
+		saleCart.setAble(true);
+		return saleCartPersistence.update(saleCart);
+	}
+
+	public SaleCart updateSaleCartById(SaleCart saleCart){
+		return saleCartPersistence.update(saleCart);
 	}
 
 	public void deleteSaleCartById(long id){

@@ -59,12 +59,14 @@ public class SaleCartCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(5);
+		StringBundler sb = new StringBundler(7);
 
 		sb.append("{cartId=");
 		sb.append(cartId);
 		sb.append(", totalPrice=");
 		sb.append(totalPrice);
+		sb.append(", able=");
+		sb.append(able);
 		sb.append("}");
 
 		return sb.toString();
@@ -76,6 +78,7 @@ public class SaleCartCacheModel
 
 		saleCartImpl.setCartId(cartId);
 		saleCartImpl.setTotalPrice(totalPrice);
+		saleCartImpl.setAble(able);
 
 		saleCartImpl.resetOriginalValues();
 
@@ -87,6 +90,8 @@ public class SaleCartCacheModel
 		cartId = objectInput.readLong();
 
 		totalPrice = objectInput.readDouble();
+
+		able = objectInput.readBoolean();
 	}
 
 	@Override
@@ -94,9 +99,12 @@ public class SaleCartCacheModel
 		objectOutput.writeLong(cartId);
 
 		objectOutput.writeDouble(totalPrice);
+
+		objectOutput.writeBoolean(able);
 	}
 
 	public long cartId;
 	public double totalPrice;
+	public boolean able;
 
 }

@@ -21,10 +21,7 @@ import com.liferay.sales.exception.NoSuchCartProductsListException;
 import com.liferay.sales.model.CartProductsList;
 import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.model.SaleProduct;
-import com.liferay.sales.service.SaleCartService;
-import com.liferay.sales.service.SaleProductService;
-import com.liferay.sales.service.StockProductsListLocalServiceUtil;
-import com.liferay.sales.service.StockProductsListServiceUtil;
+import com.liferay.sales.service.*;
 import com.liferay.sales.service.base.CartProductsListLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -69,33 +66,63 @@ public class CartProductsListLocalServiceImpl
 
 	}
 
-	public SaleCart addProductToCartList( long productId, long cartId){
-		try{
-			SaleProduct product = saleProductService.getSaleProductById(productId);
-			StockProductsListServiceUtil.removeProductFromStock(product.getProductId());
-			createCartProductList(productId,cartId);
-			saleCartService.addProductPriceToCartTotalValue(product.getPrice(),cartId);
-			return saleCartService.getSaleCartById(cartId);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return  null;
+	public List<SaleProduct> addProductToCartList(int quantity,long cartId, long stockId){
+		if(stockProductsListLocalService.checkQuantityInStockByStockId(stockId)>=quantity){
+			try{
+				List<SaleProduct> productListInput = new ArrayList<SaleProduct>(StockProductsListServiceUtil.getAllProductInStockByStockId(stockId));
+				List<SaleProduct> productListOutput = new ArrayList<SaleProduct>();
+					for (int i = 0; i < quantity; i++) {
+						createCartProductList(productListInput.get(i).getProductId(),cartId);
+						saleCartService.addProductPriceToCartTotalValue(productListInput.get(i).getPrice(),cartId);
+						productListOutput.add(productListInput.get(i));
+				}
+						return productListOutput;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return  null;
+				}
+		}else{
+			return null;
 		}
 	}
 
-	public void removeProductToCartList(long productId,long cartId){
+	public List<CartProductsList> getAllCartProductsList(){
+		return cartProductsListPersistence.findAll();
+	}
+
+	public void removeProductToCartList(int quantity,long cartId, long stockId){
+		List<SaleProduct> productListInput = new ArrayList<SaleProduct>( getAllProductsByCartID(cartId));
+		if(productListInput.toArray().length>=quantity){
 		try {
-			SaleProduct product = saleProductService.getSaleProductById(productId);
-			saleCartService.removeProductPriceToCartTotalValue(product.getPrice(), cartId);
-			StockProductsListLocalServiceUtil.addProductToStock(product);
-			cartProductsListPersistence.remove(productId);
+			for (int i = 0; i < quantity; i++) {
+				saleCartService.removeProductPriceToCartTotalValue(productListInput.get(i).getPrice(), cartId);
+				cartProductsListPersistence.remove(productListInput.get(i).getProductId());
+			}
 		} catch (NoSuchModelException e) {
 			e.printStackTrace();
+		}}
+	}
+
+	public SaleCart FinishCart(long cartId){
+		try{
+		for (SaleProduct product:getAllProductsByCartID(cartId)) {
+			stockProductsListLocalService.removeProductFromStock(product.getProductId());
+		}
+		SaleCart saleCart = saleCartService.getSaleCartById(cartId);
+		saleCart.setAble(false);
+		return  saleCartService.updateSaleCartById(saleCart);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 
-	@Override
-	public CartProductsList deleteCartProductsList(long productId) throws PortalException {
-		return cartProductsListPersistence.remove(productId);
+	public void deleteCartList(long productId)  {
+		try {
+			cartProductsListPersistence.remove(productId);
+		} catch (NoSuchCartProductsListException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public CartProductsList createCartProductList(long porductId, long cartId){
@@ -112,4 +139,7 @@ public class CartProductsListLocalServiceImpl
 	SaleProductService saleProductService;
 	@Reference
 	SaleCartService saleCartService;
+	@Reference
+	StockProductsListLocalService stockProductsListLocalService;
+
 }

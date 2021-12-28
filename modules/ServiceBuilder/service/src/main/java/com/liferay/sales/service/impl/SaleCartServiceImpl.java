@@ -75,4 +75,8 @@ public class SaleCartServiceImpl extends SaleCartServiceBaseImpl {
 	public void deleteSaleCartById(long id){
 		saleCartLocalService.deleteSaleCartById(id);
 	}
+
+	public SaleCart updateSaleCartById(SaleCart saleCart){
+		return saleCartLocalService.updateSaleCartById(saleCart);
+	}
 }

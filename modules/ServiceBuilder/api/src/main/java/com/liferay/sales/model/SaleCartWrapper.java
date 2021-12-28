@@ -43,6 +43,7 @@ public class SaleCartWrapper
 
 		attributes.put("cartId", getCartId());
 		attributes.put("totalPrice", getTotalPrice());
+		attributes.put("able", isAble());
 
 		return attributes;
 	}
@@ -60,6 +61,22 @@ public class SaleCartWrapper
 		if (totalPrice != null) {
 			setTotalPrice(totalPrice);
 		}
+
+		Boolean able = (Boolean)attributes.get("able");
+
+		if (able != null) {
+			setAble(able);
+		}
+	}
+
+	/**
+	 * Returns the able of this sale cart.
+	 *
+	 * @return the able of this sale cart
+	 */
+	@Override
+	public boolean getAble() {
+		return model.getAble();
 	}
 
 	/**
@@ -92,9 +109,29 @@ public class SaleCartWrapper
 		return model.getTotalPrice();
 	}
 
+	/**
+	 * Returns <code>true</code> if this sale cart is able.
+	 *
+	 * @return <code>true</code> if this sale cart is able; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isAble() {
+		return model.isAble();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets whether this sale cart is able.
+	 *
+	 * @param able the able of this sale cart
+	 */
+	@Override
+	public void setAble(boolean able) {
+		model.setAble(able);
 	}
 
 	/**

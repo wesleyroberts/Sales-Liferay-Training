@@ -5,7 +5,8 @@ create table SalesTaxe_CartProductsList (
 
 create table SalesTaxe_SaleCart (
 	cartId LONG not null primary key,
-	totalPrice DOUBLE
+	totalPrice DOUBLE,
+	able BOOLEAN
 );
 
 create table SalesTaxe_SaleCategory (
