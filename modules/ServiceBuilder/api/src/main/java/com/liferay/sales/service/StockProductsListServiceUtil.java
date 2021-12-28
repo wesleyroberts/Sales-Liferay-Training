@@ -41,8 +41,8 @@ public class StockProductsListServiceUtil {
 		return getService().addProductToStock(product);
 	}
 
-	public static int checkQuantityInStockByStockId(long stcokId) {
-		return getService().checkQuantityInStockByStockId(stcokId);
+	public static int checkQuantityInStockByStockId(long stockId) {
+		return getService().checkQuantityInStockByStockId(stockId);
 	}
 
 	public static void deleteStockProductListByID(long id) {

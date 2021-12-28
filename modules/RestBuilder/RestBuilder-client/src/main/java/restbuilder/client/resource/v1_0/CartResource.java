@@ -54,12 +54,11 @@ public interface CartResource {
 			Integer cartID, Integer stockId, Integer quantity)
 		throws Exception;
 
-	public Cart removeProductFromCart(
-			Integer cartID, Integer stockId, Integer quantity)
+	public Cart removeProductFromCart(Integer cartID, Integer productId)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse removeProductFromCartHttpResponse(
-			Integer cartID, Integer stockId, Integer quantity)
+			Integer cartID, Integer productId)
 		throws Exception;
 
 	public void deleteCartById(Integer cartId) throws Exception;
@@ -528,12 +527,11 @@ public interface CartResource {
 			return httpInvoker.invoke();
 		}
 
-		public Cart removeProductFromCart(
-				Integer cartID, Integer stockId, Integer quantity)
+		public Cart removeProductFromCart(Integer cartID, Integer productId)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				removeProductFromCartHttpResponse(cartID, stockId, quantity);
+				removeProductFromCartHttpResponse(cartID, productId);
 
 			String content = httpResponse.getContent();
 
@@ -573,12 +571,12 @@ public interface CartResource {
 		}
 
 		public HttpInvoker.HttpResponse removeProductFromCartHttpResponse(
-				Integer cartID, Integer stockId, Integer quantity)
+				Integer cartID, Integer productId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(quantity.toString(), "application/json");
+			httpInvoker.body(productId.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -602,11 +600,10 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/RestBuilder/v1.0/removeProductFromCart/{cartID}/sotckId/{stockId}/quantity/{quantity}");
+						"/o/RestBuilder/v1.0/removeProductFromCart/{cartID}/productId/{productId}");
 
 			httpInvoker.path("cartID", cartID);
-			httpInvoker.path("stockId", stockId);
-			httpInvoker.path("quantity", quantity);
+			httpInvoker.path("productId", productId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

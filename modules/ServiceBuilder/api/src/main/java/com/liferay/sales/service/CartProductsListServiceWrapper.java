@@ -73,11 +73,8 @@ public class CartProductsListServiceWrapper
 	}
 
 	@Override
-	public void removeProductToCartList(
-		int quantity, long cartId, long stockId) {
-
-		_cartProductsListService.removeProductToCartList(
-			quantity, cartId, stockId);
+	public void removeProductToCartList(long cartId, long productId) {
+		_cartProductsListService.removeProductToCartList(cartId, productId);
 	}
 
 	@Override

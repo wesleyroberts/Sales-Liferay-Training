@@ -69,10 +69,8 @@ public class CartProductsListServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static void removeProductToCartList(
-		int quantity, long cartId, long stockId) {
-
-		getService().removeProductToCartList(quantity, cartId, stockId);
+	public static void removeProductToCartList(long cartId, long productId) {
+		getService().removeProductToCartList(cartId, productId);
 	}
 
 	public static CartProductsListService getService() {

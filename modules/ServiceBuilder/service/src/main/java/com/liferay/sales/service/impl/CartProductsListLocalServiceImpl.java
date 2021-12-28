@@ -21,6 +21,7 @@ import com.liferay.sales.exception.NoSuchCartProductsListException;
 import com.liferay.sales.model.CartProductsList;
 import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.model.SaleProduct;
+import com.liferay.sales.model.SaleStock;
 import com.liferay.sales.service.*;
 import com.liferay.sales.service.base.CartProductsListLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
@@ -67,14 +68,19 @@ public class CartProductsListLocalServiceImpl
 	}
 
 	public List<SaleProduct> addProductToCartList(int quantity,long cartId, long stockId){
-		if(stockProductsListLocalService.checkQuantityInStockByStockId(stockId)>=quantity){
+
+		if(stockProductsListLocalService.checkQuantityInStockByStockId(stockId)>=quantity
+				&&
+				getAllProductsByCartID(cartId).toArray().length<stockProductsListLocalService.checkQuantityInStockByStockId(stockId)){
 			try{
 				List<SaleProduct> productListInput = new ArrayList<SaleProduct>(StockProductsListServiceUtil.getAllProductInStockByStockId(stockId));
 				List<SaleProduct> productListOutput = new ArrayList<SaleProduct>();
 					for (int i = 0; i < quantity; i++) {
-						createCartProductList(productListInput.get(i).getProductId(),cartId);
-						saleCartService.addProductPriceToCartTotalValue(productListInput.get(i).getPrice(),cartId);
-						productListOutput.add(productListInput.get(i));
+						if(!checkIfExistProduct(cartId,productListInput.get(i))){
+							createCartProductList(productListInput.get(i).getProductId(),cartId);
+							saleCartService.addProductPriceToCartTotalValue(productListInput.get(i).getPrice(),cartId);
+							productListOutput.add(productListInput.get(i));
+						}
 				}
 						return productListOutput;
 				} catch (Exception e) {
@@ -90,17 +96,14 @@ public class CartProductsListLocalServiceImpl
 		return cartProductsListPersistence.findAll();
 	}
 
-	public void removeProductToCartList(int quantity,long cartId, long stockId){
-		List<SaleProduct> productListInput = new ArrayList<SaleProduct>( getAllProductsByCartID(cartId));
-		if(productListInput.toArray().length>=quantity){
+	public void removeProductToCartList(long cartId, long productId){
 		try {
-			for (int i = 0; i < quantity; i++) {
-				saleCartService.removeProductPriceToCartTotalValue(productListInput.get(i).getPrice(), cartId);
-				cartProductsListPersistence.remove(productListInput.get(i).getProductId());
-			}
+			SaleProduct saleProduct = saleProductService.getSaleProductById(productId);
+			saleCartService.removeProductPriceToCartTotalValue(saleProduct.getPrice(), cartId);
+			cartProductsListPersistence.remove(saleProduct.getProductId());
 		} catch (NoSuchModelException e) {
 			e.printStackTrace();
-		}}
+		}
 	}
 
 	public SaleCart FinishCart(long cartId){
@@ -123,6 +126,16 @@ public class CartProductsListLocalServiceImpl
 		} catch (NoSuchCartProductsListException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private boolean checkIfExistProduct(long cartId, SaleProduct saleProduct){
+		boolean exist = false;
+		for (SaleProduct product:getAllProductsByCartID(cartId)) {
+			if(product.getProductId()==saleProduct.getProductId()){
+				exist = true;
+			}
+		}
+		return exist;
 	}
 
 	public CartProductsList createCartProductList(long porductId, long cartId){

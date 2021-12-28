@@ -240,7 +240,7 @@ public class StockProductsListServiceHttp {
 	}
 
 	public static int checkQuantityInStockByStockId(
-		HttpPrincipal httpPrincipal, long stcokId) {
+		HttpPrincipal httpPrincipal, long stockId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -248,7 +248,7 @@ public class StockProductsListServiceHttp {
 				"checkQuantityInStockByStockId",
 				_checkQuantityInStockByStockIdParameterTypes6);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey, stcokId);
+			MethodHandler methodHandler = new MethodHandler(methodKey, stockId);
 
 			Object returnObj = null;
 

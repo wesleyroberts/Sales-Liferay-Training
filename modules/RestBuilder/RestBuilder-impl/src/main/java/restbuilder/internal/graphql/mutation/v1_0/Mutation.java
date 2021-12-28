@@ -94,15 +94,14 @@ public class Mutation {
 	@GraphQLField
 	public Cart removeProductFromCart(
 			@GraphQLName("cartID") Integer cartID,
-			@GraphQLName("stockId") Integer stockId,
-			@GraphQLName("quantity") Integer quantity)
+			@GraphQLName("productId") Integer productId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			cartResource -> cartResource.removeProductFromCart(
-				cartID, stockId, quantity));
+				cartID, productId));
 	}
 
 	@GraphQLField

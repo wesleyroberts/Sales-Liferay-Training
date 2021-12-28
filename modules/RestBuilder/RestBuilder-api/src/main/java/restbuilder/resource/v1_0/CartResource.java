@@ -47,8 +47,7 @@ public interface CartResource {
 			Integer cartID, Integer stockId, Integer quantity)
 		throws Exception;
 
-	public Cart removeProductFromCart(
-			Integer cartID, Integer stockId, Integer quantity)
+	public Cart removeProductFromCart(Integer cartID, Integer productId)
 		throws Exception;
 
 	public void deleteCartById(Integer cartId) throws Exception;

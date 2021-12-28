@@ -119,7 +119,7 @@ public class CartProductsListServiceHttp {
 	}
 
 	public static void removeProductToCartList(
-		HttpPrincipal httpPrincipal, int quantity, long cartId, long stockId) {
+		HttpPrincipal httpPrincipal, long cartId, long productId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -127,7 +127,7 @@ public class CartProductsListServiceHttp {
 				_removeProductToCartListParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, quantity, cartId, stockId);
+				methodKey, cartId, productId);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
@@ -222,7 +222,7 @@ public class CartProductsListServiceHttp {
 	private static final Class<?>[] _addProductToCartListParameterTypes1 =
 		new Class[] {int.class, long.class, long.class};
 	private static final Class<?>[] _removeProductToCartListParameterTypes2 =
-		new Class[] {int.class, long.class, long.class};
+		new Class[] {long.class, long.class};
 	private static final Class<?>[] _getAllCartProductsListParameterTypes3 =
 		new Class[] {};
 	private static final Class<?>[] _deleteCartProductsListParameterTypes4 =
