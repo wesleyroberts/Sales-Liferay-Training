@@ -120,6 +120,9 @@ components:
         id:
           description: The Cart ID.
           type: integer
+        able:
+          description: Show if the cart is able or not
+          type: boolean
         totalValue:
           description: total payment amount.
           format: double
