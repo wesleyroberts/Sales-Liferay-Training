@@ -68,6 +68,7 @@ export default function Menu() {
         item.able = obj.able
       };
     });
+    updateStock()
   }
 
   const addCategory = (obj) => {
@@ -117,6 +118,10 @@ export default function Menu() {
     });
     setStockList(res);
   };
+
+  const updateStock = () => {
+    GetAllStock().then((data) => {setStockList(data.items)});
+  }
 
   return (
     <div>
