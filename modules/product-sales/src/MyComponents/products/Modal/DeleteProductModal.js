@@ -1,65 +1,44 @@
 import React, { useState } from "react";
-import ClayForm, { ClaySelect } from "@clayui/form";
+import ClayForm from "@clayui/form";
 import ClayButton from "@clayui/button";
 import ClayModal, { useModal } from "@clayui/modal";
-import { AddProductToCart } from "../../../resourceRequests/ProductFunctionsREST";
 import ClaySlider from "@clayui/slider";
 import { Alert } from "../../alert/CustomAlert";
 
-export default function ProductAddToCartModal({
-  cartList,
+export default function DeleteProductModal({
   stock,
   quantity,
   setQuantity,
-  productAddToCartModal,
-  setProductAddToCartModal,
+  showDeleteModal,
+  setShowDeleteModal,
 }) {
   const [cartId, setCartId] = useState(0);
-  const [enableButton, setEnableButton] = useState(true);
-  const [alertAddtoCartSuccess, setAlertToCartSuccess] = useState(false);
   const { observer, onClose } = useModal({
-    onClose: () => setProductAddToCartModal(false),
+    onClose: () => setShowDeleteModal(false),
   });
+  const [alertAddtoCartSuccess, setAlertToCartSuccess] = useState(false);
 
-  const handleAddtoCart = (quantity, stockId, cartId) => {
-    AddProductToCart(quantity, stockId, cartId)
-      .then((data) => {
-        console.log(data);
-        setAlertToCartSuccess(true);
-      })
-      .catch((error) => console.log(error));
-  };
+  // const handleProductDelete = (quantity, stockId) => {
+  //   DeleteProductByID(id)
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error(response.status);
+  //       } else {
+  //         deleteProduct(id);
+  //         setAlertDeleteSuccess(true);
+  //       }
+  //     })
+  //     .catch((error) => console.log("error:", error));
+  // };
 
   return (
     <div>
-      {productAddToCartModal && (
+      {showDeleteModal && (
         <ClayModal observer={observer} size="lg" status="info">
-          <ClayModal.Header>{"Add to Cart"}</ClayModal.Header>
+          <ClayModal.Header>{"Delete Product"}</ClayModal.Header>
           <ClayModal.Body>
             <ClayForm>
               <ClayForm.Group className="form-group-sm">
-                <label htmlFor="basicInput">Cart's</label>
-                <ClaySelect
-                  aria-label="Select Label"
-                  id="mySelectId1"
-                  onChange={(e) => {
-                    setCartId(e.target.value);
-                    if (e.target.value == 0) {
-                      setEnableButton(true);
-                    } else {
-                      setEnableButton(false);
-                    }
-                  }}
-                >
-                  <ClaySelect.Option label={"Selecionar carrinho"} value={0} />
-                  {cartList.map((item, index) => (
-                    <ClaySelect.Option
-                      key={index}
-                      label={"Lista de desejos " + (index + 1)}
-                      value={item.id}
-                    />
-                  ))}
-                </ClaySelect>
                 <div className="form-group">
                   <label htmlFor="slider">{"quantidade de produtos"}</label>
                   <ClaySlider
@@ -73,16 +52,15 @@ export default function ProductAddToCartModal({
               <ClayButton
                 className="btn-primary"
                 displayType="primary"
-                disabled={enableButton}
                 onClick={() => {
-                  handleAddtoCart(
+                  handleProductDelete(
                     parseInt(quantity),
                     parseInt(stock.id),
                     parseInt(cartId)
                   );
                 }}
               >
-                Adicionar
+                Deletar
               </ClayButton>
             </ClayForm>
           </ClayModal.Body>

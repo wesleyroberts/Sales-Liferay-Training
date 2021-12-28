@@ -49,7 +49,6 @@ export default function RemoveProductsModal({
           </ClayModal.Body>
           <ClayModal.Footer
             first={<ClayButton.Group spaced></ClayButton.Group>}
-            last={<ClayButton onClick={onClose}>{"Fechar"}</ClayButton>}
           />
         </ClayModal>
       )}

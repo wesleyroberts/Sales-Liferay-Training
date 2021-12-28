@@ -65,7 +65,6 @@ export default function ProductModal({
           </ClayModal.Body>
           <ClayModal.Footer
             first={<ClayButton.Group spaced></ClayButton.Group>}
-            last={<ClayButton onClick={onClose}>{"Fechar"}</ClayButton>}
           />
         </ClayModal>
       )}

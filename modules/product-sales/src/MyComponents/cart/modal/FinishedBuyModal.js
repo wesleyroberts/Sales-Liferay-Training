@@ -7,6 +7,7 @@ export default function FinishedBuyModal({
   showFinishedBuyModal,
   setShowFinishedBuyModal,
   productsInCartList,
+  totalValue,
 }) {
   const { observer, onClose } = useModal({
     onClose: () => setShowFinishedBuyModal(false),
@@ -39,6 +40,11 @@ export default function FinishedBuyModal({
                     <ClayTable.Cell>{item.category.name}</ClayTable.Cell>
                   </ClayTable.Row>
                 ))}
+                <ClayTable.Row>
+                  <ClayTable.Cell headingTitle>{"Total Value"}</ClayTable.Cell>
+                  <ClayTable.Cell>{totalValue}</ClayTable.Cell>
+                  <ClayTable.Cell>{}</ClayTable.Cell>
+                </ClayTable.Row>
               </ClayTable.Body>
             </ClayTable>
           </ClayModal.Body>

@@ -8,6 +8,7 @@ import ClayButton from "@clayui/button";
 
 import ProductAddToCartModal from "./Modal/ProductAddToCartModal";
 import { Alert } from "../alert/CustomAlert";
+import DeleteProductModal from "./Modal/DeleteProductModal";
 
 export default function Products({
   productList,
@@ -22,9 +23,11 @@ export default function Products({
   addStock,
   deleteStock,
 }) {
+  const [quantity, setQuantity] = useState(0);
   const [productAddToCartModal, setProductAddToCartModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [objModal, setObjModel] = useState({
     name: "",
     category: "",
@@ -54,6 +57,17 @@ export default function Products({
   function handleModalCreate() {
     setShowCreateModal(true);
   }
+  function handleDeleteModal(item) {
+    setStock({
+      productName: item.productName,
+      category: item.category,
+      type: item.type,
+      price: item.price,
+      quantity: item.quantity,
+      id: item.id,
+    });
+    setQuantity(0), setShowDeleteModal(true);
+  }
   function handleModalAddToCart(item) {
     setStock({
       productName: item.productName,
@@ -63,30 +77,18 @@ export default function Products({
       quantity: item.quantity,
       id: item.id,
     });
-    setProductAddToCartModal(true);
+    setQuantity(0), setProductAddToCartModal(true);
   }
-
-  const handleProductDelete = (id) => {
-    DeleteProductByID(id)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(response.status);
-        } else {
-          deleteProduct(id);
-          setAlertDeleteSuccess(true);
-        }
-      })
-      .catch((error) => console.log("error:", error));
-  };
 
   return (
     <div>
       <ProductAddToCartModal
         cartList={cartList}
         stock={stock}
+        quantity={quantity}
+        setQuantity={setQuantity}
         productAddToCartModal={productAddToCartModal}
         setProductAddToCartModal={setProductAddToCartModal}
-        productId={productId}
       />
       <ProductModalEdit
         showEditModal={showEditModal}
@@ -101,6 +103,13 @@ export default function Products({
         addProduct={addProduct}
         addStock={addStock}
       />
+      <DeleteProductModal
+        stock={stock}
+        quantity={quantity}
+        setQuantity={setQuantity}
+        showDeleteModal={showDeleteModal}
+        setShowDeleteModal={setShowDeleteModal}
+      />
       <ClayCard>
         <ClayCard.Body>
           <div className="row">
@@ -110,6 +119,13 @@ export default function Products({
                   key={index}
                   id={index}
                   actions={[
+                    {
+                      label: "Add to Cart",
+                      onClick: () => {
+                        handleModalAddToCart(item);
+                      },
+                    },
+                    { type: "divider" },
                     {
                       label: "edit",
                       onClick: () => {
@@ -124,26 +140,18 @@ export default function Products({
                     { type: "divider" },
                     {
                       label: "Delete",
-                      onClick: () => handleProductDelete(item.id),
-                    },
-                    { type: "divider" },
-                    {
-                      href: "#",
-                      label: "Add to Cart",
-                      onClick: () => {
-                        handleModalAddToCart(item);
-                      },
+                      onClick: () => handleDeleteModal(item),
                     },
                   ]}
                   labels={[
                     {
                       displayType: "info",
-                      value: `${item.type.name}`
+                      value: `${item.type.name}`,
                     },
                     {
                       displayType: "secondary",
-                      value: `${item.category.name}`
-                    }
+                      value: `${item.category.name}`,
+                    },
                   ]}
                   stickerProps={{
                     content: "IMG",

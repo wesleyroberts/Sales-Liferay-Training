@@ -20,26 +20,25 @@ export function GetAllProductsByCartId(cartId) {
 }
 
 export function CreateCart() {
-
   return Liferay.Util.fetch(
     `http://localhost:8080/o/RestBuilder/v1.0/cart/create/`,
     {
       method: "GET",
       headers: {
         Authorization: "Basic " + test,
-      }
+      },
     }
   ).then((res) => res.json());
 }
 
-export function getTotalValueByCartId(cartId){
+export function getTotalValueByCartId(cartId) {
   return Liferay.Util.fetch(
     `http://localhost:8080/o/RestBuilder/v1.0/cart/getTotalValue/${cartId}`,
     {
       method: "GET",
       headers: {
         Authorization: "Basic " + test,
-      }
+      },
     }
   ).then((res) => res.json());
 }
@@ -54,12 +53,11 @@ export function DeleteCartByID(cartId) {
   );
 }
 
-export function RemoveProduct(cartId, productId) {
+export function RemoveProduct(cartID, productId) {
   return Liferay.Util.fetch(
-    `http://localhost:8080/o/RestBuilder/v1.0/removeProduct/carts/${cartId}/products/${productId}
-    `,
+    `http://localhost:8080/o/RestBuilder/v1.0/removeProductFromCart/${cartID}/productId/${productId}`,
     {
-      method: "POST",
+      method: "PATCH",
       headers: {
         Authorization: "Basic " + test,
       },
