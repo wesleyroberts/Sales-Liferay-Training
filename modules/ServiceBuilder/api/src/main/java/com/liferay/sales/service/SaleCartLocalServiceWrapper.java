@@ -131,8 +131,8 @@ public class SaleCartLocalServiceWrapper
 	}
 
 	@Override
-	public void deleteSaleCartById(long id) {
-		_saleCartLocalService.deleteSaleCartById(id);
+	public void deleteSaleCartById(long cartId) {
+		_saleCartLocalService.deleteSaleCartById(cartId);
 	}
 
 	@Override

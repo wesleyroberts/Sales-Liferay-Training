@@ -55,7 +55,7 @@ public interface SaleCartService extends BaseService {
 
 	public SaleCart createSaleCartById();
 
-	public void deleteSaleCartById(long id);
+	public void deleteSaleCartById(long cartId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<SaleCart> getAllSaleCart();

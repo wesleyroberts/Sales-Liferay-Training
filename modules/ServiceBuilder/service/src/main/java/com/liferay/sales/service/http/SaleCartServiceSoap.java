@@ -168,9 +168,9 @@ public class SaleCartServiceSoap {
 		}
 	}
 
-	public static void deleteSaleCartById(long id) throws RemoteException {
+	public static void deleteSaleCartById(long cartId) throws RemoteException {
 		try {
-			SaleCartServiceUtil.deleteSaleCartById(id);
+			SaleCartServiceUtil.deleteSaleCartById(cartId);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

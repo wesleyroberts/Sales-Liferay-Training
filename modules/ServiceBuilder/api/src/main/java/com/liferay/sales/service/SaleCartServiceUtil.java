@@ -47,8 +47,8 @@ public class SaleCartServiceUtil {
 		return getService().createSaleCartById();
 	}
 
-	public static void deleteSaleCartById(long id) {
-		getService().deleteSaleCartById(id);
+	public static void deleteSaleCartById(long cartId) {
+		getService().deleteSaleCartById(cartId);
 	}
 
 	public static List<SaleCart> getAllSaleCart() {

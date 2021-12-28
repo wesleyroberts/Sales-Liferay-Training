@@ -126,8 +126,8 @@ public class SaleCartLocalServiceUtil {
 		return getService().deleteSaleCart(saleCart);
 	}
 
-	public static void deleteSaleCartById(long id) {
-		getService().deleteSaleCartById(id);
+	public static void deleteSaleCartById(long cartId) {
+		getService().deleteSaleCartById(cartId);
 	}
 
 	public static DynamicQuery dynamicQuery() {

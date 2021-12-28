@@ -126,7 +126,7 @@ public interface SaleCartLocalService
 	@Indexable(type = IndexableType.DELETE)
 	public SaleCart deleteSaleCart(SaleCart saleCart);
 
-	public void deleteSaleCartById(long id);
+	public void deleteSaleCartById(long cartId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();
