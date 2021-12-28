@@ -147,6 +147,7 @@ public class StockProductsListLocalServiceImpl
 				}
 
 			} catch (Exception e) {
+				System.out.println("não Entrou");
 				e.printStackTrace();
 
 			}
@@ -159,16 +160,19 @@ public class StockProductsListLocalServiceImpl
 
 	public Boolean checkIfExistStock(SaleProduct product){
 		boolean exist = false;
-		for (SaleStock stock: saleStockService.getAllSaleStock()) {
-			if(stock.getCategoryId()==product.getCategoryId() && stock.getName().equals(product.getName())){
+		try{
+			for (SaleStock stock: saleStockService.getAllSaleStock()) {
+				if(stock.getCategoryId()==product.getCategoryId() && stock.getName().equals(product.getName())){
 				if(stock.getTypeId()==product.getTypeId() && stock.getPrice()==product.getPrice()){
 					exist = true;
 				}
-			}else{
-				exist = false;
 			}
+		}} catch (Exception e) {
+			e.printStackTrace();
+			return  exist;
 		}
-		return  exist;
+		return exist;
+
 	}
 
 	@Reference

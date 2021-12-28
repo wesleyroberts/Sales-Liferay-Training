@@ -43,8 +43,8 @@ public class SaleCartServiceWrapper
 	}
 
 	@Override
-	public void deleteSaleCartById(long id) {
-		_saleCartService.deleteSaleCartById(id);
+	public void deleteSaleCartById(long cartId) {
+		_saleCartService.deleteSaleCartById(cartId);
 	}
 
 	@Override

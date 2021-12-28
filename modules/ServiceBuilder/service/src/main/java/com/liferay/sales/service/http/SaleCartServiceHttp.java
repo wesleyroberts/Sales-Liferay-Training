@@ -242,14 +242,14 @@ public class SaleCartServiceHttp {
 	}
 
 	public static void deleteSaleCartById(
-		HttpPrincipal httpPrincipal, long id) {
+		HttpPrincipal httpPrincipal, long cartId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				SaleCartServiceUtil.class, "deleteSaleCartById",
 				_deleteSaleCartByIdParameterTypes6);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey, id);
+			MethodHandler methodHandler = new MethodHandler(methodKey, cartId);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
