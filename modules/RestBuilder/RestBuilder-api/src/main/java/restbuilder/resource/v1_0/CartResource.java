@@ -43,6 +43,8 @@ public interface CartResource {
 
 	public Cart createCart() throws Exception;
 
+	public Cart finishBuy(Integer cartID) throws Exception;
+
 	public Page<Product> addProductToCart(
 			Integer cartID, Integer stockId, Integer quantity)
 		throws Exception;

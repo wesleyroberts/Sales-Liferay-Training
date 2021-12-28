@@ -613,6 +613,27 @@ paths:
           description: ""
       tags: ["Cart"]
 
+  "/finishBuy/CartId/{cartID}":
+    patch:
+      operationId: finishBuy
+      parameters:
+        - in: path
+          name: cartID
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Cart"
+          description: ""
+      tags: ["Cart"]
+
   "/addProductoCart/{cartID}/sotckId/{stockId}/quantity/{quantity}":
     patch:
       operationId: addProductToCart

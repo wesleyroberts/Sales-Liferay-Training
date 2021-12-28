@@ -204,7 +204,7 @@ public interface CartProductsListLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CartProductsList fetchCartProductsList(long productId);
 
-	public SaleCart FinishCart(long cartId);
+	public SaleCart finishCart(long cartId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

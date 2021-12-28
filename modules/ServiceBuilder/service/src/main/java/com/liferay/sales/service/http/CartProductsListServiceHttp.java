@@ -214,6 +214,37 @@ public class CartProductsListServiceHttp {
 		}
 	}
 
+	public static com.liferay.sales.model.SaleCart finishCart(
+		HttpPrincipal httpPrincipal, long cartId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CartProductsListServiceUtil.class, "finishCart",
+				_finishCartParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, cartId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.sales.model.SaleCart)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		CartProductsListServiceHttp.class);
 
@@ -227,5 +258,8 @@ public class CartProductsListServiceHttp {
 		new Class[] {};
 	private static final Class<?>[] _deleteCartProductsListParameterTypes4 =
 		new Class[] {long.class};
+	private static final Class<?>[] _finishCartParameterTypes5 = new Class[] {
+		long.class
+	};
 
 }

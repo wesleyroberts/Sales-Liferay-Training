@@ -280,6 +280,11 @@ public abstract class BaseCartResourceTestCase {
 	}
 
 	@Test
+	public void testFinishBuy() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testAddProductToCart() throws Exception {
 		Assert.assertTrue(false);
 	}
