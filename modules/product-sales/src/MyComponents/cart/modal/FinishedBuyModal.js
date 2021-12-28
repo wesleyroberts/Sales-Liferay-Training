@@ -2,16 +2,33 @@ import React from "react";
 import ClayModal, { useModal } from "@clayui/modal";
 import ClayButton from "@clayui/button";
 import ClayTable from "@clayui/table";
+import { FinishBuy } from "../../../resourceRequests/CartFunctions";
 
 export default function FinishedBuyModal({
+  cartId,
   showFinishedBuyModal,
   setShowFinishedBuyModal,
   productsInCartList,
   totalValue,
+  updateCart
 }) {
   const { observer, onClose } = useModal({
-    onClose: () => setShowFinishedBuyModal(false),
+    onClose: () => setShowFinishedBuyModal(false)
   });
+
+  const handleFinishBuy = () => {
+    FinishBuy(cartId).then((response) => {
+      if(!response) {
+        console.log(response)
+        throw new Error(response.status)}
+      else {
+        updateCart(response)
+        onClose()
+      }
+    })
+    .catch((error) => console.log("error:", error));
+  }
+
   return (
     <div>
       {showFinishedBuyModal && (
@@ -50,7 +67,7 @@ export default function FinishedBuyModal({
           </ClayModal.Body>
           <ClayModal.Footer
             first={<ClayButton.Group spaced></ClayButton.Group>}
-            last={<ClayButton onClick={onClose}>{"Fechar"}</ClayButton>}
+            last={<ClayButton disabled={!(productsInCartList.length)} onClick={handleFinishBuy}>{"Finalizar compra"}</ClayButton>}
           />
         </ClayModal>
       )}
