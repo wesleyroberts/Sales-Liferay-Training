@@ -245,8 +245,8 @@ public class CartProductsListLocalServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.SaleCart FinishCart(long cartId) {
-		return _cartProductsListLocalService.FinishCart(cartId);
+	public com.liferay.sales.model.SaleCart finishCart(long cartId) {
+		return _cartProductsListLocalService.finishCart(cartId);
 	}
 
 	@Override

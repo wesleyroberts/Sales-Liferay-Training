@@ -50,6 +50,10 @@ public class CartProductsListServiceUtil {
 		getService().deleteCartProductsList(productId);
 	}
 
+	public static com.liferay.sales.model.SaleCart finishCart(long cartId) {
+		return getService().finishCart(cartId);
+	}
+
 	public static List<CartProductsList> getAllCartProductsList() {
 		return getService().getAllCartProductsList();
 	}

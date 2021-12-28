@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.sales.model.CartProductsList;
+import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.model.SaleProduct;
 
 import java.util.List;
@@ -56,6 +57,8 @@ public interface CartProductsListService extends BaseService {
 		int quantity, long cartId, long stockId);
 
 	public void deleteCartProductsList(long productId) throws PortalException;
+
+	public SaleCart finishCart(long cartId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CartProductsList> getAllCartProductsList();

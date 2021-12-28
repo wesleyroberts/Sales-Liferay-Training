@@ -104,7 +104,7 @@ public class CartProductsListLocalServiceImpl
 		}
 	}
 
-	public SaleCart FinishCart(long cartId){
+	public SaleCart finishCart(long cartId){
 		try{
 		for (SaleProduct product:getAllProductsByCartID(cartId)) {
 			StockProductsListServiceUtil.removeProductFromStock(product.getProductId());

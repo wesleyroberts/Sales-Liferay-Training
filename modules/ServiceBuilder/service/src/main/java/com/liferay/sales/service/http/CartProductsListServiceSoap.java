@@ -146,6 +146,23 @@ public class CartProductsListServiceSoap {
 		}
 	}
 
+	public static com.liferay.sales.model.SaleCartSoap finishCart(long cartId)
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleCart returnValue =
+				CartProductsListServiceUtil.finishCart(cartId);
+
+			return com.liferay.sales.model.SaleCartSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		CartProductsListServiceSoap.class);
 

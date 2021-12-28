@@ -68,4 +68,7 @@ public class CartProductsListServiceImpl
 	public void deleteCartProductsList(long productId) throws PortalException {
 		  cartProductsListLocalService.deleteCartList(productId);
 	}
+	public SaleCart finishCart(long cartId){
+		return cartProductsListLocalService.finishCart(cartId);
+	}
 }

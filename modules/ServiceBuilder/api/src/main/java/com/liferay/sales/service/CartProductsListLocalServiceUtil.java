@@ -220,8 +220,8 @@ public class CartProductsListLocalServiceUtil {
 		return getService().fetchCartProductsList(productId);
 	}
 
-	public static com.liferay.sales.model.SaleCart FinishCart(long cartId) {
-		return getService().FinishCart(cartId);
+	public static com.liferay.sales.model.SaleCart finishCart(long cartId) {
+		return getService().finishCart(cartId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery

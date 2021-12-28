@@ -49,6 +49,11 @@ public class CartProductsListServiceWrapper
 	}
 
 	@Override
+	public com.liferay.sales.model.SaleCart finishCart(long cartId) {
+		return _cartProductsListService.finishCart(cartId);
+	}
+
+	@Override
 	public java.util.List<com.liferay.sales.model.CartProductsList>
 		getAllCartProductsList() {
 
