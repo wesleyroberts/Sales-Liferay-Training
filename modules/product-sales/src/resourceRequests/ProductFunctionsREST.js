@@ -1,4 +1,3 @@
-const siteId = Liferay.ThemeDisplay.getSiteGroupId();
 const test = btoa("test@liferay.com:test");
 export function GetAllProducts() {
   return Liferay.Util.fetch(
@@ -40,11 +39,11 @@ export function DeleteProductByID(productId) {
     }
   );
 }
-export function AddProductToCart(cartId, productId) {
+export function AddProductToCart(quantity, stockId, cartID) {
   return Liferay.Util.fetch(
-    `http://localhost:8080/o/RestBuilder/v1.0/addProduct/carts/${cartId}/products/${productId}`,
+    `http://localhost:8080/o/RestBuilder/v1.0/addProductoCart/${cartID}/sotckId/${stockId}/quantity/${quantity}`,
     {
-      method: "POST",
+      method: "PATCH",
       headers: {
         Authorization: "Basic " + test,
       },

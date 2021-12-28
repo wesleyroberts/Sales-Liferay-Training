@@ -25,6 +25,7 @@
 		"@clayui/list": "^3.41.0",
 		"@clayui/modal": "^3.40.0",
 		"@clayui/navigation-bar": "^3.40.0",
+		"@clayui/slider": "^3.40.0",
 		"@clayui/sticker": "^3.40.0",
 		"@clayui/table": "^3.40.0",
 		"react": "16.8.6",
