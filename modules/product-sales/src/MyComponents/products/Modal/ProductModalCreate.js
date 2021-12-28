@@ -13,11 +13,13 @@ export default function ProductModalCreate({
   showCreateModal,
   setShowCreateModal,
   addProduct,
+  addStock
 }) {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("1");
   const [type, setType] = useState("1");
   const [price, setPrice] = useState(0);
+  const [quantity, setQuantity] = useState(0)
   const [alertSuccess, setAlertSuccess] = useState(false)
   const [alertError, setAlertError] = useState(false)
 
@@ -25,16 +27,17 @@ export default function ProductModalCreate({
     onClose: () => setShowCreateModal(false),
   });
 
-  const handleProductCreate = () => {
+  const handleProductCreate = (name, price, category, type, quantity) => {
     CreateProduct(
       name,
       price,
-      parseInt(category),
-      parseInt(type)
+      category,
+      type,
+      quantity
     ).then((response) => {
       if(response.status) throw new Error(JSON.stringify(response.status))
       else {
-        addProduct(response)
+        addStock(response)
         setAlertSuccess(true)
       }
     })
@@ -102,11 +105,18 @@ export default function ProductModalCreate({
                     setPrice(e.target.value);
                   }}
                 ></ClayInput>
+                <label htmlFor="basicInput">Quantity</label>
+                <ClayInput
+                  type="number"
+                  onChange={(e) => {
+                    setQuantity(e.target.value);
+                  }}
+                ></ClayInput>
               </ClayForm.Group>
               <ClayButton
                 displayType="primary"
                 disabled={handleCartCreateDisabled()}
-                onClick={handleProductCreate}
+                onClick={() => handleProductCreate(name, price, category, type, quantity)}
               >
                 Criar
               </ClayButton>

@@ -10,13 +10,17 @@ import ProductAddToCartModal from "./Modal/ProductAddToCartModal";
 import { Alert } from "../alert/CustomAlert";
 
 export default function Products({
-  stocklist,
+  productList,
+  setProductList,
+  stockList,
   setStockList,
   typesList,
   categoryList,
   cartList,
   addProduct,
   deleteProduct,
+  addStock,
+  deleteStock,
 }) {
   const [productAddToCartModal, setProductAddToCartModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -47,12 +51,10 @@ export default function Products({
     setProductAddToCartModal(true);
   }
 
-  console.log(stocklist);
   const handleProductDelete = (id) => {
     DeleteProductByID(id)
       .then((response) => {
         if (!response.ok) {
-          console.log(response);
           throw new Error(response.status);
         } else {
           deleteProduct(id);
@@ -81,11 +83,12 @@ export default function Products({
         showCreateModal={showCreateModal}
         setShowCreateModal={setShowCreateModal}
         addProduct={addProduct}
+        addStock={addStock}
       />
       <ClayCard>
         <ClayCard.Body>
           <div className="row">
-            {stocklist.map((item, index) => (
+            {stockList.map((item, index) => (
               <div className="col-md-3" key={index}>
                 <ClayCardWithInfo
                   key={index}
@@ -116,12 +119,22 @@ export default function Products({
                       },
                     },
                   ]}
+                  labels={[
+                    {
+                      displayType: "info",
+                      value: `${item.type.name}`
+                    },
+                    {
+                      displayType: "secondary",
+                      value: `${item.category.name}`
+                    }
+                  ]}
                   stickerProps={{
                     content: "IMG",
                     displayType: "danger",
                   }}
                   title={item.productName}
-                  description={"Price: " + item.price}
+                  description={`Price: ${item.price} Quantity: ${item.quantity}`}
                 />
               </div>
             ))}

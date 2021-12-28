@@ -8,6 +8,7 @@ import { GetAllTypes } from "../../resourceRequests/TypeFunctions";
 import { GetAllCategories } from "../../resourceRequests/CategoryFunctions";
 import { GetAllCarts } from "../../resourceRequests/CartFunctions";
 import { GetAllStock } from "../../resourceRequests/StockFunctions";
+import { GetAllProducts } from "../../resourceRequests/ProductFunctionsREST"
 
 export default function Menu() {
   const btnStyle = {
@@ -19,9 +20,10 @@ export default function Menu() {
   const [showCartWindows, setShowCartWindows] = useState(false);
   const [showConfigWindows, setShowConfigWindows] = useState(false);
   const [typesList, setTypeList] = useState([]);
-  const [stocklist, setStockList] = useState([]);
+  const [stockList, setStockList] = useState([]);
   const [cartList, setCartList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
+  const [productList, setProductList] = useState([]);
 
   const showProducts = () => {
     setShowProductsWindows(true);
@@ -44,6 +46,7 @@ export default function Menu() {
     GetAllCategories().then((data) => setCategoryList(data.items));
     GetAllCarts().then((data) => setCartList(data.items));
     GetAllStock().then((data) => setStockList(data.items));
+    GetAllProducts().then((data) => setProductList(data.items));
   }, []);
 
   const addCart = (obj) => {
@@ -83,12 +86,24 @@ export default function Menu() {
   };
 
   const addProduct = (obj) => {
-    setStockList([...stocklist, obj]);
+    setProductList([...productList, obj]);
   };
 
   const deleteProduct = (id) => {
     var res = [];
-    stocklist.forEach((item) => {
+    productList.forEach((item) => {
+      if (item.id !== id) res.push(item);
+    });
+    setProductList(res);
+  };
+
+  const addStock = () => {
+    GetAllStock().then((data) => {setStockList(data.items)});
+  };
+
+  const deleteStock = (id) => {
+    var res = [];
+    stockList.forEach((item) => {
       if (item.id !== id) res.push(item);
     });
     setStockList(res);
@@ -125,20 +140,24 @@ export default function Menu() {
             onClick={showConfig}
           >
             {" "}
-            config
+            Configuração
           </button>
         </ClayNavigationBar.Item>
       </ClayNavigationBar>
 
       {showProductWindows && (
         <Products
-          stocklist={stocklist}
+          productList={productList}
+          setProductList={setProductList}
+          stockList={stockList}
           setStockList={setStockList}
           typesList={typesList}
           categoryList={categoryList}
           cartList={cartList}
           addProduct={addProduct}
           deleteProduct={deleteProduct}
+          addStock={addStock}
+          deleteStock={deleteStock}
         />
       )}
       {showCartWindows && (

@@ -113,7 +113,7 @@ export default function Carts({ cartList, addCart, deleteCart }) {
                       onClick: () => handleCartDelete(item.id),
                     },
                   ]}
-                  title={item.id}
+                  title={`Lista de desejos ${index+1}`}
                 />
               </div>
             ))}
