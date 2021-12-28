@@ -109,6 +109,24 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/finishBuy/CartId/{cartID}'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartID")})
+	@PATCH
+	@Path("/finishBuy/CartId/{cartID}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Cart")})
+	public Cart finishBuy(
+			@NotNull @Parameter(hidden = true) @PathParam("cartID") Integer
+					cartID)
+			throws Exception {
+		return _toCartDTO(_cartProductsListService.finishCart(cartID));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/addProductoCart/{cartID}/sotckId/{stockId}/quantity/{quantity}'  -u 'test@liferay.com:test'
 	 */
 	@Override

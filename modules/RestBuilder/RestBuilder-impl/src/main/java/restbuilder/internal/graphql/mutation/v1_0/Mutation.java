@@ -74,6 +74,16 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public Cart finishBuy(@GraphQLName("cartID") Integer cartID)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartResource -> cartResource.finishBuy(cartID));
+	}
+
+	@GraphQLField
 	public java.util.Collection<Product> addProductToCart(
 			@GraphQLName("cartID") Integer cartID,
 			@GraphQLName("stockId") Integer stockId,
