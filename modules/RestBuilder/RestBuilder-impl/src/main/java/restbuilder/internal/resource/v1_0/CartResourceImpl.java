@@ -137,41 +137,31 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		}
 		return Page.of(productList);
 	}
-
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/removeProductFromCart/{cartID}/sotckId/{stockId}/quantity/{quantity}'  -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/removeProductFromCart/{cartID}/productId/{productId}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Parameters(
 			value = {
 					@Parameter(in = ParameterIn.PATH, name = "cartID"),
-					@Parameter(in = ParameterIn.PATH, name = "stockId"),
-					@Parameter(in = ParameterIn.PATH, name = "quantity")
+					@Parameter(in = ParameterIn.PATH, name = "productId")
 			}
 	)
 	@PATCH
-	@Path(
-			"/removeProductFromCart/{cartID}/sotckId/{stockId}/quantity/{quantity}"
-	)
+	@Path("/removeProductFromCart/{cartID}/productId/{productId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
 	public Cart removeProductFromCart(
 			@NotNull @Parameter(hidden = true) @PathParam("cartID") Integer
 					cartID,
-			@NotNull @Parameter(hidden = true) @PathParam("stockId") Integer
-					stockId,
-			@NotNull @Parameter(hidden = true) @PathParam("quantity") Integer
-					quantity)
+			@NotNull @Parameter(hidden = true) @PathParam("productId") Integer
+					productId)
 			throws Exception {
-		try{
-			_cartProductsListService.removeProductToCartList(quantity,cartID,stockId);
-			return _toCartDTO(_saleCartService.getSaleCartById(cartID));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+
+		_cartProductsListService.removeProductToCartList(cartID,productId);
+		return _toCartDTO(_saleCartService.getSaleCartById(cartID));
 	}
 
 	/**

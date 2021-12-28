@@ -650,7 +650,7 @@ paths:
           description: ""
       tags: ["Cart"]
 
-  "/removeProductFromCart/{cartID}/sotckId/{stockId}/quantity/{quantity}":
+  "/removeProductFromCart/{cartID}/productId/{productId}":
     patch:
       operationId: removeProductFromCart
       parameters:
@@ -660,13 +660,7 @@ paths:
           schema:
             type: integer
         - in: path
-          name: stockId
-          required: true
-          description: A comma-separated list of user IDs.
-          schema:
-            type: integer
-        - in: path
-          name: quantity
+          name: productId
           required: true
           description: A comma-separated list of user IDs.
           schema:
