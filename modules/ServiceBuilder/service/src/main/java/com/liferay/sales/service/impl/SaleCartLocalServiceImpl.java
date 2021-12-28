@@ -19,6 +19,7 @@ import com.liferay.sales.exception.NoSuchSaleCartException;
 import com.liferay.sales.model.SaleCart;
 import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.service.CartProductsListService;
+import com.liferay.sales.service.CartProductsListServiceUtil;
 import com.liferay.sales.service.base.SaleCartLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -93,8 +94,8 @@ public class SaleCartLocalServiceImpl extends SaleCartLocalServiceBaseImpl {
 
 	public void deleteSaleCartById(long id){
 		try {
-			for (SaleProduct product: cartProductsListService.getAllProductsByCarID(id)) {
-				cartProductsListService.removeProductToCartList(id, product.getCategoryId());
+			for (SaleProduct product: CartProductsListServiceUtil.getAllProductsByCarID(id)) {
+				CartProductsListServiceUtil.removeProductToCartList(id, product.getCategoryId());
 			}
 			saleCartPersistence.remove(id);
 		} catch (NoSuchSaleCartException e) {
@@ -102,7 +103,4 @@ public class SaleCartLocalServiceImpl extends SaleCartLocalServiceBaseImpl {
 
 		}
 	}
-
-	@Reference
-	CartProductsListService cartProductsListService;
 }
