@@ -18,6 +18,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.sales.exception.NoSuchSaleStockException;
 import com.liferay.sales.model.SaleProduct;
 import com.liferay.sales.model.SaleStock;
+import com.liferay.sales.service.StockProductsListServiceUtil;
 import com.liferay.sales.service.base.SaleStockLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
 
@@ -98,6 +99,9 @@ public class SaleStockLocalServiceImpl extends SaleStockLocalServiceBaseImpl {
 
 		public void deletesaleStockById(long id){
 		try {
+			for (SaleProduct product: StockProductsListServiceUtil.getAllProductInStockByStockId(id)) {
+				StockProductsListServiceUtil.removeProductFromStock(product.getProductId());
+			}
 			saleStockPersistence.remove(id);
 		} catch (NoSuchSaleStockException e) {
 			e.printStackTrace();
