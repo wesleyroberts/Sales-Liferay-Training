@@ -17,6 +17,7 @@ import javax.ws.rs.core.UriInfo;
 import org.osgi.annotation.versioning.ProviderType;
 
 import restbuilder.dto.v1_0.Cart;
+import restbuilder.dto.v1_0.Product;
 
 /**
  * To access this resource, run:
@@ -42,10 +43,12 @@ public interface CartResource {
 
 	public Cart createCart() throws Exception;
 
-	public Cart addProductToCart(Integer cartID, Integer productID)
+	public Page<Product> addProductToCart(
+			Integer cartID, Integer stockId, Integer quantity)
 		throws Exception;
 
-	public Cart removeProductFromCart(Integer cartID, Integer productID)
+	public Cart removeProductFromCart(
+			Integer cartID, Integer stockId, Integer quantity)
 		throws Exception;
 
 	public void deleteCartById(Integer cartId) throws Exception;

@@ -51,6 +51,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
 import restbuilder.dto.v1_0.Cart;
+import restbuilder.dto.v1_0.Product;
 
 import restbuilder.resource.v1_0.CartResource;
 
@@ -133,50 +134,58 @@ public abstract class BaseCartResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/addProductoCart/{cartID}/productID/{productID}'  -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/addProductoCart/{cartID}/sotckId/{stockId}/quantity/{quantity}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "cartID"),
-			@Parameter(in = ParameterIn.PATH, name = "productID")
+			@Parameter(in = ParameterIn.PATH, name = "stockId"),
+			@Parameter(in = ParameterIn.PATH, name = "quantity")
 		}
 	)
 	@PATCH
-	@Path("/addProductoCart/{cartID}/productID/{productID}")
+	@Path("/addProductoCart/{cartID}/sotckId/{stockId}/quantity/{quantity}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public Cart addProductToCart(
+	public Page<Product> addProductToCart(
 			@NotNull @Parameter(hidden = true) @PathParam("cartID") Integer
 				cartID,
-			@NotNull @Parameter(hidden = true) @PathParam("productID") Integer
-				productID)
+			@NotNull @Parameter(hidden = true) @PathParam("stockId") Integer
+				stockId,
+			@NotNull @Parameter(hidden = true) @PathParam("quantity") Integer
+				quantity)
 		throws Exception {
 
-		return new Cart();
+		return Page.of(Collections.emptyList());
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/removeProductFromCart/{cartID}/ProductID/{productID}'  -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/RestBuilder/v1.0/removeProductFromCart/{cartID}/sotckId/{stockId}/quantity/{quantity}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "cartID"),
-			@Parameter(in = ParameterIn.PATH, name = "productID")
+			@Parameter(in = ParameterIn.PATH, name = "stockId"),
+			@Parameter(in = ParameterIn.PATH, name = "quantity")
 		}
 	)
 	@PATCH
-	@Path("/removeProductFromCart/{cartID}/ProductID/{productID}")
+	@Path(
+		"/removeProductFromCart/{cartID}/sotckId/{stockId}/quantity/{quantity}"
+	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
 	public Cart removeProductFromCart(
 			@NotNull @Parameter(hidden = true) @PathParam("cartID") Integer
 				cartID,
-			@NotNull @Parameter(hidden = true) @PathParam("productID") Integer
-				productID)
+			@NotNull @Parameter(hidden = true) @PathParam("stockId") Integer
+				stockId,
+			@NotNull @Parameter(hidden = true) @PathParam("quantity") Integer
+				quantity)
 		throws Exception {
 
 		return new Cart();
