@@ -69,9 +69,7 @@ public class CartProductsListLocalServiceImpl
 
 	public List<SaleProduct> addProductToCartList(int quantity,long cartId, long stockId){
 
-		if(stockProductsListLocalService.checkQuantityInStockByStockId(stockId)>=quantity
-				&&
-				getAllProductsByCartID(cartId).toArray().length<stockProductsListLocalService.checkQuantityInStockByStockId(stockId)){
+		if(checkIfCanAddProductInCart(cartId,stockId,quantity)){
 			try{
 				List<SaleProduct> productListInput = new ArrayList<SaleProduct>(StockProductsListServiceUtil.getAllProductInStockByStockId(stockId));
 				List<SaleProduct> productListOutput = new ArrayList<SaleProduct>();
@@ -109,7 +107,7 @@ public class CartProductsListLocalServiceImpl
 	public SaleCart FinishCart(long cartId){
 		try{
 		for (SaleProduct product:getAllProductsByCartID(cartId)) {
-			stockProductsListLocalService.removeProductFromStock(product.getProductId());
+			StockProductsListServiceUtil.removeProductFromStock(product.getProductId());
 		}
 		SaleCart saleCart = saleCartService.getSaleCartById(cartId);
 		saleCart.setAble(false);
@@ -128,6 +126,10 @@ public class CartProductsListLocalServiceImpl
 		}
 	}
 
+	private  boolean checkIfCanAddProductInCart(long cartId,long stockId, int quantity){
+		return (StockProductsListServiceUtil.checkQuantityInStockByStockId(stockId) >= quantity)
+				&& (getAllProductsByCartID(cartId).toArray().length + quantity <= StockProductsListServiceUtil.checkQuantityInStockByStockId(stockId));
+	}
 	private boolean checkIfExistProduct(long cartId, SaleProduct saleProduct){
 		boolean exist = false;
 		for (SaleProduct product:getAllProductsByCartID(cartId)) {
@@ -152,7 +154,6 @@ public class CartProductsListLocalServiceImpl
 	SaleProductService saleProductService;
 	@Reference
 	SaleCartService saleCartService;
-	@Reference
-	StockProductsListLocalService stockProductsListLocalService;
+
 
 }
