@@ -12,6 +12,8 @@ O MVC é um padrão de projetos que contribui na otimização de requisições f
 * Visual: é responsável pela interface que será apresentada, mostrando as informações do modelo para o usuário;
 * Controlador: É a camada responsável por ligar o modelo e a visual, fazendo com que os modelos possam ser repassados para os views e vice- versa.
 
+![alt text for screen readers](./images/mvc.png "Text to show on mouseover").
+
 ### Service Builder 
 Foi escolhido o Service Builder pois ele torna confiável a persistência da API. Essa ferramenta permite que seja mapeado do objeto-relacional, assim gerando as camadas de persistência,  modelo e camadas de serviço a partir de um único arquivo xml.
 
@@ -78,3 +80,6 @@ dependencies {
 }
 
 ```
+
+###OSGI
+![alt text for screen readers](./images/Screenshot%20from%202021-12-29%2014-24-08.png "Text to show on mouseover").
