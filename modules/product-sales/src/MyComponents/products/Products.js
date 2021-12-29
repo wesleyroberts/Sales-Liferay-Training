@@ -1,7 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { DeleteProductByID } from "../../resourceRequests/ProductFunctionsREST";
-import ProductModalEdit from "./Modal/ProductModalEdit";
 import ProductModalCreate from "./Modal/ProductModalCreate";
 import ClayCard, { ClayCardWithInfo } from "@clayui/card";
 import ClayButton from "@clayui/button";
@@ -25,15 +23,8 @@ export default function Products({
 }) {
   const [quantity, setQuantity] = useState(0);
   const [productAddToCartModal, setProductAddToCartModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [objModal, setObjModel] = useState({
-    name: "",
-    category: "",
-    type: "",
-    price: "",
-  });
   const [stock, setStock] = useState({
     productName: "",
     category: "",
@@ -45,15 +36,6 @@ export default function Products({
   const [productId, setproductId] = useState(0);
   const [alertDeleteSuccess, setAlertDeleteSuccess] = useState(false);
 
-  function handleModalEdit(name, category, type, price) {
-    setShowEditModal(true);
-    setObjModel({
-      name: name,
-      category: category,
-      type: type,
-      price: price,
-    });
-  }
   function handleModalCreate() {
     setShowCreateModal(true);
   }
@@ -90,11 +72,6 @@ export default function Products({
         productAddToCartModal={productAddToCartModal}
         setProductAddToCartModal={setProductAddToCartModal}
       />
-      <ProductModalEdit
-        showEditModal={showEditModal}
-        setShowEditModal={setShowEditModal}
-        objModal={objModal}
-      />
       <ProductModalCreate
         typesList={typesList}
         categoryList={categoryList}
@@ -127,18 +104,6 @@ export default function Products({
                     },
                     { type: "divider" },
                     {
-                      label: "edit",
-                      onClick: () => {
-                        handleModalEdit(
-                          item.productName,
-                          item.category.name,
-                          item.type.name,
-                          item.price
-                        );
-                      },
-                    },
-                    { type: "divider" },
-                    {
                       label: "Delete",
                       onClick: () => handleDeleteModal(item),
                     },
@@ -158,7 +123,7 @@ export default function Products({
                     displayType: "danger",
                   }}
                   title={item.productName}
-                  description={`Price: ${item.price} Quantity: ${item.quantity}`}
+                  description={`Price: R$${item.price} Units left: ${item.quantity}`}
                 />
               </div>
             ))}

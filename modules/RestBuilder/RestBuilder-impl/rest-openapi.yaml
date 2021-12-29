@@ -19,7 +19,7 @@ components:
             - $ref: "#/components/schemas/Type"
         category:
           allOf:
-            - $ref: "#/components/schemas/Category"
+        g    - $ref: "#/components/schemas/Category"
         price:
           description: the price of the product.
           type: number

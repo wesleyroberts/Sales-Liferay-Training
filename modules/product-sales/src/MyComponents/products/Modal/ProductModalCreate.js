@@ -124,7 +124,7 @@ export default function ProductModalCreate({
           </ClayModal.Body>
           <ClayModal.Footer
             first={<ClayButton.Group spaced></ClayButton.Group>}
-            last={<ClayButton onClick={onClose}>{"Fechar"}</ClayButton>}
+            last={<ClayButton displayType="secondary" onClick={onClose}>{"Fechar"}</ClayButton>}
           />
         </ClayModal>
       )}
