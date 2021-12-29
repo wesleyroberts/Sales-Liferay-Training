@@ -4,7 +4,6 @@ import ClayButton from "@clayui/button";
 import ClayModal, { useModal } from "@clayui/modal";
 import ClaySlider from "@clayui/slider";
 import { Alert } from "../../alert/CustomAlert";
-import { DeleteProductByID } from "../../resourceRequests/ProductFunctionsREST";
 
 export default function DeleteProductModal({
   stock,
@@ -19,18 +18,7 @@ export default function DeleteProductModal({
   });
   const [alertAddtoCartSuccess, setAlertToCartSuccess] = useState(false);
 
-  // const handleProductDelete = (quantity, stockId) => {
-  //   DeleteProductByID(id)
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error(response.status);
-  //       } else {
-  //         deleteProduct(id);
-  //         setAlertDeleteSuccess(true);
-  //       }
-  //     })
-  //     .catch((error) => console.log("error:", error));
-  // };
+  const handleProductDelete = (quantity, stockId) => {};
 
   return (
     <div>
