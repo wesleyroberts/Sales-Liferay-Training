@@ -3,23 +3,17 @@ import { useState } from "react";
 import ProductModalCreate from "./Modal/ProductModalCreate";
 import ClayCard, { ClayCardWithInfo } from "@clayui/card";
 import ClayButton from "@clayui/button";
-
 import ProductAddToCartModal from "./Modal/ProductAddToCartModal";
 import { Alert } from "../alert/CustomAlert";
 import DeleteProductModal from "./Modal/DeleteProductModal";
 
 export default function Products({
-  productList,
-  setProductList,
   stockList,
-  setStockList,
   typesList,
   categoryList,
   cartList,
   addProduct,
-  deleteProduct,
   addStock,
-  deleteStock,
 }) {
   const [quantity, setQuantity] = useState(0);
   const [productAddToCartModal, setProductAddToCartModal] = useState(false);
@@ -33,7 +27,6 @@ export default function Products({
     id: "",
     quantity: "",
   });
-  const [productId, setproductId] = useState(0);
   const [alertDeleteSuccess, setAlertDeleteSuccess] = useState(false);
 
   function handleModalCreate() {
