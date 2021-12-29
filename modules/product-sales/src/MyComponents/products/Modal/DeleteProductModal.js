@@ -4,6 +4,7 @@ import ClayButton from "@clayui/button";
 import ClayModal, { useModal } from "@clayui/modal";
 import ClaySlider from "@clayui/slider";
 import { Alert } from "../../alert/CustomAlert";
+import { DeleteProductByID } from "../../resourceRequests/ProductFunctionsREST";
 
 export default function DeleteProductModal({
   stock,

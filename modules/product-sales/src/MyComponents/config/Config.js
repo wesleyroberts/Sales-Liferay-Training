@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import ClayCard, { ClayCardWithInfo } from "@clayui/card";
 import ClayButton from "@clayui/button";
-import ClayTable from "@clayui/table";
 import TypeCreateModal from "./modalType/TypeCreateModal";
 import { DeleteTypeByID } from "../../resourceRequests/TypeFunctions";
-import TypeEditModal from "./modalType/TypeEditModal";
 import CategoryCreateModal from "./modalCategory/CategoryCreateModal";
-import CategoryEditModal from "./modalCategory/CategoryEditModal";
 import { DeleteCategoryByID } from "../../resourceRequests/CategoryFunctions";
 
 export default function Config({
@@ -18,40 +15,11 @@ export default function Config({
   deleteType,
 }) {
   const [showCreateModalType, setShowCreateModalType] = useState(false);
-  const [showEditModalType, setShowEditModalType] = useState(false);
-  const [objModalEditType, setObjModelEditType] = useState({
-    name: "",
-    tax: "",
-    id: "",
-  });
   const [showCreateModalCategory, setShowCreateModalCategory] = useState(false);
-  const [showEditModalCategory, setShowEditModalCategory] = useState(false);
-  const [objModalEditCategory, setObjModelEditCategory] = useState({
-    name: "",
-    tax: "",
-    id: "",
-  });
 
-  function handleModalEditType(name, tax, id) {
-    setShowEditModalType(true);
-    setObjModelEditType({
-      name: name,
-      tax: tax,
-      id: id,
-    });
-  }
 
   function handleModalCreateType() {
     setShowCreateModalType(true);
-  }
-
-  function handleModalEditCategory(name, tax, id) {
-    setShowEditModalCategory(true);
-    setObjModelEditCategory({
-      name: name,
-      tax: tax,
-      id: id,
-    });
   }
 
   function handleModalCreateCategory() {
@@ -65,20 +33,10 @@ export default function Config({
         setShowCreateModalType={setShowCreateModalType}
         addType={addType}
       />
-      <TypeEditModal
-        showEditModalType={showEditModalType}
-        setShowEditModalType={setShowEditModalType}
-        objModalEditType={objModalEditType}
-      />
       <CategoryCreateModal
         showCreateModalCategory={showCreateModalCategory}
         setShowCreateModalCategory={setShowCreateModalCategory}
         addCategory={addCategory}
-      />
-      <CategoryEditModal
-        showEditModalCategory={showEditModalCategory}
-        setShowEditModalCategory={setShowEditModalCategory}
-        objModalEditCategory={objModalEditCategory}
       />
       <ClayCard>
         <ClayCard.Body>
@@ -89,13 +47,6 @@ export default function Config({
                   key={index}
                   id={index}
                   actions={[
-                    {
-                      label: "edit",
-                      onClick: () => {
-                        handleModalEditType(item.name, item.tax, item.id);
-                      },
-                    },
-                    { type: "divider" },
                     {
                       href: "#",
                       label: "Delete",
@@ -109,6 +60,16 @@ export default function Config({
                     displayType: "danger",
                   }}
                   title={item.name}
+                  symbol="tag"
+                  labels={[
+                    item.tax ? {
+                      displayType: "info",
+                      value: `Taxa: ${item.tax*100}%`,
+                    } : {
+                      displayType: "success",
+                      value: `Taxa zero`,
+                    }
+                  ]}
                 />
               </div>
             ))}
@@ -131,13 +92,6 @@ export default function Config({
                   id={index}
                   actions={[
                     {
-                      label: "edit",
-                      onClick: () => {
-                        handleModalEditCategory(item.name, item.tax, item.id);
-                      },
-                    },
-                    { type: "divider" },
-                    {
                       label: "Delete",
                       onClick: () => {
                         DeleteCategoryByID(item.id), deleteCategory(item.id);
@@ -149,6 +103,16 @@ export default function Config({
                     displayType: "danger",
                   }}
                   title={item.name}
+                  symbol="categories"
+                  labels={[
+                    item.tax ? {
+                      displayType: "info",
+                      value: `Taxa: ${item.tax*100}%`,
+                    } : {
+                      displayType: "success",
+                      value: `Taxa zero`,
+                    }
+                  ]}
                 />
               </div>
             ))}

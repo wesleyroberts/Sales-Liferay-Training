@@ -143,7 +143,7 @@ export default function Carts({ cartList, addCart, deleteCart, updateCart }) {
                     }
                   ]}
                   title={`Lista de desejos ${item.id}`}
-                  symbol={item.able ? "folder" : "check"}
+                  symbol={item.able ? "list" : "check"}
                 />
               </div>
             ))}
