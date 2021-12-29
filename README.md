@@ -81,5 +81,5 @@ dependencies {
 
 ```
 
-###OSGI
+### OSGI
 ![alt text for screen readers](./images/Screenshot%20from%202021-12-29%2014-24-08.png "Text to show on mouseover").
