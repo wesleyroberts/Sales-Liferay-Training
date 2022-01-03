@@ -74,6 +74,9 @@ public interface SaleProductLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public SaleProduct addSaleProduct(SaleProduct saleProduct);
 
+	public List<SaleProduct> addSaleProductInScale(
+		String name, double price, long categoryId, long typeId, int quantity);
+
 	/**
 	 * @throws PortalException
 	 */
@@ -88,12 +91,6 @@ public interface SaleProductLocalService
 	 */
 	@Transactional(enabled = false)
 	public SaleProduct createSaleProduct(long productId);
-
-	public SaleProduct createSaleProduct(
-		String name, double price, long categoryId, long typeId);
-
-	public List<SaleProduct> createSaleProductInScale(
-		String name, double price, long categoryId, long typeId, int quantity);
 
 	/**
 	 * @throws PortalException
@@ -236,9 +233,6 @@ public interface SaleProductLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SaleProduct getSaleProduct(long productId) throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public SaleProduct getSaleProductByName(String name);
 
 	/**
 	 * Returns a range of all the sale products.

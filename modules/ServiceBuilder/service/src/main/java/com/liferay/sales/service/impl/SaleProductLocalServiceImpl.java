@@ -56,20 +56,8 @@ public class SaleProductLocalServiceImpl
 	 *
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.SaleProductLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleProductLocalServiceUtil</code>.
 	 */
-	public SaleProduct createSaleProduct(String name, double price,long categoryId, long typeId){
 
-		SaleProduct product = saleProductPersistence.create(counterLocalService.increment());
-		if(!(name == null || name.equals(""))){
-			product.setName(name);
-			product.setPrice(price);
-			product.setCategoryId(categoryId);
-			product.setTypeId(typeId);
-			return saleProductPersistence.update(applyTax(product));
-		}else{
-			return null;
-		}
-	}
-	public List<SaleProduct> createSaleProductInScale(String name, double price,long categoryId, long typeId,int quantity){
+	public List<SaleProduct> addSaleProductInScale(String name, double price,long categoryId, long typeId,int quantity){
 		List<SaleProduct> saleProductList = new ArrayList<SaleProduct>();
 		try {
 			for (int i = 0; i < quantity; i++) {
@@ -79,7 +67,6 @@ public class SaleProductLocalServiceImpl
 				product.setCategoryId(categoryId);
 				product.setTypeId(typeId);
 				saleProductList.add(saleProductPersistence.update(applyTax(product)));
-				System.out.println(product.getProductId());
 				try{
 					StockProductsListServiceUtil.addProductToStock(product);
 				} catch (Exception e) {
@@ -136,15 +123,6 @@ public class SaleProductLocalServiceImpl
 		}
 	}
 
-	public SaleProduct getSaleProductByName(String name){
-		try {
-			return saleProductPersistence.findByName(name);
-		} catch (NoSuchSaleProductException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
 	public void deleteSaleProductById(long id){
 		try {
 			StockProductsListLocalServiceUtil.removeProductFromStock(id);
@@ -153,8 +131,6 @@ public class SaleProductLocalServiceImpl
 			e.printStackTrace();
 		}
 	}
-
-
 
 	private SaleProduct applyTax(SaleProduct product)
 	{

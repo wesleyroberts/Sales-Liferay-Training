@@ -58,6 +58,13 @@ public class SaleProductLocalServiceUtil {
 		return getService().addSaleProduct(saleProduct);
 	}
 
+	public static List<SaleProduct> addSaleProductInScale(
+		String name, double price, long categoryId, long typeId, int quantity) {
+
+		return getService().addSaleProductInScale(
+			name, price, categoryId, typeId, quantity);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -76,19 +83,6 @@ public class SaleProductLocalServiceUtil {
 	 */
 	public static SaleProduct createSaleProduct(long productId) {
 		return getService().createSaleProduct(productId);
-	}
-
-	public static SaleProduct createSaleProduct(
-		String name, double price, long categoryId, long typeId) {
-
-		return getService().createSaleProduct(name, price, categoryId, typeId);
-	}
-
-	public static List<SaleProduct> createSaleProductInScale(
-		String name, double price, long categoryId, long typeId, int quantity) {
-
-		return getService().createSaleProductInScale(
-			name, price, categoryId, typeId, quantity);
 	}
 
 	/**
@@ -267,10 +261,6 @@ public class SaleProductLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getSaleProduct(productId);
-	}
-
-	public static SaleProduct getSaleProductByName(String name) {
-		return getService().getSaleProductByName(name);
 	}
 
 	/**
