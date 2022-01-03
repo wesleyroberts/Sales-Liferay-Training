@@ -2,8 +2,6 @@
 ## Tecnologias usadas no Pojeto
 ### API Rest
 Optei por desenvolver uma API para o  desafio em questão, atendendo todas as regras de negócio. Criando Endpoints para possibilitar o acesso Rest assim flexibilizando  o consumo da Aplicação seguindo o padrão de projetos MVC, onde a camada visual será em ReactJS.
-A camada de resource, também conhecida  como controller, foi construída a partir 
-
 
 ### MVC
 O MVC é um padrão de projetos que contribui na otimização de requisições feitas pelos usuários.Focada na implementação de interfaces, ela divide e dá a aplicação 3 interconectadas partes, modelo, controlador e visual;
