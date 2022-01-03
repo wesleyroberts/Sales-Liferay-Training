@@ -52,14 +52,14 @@ import com.liferay.sales.service.SaleProductServiceUtil;
 public class SaleProductServiceHttp {
 
 	public static java.util.List<com.liferay.sales.model.SaleProduct>
-		createSaleProductInScale(
+		addSaleProductInScale(
 			HttpPrincipal httpPrincipal, String name, double price,
 			long categoryId, long typeId, int quantity) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				SaleProductServiceUtil.class, "createSaleProductInScale",
-				_createSaleProductInScaleParameterTypes0);
+				SaleProductServiceUtil.class, "addSaleProductInScale",
+				_addSaleProductInScaleParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, name, price, categoryId, typeId, quantity);
@@ -210,7 +210,7 @@ public class SaleProductServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(
 		SaleProductServiceHttp.class);
 
-	private static final Class<?>[] _createSaleProductInScaleParameterTypes0 =
+	private static final Class<?>[] _addSaleProductInScaleParameterTypes0 =
 		new Class[] {
 			String.class, double.class, long.class, long.class, int.class
 		};

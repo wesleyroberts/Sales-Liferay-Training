@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -35,38 +35,38 @@ import java.util.List;
  * @see SaleProductServiceBaseImpl
  */
 @Component(
-	property = {
-		"json.web.service.context.name=salestaxe",
-		"json.web.service.context.path=SaleProduct"
-	},
-	service = AopService.class
+        property = {
+                "json.web.service.context.name=salestaxe",
+                "json.web.service.context.path=SaleProduct"
+        },
+        service = AopService.class
 )
 public class SaleProductServiceImpl extends SaleProductServiceBaseImpl {
 
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use <code>com.liferay.sales.service.SaleProductServiceUtil</code> to access the sale product remote service.
-	 */
+    /*
+     * NOTE FOR DEVELOPERS:
+     *
+     * Never reference this class directly. Always use <code>com.liferay.sales.service.SaleProductServiceUtil</code> to access the sale product remote service.
+     */
 
-	public List<SaleProduct> createSaleProductInScale(String name, double price,long categoryId, long typeId,int quantity){
-		return saleProductLocalService.addSaleProductInScale(name, price, categoryId, typeId,quantity);
-	}
+    public List<SaleProduct> addSaleProductInScale(String name, double price, long categoryId, long typeId, int quantity) {
+        return saleProductLocalService.addSaleProductInScale(name, price, categoryId, typeId, quantity);
+    }
 
-	public List<SaleProduct> getAllSaleProducts(){
-		return saleProductLocalService.getAllSaleProduct();
-	}
+    public List<SaleProduct> getAllSaleProducts() {
+        return saleProductLocalService.getAllSaleProduct();
+    }
 
-	public SaleProduct updateSaleProduct(long productId, String name, double price, long categoryId, long typeId){
-		return saleProductLocalService.updateSaleProduct(productId, name, price, categoryId, typeId);
-	}
+    public SaleProduct updateSaleProduct(long productId, String name, double price, long categoryId, long typeId) {
+        return saleProductLocalService.updateSaleProduct(productId, name, price, categoryId, typeId);
+    }
 
-	public SaleProduct getSaleProductById(long id){
-		return saleProductLocalService.getSalePoductById(id);
-	}
+    public SaleProduct getSaleProductById(long id) {
+        return saleProductLocalService.getSalePoductById(id);
+    }
 
-	public void deleteById(long id){
-		 saleProductLocalService.deleteSaleProductById(id);
-	}
+    public void deleteById(long id) {
+        saleProductLocalService.deleteSaleProductById(id);
+    }
 
 }

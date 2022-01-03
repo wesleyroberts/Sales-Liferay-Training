@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -45,120 +45,119 @@ import java.util.List;
  * @see SaleProductLocalServiceBaseImpl
  */
 @Component(
-	property = "model.class.name=com.liferay.sales.model.SaleProduct",
-	service = AopService.class
+        property = "model.class.name=com.liferay.sales.model.SaleProduct",
+        service = AopService.class
 )
 public class SaleProductLocalServiceImpl
-	extends SaleProductLocalServiceBaseImpl {
+        extends SaleProductLocalServiceBaseImpl {
 
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Use <code>com.liferay.sales.service.SaleProductLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleProductLocalServiceUtil</code>.
-	 */
+    /*
+     * NOTE FOR DEVELOPERS:
+     *
+     * Never reference this class directly. Use <code>com.liferay.sales.service.SaleProductLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleProductLocalServiceUtil</code>.
+     */
 
-	public List<SaleProduct> addSaleProductInScale(String name, double price,long categoryId, long typeId,int quantity){
-		List<SaleProduct> saleProductList = new ArrayList<SaleProduct>();
-		try {
-			for (int i = 0; i < quantity; i++) {
-				SaleProduct product = saleProductPersistence.create(counterLocalService.increment());
-				product.setName(name);
-				product.setPrice(price);
-				product.setCategoryId(categoryId);
-				product.setTypeId(typeId);
-				saleProductList.add(saleProductPersistence.update(applyTax(product)));
-				try{
-					StockProductsListServiceUtil.addProductToStock(product);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+    public List<SaleProduct> addSaleProductInScale(String name, double price, long categoryId, long typeId, int quantity) {
+        List<SaleProduct> saleProductList = new ArrayList<SaleProduct>();
+        try {
+            for (int i = 0; i < quantity; i++) {
+                SaleProduct product = saleProductPersistence.create(counterLocalService.increment());
+                product.setName(name);
+                product.setPrice(price);
+                product.setCategoryId(categoryId);
+                product.setTypeId(typeId);
+                saleProductList.add(saleProductPersistence.update(applyTax(product)));
+                try {
+                    StockProductsListServiceUtil.addProductToStock(product);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-			}
-			return saleProductList;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+            }
+            return saleProductList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
-	public SaleProduct updateSaleProduct(long productId, String name, double price, long categoryId, long typeId){
+    public SaleProduct updateSaleProduct(long productId, String name, double price, long categoryId, long typeId) {
 
-		SaleProduct updateProduct = null;
-		try {
-			updateProduct = saleProductPersistence.findByPrimaryKey(productId);
-		} catch (NoSuchSaleProductException e) {
-			e.printStackTrace();
-		}
-		if (updateProduct != null) {
-			if(!(name == null || name.equals(""))) {
-				updateProduct.setName(name);
-				updateProduct.setPrice(price);
-				updateProduct.setCategoryId(categoryId);
-				updateProduct.setTypeId(typeId);
-				return saleProductPersistence.update(updateProduct);
-			}else{
-				return null;
-			}
-		}else{
-			return null;
-		}
-	}
+        SaleProduct updateProduct = null;
+        try {
+            updateProduct = saleProductPersistence.findByPrimaryKey(productId);
+        } catch (NoSuchSaleProductException e) {
+            e.printStackTrace();
+        }
+        if (updateProduct != null) {
+            if (!(name == null || name.equals(""))) {
+                updateProduct.setName(name);
+                updateProduct.setPrice(price);
+                updateProduct.setCategoryId(categoryId);
+                updateProduct.setTypeId(typeId);
+                return saleProductPersistence.update(updateProduct);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 
-	public List<SaleProduct> getAllSaleProduct(){
-		try {
-			return saleProductPersistence.findAll();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+    public List<SaleProduct> getAllSaleProduct() {
+        try {
+            return saleProductPersistence.findAll();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-	public SaleProduct getSalePoductById(long id){
-		try {
-			return saleProductPersistence.findByPrimaryKey(id);
-		} catch ( NoSuchSaleProductException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+    public SaleProduct getSalePoductById(long id) {
+        try {
+            return saleProductPersistence.findByPrimaryKey(id);
+        } catch (NoSuchSaleProductException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-	public void deleteSaleProductById(long id){
-		try {
-			StockProductsListLocalServiceUtil.removeProductFromStock(id);
-			saleProductPersistence.remove(id);
-		} catch (NoSuchSaleProductException e) {
-			e.printStackTrace();
-		}
-	}
+    public void deleteSaleProductById(long id) {
+        try {
+            StockProductsListLocalServiceUtil.removeProductFromStock(id);
+            saleProductPersistence.remove(id);
+        } catch (NoSuchSaleProductException e) {
+            e.printStackTrace();
+        }
+    }
 
-	private SaleProduct applyTax(SaleProduct product)
-	{
-		List<String> list = Arrays.asList("book","medical","food");
-		SaleType type = _saleTypeService.getSaleTypeByID(product.getTypeId());
-		SaleCategory category = _saleCategoryService.getSaleCategoryById(product.getCategoryId());
-		double SumOfTaxByType = product.getPrice() * type.getTax();
-		double SumOfTaxByCategory = product.getPrice() * category.getTax();
+    private SaleProduct applyTax(SaleProduct product) {
+        List<String> list = Arrays.asList("book", "medical", "food");
+        SaleType type = _saleTypeService.getSaleTypeByID(product.getTypeId());
+        SaleCategory category = _saleCategoryService.getSaleCategoryById(product.getCategoryId());
+        double SumOfTaxByType = product.getPrice() * type.getTax();
+        double SumOfTaxByCategory = product.getPrice() * category.getTax();
 
-		if(!list.contains(category.getName())) {
-			product.
-					setPrice(
-							product.getPrice() + SumOfTaxByType + SumOfTaxByCategory
-					);
-		}else{
-			product.
-					setPrice(
-							product.getPrice() + SumOfTaxByType
-					);
-		}
+        if (!list.contains(category.getName())) {
+            product.
+                    setPrice(
+                            product.getPrice() + SumOfTaxByType + SumOfTaxByCategory
+                    );
+        } else {
+            product.
+                    setPrice(
+                            product.getPrice() + SumOfTaxByType
+                    );
+        }
 
-		return product;
+        return product;
 
-	}
+    }
 
-	@Reference
-	SaleCategoryService _saleCategoryService;
-	@Reference
-	SaleTypeService _saleTypeService;
+    @Reference
+    SaleCategoryService _saleCategoryService;
+    @Reference
+    SaleTypeService _saleTypeService;
 
 }

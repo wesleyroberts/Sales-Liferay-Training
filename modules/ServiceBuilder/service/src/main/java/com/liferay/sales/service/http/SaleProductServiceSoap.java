@@ -64,14 +64,14 @@ import java.rmi.RemoteException;
 public class SaleProductServiceSoap {
 
 	public static com.liferay.sales.model.SaleProductSoap[]
-			createSaleProductInScale(
+			addSaleProductInScale(
 				String name, double price, long categoryId, long typeId,
 				int quantity)
 		throws RemoteException {
 
 		try {
 			java.util.List<com.liferay.sales.model.SaleProduct> returnValue =
-				SaleProductServiceUtil.createSaleProductInScale(
+				SaleProductServiceUtil.addSaleProductInScale(
 					name, price, categoryId, typeId, quantity);
 
 			return com.liferay.sales.model.SaleProductSoap.toSoapModels(
