@@ -61,6 +61,7 @@ public interface SaleStockLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleStockLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the sale stock local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link SaleStockLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public SaleStock addSaleStock();
 
 	/**
 	 * Adds the sale stock to the database. Also notifies the appropriate model listeners.
@@ -80,8 +81,6 @@ public interface SaleStockLocalService
 	 */
 	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
-
-	public SaleStock createSaleStock();
 
 	/**
 	 * Creates a new sale stock with the primary key. Does not add the sale stock to the database.
