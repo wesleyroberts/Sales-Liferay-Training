@@ -5,36 +5,37 @@ components:
       description: Stock
       properties:
         id:
-          description: The category name.
+          description: Stock's ID.
           type: integer
         quantity:
-          description: The tax category.
+          description: Stock's quantity.
           type: integer
         productName:
-          description: name of the product
+          description: Product's name.
           type: string
         type:
-          description: type of the product
+          description: Product's type.
           allOf:
             - $ref: "#/components/schemas/Type"
         category:
+          description: Product's category.
           allOf:
-        g    - $ref: "#/components/schemas/Category"
+            - $ref: "#/components/schemas/Category"
         price:
-          description: the price of the product.
+          description: Product's price.
           type: number
       type: object
     Category:
       description: Category
       properties:
         name:
-          description: The category name.
+          description: Category's name.
           type: string
         id:
-          description: The category ID.
+          description: category's ID.
           type: integer
         tax:
-          description: The tax category.
+          description: Category's tax.
           format: double
           type: number
       type: object
@@ -42,10 +43,10 @@ components:
       description: Category
       properties:
         name:
-          description: The category name.
+          description: Category's name.
           type: string
         tax:
-          description: The tax category.
+          description: Category's tax.
           format: double
           type: number
       type: object
@@ -53,13 +54,13 @@ components:
       description: Type
       properties:
         name:
-          description: The type name.
+          description: Type's name.
           type: string
         id:
-          description: The type ID.
+          description: type's Id.
           type: integer
         tax:
-          description: the type tax.
+          description: Type's tax.
           format: double
           type: number
       type: object
@@ -67,10 +68,10 @@ components:
       description: Type
       properties:
         name:
-          description: The type name.
+          description: Type's name.
           type: string
         tax:
-          description: the type tax.
+          description: Type's tax.
           format: double
           type: number
       type: object
@@ -78,30 +79,30 @@ components:
       description: Product
       properties:
         name:
-          description: The entity name.
+          description: Product's name.
           type: string
         categoryId:
-          description: The category ID.
+          description: Category's ID.
           type: integer
         typeId:
-          description: The type ID.
+          description: Type's ID.
           type: integer
         price:
-          description: The price product.
+          description: product's price.
           format: double
           type: number
         quantity:
-          description: number products that will be create
+          description: product's quantity will be create
           type: integer
       type: object
     Product:
       description: Product
       properties:
         name:
-          description: The entity name.
+          description: Product's name.
           type: string
         id:
-          description: The entity ID.
+          description: Product's ID.
           type: integer
         category:
           allOf:
@@ -110,7 +111,7 @@ components:
           allOf:
             - $ref: "#/components/schemas/Type"
         price:
-          description: The price product.
+          description: Products's Price.
           format: double
           type: number
       type: object
@@ -118,7 +119,7 @@ components:
       description: Cart
       properties:
         id:
-          description: The Cart ID.
+          description: Cart's Id.
           type: integer
         able:
           description: Show if the cart is able or not
@@ -131,13 +132,13 @@ components:
           type: array
           items:
             type: object
-            description: array de produtos
+            description: Product's array.
             properties:
               name:
-                description: The entity name.
+                description: Product's name.
                 type: string
               id:
-                description: The entity ID.
+                description: Products' ID.
                 type: integer
               category:
                 allOf:
@@ -146,7 +147,7 @@ components:
                 allOf:
                   - $ref: "#/components/schemas/Type"
               price:
-                description: The price product.
+                description: Product's price.
                 format: double
                 type: number
       type: object
@@ -644,18 +645,19 @@ paths:
         - in: path
           name: cartID
           required: true
+          description: Cart's ID.
           schema:
             type: integer
         - in: path
           name: stockId
           required: true
-          description: A comma-separated list of user IDs.
+          description: stock's ID.
           schema:
             type: integer
         - in: path
           name: quantity
           required: true
-          description: A comma-separated list of user IDs.
+          description: quantity products you want add.
           schema:
             type: integer
       responses:
@@ -681,12 +683,13 @@ paths:
         - in: path
           name: cartID
           required: true
+          description: Cart's Id.
           schema:
             type: integer
         - in: path
           name: productId
           required: true
-          description: A comma-separated list of user IDs.
+          description: Product's Id.
           schema:
             type: integer
       responses:

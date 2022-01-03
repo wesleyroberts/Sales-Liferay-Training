@@ -49,6 +49,13 @@ public class SaleTypeLocalServiceWrapper
 		return _saleTypeLocalService.addSaleType(saleType);
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleType addSaleType(
+		String name, double tax) {
+
+		return _saleTypeLocalService.addSaleType(name, tax);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -69,13 +76,6 @@ public class SaleTypeLocalServiceWrapper
 	@Override
 	public com.liferay.sales.model.SaleType createSaleType(long typeId) {
 		return _saleTypeLocalService.createSaleType(typeId);
-	}
-
-	@Override
-	public com.liferay.sales.model.SaleType createSaleType(
-		String name, double tax) {
-
-		return _saleTypeLocalService.createSaleType(name, tax);
 	}
 
 	/**

@@ -63,6 +63,23 @@ import java.rmi.RemoteException;
 @Deprecated
 public class SaleStockServiceSoap {
 
+	public static com.liferay.sales.model.SaleStockSoap addSaleStock()
+		throws RemoteException {
+
+		try {
+			com.liferay.sales.model.SaleStock returnValue =
+				SaleStockServiceUtil.addSaleStock();
+
+			return com.liferay.sales.model.SaleStockSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.sales.model.SaleStockSoap[] getAllSaleStock()
 		throws RemoteException {
 
@@ -89,23 +106,6 @@ public class SaleStockServiceSoap {
 			com.liferay.sales.model.SaleStock returnValue =
 				SaleStockServiceUtil.updateStock(
 					stockId, quantity, name, typeId, categoryId, price);
-
-			return com.liferay.sales.model.SaleStockSoap.toSoapModel(
-				returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static com.liferay.sales.model.SaleStockSoap createSaleStock()
-		throws RemoteException {
-
-		try {
-			com.liferay.sales.model.SaleStock returnValue =
-				SaleStockServiceUtil.createSaleStock();
 
 			return com.liferay.sales.model.SaleStockSoap.toSoapModel(
 				returnValue);

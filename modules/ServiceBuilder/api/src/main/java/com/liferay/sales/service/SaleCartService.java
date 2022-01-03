@@ -53,7 +53,7 @@ public interface SaleCartService extends BaseService {
 	 */
 	public SaleCart addProductPriceToCartTotalValue(double price, long cartId);
 
-	public SaleCart createSaleCartById();
+	public SaleCart addSaleCartById();
 
 	public void deleteSaleCartById(long cartId);
 

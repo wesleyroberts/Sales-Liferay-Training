@@ -31,8 +31,8 @@ public class SaleStockServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.SaleStock createSaleStock() {
-		return _saleStockService.createSaleStock();
+	public com.liferay.sales.model.SaleStock addSaleStock() {
+		return _saleStockService.addSaleStock();
 	}
 
 	@Override

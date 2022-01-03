@@ -74,6 +74,8 @@ public interface SaleTypeLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public SaleType addSaleType(SaleType saleType);
 
+	public SaleType addSaleType(String name, double tax);
+
 	/**
 	 * @throws PortalException
 	 */
@@ -88,8 +90,6 @@ public interface SaleTypeLocalService
 	 */
 	@Transactional(enabled = false)
 	public SaleType createSaleType(long typeId);
-
-	public SaleType createSaleType(String name, double tax);
 
 	/**
 	 * @throws PortalException

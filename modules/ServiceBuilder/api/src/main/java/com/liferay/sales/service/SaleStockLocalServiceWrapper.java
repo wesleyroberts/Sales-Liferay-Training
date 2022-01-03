@@ -32,6 +32,11 @@ public class SaleStockLocalServiceWrapper
 		_saleStockLocalService = saleStockLocalService;
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleStock addSaleStock() {
+		return _saleStockLocalService.addSaleStock();
+	}
+
 	/**
 	 * Adds the sale stock to the database. Also notifies the appropriate model listeners.
 	 *
@@ -58,11 +63,6 @@ public class SaleStockLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _saleStockLocalService.createPersistedModel(primaryKeyObj);
-	}
-
-	@Override
-	public com.liferay.sales.model.SaleStock createSaleStock() {
-		return _saleStockLocalService.createSaleStock();
 	}
 
 	/**

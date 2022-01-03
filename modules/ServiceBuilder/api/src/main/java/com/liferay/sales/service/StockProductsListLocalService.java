@@ -78,10 +78,6 @@ public interface StockProductsListLocalService
 	public StockProductsList addStockProductsList(
 		StockProductsList stockProductsList);
 
-	public Boolean checkIfExistStock(SaleProduct product);
-
-	public int checkQuantityInStockByStockId(long stcokId);
-
 	/**
 	 * @throws PortalException
 	 */
@@ -201,6 +197,8 @@ public interface StockProductsListLocalService
 	public long dynamicQueryCount(
 		DynamicQuery dynamicQuery, Projection projection);
 
+	public Boolean existStock(SaleProduct product);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public StockProductsList fetchStockProductsList(long productId);
 
@@ -266,6 +264,8 @@ public interface StockProductsListLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getStockProductsListsCount();
+
+	public int quantityInStockByStockId(long stockId);
 
 	public void removeProductFromStock(long productID);
 

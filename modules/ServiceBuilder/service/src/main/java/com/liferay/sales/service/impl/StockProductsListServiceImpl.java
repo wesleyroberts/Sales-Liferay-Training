@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -36,42 +36,46 @@ import java.util.List;
  * @see StockProductsListServiceBaseImpl
  */
 @Component(
-	property = {
-		"json.web.service.context.name=salestaxe",
-		"json.web.service.context.path=StockProductsList"
-	},
-	service = AopService.class
+        property = {
+                "json.web.service.context.name=salestaxe",
+                "json.web.service.context.path=StockProductsList"
+        },
+        service = AopService.class
 )
 public class StockProductsListServiceImpl
-	extends StockProductsListServiceBaseImpl {
+        extends StockProductsListServiceBaseImpl {
 
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use <code>com.liferay.sales.service.StockProductsListServiceUtil</code> to access the stock products list remote service.
-	 */
+    /*
+     * NOTE FOR DEVELOPERS:
+     *
+     * Never reference this class directly. Always use <code>com.liferay.sales.service.StockProductsListServiceUtil</code> to access the stock products list remote service.
+     */
 
-	public SaleStock addProductToStock(SaleProduct product){
-		return stockProductsListLocalService.addProductToStock(product);
-	}
+    public SaleStock addProductToStock(SaleProduct product) {
+        return stockProductsListLocalService.addProductToStock(product);
+    }
 
-	public List<SaleProduct> getAllProductInStock(){
-		return stockProductsListLocalService.getAllProductInStock();
-	}
+    public List<SaleProduct> getAllProductInStock() {
+        return stockProductsListLocalService.getAllProductInStock();
+    }
 
-	public List<SaleProduct> getAllProductInStockByProductName(String name){
-		return stockProductsListLocalService.getAllProductInStockByProductName(name);
-	}
-	public List<SaleProduct> getAllProductInStockByStockId(long stockId){
-		return stockProductsListLocalService.getAllProductInStockByStockId(stockId);
-	}
-	public void deleteStockProductListByID(long id){
-		 stockProductsListLocalService.deleteStockProductListByID(id);
-	}
-	public void removeProductFromStock(long productID){
-		stockProductsListLocalService.removeProductFromStock(productID);
-	}
-	public int checkQuantityInStockByStockId(long stockId){
-		return stockProductsListLocalService.checkQuantityInStockByStockId(stockId);
-	}
+    public List<SaleProduct> getAllProductInStockByProductName(String name) {
+        return stockProductsListLocalService.getAllProductInStockByProductName(name);
+    }
+
+    public List<SaleProduct> getAllProductInStockByStockId(long stockId) {
+        return stockProductsListLocalService.getAllProductInStockByStockId(stockId);
+    }
+
+    public void deleteStockProductListByID(long id) {
+        stockProductsListLocalService.deleteStockProductListByID(id);
+    }
+
+    public void removeProductFromStock(long productID) {
+        stockProductsListLocalService.removeProductFromStock(productID);
+    }
+
+    public int checkQuantityInStockByStockId(long stockId) {
+        return stockProductsListLocalService.quantityInStockByStockId(stockId);
+    }
 }

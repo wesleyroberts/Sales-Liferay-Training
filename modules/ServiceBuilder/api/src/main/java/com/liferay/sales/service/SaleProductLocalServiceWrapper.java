@@ -50,6 +50,16 @@ public class SaleProductLocalServiceWrapper
 		return _saleProductLocalService.addSaleProduct(saleProduct);
 	}
 
+	@Override
+	public java.util.List<com.liferay.sales.model.SaleProduct>
+		addSaleProductInScale(
+			String name, double price, long categoryId, long typeId,
+			int quantity) {
+
+		return _saleProductLocalService.addSaleProductInScale(
+			name, price, categoryId, typeId, quantity);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -72,24 +82,6 @@ public class SaleProductLocalServiceWrapper
 		long productId) {
 
 		return _saleProductLocalService.createSaleProduct(productId);
-	}
-
-	@Override
-	public com.liferay.sales.model.SaleProduct createSaleProduct(
-		String name, double price, long categoryId, long typeId) {
-
-		return _saleProductLocalService.createSaleProduct(
-			name, price, categoryId, typeId);
-	}
-
-	@Override
-	public java.util.List<com.liferay.sales.model.SaleProduct>
-		createSaleProductInScale(
-			String name, double price, long categoryId, long typeId,
-			int quantity) {
-
-		return _saleProductLocalService.createSaleProductInScale(
-			name, price, categoryId, typeId, quantity);
 	}
 
 	/**
@@ -299,13 +291,6 @@ public class SaleProductLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _saleProductLocalService.getSaleProduct(productId);
-	}
-
-	@Override
-	public com.liferay.sales.model.SaleProduct getSaleProductByName(
-		String name) {
-
-		return _saleProductLocalService.getSaleProductByName(name);
 	}
 
 	/**

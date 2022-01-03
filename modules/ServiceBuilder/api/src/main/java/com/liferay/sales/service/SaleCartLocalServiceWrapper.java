@@ -57,6 +57,11 @@ public class SaleCartLocalServiceWrapper
 		return _saleCartLocalService.addSaleCart(saleCart);
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleCart addSaleCartById() {
+		return _saleCartLocalService.addSaleCartById();
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -77,11 +82,6 @@ public class SaleCartLocalServiceWrapper
 	@Override
 	public com.liferay.sales.model.SaleCart createSaleCart(long cartId) {
 		return _saleCartLocalService.createSaleCart(cartId);
-	}
-
-	@Override
-	public com.liferay.sales.model.SaleCart createSaleCartById() {
-		return _saleCartLocalService.createSaleCartById();
 	}
 
 	/**

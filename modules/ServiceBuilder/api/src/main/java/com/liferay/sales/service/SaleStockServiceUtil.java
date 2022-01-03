@@ -37,8 +37,8 @@ public class SaleStockServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleStockServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static SaleStock createSaleStock() {
-		return getService().createSaleStock();
+	public static SaleStock addSaleStock() {
+		return getService().addSaleStock();
 	}
 
 	public static void deletesaleStockById(long id) {

@@ -31,20 +31,12 @@ public class SaleProductServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.SaleProduct createSaleProduct(
-		String name, double price, long categoryId, long typeId) {
-
-		return _saleProductService.createSaleProduct(
-			name, price, categoryId, typeId);
-	}
-
-	@Override
 	public java.util.List<com.liferay.sales.model.SaleProduct>
-		createSaleProductInScale(
+		addSaleProductInScale(
 			String name, double price, long categoryId, long typeId,
 			int quantity) {
 
-		return _saleProductService.createSaleProductInScale(
+		return _saleProductService.addSaleProductInScale(
 			name, price, categoryId, typeId, quantity);
 	}
 
@@ -73,13 +65,6 @@ public class SaleProductServiceWrapper
 	@Override
 	public com.liferay.sales.model.SaleProduct getSaleProductById(long id) {
 		return _saleProductService.getSaleProductById(id);
-	}
-
-	@Override
-	public com.liferay.sales.model.SaleProduct getSaleProductByName(
-		String name) {
-
-		return _saleProductService.getSaleProductByName(name);
 	}
 
 	@Override

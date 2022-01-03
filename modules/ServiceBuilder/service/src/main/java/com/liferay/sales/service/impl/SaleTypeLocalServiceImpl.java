@@ -49,7 +49,7 @@ public class SaleTypeLocalServiceImpl extends SaleTypeLocalServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.SaleTypeLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleTypeLocalServiceUtil</code>.
 	 */
-	public SaleType createSaleType(String name, double tax){
+	public SaleType addSaleType(String name, double tax){
 
 		SaleType saleType = saleTypePersistence.create(counterLocalService.increment());
 		if(!(name == null || name.equals(""))){
@@ -90,20 +90,20 @@ public class SaleTypeLocalServiceImpl extends SaleTypeLocalServiceBaseImpl {
 		}
 	}
 
-	public void deleteTypeById(long id){
-		try {
-			saleTypePersistence.remove(id);
-		} catch (NoSuchSaleTypeException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public SaleType getSaleTypeById(long id){
 		try {
 			return saleTypePersistence.findByPrimaryKey(id);
 		} catch (NoSuchSaleTypeException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	public void deleteTypeById(long id){
+		try {
+			saleTypePersistence.remove(id);
+		} catch (NoSuchSaleTypeException e) {
+			e.printStackTrace();
 		}
 	}
 

@@ -51,13 +51,13 @@ import com.liferay.sales.service.SaleCategoryServiceUtil;
  */
 public class SaleCategoryServiceHttp {
 
-	public static com.liferay.sales.model.SaleCategory createSaleCategory(
+	public static com.liferay.sales.model.SaleCategory addSaleCategory(
 		HttpPrincipal httpPrincipal, String name, double tax) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				SaleCategoryServiceUtil.class, "createSaleCategory",
-				_createSaleCategoryParameterTypes0);
+				SaleCategoryServiceUtil.class, "addSaleCategory",
+				_addSaleCategoryParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, name, tax);
@@ -239,7 +239,7 @@ public class SaleCategoryServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(
 		SaleCategoryServiceHttp.class);
 
-	private static final Class<?>[] _createSaleCategoryParameterTypes0 =
+	private static final Class<?>[] _addSaleCategoryParameterTypes0 =
 		new Class[] {String.class, double.class};
 	private static final Class<?>[] _getAllSaleCategoryParameterTypes1 =
 		new Class[] {};

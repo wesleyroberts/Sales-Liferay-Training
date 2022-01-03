@@ -79,7 +79,7 @@ public class TypeResourceImpl extends BaseTypeResourceImpl {
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Type")})
 	public Type createType(TypeInput typeInput) throws Exception {
-		SaleType saleType =_saleTypeService.createSaleType(typeInput.getName(),typeInput.getTax());
+		SaleType saleType =_saleTypeService.addSaleType(typeInput.getName(),typeInput.getTax());
 		return _toTypeDTO(saleType);
 	}
 

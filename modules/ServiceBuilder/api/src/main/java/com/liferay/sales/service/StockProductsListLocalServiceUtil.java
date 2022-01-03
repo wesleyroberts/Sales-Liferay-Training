@@ -65,16 +65,6 @@ public class StockProductsListLocalServiceUtil {
 		return getService().addStockProductsList(stockProductsList);
 	}
 
-	public static Boolean checkIfExistStock(
-		com.liferay.sales.model.SaleProduct product) {
-
-		return getService().checkIfExistStock(product);
-	}
-
-	public static int checkQuantityInStockByStockId(long stcokId) {
-		return getService().checkQuantityInStockByStockId(stcokId);
-	}
-
 	/**
 	 * @throws PortalException
 	 */
@@ -219,6 +209,12 @@ public class StockProductsListLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
+	public static Boolean existStock(
+		com.liferay.sales.model.SaleProduct product) {
+
+		return getService().existStock(product);
+	}
+
 	public static StockProductsList fetchStockProductsList(long productId) {
 		return getService().fetchStockProductsList(productId);
 	}
@@ -309,6 +305,10 @@ public class StockProductsListLocalServiceUtil {
 	 */
 	public static int getStockProductsListsCount() {
 		return getService().getStockProductsListsCount();
+	}
+
+	public static int quantityInStockByStockId(long stockId) {
+		return getService().quantityInStockByStockId(stockId);
 	}
 
 	public static void removeProductFromStock(long productID) {

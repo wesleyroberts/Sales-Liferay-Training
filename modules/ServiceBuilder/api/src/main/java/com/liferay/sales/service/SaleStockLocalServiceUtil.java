@@ -43,6 +43,9 @@ public class SaleStockLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleStockLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static SaleStock addSaleStock() {
+		return getService().addSaleStock();
+	}
 
 	/**
 	 * Adds the sale stock to the database. Also notifies the appropriate model listeners.
@@ -66,10 +69,6 @@ public class SaleStockLocalServiceUtil {
 		throws PortalException {
 
 		return getService().createPersistedModel(primaryKeyObj);
-	}
-
-	public static SaleStock createSaleStock() {
-		return getService().createSaleStock();
 	}
 
 	/**

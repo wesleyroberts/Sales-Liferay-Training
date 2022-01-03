@@ -51,48 +51,15 @@ import com.liferay.sales.service.SaleProductServiceUtil;
  */
 public class SaleProductServiceHttp {
 
-	public static com.liferay.sales.model.SaleProduct createSaleProduct(
-		HttpPrincipal httpPrincipal, String name, double price, long categoryId,
-		long typeId) {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				SaleProductServiceUtil.class, "createSaleProduct",
-				_createSaleProductParameterTypes0);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, name, price, categoryId, typeId);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return (com.liferay.sales.model.SaleProduct)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
 	public static java.util.List<com.liferay.sales.model.SaleProduct>
-		createSaleProductInScale(
+		addSaleProductInScale(
 			HttpPrincipal httpPrincipal, String name, double price,
 			long categoryId, long typeId, int quantity) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				SaleProductServiceUtil.class, "createSaleProductInScale",
-				_createSaleProductInScaleParameterTypes1);
+				SaleProductServiceUtil.class, "addSaleProductInScale",
+				_addSaleProductInScaleParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, name, price, categoryId, typeId, quantity);
@@ -125,7 +92,7 @@ public class SaleProductServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				SaleProductServiceUtil.class, "getAllSaleProducts",
-				_getAllSaleProductsParameterTypes2);
+				_getAllSaleProductsParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -158,7 +125,7 @@ public class SaleProductServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				SaleProductServiceUtil.class, "updateSaleProduct",
-				_updateSaleProductParameterTypes3);
+				_updateSaleProductParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, productId, name, price, categoryId, typeId);
@@ -190,40 +157,9 @@ public class SaleProductServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				SaleProductServiceUtil.class, "getSaleProductById",
-				_getSaleProductByIdParameterTypes4);
+				_getSaleProductByIdParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, id);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return (com.liferay.sales.model.SaleProduct)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
-	public static com.liferay.sales.model.SaleProduct getSaleProductByName(
-		HttpPrincipal httpPrincipal, String name) {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				SaleProductServiceUtil.class, "getSaleProductByName",
-				_getSaleProductByNameParameterTypes5);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey, name);
 
 			Object returnObj = null;
 
@@ -250,7 +186,7 @@ public class SaleProductServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				SaleProductServiceUtil.class, "deleteById",
-				_deleteByIdParameterTypes6);
+				_deleteByIdParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, id);
 
@@ -274,23 +210,19 @@ public class SaleProductServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(
 		SaleProductServiceHttp.class);
 
-	private static final Class<?>[] _createSaleProductParameterTypes0 =
-		new Class[] {String.class, double.class, long.class, long.class};
-	private static final Class<?>[] _createSaleProductInScaleParameterTypes1 =
+	private static final Class<?>[] _addSaleProductInScaleParameterTypes0 =
 		new Class[] {
 			String.class, double.class, long.class, long.class, int.class
 		};
-	private static final Class<?>[] _getAllSaleProductsParameterTypes2 =
+	private static final Class<?>[] _getAllSaleProductsParameterTypes1 =
 		new Class[] {};
-	private static final Class<?>[] _updateSaleProductParameterTypes3 =
+	private static final Class<?>[] _updateSaleProductParameterTypes2 =
 		new Class[] {
 			long.class, String.class, double.class, long.class, long.class
 		};
-	private static final Class<?>[] _getSaleProductByIdParameterTypes4 =
+	private static final Class<?>[] _getSaleProductByIdParameterTypes3 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getSaleProductByNameParameterTypes5 =
-		new Class[] {String.class};
-	private static final Class<?>[] _deleteByIdParameterTypes6 = new Class[] {
+	private static final Class<?>[] _deleteByIdParameterTypes4 = new Class[] {
 		long.class
 	};
 

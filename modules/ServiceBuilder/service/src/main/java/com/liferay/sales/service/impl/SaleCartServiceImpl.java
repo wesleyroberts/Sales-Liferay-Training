@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -35,48 +35,48 @@ import java.util.List;
  * @see SaleCartServiceBaseImpl
  */
 @Component(
-	property = {
-		"json.web.service.context.name=salestaxe",
-		"json.web.service.context.path=SaleCart"
-	},
-	service = AopService.class
+        property = {
+                "json.web.service.context.name=salestaxe",
+                "json.web.service.context.path=SaleCart"
+        },
+        service = AopService.class
 )
 public class SaleCartServiceImpl extends SaleCartServiceBaseImpl {
 
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use <code>com.liferay.sales.service.SaleCartServiceUtil</code> to access the sale cart remote service.
-	 */
-	public List<SaleCart> getAllSaleCart(){
-		return saleCartLocalService.getAllSaleCart();
-	}
+    /*
+     * NOTE FOR DEVELOPERS:
+     *
+     * Never reference this class directly. Always use <code>com.liferay.sales.service.SaleCartServiceUtil</code> to access the sale cart remote service.
+     */
+    public List<SaleCart> getAllSaleCart() {
+        return saleCartLocalService.getAllSaleCart();
+    }
 
-	public SaleCart getSaleCartById(long id){
-		return saleCartLocalService.getSaleCartById(id);
-	}
+    public SaleCart getSaleCartById(long id) {
+        return saleCartLocalService.getSaleCartById(id);
+    }
 
-	public SaleCart addProductPriceToCartTotalValue(double price,long cartId){
-		return saleCartLocalService.addProductPriceToCartTotalValue(price,cartId);
-	}
+    public SaleCart addProductPriceToCartTotalValue(double price, long cartId) {
+        return saleCartLocalService.addProductPriceToCartTotalValue(price, cartId);
+    }
 
-	public SaleCart removeProductPriceToCartTotalValue(double price,long cartId){
-		return saleCartLocalService.removeProductPriceToCartTotalValue(price,cartId);
-	}
+    public SaleCart removeProductPriceToCartTotalValue(double price, long cartId) {
+        return saleCartLocalService.removeProductPriceToCartTotalValue(price, cartId);
+    }
 
-	public Double getFinalValueByCartId(long cartId){
-		return saleCartLocalService.getFinalValueByCartId(cartId);
-	}
+    public Double getFinalValueByCartId(long cartId) {
+        return saleCartLocalService.getFinalValueByCartId(cartId);
+    }
 
-	public SaleCart createSaleCartById(){
-		return saleCartLocalService.createSaleCartById();
-	}
+    public SaleCart addSaleCartById() {
+        return saleCartLocalService.addSaleCartById();
+    }
 
-	public void deleteSaleCartById(long cartId){
-		saleCartLocalService.deleteSaleCartById(cartId);
-	}
+    public void deleteSaleCartById(long cartId) {
+        saleCartLocalService.deleteSaleCartById(cartId);
+    }
 
-	public SaleCart updateSaleCartById(SaleCart saleCart){
-		return saleCartLocalService.updateSaleCartById(saleCart);
-	}
+    public SaleCart updateSaleCartById(SaleCart saleCart) {
+        return saleCartLocalService.updateSaleCartById(saleCart);
+    }
 }

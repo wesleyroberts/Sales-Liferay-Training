@@ -63,34 +63,15 @@ import java.rmi.RemoteException;
 @Deprecated
 public class SaleProductServiceSoap {
 
-	public static com.liferay.sales.model.SaleProductSoap createSaleProduct(
-			String name, double price, long categoryId, long typeId)
-		throws RemoteException {
-
-		try {
-			com.liferay.sales.model.SaleProduct returnValue =
-				SaleProductServiceUtil.createSaleProduct(
-					name, price, categoryId, typeId);
-
-			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
-				returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
 	public static com.liferay.sales.model.SaleProductSoap[]
-			createSaleProductInScale(
+			addSaleProductInScale(
 				String name, double price, long categoryId, long typeId,
 				int quantity)
 		throws RemoteException {
 
 		try {
 			java.util.List<com.liferay.sales.model.SaleProduct> returnValue =
-				SaleProductServiceUtil.createSaleProductInScale(
+				SaleProductServiceUtil.addSaleProductInScale(
 					name, price, categoryId, typeId, quantity);
 
 			return com.liferay.sales.model.SaleProductSoap.toSoapModels(
@@ -147,24 +128,6 @@ public class SaleProductServiceSoap {
 		try {
 			com.liferay.sales.model.SaleProduct returnValue =
 				SaleProductServiceUtil.getSaleProductById(id);
-
-			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
-				returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static com.liferay.sales.model.SaleProductSoap getSaleProductByName(
-			String name)
-		throws RemoteException {
-
-		try {
-			com.liferay.sales.model.SaleProduct returnValue =
-				SaleProductServiceUtil.getSaleProductByName(name);
 
 			return com.liferay.sales.model.SaleProductSoap.toSoapModel(
 				returnValue);

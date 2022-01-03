@@ -38,8 +38,8 @@ public class SaleCartServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.SaleCart createSaleCartById() {
-		return _saleCartService.createSaleCartById();
+	public com.liferay.sales.model.SaleCart addSaleCartById() {
+		return _saleCartService.addSaleCartById();
 	}
 
 	@Override

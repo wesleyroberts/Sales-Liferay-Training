@@ -210,13 +210,13 @@ public class SaleCartServiceHttp {
 		}
 	}
 
-	public static com.liferay.sales.model.SaleCart createSaleCartById(
+	public static com.liferay.sales.model.SaleCart addSaleCartById(
 		HttpPrincipal httpPrincipal) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				SaleCartServiceUtil.class, "createSaleCartById",
-				_createSaleCartByIdParameterTypes5);
+				SaleCartServiceUtil.class, "addSaleCartById",
+				_addSaleCartByIdParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -317,7 +317,7 @@ public class SaleCartServiceHttp {
 		};
 	private static final Class<?>[] _getFinalValueByCartIdParameterTypes4 =
 		new Class[] {long.class};
-	private static final Class<?>[] _createSaleCartByIdParameterTypes5 =
+	private static final Class<?>[] _addSaleCartByIdParameterTypes5 =
 		new Class[] {};
 	private static final Class<?>[] _deleteSaleCartByIdParameterTypes6 =
 		new Class[] {long.class};

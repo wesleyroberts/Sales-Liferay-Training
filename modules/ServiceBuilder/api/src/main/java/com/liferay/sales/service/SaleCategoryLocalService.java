@@ -74,6 +74,8 @@ public interface SaleCategoryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public SaleCategory addSaleCategory(SaleCategory saleCategory);
 
+	public SaleCategory addSaleCategory(String name, double tax);
+
 	/**
 	 * @throws PortalException
 	 */
@@ -88,8 +90,6 @@ public interface SaleCategoryLocalService
 	 */
 	@Transactional(enabled = false)
 	public SaleCategory createSaleCategory(long categoryId);
-
-	public SaleCategory createSaleCategory(String name, double tax);
 
 	public void deleteCategoryById(long id);
 

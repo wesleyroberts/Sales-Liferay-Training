@@ -58,19 +58,6 @@ public class StockProductsListLocalServiceWrapper
 			stockProductsList);
 	}
 
-	@Override
-	public Boolean checkIfExistStock(
-		com.liferay.sales.model.SaleProduct product) {
-
-		return _stockProductsListLocalService.checkIfExistStock(product);
-	}
-
-	@Override
-	public int checkQuantityInStockByStockId(long stcokId) {
-		return _stockProductsListLocalService.checkQuantityInStockByStockId(
-			stcokId);
-	}
-
 	/**
 	 * @throws PortalException
 	 */
@@ -244,6 +231,11 @@ public class StockProductsListLocalServiceWrapper
 	}
 
 	@Override
+	public Boolean existStock(com.liferay.sales.model.SaleProduct product) {
+		return _stockProductsListLocalService.existStock(product);
+	}
+
+	@Override
 	public com.liferay.sales.model.StockProductsList fetchStockProductsList(
 		long productId) {
 
@@ -350,6 +342,11 @@ public class StockProductsListLocalServiceWrapper
 	@Override
 	public int getStockProductsListsCount() {
 		return _stockProductsListLocalService.getStockProductsListsCount();
+	}
+
+	@Override
+	public int quantityInStockByStockId(long stockId) {
+		return _stockProductsListLocalService.quantityInStockByStockId(stockId);
 	}
 
 	@Override

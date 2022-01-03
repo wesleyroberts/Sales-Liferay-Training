@@ -58,6 +58,10 @@ public class SaleCategoryLocalServiceUtil {
 		return getService().addSaleCategory(saleCategory);
 	}
 
+	public static SaleCategory addSaleCategory(String name, double tax) {
+		return getService().addSaleCategory(name, tax);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -76,10 +80,6 @@ public class SaleCategoryLocalServiceUtil {
 	 */
 	public static SaleCategory createSaleCategory(long categoryId) {
 		return getService().createSaleCategory(categoryId);
-	}
-
-	public static SaleCategory createSaleCategory(String name, double tax) {
-		return getService().createSaleCategory(name, tax);
 	}
 
 	public static void deleteCategoryById(long id) {

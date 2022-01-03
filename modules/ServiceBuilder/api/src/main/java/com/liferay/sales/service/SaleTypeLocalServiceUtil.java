@@ -58,6 +58,10 @@ public class SaleTypeLocalServiceUtil {
 		return getService().addSaleType(saleType);
 	}
 
+	public static SaleType addSaleType(String name, double tax) {
+		return getService().addSaleType(name, tax);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -76,10 +80,6 @@ public class SaleTypeLocalServiceUtil {
 	 */
 	public static SaleType createSaleType(long typeId) {
 		return getService().createSaleType(typeId);
-	}
-
-	public static SaleType createSaleType(String name, double tax) {
-		return getService().createSaleType(name, tax);
 	}
 
 	/**
