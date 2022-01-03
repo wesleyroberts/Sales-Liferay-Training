@@ -75,6 +75,8 @@ public interface SaleCartLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public SaleCart addSaleCart(SaleCart saleCart);
 
+	public SaleCart addSaleCartById();
+
 	/**
 	 * @throws PortalException
 	 */
@@ -89,8 +91,6 @@ public interface SaleCartLocalService
 	 */
 	@Transactional(enabled = false)
 	public SaleCart createSaleCart(long cartId);
-
-	public SaleCart createSaleCartById();
 
 	/**
 	 * @throws PortalException

@@ -63,6 +63,10 @@ public class SaleCartLocalServiceUtil {
 		return getService().addSaleCart(saleCart);
 	}
 
+	public static SaleCart addSaleCartById() {
+		return getService().addSaleCartById();
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -81,10 +85,6 @@ public class SaleCartLocalServiceUtil {
 	 */
 	public static SaleCart createSaleCart(long cartId) {
 		return getService().createSaleCart(cartId);
-	}
-
-	public static SaleCart createSaleCartById() {
-		return getService().createSaleCartById();
 	}
 
 	/**

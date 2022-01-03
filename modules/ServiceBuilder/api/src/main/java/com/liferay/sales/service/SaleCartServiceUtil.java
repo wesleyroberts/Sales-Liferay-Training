@@ -43,8 +43,8 @@ public class SaleCartServiceUtil {
 		return getService().addProductPriceToCartTotalValue(price, cartId);
 	}
 
-	public static SaleCart createSaleCartById() {
-		return getService().createSaleCartById();
+	public static SaleCart addSaleCartById() {
+		return getService().addSaleCartById();
 	}
 
 	public static void deleteSaleCartById(long cartId) {
