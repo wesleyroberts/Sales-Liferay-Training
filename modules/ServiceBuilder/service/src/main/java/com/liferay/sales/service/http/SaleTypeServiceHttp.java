@@ -51,13 +51,13 @@ import com.liferay.sales.service.SaleTypeServiceUtil;
  */
 public class SaleTypeServiceHttp {
 
-	public static com.liferay.sales.model.SaleType createSaleType(
+	public static com.liferay.sales.model.SaleType addSaleType(
 		HttpPrincipal httpPrincipal, String name, double tax) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				SaleTypeServiceUtil.class, "createSaleType",
-				_createSaleTypeParameterTypes0);
+				SaleTypeServiceUtil.class, "addSaleType",
+				_addSaleTypeParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, name, tax);
@@ -204,8 +204,9 @@ public class SaleTypeServiceHttp {
 
 	private static Log _log = LogFactoryUtil.getLog(SaleTypeServiceHttp.class);
 
-	private static final Class<?>[] _createSaleTypeParameterTypes0 =
-		new Class[] {String.class, double.class};
+	private static final Class<?>[] _addSaleTypeParameterTypes0 = new Class[] {
+		String.class, double.class
+	};
 	private static final Class<?>[] _updateSaleTypeParameterTypes1 =
 		new Class[] {Long.class, String.class, double.class};
 	private static final Class<?>[] _deleteTypeByIdParameterTypes2 =

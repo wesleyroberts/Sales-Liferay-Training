@@ -37,8 +37,8 @@ public class SaleTypeServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleTypeServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static SaleType createSaleType(String name, double tax) {
-		return getService().createSaleType(name, tax);
+	public static SaleType addSaleType(String name, double tax) {
+		return getService().addSaleType(name, tax);
 	}
 
 	public static void deleteTypeById(long id) {
