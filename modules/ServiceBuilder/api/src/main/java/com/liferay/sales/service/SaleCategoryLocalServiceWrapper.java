@@ -50,6 +50,13 @@ public class SaleCategoryLocalServiceWrapper
 		return _saleCategoryLocalService.addSaleCategory(saleCategory);
 	}
 
+	@Override
+	public com.liferay.sales.model.SaleCategory addSaleCategory(
+		String name, double tax) {
+
+		return _saleCategoryLocalService.addSaleCategory(name, tax);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -72,13 +79,6 @@ public class SaleCategoryLocalServiceWrapper
 		long categoryId) {
 
 		return _saleCategoryLocalService.createSaleCategory(categoryId);
-	}
-
-	@Override
-	public com.liferay.sales.model.SaleCategory createSaleCategory(
-		String name, double tax) {
-
-		return _saleCategoryLocalService.createSaleCategory(name, tax);
 	}
 
 	@Override

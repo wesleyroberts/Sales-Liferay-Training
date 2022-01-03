@@ -47,7 +47,7 @@ public class SaleCategoryLocalServiceImpl
 	 *
 	 * Never reference this class directly. Use <code>com.liferay.sales.service.SaleCategoryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sales.service.SaleCategoryLocalServiceUtil</code>.
 	 */
-	public SaleCategory createSaleCategory(String name,double tax){
+	public SaleCategory addSaleCategory(String name,double tax){
 
 		SaleCategory category = saleCategoryPersistence.create(counterLocalService.increment());
 		if(!(name == null || name.equals(""))){

@@ -51,7 +51,7 @@ public interface SaleCategoryService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.sales.service.impl.SaleCategoryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the sale category remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link SaleCategoryServiceUtil} if injection and service tracking are not available.
 	 */
-	public SaleCategory createSaleCategory(String name, double tax);
+	public SaleCategory addSaleCategory(String name, double tax);
 
 	public void deleteCategoryById(long id);
 

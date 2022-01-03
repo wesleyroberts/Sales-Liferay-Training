@@ -31,10 +31,10 @@ public class SaleCategoryServiceWrapper
 	}
 
 	@Override
-	public com.liferay.sales.model.SaleCategory createSaleCategory(
+	public com.liferay.sales.model.SaleCategory addSaleCategory(
 		String name, double tax) {
 
-		return _saleCategoryService.createSaleCategory(name, tax);
+		return _saleCategoryService.addSaleCategory(name, tax);
 	}
 
 	@Override

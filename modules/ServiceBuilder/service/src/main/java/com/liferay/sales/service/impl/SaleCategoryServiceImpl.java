@@ -48,8 +48,8 @@ public class SaleCategoryServiceImpl extends SaleCategoryServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use <code>com.liferay.sales.service.SaleCategoryServiceUtil</code> to access the sale category remote service.
 	 */
-	public SaleCategory createSaleCategory(String name, double tax){
-		return saleCategoryLocalService.createSaleCategory(name,tax);
+	public SaleCategory addSaleCategory(String name, double tax){
+		return saleCategoryLocalService.addSaleCategory(name,tax);
 	}
 
 	public List<SaleCategory> getAllSaleCategory(){
