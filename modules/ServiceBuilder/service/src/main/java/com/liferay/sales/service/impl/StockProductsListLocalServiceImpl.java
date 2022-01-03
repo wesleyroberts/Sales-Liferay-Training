@@ -109,7 +109,7 @@ public class StockProductsListLocalServiceImpl
 
     public SaleStock addProductToStock(SaleProduct product) {
 
-        if (!checkIfExistStock(product)) {
+        if (!existStock(product)) {
             try {
                 SaleStock stock = saleStockService.addSaleStock();
                 StockProductsList stockProductsList = stockProductsListPersistence.create(product.getProductId());
@@ -137,7 +137,7 @@ public class StockProductsListLocalServiceImpl
 
     public void removeProductFromStock(long productID) {
         SaleProduct product = saleProductService.getSaleProductById(productID);
-        if (checkIfExistStock(product)) {
+        if (existStock(product)) {
             try {
                 SaleStock stock = saleStockService.getSaleStockByProduct(product);
                 if (stock.getQuantity() == 1) {
@@ -156,12 +156,12 @@ public class StockProductsListLocalServiceImpl
         }
     }
 
-    public int checkQuantityInStockByStockId(long stcokId) {
-        return stockProductsListLocalService.getAllProductInStockByStockId(stcokId).toArray().length;
+    public int quantityInStockByStockId(long stockId) {
+        return stockProductsListLocalService.getAllProductInStockByStockId(stockId).toArray().length;
     }
 
 
-    public Boolean checkIfExistStock(SaleProduct product) {
+    public Boolean existStock(SaleProduct product) {
         boolean exist = false;
         try {
             for (SaleStock stock : saleStockService.getAllSaleStock()) {
